@@ -375,6 +375,8 @@ export const sr = {
   plan_r5_desc: "Покрените ред у одређено доба (ноћна покретања)",
   plan_r7_name: "**Исецање клипова**",
   plan_r7_desc: "Преузмите само сегмент по времену почетка/краја",
+  plan_r9_name: "**AUR пакет**",
+  plan_r9_desc: "Инсталација на Arch Linux и Omarchy помоћу `yay -S arroxy-bin`",
   plan_cta:
     "Имате функционалност на уму? [Отворите захтев](../../issues) — улаз заједнице обликује приоритет.",
   tech_content: TECH_CONTENT,

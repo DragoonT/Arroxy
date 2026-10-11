@@ -374,6 +374,8 @@ export const tr = {
   plan_r5_desc: "Bir kuyruğu belirli saatte başlat (gece çalıştırmaları)",
   plan_r7_name: "**Klip kırpma**",
   plan_r7_desc: "Yalnızca başlangıç/bitiş zamanıyla belirli bir segmenti indir",
+  plan_r9_name: "**AUR paketi**",
+  plan_r9_desc: "Arch Linux ve Omarchy'ye `yay -S arroxy-bin` ile kurulum",
   plan_cta:
     "Aklında bir özellik mi var? [İstek aç](../../issues) — topluluk girdisi önceliği şekillendirir.",
   tech_content: TECH_CONTENT,

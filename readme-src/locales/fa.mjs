@@ -255,6 +255,8 @@ export const fa = {
   plan_r5_desc: "شروع صف در زمان مشخص، مثلاً شب",
   plan_r7_name: "**برش کلیپ**",
   plan_r7_desc: "دانلود فقط یک بخش با زمان آغاز و پایان",
+  plan_r9_name: "**بستهٔ AUR**",
+  plan_r9_desc: "نصب روی Arch Linux و Omarchy با `yay -S arroxy-bin`",
   plan_cta: "قابلیتی در ذهن دارید؟ [درخواست باز کنید](../../issues)؛ نظر انجمن اولویت‌ها را شکل می‌دهد.",
   dl_win_format: "نصاب (NSIS) یا `.exe` همراه",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",

@@ -376,6 +376,8 @@ export const uz = {
   plan_r7_name: "**Klip qirqish**",
   plan_r7_desc:
     "Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish",
+  plan_r9_name: "**AUR paketi**",
+  plan_r9_desc: "Arch Linux va Omarchy'ga `yay -S arroxy-bin` orqali o'rnatish",
   plan_cta:
     "Xayyolizda xususiyat bormi? [So'rov yuboring](../../issues) — jamiyat ishtiroki ustuvorlikni belgilaydi.",
   tech_content: TECH_CONTENT,

@@ -255,6 +255,8 @@ export const it = {
   plan_r5_desc: "Avvia una coda a un orario stabilito, per esempio durante la notte",
   plan_r7_name: "**Ritaglio dei clip**",
   plan_r7_desc: "Scarica solo un segmento indicando il tempo iniziale e finale",
+  plan_r9_name: "**Pacchetto AUR**",
+  plan_r9_desc: "Installazione su Arch Linux e Omarchy con `yay -S arroxy-bin`",
   plan_cta: "Hai in mente una funzionalità? [Apri una richiesta](../../issues): il contributo della community orienta le priorità.",
   dl_win_format: "Programma di installazione (NSIS) o `.exe` portatile",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",

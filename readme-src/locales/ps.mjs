@@ -370,6 +370,8 @@ export const ps = {
   plan_r5_desc: "کیو د ټاکلي وخت کې پیل کړئ (شپه اجرا کول)",
   plan_r7_name: "**د کلپ کمول**",
   plan_r7_desc: "یوازې د پیل/پای وخت له مخې یو برخه ډاونلوډ کړئ",
+  plan_r9_name: "**د AUR کڅوړه**",
+  plan_r9_desc: "په Arch Linux او Omarchy کې د `yay -S arroxy-bin` سره نصب کړئ",
   plan_cta:
     "ذهن کې کومه ځانګړتیا لرئ؟ [یوه غوښتنه خلاصه کړئ](../../issues) — د ټولنې ننوتل لومړیتوب ورکوي.",
   tech_content: TECH_CONTENT,

@@ -358,6 +358,7 @@ Masih direncanakan — kira-kira dalam urutan prioritas:
 | **Laci pengelola unduhan lengkap** | Ubah laci antrean menjadi pengelola yang lebih lengkap, termasuk mengubah folder tujuan untuk item antrean |
 | **Unduhan terjadwal** | Memulai antrian pada waktu yang ditentukan (berjalan semalaman) |
 | **Pemangkasan klip** | Unduh hanya satu segmen berdasarkan waktu mulai/berakhir |
+| **Paket AUR** | Instal di Arch Linux dan Omarchy dengan `yay -S arroxy-bin` |
 
 Punya ide fitur? [Buka permintaan](../../issues) — masukan komunitas membantu menentukan prioritas.
 

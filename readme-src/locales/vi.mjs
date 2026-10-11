@@ -374,6 +374,8 @@ export const vi = {
   plan_r5_desc: "Bắt đầu hàng đợi vào thời điểm đặt trước (chạy qua đêm)",
   plan_r7_name: "**Cắt đoạn clip**",
   plan_r7_desc: "Chỉ tải xuống một đoạn theo thời gian bắt đầu/kết thúc",
+  plan_r9_name: "**Gói AUR**",
+  plan_r9_desc: "Cài đặt trên Arch Linux và Omarchy bằng `yay -S arroxy-bin`",
   plan_cta:
     "Bạn có ý tưởng tính năng? [Mở yêu cầu](../../issues) — ý kiến cộng đồng định hình thứ tự ưu tiên.",
   tech_content: TECH_CONTENT,

@@ -358,6 +358,7 @@ Nadal planowane — mniej więcej w kolejności priorytetów:
 | **Pełny panel menedżera pobierania** | Rozbudowanie panelu kolejki o pełniejsze zarządzanie, w tym zmianę folderów docelowych zadań oczekujących |
 | **Zaplanowane pobieranie** | Uruchamianie kolejki o ustawionej porze, na przykład w nocy |
 | **Przycinanie klipów** | Pobieranie tylko fragmentu między czasem początkowym a końcowym |
+| **Pakiet AUR** | Instalacja w Arch Linux i Omarchy przez `yay -S arroxy-bin` |
 
 Masz pomysł na funkcję? [Otwórz propozycję](../../issues) — opinie społeczności kształtują priorytety.
 

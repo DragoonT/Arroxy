@@ -375,6 +375,8 @@ export const hi = {
   plan_r5_desc: "निर्धारित समय पर क़तार शुरू करें (रात भर के रन)",
   plan_r7_name: "**क्लिप ट्रिमिंग**",
   plan_r7_desc: "शुरू/अंत समय से सिर्फ़ एक सेगमेंट डाउनलोड करें",
+  plan_r9_name: "**AUR पैकेज**",
+  plan_r9_desc: "`yay -S arroxy-bin` से Arch Linux और Omarchy पर इंस्टॉल करें",
   plan_cta:
     "कोई फ़ीचर मन में है? [रिक्वेस्ट खोलें](../../issues) — कम्यूनिटी की राय प्राथमिकता तय करती है।",
   tech_content: TECH_CONTENT,

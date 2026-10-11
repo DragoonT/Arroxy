@@ -374,6 +374,8 @@ export const de = {
   plan_r5_desc: "Warteschlange zu einer bestimmten Zeit starten (Nacht-Runs)",
   plan_r7_name: "**Clip-Trimming**",
   plan_r7_desc: "Nur ein Segment per Start-/Endzeit herunterladen",
+  plan_r9_name: "**AUR-Paket**",
+  plan_r9_desc: "Installation unter Arch Linux und Omarchy mit `yay -S arroxy-bin`",
   plan_cta:
     "Eine Funktion im Sinn? [Anfrage öffnen](../../issues) — Community-Input bestimmt die Priorität.",
   tech_content: TECH_CONTENT,

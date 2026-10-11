@@ -357,6 +357,8 @@ export const am = {
   plan_r5_desc: "ወረፋ በተወሰነ ሰዓት ጀምሩ (ሌሊት ሂደቶች)",
   plan_r7_name: "**ቁርጥ ምረጥ**",
   plan_r7_desc: "የጀምር/ማቆሚያ ጊዜ ብቻ ያወርዱ",
+  plan_r9_name: "**የAUR ጥቅል**",
+  plan_r9_desc: "በArch Linux እና Omarchy ላይ በ`yay -S arroxy-bin` ይጫኑ",
   plan_cta: "ባህሪ ሀሳብ አለዎ? [ጥያቄ ይክፈቱ](../../issues) — ማህበረሰቡ አስተዋጽኦ ቅድሚያ ይወስናሉ።",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy ይደግፉ",

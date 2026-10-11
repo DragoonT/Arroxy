@@ -376,6 +376,8 @@ export const uk = {
   plan_r5_desc: "Запускайте чергу в заданий час (нічні запуски)",
   plan_r7_name: "**Обрізання кліпів**",
   plan_r7_desc: "Завантажуйте лише фрагмент за часом початку та кінця",
+  plan_r9_name: "**Пакет в AUR**",
+  plan_r9_desc: "Встановлення в Arch Linux та Omarchy через `yay -S arroxy-bin`",
   plan_cta:
     "Маєте ідею? [Відкрийте запит](../../issues) — голос спільноти визначає пріоритети.",
   tech_content: TECH_CONTENT,

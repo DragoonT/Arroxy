@@ -358,6 +358,7 @@ Hâlâ planlananlar — yaklaşık öncelik sırasıyla:
 | **Tam indirme yöneticisi çekmecesi** | Kuyruk çekmecesini, kuyruktaki öğelerin hedef klasörlerini değiştirme dahil daha kapsamlı bir yöneticisine dönüştür |
 | **Zamanlanmış indirmeler** | Bir kuyruğu belirli saatte başlat (gece çalıştırmaları) |
 | **Klip kırpma** | Yalnızca başlangıç/bitiş zamanıyla belirli bir segmenti indir |
+| **AUR paketi** | Arch Linux ve Omarchy'ye `yay -S arroxy-bin` ile kurulum |
 
 Aklında bir özellik mi var? [İstek aç](../../issues) — topluluk girdisi önceliği şekillendirir.
 

@@ -378,6 +378,8 @@ export const ru = {
   plan_r5_desc: "Запуск очереди в заданное время (ночные загрузки)",
   plan_r7_name: "**Обрезка клипов**",
   plan_r7_desc: "Скачайте только нужный отрезок, указав начало и конец",
+  plan_r9_name: "**Пакет в AUR**",
+  plan_r9_desc: "Установка в Arch Linux и Omarchy через `yay -S arroxy-bin`",
   plan_cta:
     "Есть идея? [Откройте запрос](../../issues) — мнение сообщества определяет приоритеты.",
   tech_content: TECH_CONTENT,

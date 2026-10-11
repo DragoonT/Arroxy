@@ -375,6 +375,8 @@ export const ur = {
   plan_r5_desc: "مقررہ وقت پر قطار شروع کریں (رات بھر کے رنز)",
   plan_r7_name: "**کلپ ٹرمنگ**",
   plan_r7_desc: "شروع/اختتام کے وقت سے صرف ایک سیگمنٹ ڈاؤن لوڈ کریں",
+  plan_r9_name: "**AUR پیکج**",
+  plan_r9_desc: "`yay -S arroxy-bin` کے ذریعے Arch Linux اور Omarchy پر انسٹال کریں",
   plan_cta:
     "ذہن میں کوئی فیچر ہے؟ [ایک درخواست کھولیں](../../issues) — کمیونٹی کی رائے ترجیح کو تشکیل دیتی ہے۔",
   tech_content: TECH_CONTENT,

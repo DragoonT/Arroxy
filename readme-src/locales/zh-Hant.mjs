@@ -351,6 +351,8 @@ export const zhHant = {
   plan_r5_desc: "在設定時間啟動佇列（適合連夜批次下載）",
   plan_r7_name: "**片段裁剪**",
   plan_r7_desc: "按起止時間只下載影片的某一段",
+  plan_r9_name: "**AUR 套件**",
+  plan_r9_desc: "在 Arch Linux 與 Omarchy 上以 `yay -S arroxy-bin` 安裝",
   plan_cta: "有想法？[提交請求](../../issues) — 社羣意見決定優先順序。",
   tech_content: TECH_CONTENT,
   support_h2: "支援 Arroxy",

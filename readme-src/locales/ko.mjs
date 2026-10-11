@@ -255,6 +255,8 @@ export const ko = {
   plan_r5_desc: "정해진 시간에 대기열 시작(야간 실행 등)",
   plan_r7_name: "**클립 자르기**",
   plan_r7_desc: "시작/종료 시간으로 지정한 구간만 다운로드",
+  plan_r9_name: "**AUR 패키지**",
+  plan_r9_desc: "`yay -S arroxy-bin`로 Arch Linux와 Omarchy에 설치",
   plan_cta: "원하는 기능이 있나요? [요청을 열어 주세요](../../issues). 커뮤니티 의견이 우선순위를 정합니다.",
   dl_win_format: "설치 프로그램(NSIS) 또는 포터블 `.exe`",
   dl_mac_format: "`.dmg`(Intel + Apple Silicon)",

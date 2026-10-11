@@ -370,6 +370,8 @@ export const ar = {
   plan_r5_desc: "بدء قائمة في وقت محدد (تشغيل ليلي)",
   plan_r7_name: "**قص المقاطع**",
   plan_r7_desc: "تنزيل جزء فقط بتحديد وقت البداية والنهاية",
+  plan_r9_name: "**حزمة AUR**",
+  plan_r9_desc: "التثبيت على Arch Linux وOmarchy باستخدام `yay -S arroxy-bin`",
   plan_cta:
     "هل لديك ميزة في ذهنك؟ [افتح طلباً](../../issues) — مدخلات المجتمع تُشكِّل الأولويات.",
   tech_content: TECH_CONTENT,

@@ -373,6 +373,8 @@ export const en = {
   plan_r5_desc: "Start a queue at a set time (overnight runs)",
   plan_r7_name: "**Clip trimming**",
   plan_r7_desc: "Download only a segment by start/end time",
+  plan_r9_name: "**AUR package**",
+  plan_r9_desc: "Install on Arch Linux and Omarchy with `yay -S arroxy-bin`",
   plan_cta:
     "Have a feature in mind? [Open a request](../../issues) — community input shapes priority.",
   tech_content: TECH_CONTENT,

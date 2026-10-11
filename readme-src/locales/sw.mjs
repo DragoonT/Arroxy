@@ -375,6 +375,8 @@ export const sw = {
   plan_r5_desc: "Anza foleni kwa wakati uliowekwa (uendeshaji wa usiku)",
   plan_r7_name: "**Kukata sehemu**",
   plan_r7_desc: "Pakua sehemu pekee kwa wakati wa kuanza/kumalizia",
+  plan_r9_name: "**Kifurushi cha AUR**",
+  plan_r9_desc: "Sakinisha kwenye Arch Linux na Omarchy kwa `yay -S arroxy-bin`",
   plan_cta:
     "Una kipengele unachofikiria? [Fungua ombi](../../issues) — maoni ya jamii huathiri kipaumbele.",
   tech_content: TECH_CONTENT,

@@ -356,6 +356,7 @@ Still planned — roughly in priority order:
 | **Full download manager drawer** | Turn the queue drawer into a fuller manager, including changing destination folders for queued items |
 | **Scheduled downloads** | Start a queue at a set time (overnight runs) |
 | **Clip trimming** | Download only a segment by start/end time |
+| **AUR package** | Install on Arch Linux and Omarchy with `yay -S arroxy-bin` |
 
 Have a feature in mind? [Open a request](../../issues) — community input shapes priority.
 

@@ -377,6 +377,8 @@ export const om = {
   plan_r5_desc: "Queue yeroo qindaawaa irratti eegali (halkaniidhumaan hojeti)",
   plan_r7_name: "**Muraa Clip**",
   plan_r7_desc: "Tokkicha kutaa yeroo eegaluu/dhumu irratti buusi",
+  plan_r9_name: "**Paakeejii AUR**",
+  plan_r9_desc: "Arch Linux fi Omarchy irratti `yay -S arroxy-bin` fayyadamuun fe'i",
   plan_cta:
     "Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa murteessa.",
   tech_content: TECH_CONTENT,

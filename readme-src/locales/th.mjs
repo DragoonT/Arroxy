@@ -255,6 +255,8 @@ export const th = {
   plan_r5_desc: "เริ่มคิวตามเวลาที่กำหนด เช่น ทำงานข้ามคืน",
   plan_r7_name: "**ตัดช่วงคลิป**",
   plan_r7_desc: "ดาวน์โหลดเฉพาะช่วงโดยกำหนดเวลาเริ่มและสิ้นสุด",
+  plan_r9_name: "**แพ็กเกจ AUR**",
+  plan_r9_desc: "ติดตั้งบน Arch Linux และ Omarchy ด้วย `yay -S arroxy-bin`",
   plan_cta: "มีความสามารถที่อยากได้หรือไม่ [เปิดคำขอ](../../issues) — ความเห็นของชุมชนช่วยกำหนดลำดับความสำคัญ",
   dl_win_format: "ตัวติดตั้ง (NSIS) หรือ `.exe` แบบพกพา",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",

@@ -378,6 +378,8 @@ export const fr = {
   plan_r5_desc: "Démarre une file à une heure définie (lancements nocturnes)",
   plan_r7_name: "**Découpe de clips**",
   plan_r7_desc: "Télécharge uniquement un segment par heure de début/fin",
+  plan_r9_name: "**Paquet AUR**",
+  plan_r9_desc: "Installation sur Arch Linux et Omarchy avec `yay -S arroxy-bin`",
   plan_cta:
     "Tu as une fonctionnalité en tête ? [Ouvre une demande](../../issues) — les retours de la communauté orientent les priorités.",
   tech_content: TECH_CONTENT,

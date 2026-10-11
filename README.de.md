@@ -358,6 +358,7 @@ Weiter geplant — grob nach Priorität sortiert:
 | **Vollwertiger Download-Manager-Drawer** | Den Queue-Drawer zu einem volleren Manager ausbauen, inklusive Zielordner-Wechsel für eingereihte Elemente |
 | **Geplante Downloads** | Warteschlange zu einer bestimmten Zeit starten (Nacht-Runs) |
 | **Clip-Trimming** | Nur ein Segment per Start-/Endzeit herunterladen |
+| **AUR-Paket** | Installation unter Arch Linux und Omarchy mit `yay -S arroxy-bin` |
 
 Eine Funktion im Sinn? [Anfrage öffnen](../../issues) — Community-Input bestimmt die Priorität.
 

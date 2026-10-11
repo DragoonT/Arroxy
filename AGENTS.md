@@ -567,7 +567,7 @@ If we ever change the PackageIdentifier, repeat that one-time submission for the
 - [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs) — community repo; PRs land at `manifests/a/AntonioOrionus/Arroxy/<version>/`
 - This repo's GitHub Pages — Arroxy's Flatpak repo at https://antonio-orionus.github.io/Arroxy/flatpak/, replaced by every stable release (`publish-flatpak-repo`). See [`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md); never rotate its signing key casually — installed copies reject updates signed by another key.
 
-GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppImage, tar.gz source, and a Flatpak bundle (stable bundles carry the Flatpak repo as their remote, so `flatpak update` works after installing one). No Snap / AUR — community can maintain those if demand appears.
+GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppImage, tar.gz source, and a Flatpak bundle (stable bundles carry the Flatpak repo as their remote, so `flatpak update` works after installing one). No Snap. An AUR `arroxy-bin` package (repackaging the x64 tar.gz, auto-published like Scoop/Homebrew) is on the roadmap for Arch/Omarchy users, blocked until AUR reopens new-account registration (closed as of 2026-10).
 
 ---
 
