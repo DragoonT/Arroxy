@@ -8,6 +8,21 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.23
+
+Flatpak users now get updates, and on Linux Arroxy's window shows its own icon.
+
+## Highlights
+
+- **Flatpak updates.** Arroxy has its own Flatpak repository now. Install it in one line, which also sets up Flatpak if your system doesn't have it:
+  `curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak`
+  From then on `flatpak update` or GNOME Software keeps Arroxy current, and Arroxy tells you when an update is out.
+- **Already using the Flatpak from an older download?** Run the one-line install above once. It switches your existing copy, which had no way to update, over to the new repository and keeps your settings.
+- The `.flatpak` file on the release page now comes with updates as well.
+- **Linux window icon.** Arroxy's window now groups with its launcher and shows its own icon, including AppImages added to the menu by AppImage integration tools.
+
+---
+
 ## 0.4.22
 
 Videos that are already in your queue no longer block a whole playlist from being added.
