@@ -25,7 +25,7 @@ Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 > 🌐 Esta es una traducción asistida por IA. El [README en inglés](README.md) es la fuente de verdad. ¿Encontraste un error? [Las PRs son bienvenidas](../../pulls).
 
@@ -70,6 +70,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 El script de Linux verifica la descarga con los `SHA256SUMS` publicados y añade Arroxy a tu menú de aplicaciones. Solo hay versiones x86_64. ¿Sin `curl`? Cambia `curl -fsSL` por `wget -qO-`.
+
+**¿Prefieres el Flatpak aislado?** Añade `--flatpak`. Instala Flatpak primero si hace falta (el único paso que pide `sudo`) y luego Arroxy desde su propio repositorio Flatpak, así que `flatpak update` lo mantiene al día. Una copia de un `.flatpak` anterior se reemplaza y conserva su configuración:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | Plataforma | Formato |
 | --- | --- |
@@ -162,9 +168,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (alternativa con sandbox):** descarga `Arroxy-*.flatpak` desde la misma página de release.
+**Flatpak (alternativa con sandbox):** Instálalo desde el repositorio Flatpak propio de Arroxy. Configura el runtime de Flathub por sí solo, y a partir de ahí `flatpak update` (o GNOME Software) mantiene Arroxy al día.
 
-Ubuntu trae Snap en lugar de Flatpak, así que instala Flatpak y añade Flathub primero — el paquete descarga su runtime de ahí:
+Ubuntu trae Snap en lugar de Flatpak, así que instala Flatpak primero:
 
 ```bash
 # Ubuntu / Debian
@@ -178,9 +184,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+¿Prefieres un archivo? Descarga `Arroxy-linux-x64.flatpak` de la misma página de la versión e instálalo en su lugar: configura el mismo repositorio, así que las actualizaciones funcionan igual:
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**¿Lo instalaste desde un `.flatpak` anterior?** Esa copia no tiene origen de actualizaciones. Desinstálala una vez (tu configuración se conserva) y luego ejecuta el comando de instalación de arriba:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Las descargas de Linux en la página de versiones son solo x86_64.** En equipos ARM64 (Raspberry Pi, Asahi Linux) el Flatpak se instala pero falla al arrancar con `bwrap: execvp ldconfig: Exec format error`.

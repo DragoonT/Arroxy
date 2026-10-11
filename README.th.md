@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 > 🌐 คำแปลนี้จัดทำโดยมี AI ช่วยเหลือ [README ภาษาอังกฤษ](README.md) คือแหล่งข้อมูลหลัก พบข้อผิดพลาดหรือไม่ [เปิด PR](../../pulls) ได้เลย
 
@@ -70,6 +70,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 สคริปต์ Linux ตรวจสอบไฟล์กับ `SHA256SUMS` ที่เผยแพร่และเพิ่ม Arroxy ลงในเมนูแอปพลิเคชัน บิลด์มีเฉพาะ x86_64 ไม่มี `curl` ใช่ไหม เปลี่ยน `curl -fsSL` เป็น `wget -qO-`
+
+**อยากใช้ Flatpak แบบแซนด์บ็อกซ์?** เพิ่ม `--flatpak` สคริปต์จะติดตั้ง Flatpak ก่อนหากจำเป็น (เป็นขั้นตอนเดียวที่ขอ `sudo`) แล้วติดตั้ง Arroxy จากคลัง Flatpak ของ Arroxy เอง `flatpak update` จึงทำให้เป็นเวอร์ชันล่าสุดเสมอ สำเนาที่ติดตั้งจาก `.flatpak` รุ่นเก่าจะถูกแทนที่โดยการตั้งค่ายังอยู่:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | แพลตฟอร์ม | ดาวน์โหลดโดยตรง |
 | --- | --- |
@@ -162,9 +168,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (ทางเลือกแบบ sandbox):** ดาวน์โหลด `Arroxy-linux-x64.flatpak` จากหน้าเผยแพร่เดียวกัน
+**Flatpak (ทางเลือกแบบ sandbox):** ติดตั้งจากคลัง Flatpak ของ Arroxy เอง ระบบจะตั้งค่า runtime ของ Flathub ให้เอง และหลังจากนั้น `flatpak update` (หรือ GNOME Software) จะทำให้ Arroxy เป็นเวอร์ชันล่าสุดเสมอ
 
-Ubuntu มาพร้อม Snap แทน Flatpak จึงต้องติดตั้ง Flatpak และเพิ่ม Flathub ก่อน แพ็กเกจจะดึง runtime จากที่นั่น:
+Ubuntu มาพร้อม Snap แทน Flatpak จึงต้องติดตั้ง Flatpak ก่อน:
 
 ```bash
 # Ubuntu / Debian
@@ -178,9 +184,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+อยากใช้ไฟล์มากกว่า? ดาวน์โหลด `Arroxy-linux-x64.flatpak` จากหน้ารีลีสเดียวกันแล้วติดตั้งแทน — ไฟล์นี้ตั้งค่าคลังเดียวกัน การอัปเดตจึงทำงานแบบเดียวกัน:
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**ติดตั้งจาก `.flatpak` รุ่นเก่า?** สำเนานั้นไม่มีแหล่งอัปเดต ให้ถอนการติดตั้งหนึ่งครั้ง (การตั้งค่ายังอยู่) แล้วรันคำสั่งติดตั้งด้านบน:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **ไฟล์ Linux ในหน้าเผยแพร่มีเฉพาะ x86_64** บนเครื่อง ARM64 (Raspberry Pi, Asahi Linux) Flatpak ยังติดตั้งได้ แต่จะเปิดไม่สำเร็จด้วย `bwrap: execvp ldconfig: Exec format error`

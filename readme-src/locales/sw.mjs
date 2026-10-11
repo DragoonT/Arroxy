@@ -196,6 +196,7 @@ export const sw = {
   dl_format_col: "Fomati",
   dl_oneline_note:
     "Hati ya Linux huthibitisha upakuaji dhidi ya `SHA256SUMS` zilizochapishwa na kuongeza Arroxy kwenye menyu yako ya programu. Matoleo ni ya x86_64 pekee. Huna `curl`? Badilisha `curl -fsSL` kuwa `wget -qO-`.",
+  dl_oneline_flatpak: "**Unapendelea Flatpak iliyotengwa?** Ongeza `--flatpak`. Husakinisha Flatpak kwanza ikihitajika (hatua pekee inayoomba `sudo`), kisha husakinisha Arroxy kutoka hazina yake ya Flatpak, kwa hivyo `flatpak update` huiweka ya kisasa. Nakala kutoka `.flatpak` ya zamani hubadilishwa na mipangilio yake inabaki:",
   dl_win_scoop:
     "Unapendelea Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Kisanidi (NSIS) au Inayobebeka `.exe`",
@@ -256,12 +257,11 @@ export const sw = {
   dl_linux_fuse_text: "Ikiwa uzinduzi bado unashindwa, iendeshe bila kupachika — hakuna kifurushi cha FUSE kinachohitajika:",
   dl_linux_targz_h4: "Tarball ya kawaida (hakuna FUSE, hakuna usakinishaji):",
   dl_linux_targz_text: "Toleo la `.tar.gz` ni programu ile ile bila kifuniko cha AppImage — ifungue popote kisha uiendeshe. Hakuna kisakinishi wala kifurushi cha FUSE.",
-  dl_linux_flatpak_prereq: "Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak na uongeze Flathub kwanza — kifurushi hupakua runtime yake kutoka hapo:",
+  dl_linux_flatpak_prereq: "Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak kwanza:",
+  dl_linux_flatpak_bundle: "Unapendelea faili? Pakua `Arroxy-linux-x64.flatpak` kutoka ukurasa uleule wa toleo na uisakinishe badala yake — huandaa hazina ileile, kwa hivyo masasisho hufanya kazi vivyo hivyo:",
+  dl_linux_flatpak_old_bundle: "**Ulisakinisha kutoka `.flatpak` ya zamani?** Nakala hiyo haina chanzo cha masasisho. Iondoe mara moja (mipangilio yako inabaki), kisha endesha amri ya usakinishaji iliyo hapo juu:",
   dl_linux_arch_note: "**Vipakuliwa vya Linux kwenye ukurasa wa matoleo ni vya x86_64 pekee.** Kwenye mashine za ARM64 (Raspberry Pi, Asahi Linux) Flatpak husakinishwa lakini hushindwa kuanza ikitoa `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (mbadala wenye sanduku):** Isakinishe kutoka hazina ya Flatpak ya Arroxy yenyewe. Huandaa runtime ya Flathub yenyewe, na baada ya hapo `flatpak update` (au GNOME Software) huiweka Arroxy ikiwa ya kisasa.",
   dl_warning_h3: "Kwa nini unaweza kuona onyo",
   dl_warning_p1:
     "Arroxy ni chanzo wazi na ina leseni ya MIT. Ujenzi wa Windows na macOS **haujasainiwa kwa nambari** — cheti cha Apple Developer ID na Windows EV cha kutia saini msimbo huchangia mamia ya dola kwa mwaka, ambayo mradi wa kujitegemea hulipa mfukoni mwake. Bila saini hizo, Windows SmartScreen na macOS Gatekeeper watakuonya wakati wa uzinduzi wa kwanza. Maonyo hayo yanamaanisha *mfumo wako wa uendeshaji haukuitambua kampuni inayotoa programu* — hayamaanishi kwamba Arroxy ni programu hasidi.",

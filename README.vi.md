@@ -25,7 +25,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 ---
 
@@ -68,6 +68,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 Script Linux đối chiếu tệp tải về với `SHA256SUMS` đã công bố và thêm Arroxy vào menu ứng dụng. Bản dựng chỉ dành cho x86_64. Không có `curl`? Thay `curl -fsSL` bằng `wget -qO-`.
+
+**Thích bản Flatpak chạy trong sandbox?** Thêm `--flatpak`. Script sẽ cài Flatpak trước nếu cần (bước duy nhất hỏi `sudo`), rồi cài Arroxy từ kho Flatpak riêng của nó, nên `flatpak update` giữ Arroxy luôn mới. Bản cài từ tệp `.flatpak` cũ sẽ được thay thế và giữ nguyên cài đặt:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | Nền tảng | Định dạng |
 | --- | --- |
@@ -160,9 +166,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (lựa chọn thay thế sandbox):** tải `Arroxy-*.flatpak` từ cùng trang phát hành.
+**Flatpak (lựa chọn thay thế sandbox):** Cài từ kho Flatpak riêng của Arroxy. Nó tự thiết lập runtime Flathub, và từ đó `flatpak update` (hoặc GNOME Software) giữ Arroxy luôn mới.
 
-Ubuntu đi kèm Snap chứ không phải Flatpak, nên hãy cài Flatpak và thêm Flathub trước — gói sẽ tải runtime từ đó:
+Ubuntu đi kèm Snap thay vì Flatpak, nên hãy cài Flatpak trước:
 
 ```bash
 # Ubuntu / Debian
@@ -176,9 +182,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+Thích dùng tệp hơn? Tải `Arroxy-linux-x64.flatpak` từ cùng trang phát hành và cài nó thay thế — tệp này thiết lập cùng kho đó, nên cập nhật hoạt động y như vậy:
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**Đã cài từ tệp `.flatpak` cũ?** Bản đó không có nguồn cập nhật. Gỡ cài đặt một lần (cài đặt của bạn vẫn giữ nguyên), rồi chạy lệnh cài đặt ở trên:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Các bản tải Linux trên trang phát hành chỉ có x86_64.** Trên máy ARM64 (Raspberry Pi, Asahi Linux), Flatpak vẫn cài được nhưng khi khởi chạy sẽ lỗi `bwrap: execvp ldconfig: Exec format error`.

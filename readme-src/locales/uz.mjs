@@ -197,6 +197,7 @@ export const uz = {
   dl_format_col: "Format",
   dl_oneline_note:
     "Linux skripti yuklamani e'lon qilingan `SHA256SUMS` bilan tekshiradi va Arroxy'ni dasturlar menyusiga qo'shadi. To'plamlar faqat x86_64 uchun. `curl` yo'qmi? `curl -fsSL` o'rniga `wget -qO-` ishlating.",
+  dl_oneline_flatpak: "**Izolyatsiyalangan Flatpak ma'qulmi?** `--flatpak` qo'shing. Kerak bo'lsa avval Flatpak'ni o'rnatadi (`sudo` so'raydigan yagona qadam), so'ng Arroxy'ni o'z Flatpak omboridan o'rnatadi, shuning uchun `flatpak update` uni yangilab turadi. Eski `.flatpak` dan o'rnatilgan nusxa almashtiriladi va sozlamalari saqlanadi:",
   dl_win_scoop:
     "Scoop'ni afzal ko'rasizmi? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "O'rnatuvchi (NSIS) yoki Portable `.exe`",
@@ -257,12 +258,11 @@ export const uz = {
   dl_linux_fuse_text: "Agar ishga tushirish hali ham muvaffaqiyatsiz bo'lsa, uni mount qilmasdan ishga tushiring — FUSE paketi kerak emas:",
   dl_linux_targz_h4: "Oddiy tarball (FUSE ham, o'rnatish ham kerak emas):",
   dl_linux_targz_text: "`.tar.gz` to'plami — AppImage qobig'isiz o'sha ilovaning o'zi: istalgan joyga chiqaring va ishga tushiring. Na o'rnatuvchi, na FUSE paketi kerak.",
-  dl_linux_flatpak_prereq: "Ubuntu tarkibida Flatpak emas, Snap keladi, shuning uchun avval Flatpak o'rnating va Flathub qo'shing — to'plam o'z runtime'ini o'sha yerdan oladi:",
+  dl_linux_flatpak_prereq: "Ubuntu Flatpak o'rniga Snap bilan keladi, shuning uchun avval Flatpak'ni o'rnating:",
+  dl_linux_flatpak_bundle: "Fayl qulayroqmi? Xuddi shu reliz sahifasidan `Arroxy-linux-x64.flatpak` faylini yuklab oling va uni o'rnating — u o'sha omborni sozlaydi, shuning uchun yangilanishlar xuddi shunday ishlaydi:",
+  dl_linux_flatpak_old_bundle: "**Eski `.flatpak` faylidan o'rnatganmisiz?** O'sha nusxada yangilanish manbasi yo'q. Uni bir marta o'chiring (sozlamalaringiz saqlanadi), so'ng yuqoridagi o'rnatish buyrug'ini ishga tushiring:",
   dl_linux_arch_note: "**Relizlar sahifasidagi Linux yuklamalari faqat x86_64 uchun.** ARM64 qurilmalarida (Raspberry Pi, Asahi Linux) Flatpak o'rnatiladi, lekin ishga tushirishda `bwrap: execvp ldconfig: Exec format error` xatosi bilan tugaydi.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (qumloq muhitdagi muqobil):** Uni Arroxy'ning o'z Flatpak omboridan o'rnating. U Flathub runtime'ini o'zi sozlaydi va shundan keyin `flatpak update` (yoki GNOME Software) Arroxy'ni yangilab turadi.",
   dl_warning_h3: "Nima uchun ogohlantirish ko'rishingiz mumkin",
   dl_warning_p1:
     "Arroxy ochiq manbali va MIT litsenziyali. Windows va macOS qurilmalari **kod imzolanmagan** — Apple Developer ID va Windows EV kod imzolash sertifikatlari har biri yiliga yuzlab dollarga tushadi, buni mustaqil loyiha o'z hisobidan to'laydi. Bu imzolarsiz, Windows SmartScreen va macOS Gatekeeper birinchi ishga tushirishda ogohlantiradi. Ogohlantirishlar *operatsion tizimingiz nashriyotchini tanib olmasligini* anglatadi — bu Arroxy zararli dastur ekanligini anglatmaydi.",

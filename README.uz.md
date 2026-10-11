@@ -25,7 +25,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 ---
 
@@ -68,6 +68,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 Linux skripti yuklamani e'lon qilingan `SHA256SUMS` bilan tekshiradi va Arroxy'ni dasturlar menyusiga qo'shadi. To'plamlar faqat x86_64 uchun. `curl` yo'qmi? `curl -fsSL` o'rniga `wget -qO-` ishlating.
+
+**Izolyatsiyalangan Flatpak ma'qulmi?** `--flatpak` qo'shing. Kerak bo'lsa avval Flatpak'ni o'rnatadi (`sudo` so'raydigan yagona qadam), so'ng Arroxy'ni o'z Flatpak omboridan o'rnatadi, shuning uchun `flatpak update` uni yangilab turadi. Eski `.flatpak` dan o'rnatilgan nusxa almashtiriladi va sozlamalari saqlanadi:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | Platforma | Format |
 | --- | --- |
@@ -160,9 +166,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.
+**Flatpak (qumloq muhitdagi muqobil):** Uni Arroxy'ning o'z Flatpak omboridan o'rnating. U Flathub runtime'ini o'zi sozlaydi va shundan keyin `flatpak update` (yoki GNOME Software) Arroxy'ni yangilab turadi.
 
-Ubuntu tarkibida Flatpak emas, Snap keladi, shuning uchun avval Flatpak o'rnating va Flathub qo'shing — to'plam o'z runtime'ini o'sha yerdan oladi:
+Ubuntu Flatpak o'rniga Snap bilan keladi, shuning uchun avval Flatpak'ni o'rnating:
 
 ```bash
 # Ubuntu / Debian
@@ -176,9 +182,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+Fayl qulayroqmi? Xuddi shu reliz sahifasidan `Arroxy-linux-x64.flatpak` faylini yuklab oling va uni o'rnating — u o'sha omborni sozlaydi, shuning uchun yangilanishlar xuddi shunday ishlaydi:
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**Eski `.flatpak` faylidan o'rnatganmisiz?** O'sha nusxada yangilanish manbasi yo'q. Uni bir marta o'chiring (sozlamalaringiz saqlanadi), so'ng yuqoridagi o'rnatish buyrug'ini ishga tushiring:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Relizlar sahifasidagi Linux yuklamalari faqat x86_64 uchun.** ARM64 qurilmalarida (Raspberry Pi, Asahi Linux) Flatpak o'rnatiladi, lekin ishga tushirishda `bwrap: execvp ldconfig: Exec format error` xatosi bilan tugaydi.

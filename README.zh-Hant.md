@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../pulls)。
 
@@ -70,6 +70,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 Linux 指令碼會根據已釋出的 `SHA256SUMS` 驗證下載檔案，並將 Arroxy 新增到應用程式選單。僅提供 x86_64 版本。沒有 `curl`？請將 `curl -fsSL` 換成 `wget -qO-`。
+
+**偏好沙盒化的 Flatpak？** 加上 `--flatpak`。必要時會先安裝 Flatpak（唯一需要 `sudo` 的步驟），再從 Arroxy 自己的 Flatpak 軟體庫安裝，之後 `flatpak update` 就會讓它保持最新。從舊版 `.flatpak` 安裝的副本會被取代，設定會保留：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | 平台 | 格式 |
 | --- | --- |
@@ -162,9 +168,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak（沙箱版）：** 從同一釋出頁下載 `Arroxy-*.flatpak`。
+**Flatpak（沙箱版）：** 從 Arroxy 自己的 Flatpak 軟體庫安裝。它會自動設定 Flathub 執行環境，之後 `flatpak update`（或 GNOME 軟體）就會讓 Arroxy 保持最新。
 
-Ubuntu 自帶的是 Snap 而非 Flatpak，因此請先安裝 Flatpak 並新增 Flathub — 安裝套件會從那裡取得執行時：
+Ubuntu 內建的是 Snap 而非 Flatpak，所以請先安裝 Flatpak：
 
 ```bash
 # Ubuntu / Debian
@@ -178,9 +184,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+比較想用檔案？從同一個發行頁面下載 `Arroxy-linux-x64.flatpak` 改為安裝它——它會設定同一個軟體庫，所以更新方式完全相同：
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**是從舊版 `.flatpak` 安裝的嗎？** 那份安裝沒有更新來源。請先解除安裝一次（設定會保留），再執行上方的安裝指令：
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **釋出頁面上的 Linux 下載僅提供 x86_64。** 在 ARM64 裝置（樹莓派、Asahi Linux）上 Flatpak 可以安裝，但啟動時會失敗並報 `bwrap: execvp ldconfig: Exec format error`。

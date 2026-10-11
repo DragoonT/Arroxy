@@ -25,7 +25,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 ---
 
@@ -68,6 +68,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 የLinux ስክሪፕቱ ማውረዱን ከታተሙት `SHA256SUMS` ጋር ያረጋግጣል እንዲሁም Arroxy ወደ መተግበሪያዎች ዝርዝርዎ ይጨምራል። ግንባታዎቹ ለx86_64 ብቻ ናቸው። `curl` የለም? `curl -fsSL` በ`wget -qO-` ይተኩ።
+
+**በገለልተኛ ሳጥን የሚሰራውን Flatpak ይመርጣሉ?** `--flatpak` ያክሉ። አስፈላጊ ከሆነ መጀመሪያ Flatpakን ይጭናል (`sudo` የሚጠይቀው ብቸኛው ደረጃ)፣ ከዚያ Arroxyን ከራሱ Flatpak ማከማቻ ይጭናል፣ ስለዚህ `flatpak update` ወቅታዊ ያደርገዋል። ከቀድሞ `.flatpak` የተጫነ ቅጂ ይተካል፤ ቅንብሮቹም ይቆያሉ፦
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | ሥርዓተ ክወና | ቅርጸት |
 | --- | --- |
@@ -160,9 +166,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (ለቅርቅብ አማራጭ):** `Arroxy-*.flatpak` ን ከተመሳሳዩ ስሪት ገጽ ያውርዱ።
+**Flatpak (ለቅርቅብ አማራጭ):** ከArroxy የራሱ Flatpak ማከማቻ ይጫኑት። የFlathub runtime-ን በራሱ ያዘጋጃል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል።
 
-ኡቡንቱ ከFlatpak ይልቅ Snap ይዞ ይመጣል፣ ስለዚህ መጀመሪያ Flatpak ጫኑና Flathub ጨምሩ — ጥቅሉ ራንታይሙን ከዚያ ያመጣል፦
+Ubuntu ከFlatpak ይልቅ Snapን ስለሚያካትት በመጀመሪያ Flatpakን ይጫኑ፦
 
 ```bash
 # Ubuntu / Debian
@@ -176,9 +182,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+ፋይል ይመርጣሉ? `Arroxy-linux-x64.flatpak`ን ከዚያው የመልቀቂያ ገጽ አውርደው በምትኩ ይጫኑት — ያንኑ ማከማቻ ያዘጋጃል፣ ስለዚህ ዝማኔዎች በተመሳሳይ መንገድ ይሰራሉ፦
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**ከቀድሞ `.flatpak` ነው የጫኑት?** ያ ቅጂ የዝማኔ ምንጭ የለውም። አንድ ጊዜ ያራግፉት (ቅንብሮችዎ ይቆያሉ)፣ ከዚያ ከላይ ያለውን የመጫኛ ትዕዛዝ ያስኪዱ፦
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።

@@ -25,7 +25,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../pulls).
 
@@ -70,6 +70,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 Skrip Linux memverifikasi unduhan terhadap `SHA256SUMS` yang dipublikasikan dan menambahkan Arroxy ke menu aplikasi Anda. Build hanya tersedia untuk x86_64. Tidak ada `curl`? Ganti `curl -fsSL` dengan `wget -qO-`.
+
+**Lebih suka Flatpak yang tersandbox?** Tambahkan `--flatpak`. Skrip ini memasang Flatpak terlebih dahulu bila perlu (satu-satunya langkah yang meminta `sudo`), lalu memasang Arroxy dari repositori Flatpak miliknya, sehingga `flatpak update` menjaganya tetap mutakhir. Salinan dari `.flatpak` lama diganti dan pengaturannya tetap ada:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | Platform | Unduh langsung |
 | --- | --- |
@@ -162,9 +168,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (alternatif sandbox):** unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama.
+**Flatpak (alternatif sandbox):** Pasang dari repositori Flatpak milik Arroxy. Ia menyiapkan runtime Flathub sendiri, dan setelah itu `flatpak update` (atau GNOME Software) menjaga Arroxy tetap mutakhir.
 
-Ubuntu menyertakan Snap alih-alih Flatpak, jadi instal Flatpak dan tambahkan Flathub terlebih dahulu — bundel mengambil runtime-nya dari sana:
+Ubuntu menyertakan Snap, bukan Flatpak, jadi pasang Flatpak terlebih dahulu:
 
 ```bash
 # Ubuntu / Debian
@@ -178,9 +184,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+Lebih suka berkas? Unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama dan pasang itu — ia menyiapkan repositori yang sama, jadi pembaruan bekerja dengan cara yang sama:
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**Dipasang dari `.flatpak` lama?** Salinan itu tidak punya sumber pembaruan. Copot sekali (pengaturan Anda tetap ada), lalu jalankan perintah pemasangan di atas:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Unduhan Linux di halaman rilis hanya untuk x86_64.** Di mesin ARM64 (Raspberry Pi, Asahi Linux) Flatpak tetap terinstal tetapi gagal saat diluncurkan dengan `bwrap: execvp ldconfig: Exec format error`.

@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 ---
 
@@ -68,6 +68,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 يتحقق سكربت لينكس من التنزيل مقابل ملفات `SHA256SUMS` المنشورة ويضيف Arroxy إلى قائمة تطبيقاتك. الإصدارات متاحة لمعمارية x86_64 فقط. لا يوجد `curl`؟ استبدل `curl -fsSL` بـ `wget -qO-`.
+
+**تفضّل نسخة Flatpak المعزولة؟** أضف `--flatpak`. يثبّت Flatpak أولًا إن لزم (الخطوة الوحيدة التي تطلب `sudo`)، ثم يثبّت Arroxy من مستودع Flatpak الخاص به، فيُبقيه `flatpak update` محدّثًا. تُستبدل النسخة المثبّتة من ملف `.flatpak` أقدم مع الاحتفاظ بإعداداتها:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | النظام | الصيغة |
 | --- | --- |
@@ -160,9 +166,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (بديل معزول):** نزِّل `Arroxy-*.flatpak` من صفحة الإصدار نفسها.
+**Flatpak (بديل معزول):** ثبّته من مستودع Flatpak الخاص بـ Arroxy. يُعدّ بيئة تشغيل Flathub بنفسه، ومن بعدها يُبقي `flatpak update` (أو GNOME Software) برنامج Arroxy محدّثًا.
 
-يأتي أوبونتو مع Snap بدلاً من Flatpak، لذا ثبّت Flatpak وأضف Flathub أولاً — فالحزمة تجلب بيئة التشغيل من هناك:
+يأتي Ubuntu مع Snap بدلًا من Flatpak، لذا ثبّت Flatpak أولًا:
 
 ```bash
 # Ubuntu / Debian
@@ -176,9 +182,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+تفضّل ملفًا؟ نزّل `Arroxy-linux-x64.flatpak` من صفحة الإصدار نفسها وثبّته بدلًا من ذلك — فهو يُعدّ المستودع نفسه، لذا تعمل التحديثات بالطريقة نفسها:
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**ثبّتَّه من ملف `.flatpak` أقدم؟** تلك النسخة بلا مصدر للتحديثات. أزل تثبيتها مرة واحدة (تبقى إعداداتك)، ثم شغّل أمر التثبيت أعلاه:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **تنزيلات لينكس في صفحة الإصدارات متاحة لمعمارية x86_64 فقط.** على أجهزة ARM64 (Raspberry Pi، Asahi Linux) يُثبَّت Flatpak لكنه يفشل عند التشغيل برسالة `bwrap: execvp ldconfig: Exec format error`.

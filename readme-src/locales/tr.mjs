@@ -198,6 +198,7 @@ export const tr = {
   dl_format_col: "Doğrudan indirme",
   dl_oneline_note:
     "Linux betiği indirmeyi yayımlanan `SHA256SUMS` ile doğrular ve Arroxy'yi uygulama menünüze ekler. Sürümler yalnızca x86_64'tür. `curl` yok mu? `curl -fsSL` yerine `wget -qO-` kullanın.",
+  dl_oneline_flatpak: "**Yalıtılmış Flatpak'i mi tercih edersiniz?** `--flatpak` ekleyin. Gerekirse önce Flatpak'i kurar (`sudo` isteyen tek adım), ardından Arroxy'yi kendi Flatpak deposundan kurar; böylece `flatpak update` onu güncel tutar. Eski bir `.flatpak` dosyasından kurulan kopya değiştirilir ve ayarları korunur:",
   dl_win_scoop:
     "Scoop mu tercih edersiniz? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Kurucu (NSIS) veya Taşınabilir `.exe`",
@@ -257,11 +258,11 @@ export const tr = {
   dl_linux_fuse_text: "Açılış hâlâ başarısızsa bağlamadan çalıştırın — FUSE paketi gerekmez:",
   dl_linux_targz_h4: "Düz arşiv (FUSE yok, kurulum yok):",
   dl_linux_targz_text: "`.tar.gz` sürümü, AppImage sarmalayıcısı olmayan aynı uygulamadır — istediğiniz yere çıkarın ve çalıştırın. Kurulum programı ve FUSE paketi gerekmez.",
-  dl_linux_flatpak_prereq: "Ubuntu, Flatpak yerine Snap ile gelir; bu yüzden önce Flatpak'i kurun ve Flathub'ı ekleyin — paket çalışma zamanını oradan indirir:",
+  dl_linux_flatpak_prereq: "Ubuntu, Flatpak yerine Snap ile gelir; bu yüzden önce Flatpak'i kurun:",
+  dl_linux_flatpak_bundle: "Dosya mı tercih edersiniz? Aynı sürüm sayfasından `Arroxy-linux-x64.flatpak` dosyasını indirip onu kurun — aynı depoyu ayarlar, böylece güncellemeler aynı şekilde çalışır:",
+  dl_linux_flatpak_old_bundle: "**Eski bir `.flatpak` dosyasından mı kurdunuz?** O kopyanın güncelleme kaynağı yok. Bir kez kaldırın (ayarlarınız korunur), ardından yukarıdaki kurulum komutunu çalıştırın:",
   dl_linux_arch_note: "**Sürüm sayfasındaki Linux indirmeleri yalnızca x86_64'tür.** ARM64 makinelerde (Raspberry Pi, Asahi Linux) Flatpak kurulur ama açılışta `bwrap: execvp ldconfig: Exec format error` hatasıyla başarısız olur.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (sandbox'lı alternatif):** aynı sürüm sayfasından `Arroxy-linux-x64.flatpak` indir.",
-
+  dl_linux_flatpak_intro: "**Flatpak (sandbox'lı alternatif):** Arroxy'nin kendi Flatpak deposundan kurun. Flathub çalışma ortamını kendisi kurar ve bundan sonra `flatpak update` (veya GNOME Yazılım) Arroxy'yi güncel tutar.",
   dl_warning_h3: "Neden uyarı görebilirsin",
   dl_warning_p1:
     "Arroxy açık kaynaklı ve MIT lisanslıdır. Windows ve macOS derlemeleri **kod imzalı değildir** — Apple Developer ID ve Windows EV kod imzalama sertifikalarının her biri yılda yüzlerce dolara mal olur; bağımsız bir proje bunu cebinden öder. Bu imzalar olmayınca Windows SmartScreen ve macOS Gatekeeper ilk başlatmada uyarır. Uyarılar *işletim sisteminin yayımcıyı tanımadığı* anlamına gelir — Arroxy'nin kötü amaçlı yazılım olduğu anlamına gelmez.",

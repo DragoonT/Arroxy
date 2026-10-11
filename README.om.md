@@ -25,7 +25,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 ---
 
@@ -68,6 +68,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 ```
 
 Skiriptiin Linux buufata `SHA256SUMS` maxxanfame waliin mirkaneessa, akkasumas Arroxy gara baafata appilikeeshinii keetiitti dabala. Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.
+
+**Flatpak adda baafame filattaa?** `--flatpak` dabali. Yoo barbaachise dura Flatpak ijaara (tarkaanfii `sudo` gaafatu qofa), sana booda Arroxy kuusaa Flatpak mataa isaa irraa ijaara; kanaaf `flatpak update` haaromsaa godha. Garagalchi `.flatpak` moofaa irraa ijaarame ni bakka bu'ama, qindaa'inni isaa ni hafa:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
 
 | Platform | Format |
 | --- | --- |
@@ -160,9 +166,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (filannoo sandboxed):** `Arroxy-*.flatpak` gara fuula baasii sanuma irraa buusi.
+**Flatpak (filannoo sandboxed):** Kuusaa Flatpak kan Arroxy mataa isaa irraa ijaari. Runtime Flathub ofumaan qopheessa; achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha.
 
-Ubuntu Flatpak osoo hin taane Snap wajjin dhufa, kanaaf dursitee Flatpak ijaari akkasumas Flathub itti dabali — paakejiin runtime isaa achirraa fudhata:
+Ubuntu Flatpak bakka Snap qabatee dhufa, kanaaf jalqaba Flatpak ijaari:
 
 ```bash
 # Ubuntu / Debian
@@ -176,9 +182,21 @@ sudo pacman -S flatpak
 ```
 
 ```bash
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+Faayilii filattaa? Fuula gadhiisaa sana irraa `Arroxy-linux-x64.flatpak` buufadhuu isa ijaari — kuusaa sanuma qopheessa, kanaaf haaromsi akkasuma hojjeta:
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
+```
+
+**`.flatpak` moofaa irraa ijaarattee?** Garagalchi sun madda haaromsaa hin qabu. Al tokko haqi (qindaa'inni kee ni hafa), sana booda ajaja ijaarsaa armaan olii hojjechiisi:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.
