@@ -8,7 +8,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.4.23
+## 0.4.24
 
 Flatpak users now get updates, and on Linux Arroxy's window shows its own icon.
 
