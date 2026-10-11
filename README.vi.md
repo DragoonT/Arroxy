@@ -63,17 +63,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Script Linux đối chiếu tệp tải về với `SHA256SUMS` đã công bố và thêm Arroxy vào menu ứng dụng. Bản dựng chỉ dành cho x86_64. Không có `curl`? Thay `curl -fsSL` bằng `wget -qO-`.
-
-**Thích bản Flatpak chạy trong sandbox?** Thêm `--flatpak`. Script sẽ cài Flatpak trước nếu cần (bước duy nhất hỏi `sudo`), rồi cài Arroxy từ kho Flatpak riêng của nó, nên `flatpak update` giữ Arroxy luôn mới. Bản cài từ tệp `.flatpak` cũ sẽ được thay thế và giữ nguyên cài đặt:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+Bản dựng chỉ dành cho x86_64. Không có `curl`? Thay `curl -fsSL` bằng `wget -qO-`.
 
 | Nền tảng | Định dạng |
 | --- | --- |
@@ -164,39 +166,6 @@ Bản `.tar.gz` chính là ứng dụng đó nhưng không có lớp vỏ AppIma
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (lựa chọn thay thế sandbox):** Cài từ kho Flatpak riêng của Arroxy. Nó tự thiết lập runtime Flathub, và từ đó `flatpak update` (hoặc GNOME Software) giữ Arroxy luôn mới.
-
-Ubuntu đi kèm Snap thay vì Flatpak, nên hãy cài Flatpak trước:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-Thích dùng tệp hơn? Tải `Arroxy-linux-x64.flatpak` từ cùng trang phát hành và cài nó thay thế — tệp này thiết lập cùng kho đó, nên cập nhật hoạt động y như vậy:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**Đã cài từ tệp `.flatpak` cũ?** Bản đó không có nguồn cập nhật. Gỡ cài đặt một lần (cài đặt của bạn vẫn giữ nguyên), rồi chạy lệnh cài đặt ở trên:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Các bản tải Linux trên trang phát hành chỉ có x86_64.** Trên máy ARM64 (Raspberry Pi, Asahi Linux), Flatpak vẫn cài được nhưng khi khởi chạy sẽ lỗi `bwrap: execvp ldconfig: Exec format error`.

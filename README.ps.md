@@ -63,17 +63,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-د لینکس سکریپټ ډاونلوډ د خپاره شوي `SHA256SUMS` پر وړاندې تاییدوي او Arroxy ستاسو د اپلیکیشنونو مینو ته ورزیاتوي. جوړښتونه یوازې د x86_64 لپاره دي. `curl` نشته؟ `curl -fsSL` په `wget -qO-` بدل کړئ.
-
-**بند (sandboxed) Flatpak غوره کوئ؟** `--flatpak` ورزیات کړئ. که اړتیا وي لومړی Flatpak نصبوي (یوازینی ګام چې `sudo` غواړي)، بیا Arroxy د هغه له خپلې Flatpak ذخیرې نه نصبوي، نو `flatpak update` یې تازه ساتي. له زاړه `.flatpak` نه نصب شوې کاپي بدلیږي او امستنې یې پاتې کیږي:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+جوړښتونه یوازې د x86_64 لپاره دي. `curl` نشته؟ `curl -fsSL` په `wget -qO-` بدل کړئ.
 
 | پلیټفارم | بڼه |
 | --- | --- |
@@ -164,39 +166,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (sandboxed بدیل):** دا د Arroxy له خپلې Flatpak ذخیرې نه نصب کړئ. دا د Flathub runtime پخپله برابروي، او له هغې وروسته `flatpak update` (یا GNOME Software) Arroxy تازه ساتي.
-
-Ubuntu د Flatpak پر ځای له Snap سره راځي، نو لومړی Flatpak نصب کړئ:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-دوتنه غوره کوئ؟ له همدې خپرونې پاڼې نه `Arroxy-linux-x64.flatpak` ښکته کړئ او هغه نصب کړئ — همغه ذخیره برابروي، نو تازه‌کول هم په همدې ډول کار کوي:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**له زاړه `.flatpak` نه مو نصب کړی؟** هغه کاپي د تازه‌کولو سرچینه نه لري. یو ځل یې لرې کړئ (ستاسو امستنې پاتې کیږي)، بیا پورته د نصب کمانډ وچلوئ:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **د خپرونې پاڼې د لینکس ډاونلوډونه یوازې x86_64 دي.** په ARM64 ماشینونو (Raspberry Pi، Asahi Linux) کې Flatpak انسټالېږي خو د پیل پر مهال د `bwrap: execvp ldconfig: Exec format error` سره ناکامېږي.

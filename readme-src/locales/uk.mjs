@@ -197,8 +197,7 @@ export const uk = {
   dl_platform_col: "Платформа",
   dl_format_col: "Формат",
   dl_oneline_note:
-    "Скрипт для Linux звіряє завантаження з опублікованими `SHA256SUMS` і додає Arroxy до меню програм. Збірки лише x86_64. Немає `curl`? Замініть `curl -fsSL` на `wget -qO-`.",
-  dl_oneline_flatpak: "**Хочете ізольований Flatpak?** Додайте `--flatpak`. Скрипт за потреби спершу встановить Flatpak (єдиний крок, що просить `sudo`), потім Arroxy з його власного Flatpak-репозиторію, тож `flatpak update` оновлюватиме його. Копію зі старого `.flatpak` буде замінено, налаштування збережуться:",
+    "Збірки лише x86_64. Немає `curl`? Замініть `curl -fsSL` на `wget -qO-`.",
   dl_win_scoop:
     "Віддаєте перевагу Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Інсталятор (NSIS) або портативний `.exe`",
@@ -260,11 +259,7 @@ export const uk = {
   dl_linux_fuse_text: "Якщо запуск все одно не вдається — запустіть без монтування, пакунок FUSE не потрібен:",
   dl_linux_targz_h4: "Звичайний архів (без FUSE, без встановлення):",
   dl_linux_targz_text: "Збірка `.tar.gz` — той самий застосунок без оболонки AppImage: розпакуйте будь-куди й запустіть. Ані інсталятора, ані пакунка FUSE.",
-  dl_linux_flatpak_prereq: "В Ubuntu замість Flatpak постачається Snap, тож спершу встановіть Flatpak:",
-  dl_linux_flatpak_bundle: "Зручніше файлом? Завантажте `Arroxy-linux-x64.flatpak` з тієї ж сторінки релізу й установіть його — він підключає той самий репозиторій, тож оновлення працюють так само:",
-  dl_linux_flatpak_old_bundle: "**Встановлювали зі старого `.flatpak`?** Ця копія не має джерела оновлень. Видаліть її один раз (налаштування збережуться), потім виконайте команду встановлення вище:",
   dl_linux_arch_note: "**Завантаження для Linux на сторінці релізів лише x86_64.** На машинах ARM64 (Raspberry Pi, Asahi Linux) Flatpak встановиться, але не запуститься: `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_intro: "**Flatpak (ізольована альтернатива):** Встановіть його з власного Flatpak-репозиторію Arroxy. Середовище виконання Flathub налаштується саме, а далі `flatpak update` (або GNOME Software) підтримуватиме Arroxy в актуальному стані.",
   dl_warning_h3: "Чому ви можете побачити попередження",
   dl_warning_p1:
     "Arroxy — проєкт із відкритим кодом і ліцензією MIT. Збірки для Windows та macOS **не підписані кодом** — сертифікати Apple Developer ID та Windows EV для підпису коду коштують сотні доларів на рік, і незалежний проєкт сплачує їх із власної кишені. Без цих підписів Windows SmartScreen і macOS Gatekeeper попереджатимуть вас при першому запуску. Попередження означають *що ваша ОС не розпізнає видавця* — вони не означають, що Arroxy є шкідливим ПЗ.",

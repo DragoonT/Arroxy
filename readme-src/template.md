@@ -65,17 +65,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-{{dl_oneline_note}}
-
-{{dl_oneline_flatpak}}
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+{{dl_oneline_note}}
 
 | {{dl_platform_col}} | {{dl_format_col}} |
 | --- | --- |
@@ -162,39 +164,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-{{dl_linux_flatpak_intro}}
-
-{{dl_linux_flatpak_prereq}}
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-{{dl_linux_flatpak_bundle}}
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-{{dl_linux_flatpak_old_bundle}}
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 {{dl_linux_arch_note}}

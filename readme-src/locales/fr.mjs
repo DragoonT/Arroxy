@@ -198,8 +198,7 @@ export const fr = {
   dl_platform_col: "Plateforme",
   dl_format_col: "Format",
   dl_oneline_note:
-    "Le script Linux vérifie le téléchargement avec les `SHA256SUMS` publiés et ajoute Arroxy à votre menu d'applications. Les versions sont uniquement x86_64. Pas de `curl` ? Remplacez `curl -fsSL` par `wget -qO-`.",
-  dl_oneline_flatpak: "**Vous préférez le Flatpak isolé ?** Ajoutez `--flatpak`. Le script installe d'abord Flatpak si besoin (la seule étape qui demande `sudo`), puis Arroxy depuis son propre dépôt Flatpak, pour que `flatpak update` le garde à jour. Une copie issue d'un ancien `.flatpak` est remplacée et garde ses réglages :",
+    "Les versions sont uniquement x86_64. Pas de `curl` ? Remplacez `curl -fsSL` par `wget -qO-`.",
   dl_win_scoop:
     "Vous préférez Scoop ? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Installeur (NSIS) ou `.exe` portable",
@@ -260,11 +259,7 @@ export const fr = {
   dl_linux_fuse_text: "Si le lancement échoue encore, lance-le sans montage — aucun paquet FUSE n'est nécessaire :",
   dl_linux_targz_h4: "Archive simple (sans FUSE, sans installation) :",
   dl_linux_targz_text: "La version `.tar.gz` est la même application sans l'enveloppe AppImage : décompresse-la où tu veux et lance-la. Ni installateur ni paquet FUSE.",
-  dl_linux_flatpak_prereq: "Ubuntu fournit Snap plutôt que Flatpak, installez donc d'abord Flatpak :",
-  dl_linux_flatpak_bundle: "Vous préférez un fichier ? Téléchargez `Arroxy-linux-x64.flatpak` depuis la même page de version et installez-le à la place — il configure le même dépôt, les mises à jour fonctionnent donc de la même façon :",
-  dl_linux_flatpak_old_bundle: "**Installé depuis un ancien `.flatpak` ?** Cette copie n'a aucune source de mises à jour. Désinstallez-la une fois (vos réglages sont conservés), puis lancez la commande d'installation ci-dessus :",
   dl_linux_arch_note: "**Les téléchargements Linux sur la page des versions sont uniquement en x86_64.** Sur les machines ARM64 (Raspberry Pi, Asahi Linux) le Flatpak s'installe mais échoue au lancement avec `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_intro: "**Flatpak (alternative en sandbox) :** Installez-le depuis le dépôt Flatpak d'Arroxy. Il configure lui-même le runtime Flathub, et ensuite `flatpak update` (ou GNOME Logiciels) garde Arroxy à jour.",
   dl_warning_h3: "Pourquoi tu peux voir un avertissement",
   dl_warning_p1:
     "Arroxy est open source et sous licence MIT. Les builds Windows et macOS **ne sont pas signés numériquement** — les certificats Apple Developer ID et Windows EV coûtent chacun plusieurs centaines de dollars par an, que paye un projet indépendant de sa poche. Sans ces signatures, Windows SmartScreen et macOS Gatekeeper t'avertiront au premier lancement. Ces avertissements signifient *ton OS ne reconnaît pas l'éditeur* — ils ne signifient pas qu'Arroxy est un malware.",

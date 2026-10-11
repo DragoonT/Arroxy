@@ -65,17 +65,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Linux 用スクリプトは、公開されている `SHA256SUMS` とダウンロードを照合し、Arroxy をアプリケーションメニューに追加します。ビルドは x86_64 のみです。`curl` がない場合は `curl -fsSL` を `wget -qO-` に置き換えてください。
-
-**サンドボックス化された Flatpak がよければ** `--flatpak` を付けてください。必要なら先に Flatpak をインストールし（`sudo` を求めるのはこの手順だけです）、次に Arroxy 独自の Flatpak リポジトリから Arroxy をインストールするので、以後は `flatpak update` で最新に保てます。古い `.flatpak` から入れたコピーは置き換えられ、設定は残ります:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+ビルドは x86_64 のみです。`curl` がない場合は `curl -fsSL` を `wget -qO-` に置き換えてください。
 
 | プラットフォーム | フォーマット |
 | --- | --- |
@@ -166,39 +168,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak（サンドボックス版）：** Arroxy 独自の Flatpak リポジトリからインストールします。Flathub のランタイムは自動で設定され、以後は `flatpak update`（または GNOME ソフトウェア）で Arroxy を最新に保てます。
-
-Ubuntu には Flatpak ではなく Snap が入っているため、まず Flatpak をインストールします:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-ファイルで入れたい場合は、同じリリースページから `Arroxy-linux-x64.flatpak` をダウンロードしてインストールします。同じリポジトリが設定されるので、アップデートも同じように届きます:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**古い `.flatpak` からインストールした場合:** そのコピーには更新元がありません。一度アンインストールし（設定は残ります）、上のインストールコマンドを実行してください:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **リリースページの Linux ダウンロードは x86_64 のみです。** ARM64 マシン（Raspberry Pi、Asahi Linux）では Flatpak はインストールできますが、起動時に `bwrap: execvp ldconfig: Exec format error` で失敗します。

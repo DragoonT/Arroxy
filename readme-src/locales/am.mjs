@@ -186,8 +186,7 @@ export const am = {
   dl_platform_col: "ሥርዓተ ክወና",
   dl_format_col: "ቅርጸት",
   dl_oneline_note:
-    "የLinux ስክሪፕቱ ማውረዱን ከታተሙት `SHA256SUMS` ጋር ያረጋግጣል እንዲሁም Arroxy ወደ መተግበሪያዎች ዝርዝርዎ ይጨምራል። ግንባታዎቹ ለx86_64 ብቻ ናቸው። `curl` የለም? `curl -fsSL` በ`wget -qO-` ይተኩ።",
-  dl_oneline_flatpak: "**በገለልተኛ ሳጥን የሚሰራውን Flatpak ይመርጣሉ?** `--flatpak` ያክሉ። አስፈላጊ ከሆነ መጀመሪያ Flatpakን ይጭናል (`sudo` የሚጠይቀው ብቸኛው ደረጃ)፣ ከዚያ Arroxyን ከራሱ Flatpak ማከማቻ ይጭናል፣ ስለዚህ `flatpak update` ወቅታዊ ያደርገዋል። ከቀድሞ `.flatpak` የተጫነ ቅጂ ይተካል፤ ቅንብሮቹም ይቆያሉ፦",
+    "ግንባታዎቹ ለx86_64 ብቻ ናቸው። `curl` የለም? `curl -fsSL` በ`wget -qO-` ይተኩ።",
   dl_win_scoop:
     "Scoop ይመርጣሉ? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "ጫኝ (NSIS) ወይም ተጓዥ `.exe`",
@@ -245,11 +244,7 @@ export const am = {
   dl_linux_fuse_text: "አስጀምሩ አሁንም ካልሆነ ሳይጫን አስሂዱት — የFUSE ጥቅል አያስፈልግም፦",
   dl_linux_targz_h4: "ተራ ታርቦል (FUSE የለም፣ ጫና የለም)፦",
   dl_linux_targz_text: "የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። ጫኚም የFUSE ጥቅልም አያስፈልግም።",
-  dl_linux_flatpak_prereq: "Ubuntu ከFlatpak ይልቅ Snapን ስለሚያካትት በመጀመሪያ Flatpakን ይጫኑ፦",
-  dl_linux_flatpak_bundle: "ፋይል ይመርጣሉ? `Arroxy-linux-x64.flatpak`ን ከዚያው የመልቀቂያ ገጽ አውርደው በምትኩ ይጫኑት — ያንኑ ማከማቻ ያዘጋጃል፣ ስለዚህ ዝማኔዎች በተመሳሳይ መንገድ ይሰራሉ፦",
-  dl_linux_flatpak_old_bundle: "**ከቀድሞ `.flatpak` ነው የጫኑት?** ያ ቅጂ የዝማኔ ምንጭ የለውም። አንድ ጊዜ ያራግፉት (ቅንብሮችዎ ይቆያሉ)፣ ከዚያ ከላይ ያለውን የመጫኛ ትዕዛዝ ያስኪዱ፦",
   dl_linux_arch_note: "**በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።",
-  dl_linux_flatpak_intro: "**Flatpak (ለቅርቅብ አማራጭ):** ከArroxy የራሱ Flatpak ማከማቻ ይጫኑት። የFlathub runtime-ን በራሱ ያዘጋጃል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል።",
   dl_warning_h3: "ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ",
   dl_warning_p1:
     "Arroxy ምን ኮድ ያለው (open-source) እና MIT ፈቃድ ያለው ነው። የ Windows እና macOS ቅጅዎቹ **ኮድ አልተፈረመባቸውም** — Apple Developer ID እና Windows EV ኮድ-ፊርማ ሰርቲፊኬቶቹ እያንዳንዳቸው በዓመት በመቶዎች ዶላር ያስወጣሉ፣ ይህ ነጻ ፕሮጀክት ከኪሳቸው ይከፍላሉ። ያነዚህ ፊርሞች ሳይኖሩ፣ Windows SmartScreen እና macOS Gatekeeper በመጀመሪያ አስጀማሪ ያስጠነቅቋቸዋል። ማስጠንቀቂያዎቹ *ሥርዓተ ክወናዎ ናሸርን አይለይም* ማለት ናቸው — Arroxy ተንኮል-አዘል ሶፍትዌር ነው ማለት አይደሉም።",

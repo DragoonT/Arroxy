@@ -63,17 +63,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-የLinux ስክሪፕቱ ማውረዱን ከታተሙት `SHA256SUMS` ጋር ያረጋግጣል እንዲሁም Arroxy ወደ መተግበሪያዎች ዝርዝርዎ ይጨምራል። ግንባታዎቹ ለx86_64 ብቻ ናቸው። `curl` የለም? `curl -fsSL` በ`wget -qO-` ይተኩ።
-
-**በገለልተኛ ሳጥን የሚሰራውን Flatpak ይመርጣሉ?** `--flatpak` ያክሉ። አስፈላጊ ከሆነ መጀመሪያ Flatpakን ይጭናል (`sudo` የሚጠይቀው ብቸኛው ደረጃ)፣ ከዚያ Arroxyን ከራሱ Flatpak ማከማቻ ይጭናል፣ ስለዚህ `flatpak update` ወቅታዊ ያደርገዋል። ከቀድሞ `.flatpak` የተጫነ ቅጂ ይተካል፤ ቅንብሮቹም ይቆያሉ፦
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+ግንባታዎቹ ለx86_64 ብቻ ናቸው። `curl` የለም? `curl -fsSL` በ`wget -qO-` ይተኩ።
 
 | ሥርዓተ ክወና | ቅርጸት |
 | --- | --- |
@@ -164,39 +166,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (ለቅርቅብ አማራጭ):** ከArroxy የራሱ Flatpak ማከማቻ ይጫኑት። የFlathub runtime-ን በራሱ ያዘጋጃል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል።
-
-Ubuntu ከFlatpak ይልቅ Snapን ስለሚያካትት በመጀመሪያ Flatpakን ይጫኑ፦
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-ፋይል ይመርጣሉ? `Arroxy-linux-x64.flatpak`ን ከዚያው የመልቀቂያ ገጽ አውርደው በምትኩ ይጫኑት — ያንኑ ማከማቻ ያዘጋጃል፣ ስለዚህ ዝማኔዎች በተመሳሳይ መንገድ ይሰራሉ፦
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**ከቀድሞ `.flatpak` ነው የጫኑት?** ያ ቅጂ የዝማኔ ምንጭ የለውም። አንድ ጊዜ ያራግፉት (ቅንብሮችዎ ይቆያሉ)፣ ከዚያ ከላይ ያለውን የመጫኛ ትዕዛዝ ያስኪዱ፦
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።

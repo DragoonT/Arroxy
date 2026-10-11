@@ -65,17 +65,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Linux 스크립트는 공개된 `SHA256SUMS`와 다운로드를 대조하고 Arroxy를 애플리케이션 메뉴에 추가합니다. 빌드는 x86_64 전용입니다. `curl`이 없나요? `curl -fsSL`을 `wget -qO-`로 바꾸세요.
-
-**샌드박스된 Flatpak을 원하시나요?** `--flatpak`을 붙이세요. 필요하면 먼저 Flatpak을 설치하고(`sudo`를 묻는 유일한 단계), 이어서 Arroxy 전용 Flatpak 저장소에서 Arroxy를 설치하므로 `flatpak update`로 최신 상태를 유지할 수 있습니다. 예전 `.flatpak`으로 설치한 사본은 교체되며 설정은 유지됩니다:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+빌드는 x86_64 전용입니다. `curl`이 없나요? `curl -fsSL`을 `wget -qO-`로 바꾸세요.
 
 | 플랫폼 | 직접 다운로드 |
 | --- | --- |
@@ -166,39 +168,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak(샌드박스 대안):** Arroxy 전용 Flatpak 저장소에서 설치하세요. Flathub 런타임은 자동으로 설정되며, 이후에는 `flatpak update`(또는 GNOME 소프트웨어)로 Arroxy를 최신 상태로 유지할 수 있습니다.
-
-Ubuntu에는 Flatpak 대신 Snap이 기본으로 들어 있으므로 먼저 Flatpak을 설치하세요:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-파일이 더 편하다면 같은 릴리스 페이지에서 `Arroxy-linux-x64.flatpak`을 내려받아 설치하세요. 같은 저장소가 설정되므로 업데이트도 똑같이 동작합니다:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**예전 `.flatpak`으로 설치했나요?** 그 사본에는 업데이트 출처가 없습니다. 한 번 제거한 뒤(설정은 유지됩니다) 위의 설치 명령을 실행하세요:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **릴리스 페이지의 Linux 다운로드는 x86_64 전용입니다.** ARM64 장치(Raspberry Pi, Asahi Linux)에서는 Flatpak이 설치되더라도 시작할 때 `bwrap: execvp ldconfig: Exec format error` 오류가 발생합니다.

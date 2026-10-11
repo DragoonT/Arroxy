@@ -193,8 +193,7 @@ export const ps = {
   dl_platform_col: "پلیټفارم",
   dl_format_col: "بڼه",
   dl_oneline_note:
-    "د لینکس سکریپټ ډاونلوډ د خپاره شوي `SHA256SUMS` پر وړاندې تاییدوي او Arroxy ستاسو د اپلیکیشنونو مینو ته ورزیاتوي. جوړښتونه یوازې د x86_64 لپاره دي. `curl` نشته؟ `curl -fsSL` په `wget -qO-` بدل کړئ.",
-  dl_oneline_flatpak: "**بند (sandboxed) Flatpak غوره کوئ؟** `--flatpak` ورزیات کړئ. که اړتیا وي لومړی Flatpak نصبوي (یوازینی ګام چې `sudo` غواړي)، بیا Arroxy د هغه له خپلې Flatpak ذخیرې نه نصبوي، نو `flatpak update` یې تازه ساتي. له زاړه `.flatpak` نه نصب شوې کاپي بدلیږي او امستنې یې پاتې کیږي:",
+    "جوړښتونه یوازې د x86_64 لپاره دي. `curl` نشته؟ `curl -fsSL` په `wget -qO-` بدل کړئ.",
   dl_win_scoop:
     "Scoop غوره ګڼئ؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "نصب کوونکی (NSIS) یا پورټیبل `.exe`",
@@ -254,11 +253,7 @@ export const ps = {
   dl_linux_fuse_text: "که بیا هم پیل نه شي، هغه پرته له ماونټ کولو چل کړئ — د FUSE کڅوړې ته اړتیا نشته:",
   dl_linux_targz_h4: "ساده تاربال (نه FUSE، نه انسټال):",
   dl_linux_targz_text: "د `.tar.gz` بیلډ همغه اپلیکیشن دی خو د AppImage پوښ پرته — هر چیرې یې استخراج کړئ او چل یې کړئ. نه انسټالر پکار دی او نه د FUSE کڅوړه.",
-  dl_linux_flatpak_prereq: "Ubuntu د Flatpak پر ځای له Snap سره راځي، نو لومړی Flatpak نصب کړئ:",
-  dl_linux_flatpak_bundle: "دوتنه غوره کوئ؟ له همدې خپرونې پاڼې نه `Arroxy-linux-x64.flatpak` ښکته کړئ او هغه نصب کړئ — همغه ذخیره برابروي، نو تازه‌کول هم په همدې ډول کار کوي:",
-  dl_linux_flatpak_old_bundle: "**له زاړه `.flatpak` نه مو نصب کړی؟** هغه کاپي د تازه‌کولو سرچینه نه لري. یو ځل یې لرې کړئ (ستاسو امستنې پاتې کیږي)، بیا پورته د نصب کمانډ وچلوئ:",
   dl_linux_arch_note: "**د خپرونې پاڼې د لینکس ډاونلوډونه یوازې x86_64 دي.** په ARM64 ماشینونو (Raspberry Pi، Asahi Linux) کې Flatpak انسټالېږي خو د پیل پر مهال د `bwrap: execvp ldconfig: Exec format error` سره ناکامېږي.",
-  dl_linux_flatpak_intro: "**Flatpak (sandboxed بدیل):** دا د Arroxy له خپلې Flatpak ذخیرې نه نصب کړئ. دا د Flathub runtime پخپله برابروي، او له هغې وروسته `flatpak update` (یا GNOME Software) Arroxy تازه ساتي.",
   dl_warning_h3: "ولې ممکن خبرداری وګورئ",
   dl_warning_p1:
     "Arroxy خلاصه سرچینه او MIT-licensed ده. د Windows او macOS جوړونې **د کوډ لاسلیک شوي نه دي** — د Apple Developer ID او د Windows EV د کوډ لاسلیک کولو سندونه هر کال د سلو ډالرو لګښت لري، چې یو خپلواک پروژه له خپل ځان ادا کوي. پرته له هغو لاسلیکونو، د Windows SmartScreen او macOS Gatekeeper به تاسو ته د لومړي پیل پر مهال خبرداری درکوي. خبرداریونه دا معنی لري چې *ستاسو OS خپرنده نه پیژني* — دا معنی نه لري چې Arroxy malware دی.",

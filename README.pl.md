@@ -65,17 +65,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Skrypt dla systemu Linux sprawdza pobrany plik względem opublikowanego `SHA256SUMS` i dodaje Arroxy do menu aplikacji. Dostępne są tylko kompilacje x86_64. Nie masz `curl`? Zamień `curl -fsSL` na `wget -qO-`.
-
-**Wolisz odizolowany Flatpak?** Dodaj `--flatpak`. Skrypt w razie potrzeby najpierw instaluje Flatpak (jedyny krok, który prosi o `sudo`), a potem Arroxy z jego własnego repozytorium Flatpak, więc `flatpak update` utrzymuje go w aktualnej wersji. Kopia ze starszego `.flatpak` zostaje zastąpiona i zachowuje ustawienia:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+Dostępne są tylko kompilacje x86_64. Nie masz `curl`? Zamień `curl -fsSL` na `wget -qO-`.
 
 | Platforma | Pobieranie bezpośrednie |
 | --- | --- |
@@ -166,39 +168,6 @@ Kompilacja `.tar.gz` to ta sama aplikacja bez opakowania AppImage — rozpakuj j
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (alternatywa w piaskownicy):** Zainstaluj go z własnego repozytorium Flatpak Arroxy. Samo konfiguruje środowisko uruchomieniowe Flathub, a od tej pory `flatpak update` (lub GNOME Software) utrzymuje Arroxy w aktualnej wersji.
-
-Ubuntu ma Snap zamiast Flatpaka, więc najpierw zainstaluj Flatpak:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-Wolisz plik? Pobierz `Arroxy-linux-x64.flatpak` z tej samej strony wydania i zainstaluj go zamiast tego — konfiguruje to samo repozytorium, więc aktualizacje działają tak samo:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**Instalacja ze starszego `.flatpak`?** Ta kopia nie ma źródła aktualizacji. Odinstaluj ją raz (ustawienia zostają), a potem uruchom powyższe polecenie instalacji:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Pliki Linux na stronie wydania są dostępne wyłącznie dla x86_64.** Na urządzeniach ARM64 (Raspberry Pi, Asahi Linux) Flatpak zainstaluje się, lecz uruchomienie zakończy się błędem `bwrap: execvp ldconfig: Exec format error`.

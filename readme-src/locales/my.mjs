@@ -198,8 +198,7 @@ export const my = {
   dl_platform_col: "Platform",
   dl_format_col: "Format",
   dl_oneline_note:
-    "Linux script သည် ဒေါင်းလုဒ်ကို ထုတ်ပြန်ထားသော `SHA256SUMS` ဖြင့် စစ်ဆေးပြီး Arroxy ကို သင့်အက်ပ်မီနူးထဲ ထည့်ပေးသည်။ Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်။ `curl` မရှိဘူးလား။ `curl -fsSL` အစား `wget -qO-` သုံးပါ။",
-  dl_oneline_flatpak: "**sandbox လုပ်ထားသော Flatpak ကို ပိုကြိုက်ပါသလား။** `--flatpak` ထည့်ပါ။ လိုအပ်ပါက Flatpak ကို အရင်ထည့်သွင်းပြီး (`sudo` တောင်းသည့် တစ်ခုတည်းသော အဆင့်) ထို့နောက် Arroxy ကို ၎င်း၏ကိုယ်ပိုင် Flatpak repository မှ ထည့်သွင်းသဖြင့် `flatpak update` က နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။ `.flatpak` အဟောင်းမှ ထည့်ထားသော မိတ္တူကို အစားထိုးပြီး ဆက်တင်များ ကျန်ရှိနေပါမည်:",
+    "Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်။ `curl` မရှိဘူးလား။ `curl -fsSL` အစား `wget -qO-` သုံးပါ။",
   dl_win_scoop:
     "Scoop ကို ပိုနှစ်သက်ပါသလား။ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Installer (NSIS) သို့မဟုတ် Portable `.exe`",
@@ -259,11 +258,7 @@ export const my = {
   dl_linux_fuse_text: "Launch မအောင်မြင်သေးလျှင် mount မလုပ်ဘဲ ဖွင့်ပါ — FUSE package မလိုပါ:",
   dl_linux_targz_h4: "ရိုးရိုး tarball (FUSE မလို၊ install မလို):",
   dl_linux_targz_text: "`.tar.gz` ဗားရှင်းသည် AppImage အခွံမပါသော အက်ပ်တူပင်ဖြစ်သည် — ကြိုက်ရာနေရာတွင် ဖြေပြီး ဖွင့်လိုက်ပါ။ installer လည်းမလို၊ FUSE package လည်း မလိုပါ။",
-  dl_linux_flatpak_prereq: "Ubuntu တွင် Flatpak အစား Snap ပါလာသဖြင့် Flatpak ကို ဦးစွာ ထည့်သွင်းပါ:",
-  dl_linux_flatpak_bundle: "ဖိုင်ဖြင့် ထည့်လိုပါသလား။ ထုတ်ဝေမှုစာမျက်နှာတစ်ခုတည်းမှ `Arroxy-linux-x64.flatpak` ကို ဒေါင်းလုဒ်လုပ်ပြီး ၎င်းကို ထည့်သွင်းပါ — repository တစ်ခုတည်းကို ပြင်ဆင်ပေးသဖြင့် အပ်ဒိတ်များ အလားတူ အလုပ်လုပ်ပါသည်:",
-  dl_linux_flatpak_old_bundle: "**`.flatpak` အဟောင်းမှ ထည့်သွင်းထားပါသလား။** ထိုမိတ္တူတွင် အပ်ဒိတ်ရင်းမြစ် မရှိပါ။ တစ်ကြိမ် ဖယ်ရှားပြီး (သင့်ဆက်တင်များ ကျန်ရှိနေပါမည်) အထက်ပါ ထည့်သွင်းရေး command ကို run ပါ:",
   dl_linux_arch_note: "**ထုတ်ဝေမှုစာမျက်နှာရှိ Linux ဒေါင်းလုဒ်များသည် x86_64 သီးသန့်ဖြစ်သည်။** ARM64 စက်များ (Raspberry Pi, Asahi Linux) တွင် Flatpak install လုပ်၍ရသော်လည်း ဖွင့်သည့်အခါ `bwrap: execvp ldconfig: Exec format error` ဖြင့် ကျရှုံးသည်။",
-  dl_linux_flatpak_intro: "**Flatpak (sandboxed alternative):** Arroxy ၏ ကိုယ်ပိုင် Flatpak repository မှ ထည့်သွင်းပါ။ Flathub runtime ကို ၎င်းကိုယ်တိုင် ပြင်ဆင်ပေးပြီး ထို့နောက် `flatpak update` (သို့မဟုတ် GNOME Software) က Arroxy ကို နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။",
   dl_warning_h3: "သတိပေးချက် ဘာကြောင့်မြင်ရနိုင်သနည်း",
   dl_warning_p1:
     "Arroxy သည် open-source ဖြစ်ပြီး MIT-licensed ဖြစ်သည်။ Windows နှင့် macOS builds များသည် **code-sign မလုပ်ထားပါ** — Apple Developer ID နှင့် Windows EV code-signing certificates တို့သည် တစ်နှစ်လျှင် ဒေါ်လာ ရာနှင့်ချီ ကုန်ကျပြီး indie project တစ်ခုအတွက် ကိုယ်တိုင်ကျခံရသည်။ ထိုလက်မှတ်များမပါဘဲ Windows SmartScreen နှင့် macOS Gatekeeper တို့သည် ပထမဆုံး launch တွင် သတိပေးလိမ့်မည်။ သတိပေးချက်များ၏ အဓိပ္ပာယ်မှာ *သင့် OS က publisher ကို မသိသောကြောင့်ဖြစ်ပြီး* Arroxy malware ဖြစ်ကြောင်း မဆိုလိုပါ။",

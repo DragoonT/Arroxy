@@ -63,17 +63,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Linux script သည် ဒေါင်းလုဒ်ကို ထုတ်ပြန်ထားသော `SHA256SUMS` ဖြင့် စစ်ဆေးပြီး Arroxy ကို သင့်အက်ပ်မီနူးထဲ ထည့်ပေးသည်။ Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်။ `curl` မရှိဘူးလား။ `curl -fsSL` အစား `wget -qO-` သုံးပါ။
-
-**sandbox လုပ်ထားသော Flatpak ကို ပိုကြိုက်ပါသလား။** `--flatpak` ထည့်ပါ။ လိုအပ်ပါက Flatpak ကို အရင်ထည့်သွင်းပြီး (`sudo` တောင်းသည့် တစ်ခုတည်းသော အဆင့်) ထို့နောက် Arroxy ကို ၎င်း၏ကိုယ်ပိုင် Flatpak repository မှ ထည့်သွင်းသဖြင့် `flatpak update` က နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။ `.flatpak` အဟောင်းမှ ထည့်ထားသော မိတ္တူကို အစားထိုးပြီး ဆက်တင်များ ကျန်ရှိနေပါမည်:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်။ `curl` မရှိဘူးလား။ `curl -fsSL` အစား `wget -qO-` သုံးပါ။
 
 | Platform | Format |
 | --- | --- |
@@ -164,39 +166,6 @@ Launch မအောင်မြင်သေးလျှင် mount မလုပ
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (sandboxed alternative):** Arroxy ၏ ကိုယ်ပိုင် Flatpak repository မှ ထည့်သွင်းပါ။ Flathub runtime ကို ၎င်းကိုယ်တိုင် ပြင်ဆင်ပေးပြီး ထို့နောက် `flatpak update` (သို့မဟုတ် GNOME Software) က Arroxy ကို နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။
-
-Ubuntu တွင် Flatpak အစား Snap ပါလာသဖြင့် Flatpak ကို ဦးစွာ ထည့်သွင်းပါ:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-ဖိုင်ဖြင့် ထည့်လိုပါသလား။ ထုတ်ဝေမှုစာမျက်နှာတစ်ခုတည်းမှ `Arroxy-linux-x64.flatpak` ကို ဒေါင်းလုဒ်လုပ်ပြီး ၎င်းကို ထည့်သွင်းပါ — repository တစ်ခုတည်းကို ပြင်ဆင်ပေးသဖြင့် အပ်ဒိတ်များ အလားတူ အလုပ်လုပ်ပါသည်:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**`.flatpak` အဟောင်းမှ ထည့်သွင်းထားပါသလား။** ထိုမိတ္တူတွင် အပ်ဒိတ်ရင်းမြစ် မရှိပါ။ တစ်ကြိမ် ဖယ်ရှားပြီး (သင့်ဆက်တင်များ ကျန်ရှိနေပါမည်) အထက်ပါ ထည့်သွင်းရေး command ကို run ပါ:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **ထုတ်ဝေမှုစာမျက်နှာရှိ Linux ဒေါင်းလုဒ်များသည် x86_64 သီးသန့်ဖြစ်သည်။** ARM64 စက်များ (Raspberry Pi, Asahi Linux) တွင် Flatpak install လုပ်၍ရသော်လည်း ဖွင့်သည့်အခါ `bwrap: execvp ldconfig: Exec format error` ဖြင့် ကျရှုံးသည်။

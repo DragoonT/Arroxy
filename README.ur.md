@@ -65,17 +65,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-لینکس اسکرپٹ ڈاؤن لوڈ کو شائع کردہ `SHA256SUMS` کے مقابل جانچتا ہے اور Arroxy کو آپ کے ایپلیکیشن مینو میں شامل کرتا ہے۔ بلڈز صرف x86_64 کے لیے ہیں۔ `curl` نہیں ہے؟ `curl -fsSL` کی جگہ `wget -qO-` استعمال کریں۔
-
-**سینڈ باکس والا Flatpak پسند ہے؟** `--flatpak` شامل کریں۔ ضرورت ہو تو یہ پہلے Flatpak انسٹال کرتا ہے (صرف یہی قدم `sudo` مانگتا ہے)، پھر Arroxy کو اس کی اپنی Flatpak ریپوزٹری سے انسٹال کرتا ہے، تاکہ `flatpak update` اسے تازہ رکھے۔ پرانی `.flatpak` سے انسٹال کی گئی کاپی بدل دی جاتی ہے اور اس کی سیٹنگز برقرار رہتی ہیں:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+بلڈز صرف x86_64 کے لیے ہیں۔ `curl` نہیں ہے؟ `curl -fsSL` کی جگہ `wget -qO-` استعمال کریں۔
 
 | پلیٹ فارم | فارمیٹ |
 | --- | --- |
@@ -166,39 +168,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (سینڈ باکسڈ متبادل):** اسے Arroxy کی اپنی Flatpak ریپوزٹری سے انسٹال کریں۔ یہ Flathub رن ٹائم خود سیٹ کر لیتا ہے، اور اس کے بعد `flatpak update` (یا GNOME Software) Arroxy کو تازہ رکھتا ہے۔
-
-Ubuntu میں Flatpak کی جگہ Snap آتا ہے، اس لیے پہلے Flatpak انسٹال کریں:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-فائل پسند ہے؟ اسی ریلیز صفحے سے `Arroxy-linux-x64.flatpak` ڈاؤن لوڈ کر کے اسے انسٹال کریں — یہ وہی ریپوزٹری سیٹ کرتا ہے، اس لیے اپ ڈیٹس اسی طرح کام کرتی ہیں:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**پرانی `.flatpak` سے انسٹال کیا تھا؟** اس کاپی کا کوئی اپ ڈیٹ ذریعہ نہیں۔ اسے ایک بار ان انسٹال کریں (آپ کی سیٹنگز برقرار رہیں گی)، پھر اوپر والی انسٹال کمانڈ چلائیں:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **ریلیز پیج پر Linux ڈاؤن لوڈز صرف x86_64 کے لیے ہیں۔** ARM64 مشینوں (Raspberry Pi، Asahi Linux) پر Flatpak انسٹال تو ہو جاتا ہے مگر لانچ پر `bwrap: execvp ldconfig: Exec format error` کے ساتھ ناکام ہو جاتا ہے۔

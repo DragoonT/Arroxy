@@ -63,17 +63,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-يتحقق سكربت لينكس من التنزيل مقابل ملفات `SHA256SUMS` المنشورة ويضيف Arroxy إلى قائمة تطبيقاتك. الإصدارات متاحة لمعمارية x86_64 فقط. لا يوجد `curl`؟ استبدل `curl -fsSL` بـ `wget -qO-`.
-
-**تفضّل نسخة Flatpak المعزولة؟** أضف `--flatpak`. يثبّت Flatpak أولًا إن لزم (الخطوة الوحيدة التي تطلب `sudo`)، ثم يثبّت Arroxy من مستودع Flatpak الخاص به، فيُبقيه `flatpak update` محدّثًا. تُستبدل النسخة المثبّتة من ملف `.flatpak` أقدم مع الاحتفاظ بإعداداتها:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+الإصدارات متاحة لمعمارية x86_64 فقط. لا يوجد `curl`؟ استبدل `curl -fsSL` بـ `wget -qO-`.
 
 | النظام | الصيغة |
 | --- | --- |
@@ -164,39 +166,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (بديل معزول):** ثبّته من مستودع Flatpak الخاص بـ Arroxy. يُعدّ بيئة تشغيل Flathub بنفسه، ومن بعدها يُبقي `flatpak update` (أو GNOME Software) برنامج Arroxy محدّثًا.
-
-يأتي Ubuntu مع Snap بدلًا من Flatpak، لذا ثبّت Flatpak أولًا:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-تفضّل ملفًا؟ نزّل `Arroxy-linux-x64.flatpak` من صفحة الإصدار نفسها وثبّته بدلًا من ذلك — فهو يُعدّ المستودع نفسه، لذا تعمل التحديثات بالطريقة نفسها:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**ثبّتَّه من ملف `.flatpak` أقدم؟** تلك النسخة بلا مصدر للتحديثات. أزل تثبيتها مرة واحدة (تبقى إعداداتك)، ثم شغّل أمر التثبيت أعلاه:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **تنزيلات لينكس في صفحة الإصدارات متاحة لمعمارية x86_64 فقط.** على أجهزة ARM64 (Raspberry Pi، Asahi Linux) يُثبَّت Flatpak لكنه يفشل عند التشغيل برسالة `bwrap: execvp ldconfig: Exec format error`.

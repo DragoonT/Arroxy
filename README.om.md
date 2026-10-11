@@ -63,17 +63,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Skiriptiin Linux buufata `SHA256SUMS` maxxanfame waliin mirkaneessa, akkasumas Arroxy gara baafata appilikeeshinii keetiitti dabala. Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.
-
-**Flatpak adda baafame filattaa?** `--flatpak` dabali. Yoo barbaachise dura Flatpak ijaara (tarkaanfii `sudo` gaafatu qofa), sana booda Arroxy kuusaa Flatpak mataa isaa irraa ijaara; kanaaf `flatpak update` haaromsaa godha. Garagalchi `.flatpak` moofaa irraa ijaarame ni bakka bu'ama, qindaa'inni isaa ni hafa:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.
 
 | Platform | Format |
 | --- | --- |
@@ -164,39 +166,6 @@ Ijaarsi `.tar.gz` isuma appii sanaa haguuggii AppImage malee — bakka feete baa
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (filannoo sandboxed):** Kuusaa Flatpak kan Arroxy mataa isaa irraa ijaari. Runtime Flathub ofumaan qopheessa; achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha.
-
-Ubuntu Flatpak bakka Snap qabatee dhufa, kanaaf jalqaba Flatpak ijaari:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-Faayilii filattaa? Fuula gadhiisaa sana irraa `Arroxy-linux-x64.flatpak` buufadhuu isa ijaari — kuusaa sanuma qopheessa, kanaaf haaromsi akkasuma hojjeta:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**`.flatpak` moofaa irraa ijaarattee?** Garagalchi sun madda haaromsaa hin qabu. Al tokko haqi (qindaa'inni kee ni hafa), sana booda ajaja ijaarsaa armaan olii hojjechiisi:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.

@@ -198,8 +198,7 @@ export const om = {
   dl_platform_col: "Platform",
   dl_format_col: "Format",
   dl_oneline_note:
-    "Skiriptiin Linux buufata `SHA256SUMS` maxxanfame waliin mirkaneessa, akkasumas Arroxy gara baafata appilikeeshinii keetiitti dabala. Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.",
-  dl_oneline_flatpak: "**Flatpak adda baafame filattaa?** `--flatpak` dabali. Yoo barbaachise dura Flatpak ijaara (tarkaanfii `sudo` gaafatu qofa), sana booda Arroxy kuusaa Flatpak mataa isaa irraa ijaara; kanaaf `flatpak update` haaromsaa godha. Garagalchi `.flatpak` moofaa irraa ijaarame ni bakka bu'ama, qindaa'inni isaa ni hafa:",
+    "Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.",
   dl_win_scoop:
     "Scoop filattaa? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Fayyadu (NSIS) ykn Portable `.exe`",
@@ -259,11 +258,7 @@ export const om = {
   dl_linux_fuse_text: "Eegaluun yoo ammallee fashale, osoo hin fe'in isa yaasi — paakejiin FUSE hin barbaachisu:",
   dl_linux_targz_h4: "Taarboolii salphaa (FUSE hin barbaachisu, ijaarsi hin barbaachisu):",
   dl_linux_targz_text: "Ijaarsi `.tar.gz` isuma appii sanaa haguuggii AppImage malee — bakka feete baasii yaasi. Ijaarsis ta'e paakejiin FUSE hin barbaachisu.",
-  dl_linux_flatpak_prereq: "Ubuntu Flatpak bakka Snap qabatee dhufa, kanaaf jalqaba Flatpak ijaari:",
-  dl_linux_flatpak_bundle: "Faayilii filattaa? Fuula gadhiisaa sana irraa `Arroxy-linux-x64.flatpak` buufadhuu isa ijaari — kuusaa sanuma qopheessa, kanaaf haaromsi akkasuma hojjeta:",
-  dl_linux_flatpak_old_bundle: "**`.flatpak` moofaa irraa ijaarattee?** Garagalchi sun madda haaromsaa hin qabu. Al tokko haqi (qindaa'inni kee ni hafa), sana booda ajaja ijaarsaa armaan olii hojjechiisi:",
   dl_linux_arch_note: "**Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.",
-  dl_linux_flatpak_intro: "**Flatpak (filannoo sandboxed):** Kuusaa Flatpak kan Arroxy mataa isaa irraa ijaari. Runtime Flathub ofumaan qopheessa; achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha.",
   dl_warning_h3: "Maaliif akeekkachiisa arguu dandeessa",
   dl_warning_p1:
     "Arroxy madda banaa fi hayyama MIT qaba. Ijaarsonni Windows fi macOS **mallattoo hin qaban** — ragaaleen Apple Developer ID fi Windows EV mallattoo koodii kafaltii waggaatti dhibba doolara baay'ee waan gaafataniif, pirojektiin self-funded baasii kana mataa isaarraa kafala. Mallattoo sana malee, Windows SmartScreen fi macOS Gatekeeper yeroo jalqabaatti si akeekachisuu. Akeekkachiisni kun *siistamni kee maxxantiisa hin beeku* jechuudha — Arroxy malwaare dha jechuuf miti.",

@@ -198,8 +198,7 @@ export const vi = {
   dl_platform_col: "Nền tảng",
   dl_format_col: "Định dạng",
   dl_oneline_note:
-    "Script Linux đối chiếu tệp tải về với `SHA256SUMS` đã công bố và thêm Arroxy vào menu ứng dụng. Bản dựng chỉ dành cho x86_64. Không có `curl`? Thay `curl -fsSL` bằng `wget -qO-`.",
-  dl_oneline_flatpak: "**Thích bản Flatpak chạy trong sandbox?** Thêm `--flatpak`. Script sẽ cài Flatpak trước nếu cần (bước duy nhất hỏi `sudo`), rồi cài Arroxy từ kho Flatpak riêng của nó, nên `flatpak update` giữ Arroxy luôn mới. Bản cài từ tệp `.flatpak` cũ sẽ được thay thế và giữ nguyên cài đặt:",
+    "Bản dựng chỉ dành cho x86_64. Không có `curl`? Thay `curl -fsSL` bằng `wget -qO-`.",
   dl_win_scoop:
     "Bạn thích Scoop hơn? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Trình cài đặt (NSIS) hoặc Portable `.exe`",
@@ -260,11 +259,7 @@ export const vi = {
   dl_linux_fuse_text: "Nếu vẫn không khởi động được, hãy chạy mà không cần gắn kết — không cần gói FUSE:",
   dl_linux_targz_h4: "Tarball thuần (không FUSE, không cài đặt):",
   dl_linux_targz_text: "Bản `.tar.gz` chính là ứng dụng đó nhưng không có lớp vỏ AppImage — giải nén ở đâu cũng được rồi chạy. Không cần trình cài đặt, không cần gói FUSE.",
-  dl_linux_flatpak_prereq: "Ubuntu đi kèm Snap thay vì Flatpak, nên hãy cài Flatpak trước:",
-  dl_linux_flatpak_bundle: "Thích dùng tệp hơn? Tải `Arroxy-linux-x64.flatpak` từ cùng trang phát hành và cài nó thay thế — tệp này thiết lập cùng kho đó, nên cập nhật hoạt động y như vậy:",
-  dl_linux_flatpak_old_bundle: "**Đã cài từ tệp `.flatpak` cũ?** Bản đó không có nguồn cập nhật. Gỡ cài đặt một lần (cài đặt của bạn vẫn giữ nguyên), rồi chạy lệnh cài đặt ở trên:",
   dl_linux_arch_note: "**Các bản tải Linux trên trang phát hành chỉ có x86_64.** Trên máy ARM64 (Raspberry Pi, Asahi Linux), Flatpak vẫn cài được nhưng khi khởi chạy sẽ lỗi `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_intro: "**Flatpak (lựa chọn thay thế sandbox):** Cài từ kho Flatpak riêng của Arroxy. Nó tự thiết lập runtime Flathub, và từ đó `flatpak update` (hoặc GNOME Software) giữ Arroxy luôn mới.",
   dl_warning_h3: "Tại sao bạn có thể thấy cảnh báo",
   dl_warning_p1:
     "Arroxy là phần mềm mã nguồn mở theo giấy phép MIT. Các bản build trên Windows và macOS **không được ký mã** — chứng chỉ Apple Developer ID và Windows EV code-signing mỗi loại tốn hàng trăm đô la mỗi năm, một dự án độc lập phải tự chi trả. Không có những chữ ký đó, Windows SmartScreen và macOS Gatekeeper sẽ cảnh báo khi khởi động lần đầu. Các cảnh báo có nghĩa là *hệ điều hành của bạn không nhận ra nhà phát hành* — không có nghĩa là Arroxy là phần mềm độc hại.",

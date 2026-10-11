@@ -65,17 +65,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Linux betiği indirmeyi yayımlanan `SHA256SUMS` ile doğrular ve Arroxy'yi uygulama menünüze ekler. Sürümler yalnızca x86_64'tür. `curl` yok mu? `curl -fsSL` yerine `wget -qO-` kullanın.
-
-**Yalıtılmış Flatpak'i mi tercih edersiniz?** `--flatpak` ekleyin. Gerekirse önce Flatpak'i kurar (`sudo` isteyen tek adım), ardından Arroxy'yi kendi Flatpak deposundan kurar; böylece `flatpak update` onu güncel tutar. Eski bir `.flatpak` dosyasından kurulan kopya değiştirilir ve ayarları korunur:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+Sürümler yalnızca x86_64'tür. `curl` yok mu? `curl -fsSL` yerine `wget -qO-` kullanın.
 
 | Platform | Doğrudan indirme |
 | --- | --- |
@@ -166,39 +168,6 @@ Açılış hâlâ başarısızsa bağlamadan çalıştırın — FUSE paketi ger
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (sandbox'lı alternatif):** Arroxy'nin kendi Flatpak deposundan kurun. Flathub çalışma ortamını kendisi kurar ve bundan sonra `flatpak update` (veya GNOME Yazılım) Arroxy'yi güncel tutar.
-
-Ubuntu, Flatpak yerine Snap ile gelir; bu yüzden önce Flatpak'i kurun:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-Dosya mı tercih edersiniz? Aynı sürüm sayfasından `Arroxy-linux-x64.flatpak` dosyasını indirip onu kurun — aynı depoyu ayarlar, böylece güncellemeler aynı şekilde çalışır:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**Eski bir `.flatpak` dosyasından mı kurdunuz?** O kopyanın güncelleme kaynağı yok. Bir kez kaldırın (ayarlarınız korunur), ardından yukarıdaki kurulum komutunu çalıştırın:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Sürüm sayfasındaki Linux indirmeleri yalnızca x86_64'tür.** ARM64 makinelerde (Raspberry Pi, Asahi Linux) Flatpak kurulur ama açılışta `bwrap: execvp ldconfig: Exec format error` hatasıyla başarısız olur.

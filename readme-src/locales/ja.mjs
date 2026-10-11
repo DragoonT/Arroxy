@@ -196,8 +196,7 @@ export const ja = {
   dl_platform_col: "プラットフォーム",
   dl_format_col: "フォーマット",
   dl_oneline_note:
-    "Linux 用スクリプトは、公開されている `SHA256SUMS` とダウンロードを照合し、Arroxy をアプリケーションメニューに追加します。ビルドは x86_64 のみです。`curl` がない場合は `curl -fsSL` を `wget -qO-` に置き換えてください。",
-  dl_oneline_flatpak: "**サンドボックス化された Flatpak がよければ** `--flatpak` を付けてください。必要なら先に Flatpak をインストールし（`sudo` を求めるのはこの手順だけです）、次に Arroxy 独自の Flatpak リポジトリから Arroxy をインストールするので、以後は `flatpak update` で最新に保てます。古い `.flatpak` から入れたコピーは置き換えられ、設定は残ります:",
+    "ビルドは x86_64 のみです。`curl` がない場合は `curl -fsSL` を `wget -qO-` に置き換えてください。",
   dl_win_scoop:
     "Scoop をお使いですか？ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "インストーラ（NSIS）またはポータブル `.exe`",
@@ -257,11 +256,7 @@ export const ja = {
   dl_linux_fuse_text: "それでも起動しない場合は、マウントせずに実行してください。FUSE パッケージは不要です：",
   dl_linux_targz_h4: "通常のアーカイブ（FUSE 不要、インストール不要）：",
   dl_linux_targz_text: "`.tar.gz` 版は AppImage のラッパーを外した同じアプリです。好きな場所に展開して実行するだけで、インストーラーも FUSE パッケージも不要です。",
-  dl_linux_flatpak_prereq: "Ubuntu には Flatpak ではなく Snap が入っているため、まず Flatpak をインストールします:",
-  dl_linux_flatpak_bundle: "ファイルで入れたい場合は、同じリリースページから `Arroxy-linux-x64.flatpak` をダウンロードしてインストールします。同じリポジトリが設定されるので、アップデートも同じように届きます:",
-  dl_linux_flatpak_old_bundle: "**古い `.flatpak` からインストールした場合:** そのコピーには更新元がありません。一度アンインストールし（設定は残ります）、上のインストールコマンドを実行してください:",
   dl_linux_arch_note: "**リリースページの Linux ダウンロードは x86_64 のみです。** ARM64 マシン（Raspberry Pi、Asahi Linux）では Flatpak はインストールできますが、起動時に `bwrap: execvp ldconfig: Exec format error` で失敗します。",
-  dl_linux_flatpak_intro: "**Flatpak（サンドボックス版）：** Arroxy 独自の Flatpak リポジトリからインストールします。Flathub のランタイムは自動で設定され、以後は `flatpak update`（または GNOME ソフトウェア）で Arroxy を最新に保てます。",
   dl_warning_h3: "警告が表示される理由",
   dl_warning_p1:
     "Arroxy はオープンソースで MIT ライセンスのソフトウェアです。Windows および macOS のビルドは**コード署名されていません** — Apple Developer ID と Windows EV のコード署名証明書はそれぞれ年間数百ドルかかり、個人プロジェクトでは自己負担になります。署名がない場合、Windows SmartScreen と macOS Gatekeeper は初回起動時に警告を表示します。これらの警告は*OS が発行元を認識していない*ことを意味するものであり、Arroxy がマルウェアであることを示すものではありません。",

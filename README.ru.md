@@ -65,17 +65,19 @@ brew install --cask antonio-orionus/arroxy/arroxy
 
 **Linux**
 
+AppImage:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 ```
 
-Скрипт для Linux сверяет загрузку с опубликованными `SHA256SUMS` и добавляет Arroxy в меню приложений. Сборки только x86_64. Нет `curl`? Замените `curl -fsSL` на `wget -qO-`.
-
-**Хотите изолированный Flatpak?** Добавьте `--flatpak`. Скрипт при необходимости сначала установит Flatpak (единственный шаг, который просит `sudo`), затем Arroxy из его собственного Flatpak-репозитория, так что `flatpak update` будет его обновлять. Копия из старого `.flatpak` заменяется, настройки сохраняются:
+Flatpak:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
+
+Сборки только x86_64. Нет `curl`? Замените `curl -fsSL` на `wget -qO-`.
 
 | Платформа | Формат |
 | --- | --- |
@@ -166,39 +168,6 @@ chmod +x Arroxy-linux-x64.AppImage
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
-```
-
-**Flatpak (изолированная альтернатива):** Установите его из собственного Flatpak-репозитория Arroxy. Среда выполнения Flathub настроится сама, а дальше `flatpak update` (или GNOME Software) будет поддерживать Arroxy в актуальном состоянии.
-
-В Ubuntu вместо Flatpak идёт Snap, поэтому сначала установите Flatpak:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y flatpak
-
-# Fedora
-sudo dnf install -y flatpak
-
-# Arch
-sudo pacman -S flatpak
-```
-
-```bash
-flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-Удобнее файлом? Скачайте `Arroxy-linux-x64.flatpak` с той же страницы релиза и установите его — он подключает тот же репозиторий, так что обновления работают так же:
-
-```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
-```
-
-**Ставили из старого `.flatpak`?** У этой копии нет источника обновлений. Удалите её один раз (настройки сохранятся), затем выполните команду установки выше:
-
-```bash
-flatpak uninstall --user io.github.antonio_orionus.Arroxy
 ```
 
 **Загрузки для Linux на странице релизов только x86_64.** На машинах ARM64 (Raspberry Pi, Asahi Linux) Flatpak установится, но не запустится: `bwrap: execvp ldconfig: Exec format error`.
