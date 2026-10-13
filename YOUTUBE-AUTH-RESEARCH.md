@@ -14,6 +14,17 @@ Brave 151, yt-dlp 2026.07.04.
 > Account identifiers, cookie values and tokens from the test session are
 > redacted throughout.
 
+> **Superseded points (2026-10-13).** This is a research record and keeps its
+> history; [the spec](dev-docs/in-app-browser-spec.md) is authoritative where
+> they differ:
+>
+> - §1 / §3 recipe `Arroxy/1.0.0` → the UA token is **`Desktop/1.0`**; the product name is never used.
+> - §1 "Verified on macOS only" / §4a / §6a "Not yet executed" → sign-in measured on **macOS, Windows and Linux** (arm64).
+> - §6a "PO tokens … now only a fallback" / "yt-dlp settles on `android_vr`" → out of date: signed-in runs use `web_embedded` / `tv_samsung` / `web`, `android_vr` rejects cookies, and **account-bound tokens are required** on escalated runs.
+> - §6a "Rollout: Legacy frozen, Explore experimental" → Explore is **on by default** with a "New" badge, cookies used **only when a job needs them**, and `explore` is a **cookie mode** (spec D1, D3, D6).
+> - §6a "Open UX decision" (inline vs modal) → decided: **inline** (spec D2).
+> - §6a / §7 "Cookie rotation" open question → measured; see the spec's *Cookie freshness — measured*.
+
 ---
 
 ## 1. The answer, in short
