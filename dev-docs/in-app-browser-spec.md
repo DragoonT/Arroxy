@@ -19,13 +19,13 @@ and never a UI label.
 
 | Path | Role |
 |---|---|
-| `src/main/services/ExploreSessionService.ts` | **new** — owns the Explore partition: UA, proxy, permission/download policy, cookie reads, signed-in check and verification, account PO-token minting. Desktop adapter for `SessionCookieJarPort` |
+| `src/main/services/ExploreSessionService.ts` | **new** — owns the Explore partition: UA, proxy, permission/download policy, cookie reads, signed-in check and verification. Desktop adapter for `SessionCookieJarPort` |
 | `src/main/services/netscapeCookieJar.ts` | **new** — pure `ExploreCookie[]` → Netscape text, with domain filter |
 | `src/main/services/exploreEscalation.ts` | **new** — pure: does a failed run escalate? Matches `(errorKind, rawError/stderr)` (D1) |
 | `src/shared/sites/types.ts`, `src/shared/sites/youtube.ts` | `Site.explore` capability (D5); owned `ExploreCookie` type — no Electron types in `src/shared` |
 | `src/main/services/cookiesResolver.ts` | exhaustive switch over `(cookiesMode, auth)`; `file`/`browser`/`off` results unchanged |
 | `src/main/services/YtDlp.ts` | `auth` run option (replaces `withoutCookies`); per-spawn jar via the injected port inside `invokeOnce`; stale-cookie warning detection |
-| `src/main/services/TokenService.ts`, `src/main/token/providers/HiddenWindowTokenProvider.ts` | tokens keyed by identity (anonymous vs account); `CHROME_UA` fix ships separately first |
+| `src/main/services/YtDlp.ts` `invokeWithRetry` | escalated runs bypass the PoT ladder (no anonymous token); `HiddenWindowTokenProvider` `CHROME_UA` fix ships separately first (PR #263) |
 | `src/main/services/ProbeService.ts` | probe-time escalation; `auth` on the probe result |
 | `src/main/services/QueueService.ts` | carries `auth` from item to `StartDownloadInput`; persists escalation before the escalated spawn |
 | `src/main/services/phases/VideoPhase.ts`, `SidecarSubsPhase.ts`, `SubtitleOnlyPhase.ts` | every `ytDlp.run` caller passes the job's `auth`; escalated jobs bypass `CookielessRetry` (D4) |
@@ -144,7 +144,7 @@ interface SiteExplore {
 
 YouTube's values:
 
-- `cookieDomains`: **`youtube.com` only.** yt-dlp authenticates YouTube with YouTube's cookies; `.google.com` session cookies (which carry Gmail etc.) never reach a temp file. *Verify* with the Watch Later oracle on a filtered jar during the Mac measurement.
+- `cookieDomains`: **`youtube.com` only.** yt-dlp authenticates YouTube with YouTube's cookies; `.google.com` session cookies (which carry Gmail etc.) never reach a temp file. **Verified 2026-10-13:** a youtube.com-only jar (21 of 54 cookies) authenticates Watch Later exactly as the full jar does.
 - `isSignedIn`: `LOGIN_INFO` plus a SAPISID-family cookie (yt-dlp's own `_has_auth_cookies` rule). Cheap and synchronous — a *presence* check; see verification below for *validity*.
 - `navigationHosts`: see Navigation policy.
 
@@ -230,7 +230,6 @@ class ExploreSessionService implements SessionCookieJarPort {
   readCookies(siteId: SiteId): Promise<ExploreCookie[]>   // live read, never cached, filtered to cookieDomains
   hasAuthCookies(siteId: SiteId): Promise<boolean>        // site.explore.isSignedIn — presence only
   verifySignedIn(siteId: SiteId): Promise<boolean>        // hidden page in the partition reads LOGGED_IN — validity
-  mintAccountToken(siteId: SiteId): Promise<PoToken>      // see PO tokens
   signOut(): Promise<void>                       // clearStorageData on the partition
   withJar<T>(siteId: SiteId, fn: (jarPath: string) => Promise<T>): Promise<T>
 }
@@ -337,7 +336,7 @@ subresources (images, scripts, video from `ytimg.com`, `ggpht.com`,
 - Never inject scripts into `accounts.google.com` — not for convenience, not for diagnostics. (`verifySignedIn` reads `ytcfg` on `youtube.com` only.)
 - The manual matrix logs every off-allowlist host hit during sign-in, to catch hops the spike did not see.
 
-### PO tokens — identity-bound, built with escalation
+### PO tokens — never the anonymous token on an escalated run
 
 Today every YouTube media run (and explicit single-video probe) mints a PO
 token from the **anonymous** `HiddenWindowTokenProvider` and sends it with
@@ -346,9 +345,17 @@ cache). An escalated run would therefore pair signed-in cookies with a token
 bound to a different, anonymous identity — the mismatch the research measured
 as "cookies + `web.gvs` token → 0 formats". So:
 
-- **`TokenService` is keyed by identity:** `anonymous` (today's provider and cache, unchanged) and `account` (minted by `ExploreSessionService.mintAccountToken` *inside the Explore partition*, bound to the account's `DATASYNC_ID`, passed as `data_sync_id` rather than `visitor_data` — confirm the exact extractor-args form against current yt-dlp).
-- **An escalated run never receives the anonymous token.** Account-bound minting ships **in the same step as escalation**, not later.
-- **Pending measurement (before the plan):** on the Mac, with the signed-in session, compare formats for a public video with (a) no token, (b) the anonymous token, (c) an account-bound token — this decides whether (b) is merely suboptimal or broken, and whether escalated runs could start token-less.
+- **An escalated run never receives the anonymous token.** Per the recommendation below, v1 sends it no token at all; if account-bound minting is ever needed, `TokenService` becomes keyed by identity (`anonymous` vs `account`, the latter minted inside the Explore partition and passed as `data_sync_id`).
+- **Measured 2026-10-13** (macOS, yt-dlp `2026.10.10` nightly, public 4K video `aqz-KE-bpKQ`, `best-quality` profile; the signed-in jar was youtube.com-only and verified authenticated via Watch Later):
+
+  | Run | Clients yt-dlp used | Result |
+  |---|---|---|
+  | Anonymous + anonymous token (today's pipeline, `smoke:download`) | `tv_samsung`, `visionos`, `web_embedded` | `401+258`, **2160p**, 1 attempt |
+  | Signed-in + anonymous token (`smoke:download --cookies file:`) | `web_embedded`, `tv_samsung` | `401+258`, **2160p**, 1 attempt |
+  | Signed-in, **no token** (raw yt-dlp) | `tv_samsung`, `web_embedded` | `401+258`, **2160p**; no withheld-formats warning |
+
+  The research's "cookies + `web.gvs` token → 0 formats" came from the old `mweb` path and **does not reproduce** on current yt-dlp. The anonymous token on a signed-in run is harmless for formats but still pairs two identities.
+- **Recommendation (needs sign-off — reverses the earlier "build account-bound minting with escalation"):** escalated runs send **no PO token** in v1. It removes the identity mismatch, measured full quality, and drops the largest piece of step 3 (minting inside the Explore partition, an identity-keyed `TokenService`). The pipeline's existing withheld-formats signal (`formatsWithheld`) is logged per escalated run; account-bound minting (`data_sync_id`) is added only if that signal shows up on escalated jobs. Not yet covered by the measurement: age-restricted / members-only videos, which need an age-verified account.
 - Signed-in runs currently use `web_embedded` / `tv_samsung` / `web` ([yt-dlp #17805](https://github.com/yt-dlp/yt-dlp/pull/17805)); `android_vr` does not support cookies. Do not hard-code client assumptions; they move with yt-dlp releases.
 - **`CHROME_UA` fix ships separately, first:** `HiddenWindowTokenProvider` declares `X11; Linux x86_64 … Chrome/130` regardless of host — the same class of lie as above, affecting every user's minting today. Its own PR and beta, independent of Explore.
 
@@ -426,7 +433,7 @@ drive real YouTube login from CI.
 
 | Layer | Covers |
 |---|---|
-| Unit (`tests/unit`) | Jar writer: host-only cookies (`FALSE`, no leading dot), `#HttpOnly_`, expiry `0` for session cookies, `__Host-`/`__Secure-` names; domain filter (`.google.com` excluded); escalation matcher over `(kind, message)` incl. private, members-only, WL/LL, botBlock-after-ladder, and every non-escalating kind; sticky `auth` through probe result → ref → queue item → `StartDownloadInput`, playlist inheritance, persistence before the escalated spawn; per-job spawn cap; concurrency/pacing; `CookielessRetry` bypass (D4); `resolveCookies` exhaustive over modes, `file`/`browser`/`off` unchanged; auto-switch at first open exactly once, later `off` respected, `file`/`browser` never switched; `probeErrorExperience` under `explore`; stale warning → verify → one retry / signed-out state; navigation policy decisions; `exploreUserAgent` validation; devtools gate; **UA invariant**; identity-keyed `TokenService` (escalated runs never get the anonymous token) |
+| Unit (`tests/unit`) | Jar writer: host-only cookies (`FALSE`, no leading dot), `#HttpOnly_`, expiry `0` for session cookies, `__Host-`/`__Secure-` names; domain filter (`.google.com` excluded); escalation matcher over `(kind, message)` incl. private, members-only, WL/LL, botBlock-after-ladder, and every non-escalating kind; sticky `auth` through probe result → ref → queue item → `StartDownloadInput`, playlist inheritance, persistence before the escalated spawn; per-job spawn cap; concurrency/pacing; `CookielessRetry` bypass (D4); `resolveCookies` exhaustive over modes, `file`/`browser`/`off` unchanged; auto-switch at first open exactly once, later `off` respected, `file`/`browser` never switched; `probeErrorExperience` under `explore`; stale warning → verify → one retry / signed-out state; navigation policy decisions; `exploreUserAgent` validation; devtools gate; **UA invariant**; escalated runs never receive the anonymous PO token |
 | Renderer (`tests/renderer`) | Explore tab after URL, "New" badge, URL still the launch tab, absent when `exploreEnabled` off; first-run notice; nudge shown/hidden/dismissed; view not mounted before first open; placeholder hidden while a modal is open |
 | Browser mock (`tests/browser`) | Explore layout at 720x680 and 150% zoom; new tab-bar case in `toggle-overflow.spec.ts` across `el`/`fr`/`my` |
 | Mock Electron E2E | Partition isolation from the app session; no cookies over IPC; no Explore partition activity before first open; `will-download` cancelled |
@@ -457,7 +464,7 @@ Observed on every platform, and binding on the implementation:
 0. **Separate PR, now:** `CHROME_UA` fix in `HiddenWindowTokenProvider` → **verify:** unit test on the UA; live smoke that anonymous minting still works on all three platforms.
 1. **Seams, no behaviour change:** `ExploreCookie` + `Site.explore` (YouTube values), `netscapeCookieJar` + domain filter, `SessionCookieJarPort`, `cookiesModeSchema` + `'explore'` with an exhaustive `resolveCookies`, `jobAuthSchema`, the identity run option replacing `withoutCookies`, `explore` handled in `probeErrorExperience` / settings / analytics (option not yet offered in UI) → **verify:** unit tests; all existing tests pass untouched.
 2. **`ExploreSessionService` headless:** partition, UA + validation, proxy, permissions, `will-download`, devtools gate, cookie reads, `hasAuthCookies`, `verifySignedIn`, port adapter, E2E-only seeding hook, startup jar sweep → **verify:** unit + mock E2E isolation.
-3. **Escalation and identity-bound tokens, together:** matcher; `auth` data flow (probe result → ref → queue item → `StartDownloadInput`, persistence, playlist inheritance, every `ytDlp.run` caller); `VideoPhase` persist-before-spawn; `CookielessRetry` bypass; identity-keyed `TokenService` + account minting; stale-warning handling; spawn cap, concurrency, pacing → **verify:** unit + fixture E2E escalation and D4 scenarios.
+3. **Escalation:** matcher; `auth` data flow (probe result → ref → queue item → `StartDownloadInput`, persistence, playlist inheritance, every `ytDlp.run` caller); `VideoPhase` persist-before-spawn; `CookielessRetry` bypass; escalated runs skip the PoT ladder (no anonymous token — see PO tokens); stale-warning handling; spawn cap, concurrency, pacing → **verify:** unit + fixture E2E escalation and D4 scenarios; a live escalated `smoke:download` reaches full quality.
 4. **Explore UI:** tab, lazy `WebContentsView`, IPC (bounds/visibility/navigation/state), overlay policy, navigation policy, first-run notice, auto-switch at first open + nudge, `explore` in cookie settings, kill switch, Bluetooth plist key → **verify:** renderer + browser tests (720x680, 150%, worst-case locales).
 5. **Shipping scope:** all strings in every locale via `translate-arroxy-i18n`; README feature key in every `readme-src/locales/*.mjs` + a screenshot recipe; CHANGELOG (incl. the downgrade note); `CONTEXT.md` glossary; ADR (UA rule + Explore as a cookie mode) → **verify:** `bun run check`, `node readme-src/build.mjs`.
 6. **Manual matrix on the product build** (macOS, Windows, Linux + one x64 probe), logging off-allowlist hosts and the permissions sign-in actually requests → **verify:** the table above repeated against the real app.
@@ -470,7 +477,7 @@ invalidated the design.
 
 ## Open items
 
-- **Signed-in PO-token measurement** (PO tokens) — run on the Mac after the overnight check; result recorded here before the implementation plan.
+- **Escalated runs without a PO token** (PO tokens) — measured; recommendation awaits sign-off.
 - **Session freshness when idle** — overnight parked check pending; sets the idle threshold for `verifySignedIn` before escalation.
 - **Members-only wording** — confirm the message against a real members-only video (D1).
 - **Sign-in permissions** — which permissions Google's flow requests (security keys, paste), from the manual matrix.
