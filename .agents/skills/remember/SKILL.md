@@ -1,6 +1,6 @@
 ---
 name: remember
-description: Persists a durable Arroxy lesson — a gotcha, user preference, workflow rule, or design decision — to the right tracked file (project memory, AGENTS.md, CONTEXT.md, dev-docs, or an ADR) so any coding agent sees it in future sessions. Use when the user says "remember this", corrects a repeated mistake, or a debugging session uncovers something non-obvious.
+description: Persists a durable Arroxy lesson — a gotcha, user preference, workflow rule, or design decision — to the right tracked file (project memory, AGENTS.md, GLOSSARY.md, dev-docs, or an ADR) so any coding agent sees it in future sessions. Use when the user says "remember this", corrects a repeated mistake, or a debugging session uncovers something non-obvious.
 ---
 
 # Remember
@@ -21,7 +21,7 @@ One-off task state, anything already written down, and generic language knowledg
 | What it is | Where it goes |
 | --- | --- |
 | Rule every change must follow (command, convention, gate) | `AGENTS.md`, in the matching section |
-| Domain term or naming decision | `CONTEXT.md` (implementation-free) |
+| Domain term or naming decision | `GLOSSARY.md` (implementation-free) |
 | Hard-to-reverse design choice with a real trade-off | `docs/adr/NNNN-slug.md` |
 | Feature/system explanation that outlives the work | `dev-docs/<topic>.md` |
 | Gotcha, preference, symptom→cause map, external reference | `.agents/memory/<slug>.md` |

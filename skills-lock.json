@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "codebase-design": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/codebase-design/SKILL.md",
+      "computedHash": "b2888e4f4e8c0af3bfd557575a64b905c44e6248c3101d72077816882b3a92b9"
+    },
+    "domain-modeling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/domain-modeling/SKILL.md",
+      "computedHash": "b3eb40152b81f0c98fd2095a023c019452dbdce56f7540cc67fece2972db8369"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
@@ -11,19 +23,19 @@
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
-      "computedHash": "2449db6ab1ded9581f69fcc56c1f64818112d05e271fd4c5da23c6523f9d3d9d"
+      "computedHash": "ac2c94885f34ff8492dc12aa4543182f661f32ea1722b8d6b6c2c7045af33ae3"
     },
     "jscpd": {
       "source": "kucherenko/jscpd",
       "sourceType": "github",
       "skillPath": "skills/jscpd/SKILL.md",
-      "computedHash": "b6399049a3672950979d1d537ea61d380b7fe191356ad3fa40738d70b9872c01"
+      "computedHash": "cc16141596658c1297b42099814ed477264123185fd38ea2c0e125fc23fe9b3a"
     },
     "react-best-practices": {
       "source": "vercel/vercel-plugin",
       "sourceType": "github",
       "skillPath": "skills/react-best-practices/SKILL.md",
-      "computedHash": "4f1da6469280a8293e3e46185e9ed5f477e79728bc02028a89ec3f4abf4fa82e"
+      "computedHash": "fc2d2d8ca9f458b823fc801f1b9d7ab89fb2a8093dcd65f2f6fc256dfeab15dc"
     },
     "review-swarm": {
       "source": "dimillian/skills",
@@ -35,13 +47,13 @@
       "source": "shadcn/ui",
       "sourceType": "github",
       "skillPath": "skills/shadcn/SKILL.md",
-      "computedHash": "f615de216e085a84e31593ad0fa9062232adc40cd87b7c7ab2b8e49abf6500be"
+      "computedHash": "b864a958765563321f485a96f4d59c0bb6539f4286ab6d8b8b66895b7ebd302d"
     },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/tdd/SKILL.md",
-      "computedHash": "e753a5da75292bbe59d302d89566bc2c53d0e73944da2f0e944a7578883c07d0"
+      "computedHash": "daf55026f456af104a72fa43247f7bcec89e5127316dc5b1b8d675d6a9d8ce94"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",

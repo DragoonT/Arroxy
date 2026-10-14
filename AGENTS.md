@@ -10,7 +10,7 @@ The defaults below apply to every change in this codebase.
 - **Prefer mature libraries over bespoke code.** For validation, HTTP, ORM, auth, logging, and similar plumbing, reach for the production-proven, widely-adopted package before writing your own. If a mature library solves the problem, use it.
 - **Push back when something looks wrong.** Don't defer to the user reflexively. If a proposal looks incorrect, incomplete, or inconsistent with the codebase, name the specific reason rather than agreeing. Agreement-by-default is a failure mode.
 - **Verify before you act on uncertainty.** When you're not confident about a fact, an API surface, a library's behavior, or how a piece of this codebase works, check it — read the source, check the docs, run a quick test. Assumed knowledge is the most common source of bugs.
-- **Reuse the domain glossary** in `CONTEXT.md` — the canonical naming reference for the architecture. Use those terms exactly when extending or refactoring; add new entries when extracting modules instead of letting parallel vocabularies sprout.
+- **Reuse the domain glossary** in `GLOSSARY.md` — the canonical naming reference for the architecture. Use those terms exactly when extending or refactoring; add new entries when extracting modules instead of letting parallel vocabularies sprout.
 - Don’t fight errors! Whenever you encounter the same error 3 times, research the web (and github using gh api) and find 3-5 possible ways to fix it. Then choose the most efficient solution and implement it or stop to notify user that there is no clean fix at this point.
 
 ---
@@ -38,7 +38,7 @@ Publishing is **not** part of the app release. Each package ships on its own ann
 
 ## Domain Glossary
 
-Use the canonical glossary in [`CONTEXT.md`](./CONTEXT.md).
+Use the canonical glossary in [`GLOSSARY.md`](./GLOSSARY.md).
 
 The glossary is the single source of terminology for this repo. Keep it implementation-free (no module names, file paths, or migration notes) and update it when vocabulary decisions change. This prevents ambiguous PR reviews and keeps architecture and UX aligned.
 
@@ -67,6 +67,8 @@ Use `docs/adr/0001-slug.md` style files for those decisions. Keep them concise.
 **schemas.ts is SSOT for all enum types.** Pattern: `z.enum([...])` → `type Foo = z.infer<…>` → `const FOOS = fooSchema.options`. Don't redeclare as TS union literals. `QUEUE_STATUS` / `STATUS_KEY` live in `schemas.ts` (not `constants.ts`). `DEFAULTS` lives in `constants.ts`.
 
 **TDD for non-trivial changes.** Write failing tests first, implement minimally, then refactor. Skip only for typo fixes and single-line edits.
+
+**`bunx`, never `npx`.** Run one-off package CLIs with `bunx` (e.g. `bunx skills find <query>`, `bunx skills add <owner/repo@skill>`), even when a skill or upstream doc says `npx`. Inside this checkout `npx` fails with `EOVERRIDE` (`Override for @types/react@… conflicts with direct dependency`) because the root `overrides` apply to npm's package runner; `bunx` ignores them. `check:tooling-contract` already rejects npm-family commands in tracked tooling and docs.
 
 **Translation workflow.** Use the `translate-arroxy-i18n` project skill for app locale changes, PO/POT sync, generated locale JSON, and i18n audits.
 
@@ -128,7 +130,7 @@ Only tiny project-owned, non-installable skills stay tracked under `./.agents/sk
 
 The repo works the same for any coding agent. Keep agent config in three layers:
 
-1. **Shared sources (tracked, plain files):** `AGENTS.md`, `CONTEXT.md`, `.agents/memory/`, `.agents/skills/` + `skills-lock.json`, and `.agents/mcp.json`. Edit only these.
+1. **Shared sources (tracked, plain files):** `AGENTS.md`, `GLOSSARY.md`, `.agents/memory/`, `.agents/skills/` + `skills-lock.json`, and `.agents/mcp.json`. Edit only these.
 2. **Per-tool adapters (gitignored, generated):** `.claude/skills/` links, `.mcp.json`, `.codex/config.toml`, `opencode.jsonc`. (`CLAUDE.md` is a tracked symlink to `AGENTS.md`.) `bun run agents:sync` rebuilds them (`bootstrap` and `agents:skills:restore` run it too). Codex and OpenCode read `.agents/skills` natively; only Claude Code needs the links. To add a tool, extend `scripts/agents-sync.ts`.
 3. **Harness plugins (per machine, never in the repo):** Superpowers, context7, playwright, CodeGraph prompt hooks, etc. install differently in every tool — see [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md). Tracked files must not depend on them: never reference plugin-namespaced skills (`superpowers:*`, `feature-dev:*`) or tool-specific tool names as requirements. If a plugin workflow matters for Arroxy, write the rule into `AGENTS.md` or a project skill.
 
