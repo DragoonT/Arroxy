@@ -111,6 +111,7 @@
 		"release:beta": "bash scripts/release.sh beta",
 		"release:stable": "bash scripts/release.sh stable",
 		"prepare": "husky",
+		"postinstall": "bun scripts/dev-env.ts electron-payload",
 		"react-doctor": "react-doctor"
 	},
 	"dependencies": {

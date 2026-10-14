@@ -6,7 +6,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vitest'
 
-import {applyElectronLauncherEnv, assertLauncherPortAvailable, computeDefaultRendererPort, createDoctorReport, createToolVersionMismatchMessage, resolveDevEnv, resolveDoctorDevEnv, resolveRuntimeDevEnv} from '../../scripts/dev-env.js'
+import {applyElectronLauncherEnv, assertLauncherPortAvailable, checkElectronPayload, computeDefaultRendererPort, createDoctorReport, createToolVersionMismatchMessage, repairElectronPayload, resolveDevEnv, resolveDoctorDevEnv, resolveRuntimeDevEnv} from '../../scripts/dev-env.js'
 
 const servers: net.Server[] = []
 const tempDirs: string[] = []
@@ -245,5 +245,63 @@ describe('dev-env pure helpers', () => {
 
 		expect(process.listenerCount('SIGINT')).toBe(beforeSigint)
 		expect(process.listenerCount('SIGTERM')).toBe(beforeSigterm)
+	})
+})
+
+// Electron downloads its binary lazily on first require. Parallel test workers
+// racing that download leave a partial dist/ whose executable exists but cannot
+// start, so the payload checks must launch it rather than trust its presence.
+describe.skipIf(process.platform === 'win32')('Electron payload', () => {
+	const RECORDED_DIST_STATE = 'installer-saw-dist.txt'
+
+	function shellScript(exitCode: number): string {
+		return `#!/bin/sh\nexit ${exitCode}\n`
+	}
+
+	// Stands in for electron's install.js: records whether a stale dist/ survived
+	// into the reinstall, then writes a payload that starts.
+	const fakeInstaller = [
+		"const fs = require('node:fs')",
+		"const path = require('node:path')",
+		"const dist = path.join(__dirname, 'dist')",
+		`fs.writeFileSync(path.join(__dirname, '${RECORDED_DIST_STATE}'), String(fs.existsSync(dist)))`,
+		'fs.mkdirSync(dist, {recursive: true})',
+		`fs.writeFileSync(path.join(dist, 'electron'), ${JSON.stringify(shellScript(0))}, {mode: 0o755})`,
+		"fs.writeFileSync(path.join(__dirname, 'path.txt'), 'electron')"
+	].join('\n')
+
+	async function electronPackage(binaryExitCode: number): Promise<{repoRoot: string; packageDir: string}> {
+		const repoRoot = await tempDir()
+		const packageDir = path.join(repoRoot, 'node_modules', 'electron')
+		await fs.mkdir(path.join(packageDir, 'dist'), {recursive: true})
+		await fs.writeFile(path.join(packageDir, 'package.json'), '{"name":"electron"}\n')
+		await fs.writeFile(path.join(packageDir, 'path.txt'), 'electron')
+		await fs.writeFile(path.join(packageDir, 'dist', 'electron'), shellScript(binaryExitCode), {mode: 0o755})
+		await fs.writeFile(path.join(packageDir, 'install.js'), fakeInstaller)
+		return {repoRoot, packageDir}
+	}
+
+	it('accepts a payload whose executable starts', async () => {
+		const {repoRoot} = await electronPackage(0)
+
+		await expect(checkElectronPayload(repoRoot, process.env)).resolves.toMatchObject({ok: true})
+	})
+
+	it('rejects a payload whose executable exists but cannot start', async () => {
+		const {repoRoot} = await electronPackage(1)
+
+		const status = await checkElectronPayload(repoRoot, process.env)
+
+		expect(status.ok).toBe(false)
+		expect(status.message).toContain('does not start')
+	})
+
+	it('repairs a broken payload from an empty dist so the installer cannot skip it', async () => {
+		const {repoRoot, packageDir} = await electronPackage(1)
+
+		await repairElectronPayload(repoRoot, process.env)
+
+		expect(await fs.readFile(path.join(packageDir, RECORDED_DIST_STATE), 'utf8')).toBe('false')
+		await expect(checkElectronPayload(repoRoot, process.env)).resolves.toMatchObject({ok: true})
 	})
 })

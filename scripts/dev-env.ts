@@ -13,6 +13,7 @@ const RENDERER_HOST = '127.0.0.1' as const
 const RENDERER_PORT_BASE = 20_000
 const RENDERER_PORT_RANGE = 20_000
 const RENDERER_PORT_PROBE_LIMIT = 100
+const ELECTRON_LAUNCH_PROBE_TIMEOUT_MS = 30_000
 
 const execFileAsync = promisify(execFile)
 
@@ -347,7 +348,7 @@ function createRequireFromRepo(repoRoot: string): NodeJS.Require {
 	return createRequire(path.join(repoRoot, 'package.json'))
 }
 
-async function checkElectronPayload(repoRoot: string): Promise<ElectronPayloadStatus> {
+export async function checkElectronPayload(repoRoot: string, env: NodeJS.ProcessEnv): Promise<ElectronPayloadStatus> {
 	const packageLinkDir = path.join(repoRoot, 'node_modules', 'electron')
 	const packageJsonPath = path.join(packageLinkDir, 'package.json')
 	let packageDir = packageLinkDir
@@ -383,11 +384,26 @@ async function checkElectronPayload(repoRoot: string): Promise<ElectronPayloadSt
 		}
 	}
 
+	// Electron downloads its binary on first require, so parallel consumers can
+	// race the unzip and leave the executable without the libraries it loads.
+	// Launch it (as Node, so no window opens) instead of trusting its presence.
+	try {
+		await execFileAsync(binaryPath, ['-e', ''], {env: {...env, ELECTRON_RUN_AS_NODE: '1'}, timeout: ELECTRON_LAUNCH_PROBE_TIMEOUT_MS})
+	} catch (error) {
+		return {ok: false, packageDir, binaryPath, message: `Electron binary does not start at ${binaryPath}: ${launchFailureDetail(error)}`}
+	}
+
 	return {ok: true, packageDir, binaryPath}
 }
 
-async function repairElectronPayload(repoRoot: string, env: NodeJS.ProcessEnv): Promise<void> {
-	let status = await checkElectronPayload(repoRoot)
+function launchFailureDetail(error: unknown): string {
+	const stderr = typeof error === 'object' && error !== null && 'stderr' in error ? String(error.stderr).trim() : ''
+	if (stderr) return stderr.split('\n')[0] ?? stderr
+	return error instanceof Error ? error.message : String(error)
+}
+
+export async function repairElectronPayload(repoRoot: string, env: NodeJS.ProcessEnv): Promise<void> {
+	let status = await checkElectronPayload(repoRoot, env)
 	if (status.ok) {
 		console.log(`  OK: Electron binary present at ${status.binaryPath}`)
 		return
@@ -398,9 +414,12 @@ async function repairElectronPayload(repoRoot: string, env: NodeJS.ProcessEnv): 
 	}
 
 	console.log(`  Electron payload needs repair: ${status.message}`)
+	// The installer skips a dist/ whose executable exists, and its unzip fails on
+	// leftover directories, so a partial payload must be removed first.
+	await Promise.all([fs.rm(path.join(status.packageDir, 'dist'), {recursive: true, force: true}), fs.rm(path.join(status.packageDir, 'path.txt'), {force: true})])
 	await spawnChecked(commandName('node'), [path.join(status.packageDir, 'install.js')], {cwd: repoRoot, env})
 
-	status = await checkElectronPayload(repoRoot)
+	status = await checkElectronPayload(repoRoot, env)
 	if (!status.ok) {
 		throw new Error(`${status.message ?? 'Electron payload is still missing'}. Try removing node_modules and rerunning bun run bootstrap.`)
 	}
@@ -469,7 +488,7 @@ async function httpResponds(url: string): Promise<boolean> {
 async function createRuntimeDoctorReport(repoRoot: string): Promise<DoctorReport> {
 	const env = await resolveDoctorDevEnv(repoRoot)
 	const tools = await readToolVersionStatuses(repoRoot)
-	const electronPayload = await checkElectronPayload(repoRoot)
+	const electronPayload = await checkElectronPayload(repoRoot, process.env)
 	const embeddedPayload = await checkEmbeddedHostPayload(repoRoot)
 	const playwrightChromium = await checkPlaywrightChromium(repoRoot)
 	const rendererPortAvailable = await isPortAvailable(env.rendererHost, env.rendererPort)
@@ -687,6 +706,15 @@ async function main(args: string[]): Promise<void> {
 		return
 	}
 
+	// Runs as the root postinstall: Electron no longer downloads its binary at
+	// install time, and leaving it to the first require lets parallel test
+	// workers race the download into a partial payload.
+	if (command === 'electron-payload') {
+		if (rest.length > 0) throw new Error('usage: bun scripts/dev-env.ts electron-payload')
+		await repairElectronPayload(await findRepoRoot(process.cwd()), process.env)
+		return
+	}
+
 	if (command === 'doctor') {
 		const allowed = new Set(['--json'])
 		for (const arg of rest) {
@@ -701,7 +729,7 @@ async function main(args: string[]): Promise<void> {
 		return
 	}
 
-	throw new Error('usage: bun scripts/dev-env.ts <bootstrap|repair|doctor|run>')
+	throw new Error('usage: bun scripts/dev-env.ts <bootstrap|repair|doctor|run|electron-payload>')
 }
 
 if (isCliEntrypoint(import.meta)) {
