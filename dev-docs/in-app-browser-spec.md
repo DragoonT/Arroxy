@@ -313,7 +313,7 @@ change leaves a complete jar that authenticates nobody (research §6). And with
 no YouTube page loaded nothing rotates, so simply re-reading the jar returns the
 same cookies.
 
-- **Before escalating:** `hasAuthCookies` must pass (cheap). If the session has been idle (no Explore page loaded) for longer than the idle threshold — set from the overnight measurement — call `verifySignedIn` first; it loads a hidden YouTube page in the partition, which both reads `LOGGED_IN` and triggers a rotation.
+- **Before escalating:** `hasAuthCookies` must pass (cheap). No validity check and no keep-alive page: **measured 2026-10-13/14**, a session left 10 h with no YouTube page loaded (only signed-in yt-dlp runs in between, which do not rotate sign-in cookies) still authenticated yt-dlp from a fresh jar, and a page load afterwards reported `LOGGED_IN: true` — consistent with yt-dlp maintainers' "unused sessions last days–weeks". Validity is checked only when yt-dlp rejects the cookies (below).
 - **On yt-dlp's warning** ("The provided YouTube account cookies are no longer valid…" — a warning, not an error; no `ytdlp-errors` kind): call `verifySignedIn`. If `LOGGED_IN` is true, retry the spawn **once** with a fresh jar. If false, Explore enters a **signed-out** state ("Signed out of Explore — sign in again") and the job fails with the "Sign in in Explore" action, rather than silently degrading.
 - Both retries count against the per-job signed-in spawn cap (D1).
 
@@ -478,6 +478,5 @@ invalidated the design.
 ## Open items
 
 - **Escalated runs without a PO token** (PO tokens) — measured; recommendation awaits sign-off.
-- **Session freshness when idle** — overnight parked check pending; sets the idle threshold for `verifySignedIn` before escalation.
 - **Members-only wording** — confirm the message against a real members-only video (D1).
 - **Sign-in permissions** — which permissions Google's flow requests (security keys, paste), from the manual matrix.
