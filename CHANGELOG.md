@@ -8,6 +8,14 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.27
+
+Arroxy finds the ffmpeg and yt-dlp installed on your system more reliably.
+
+## Highlights
+
+- **More reliable fallback to your own ffmpeg and yt-dlp.** When Arroxy falls back to copies installed on your system, it now reads your PATH directly instead of asking Windows' `where` tool. A slow or offline network drive on your PATH no longer hides the copies that are there, and a stray `ffmpeg.exe` or `yt-dlp.exe` in the folder Arroxy was started from is no longer picked up by mistake.
+
 ## 0.4.26
 
 Download profiles can now put the thumbnail inside your files and choose which SponsorBlock segments to handle, and embedded subtitles now carry every language you pick.
