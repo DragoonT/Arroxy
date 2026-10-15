@@ -1,7 +1,12 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {checkDiskSpace} from '@main/utils/diskSpace.js'
+import {checkWritableDirectory} from '@main/utils/writableDirectory.js'
 import type {LocalizedError} from '@shared/types.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
+
+// A full disk refuses the write probe too. Those codes fall through to the
+// disk-space check so the user gets the free-space message, not a permissions one.
+const DISK_FULL_CODES: ReadonlySet<string> = new Set(['ENOSPC', 'EDQUOT'])
 
 function formatGB(bytes: number): string {
 	return `${Math.round(bytes / 1e8) / 10} GB`
@@ -12,6 +17,15 @@ export function PreflightPhase(expectedBytes: number | undefined): Phase {
 		kind: 'preflight',
 		async run(ctx: PhaseContext): Promise<PhaseOutcome> {
 			const {job} = ctx.active
+			// Before the disk check: an unwritable folder would otherwise let
+			// yt-dlp start, then die on its first write. The temp folder lives
+			// under outputDir, so this covers it too.
+			const writable = await checkWritableDirectory(job.outputDir)
+			if (!writable.ok && !(writable.code !== undefined && DISK_FULL_CODES.has(writable.code))) {
+				const error: LocalizedError = {kind: 'outputNotWritable', raw: `${job.outputDir}: ${writable.error}`}
+				ctx.emitStatus('error', STATUS_KEY.outputNotWritable, {dir: job.outputDir}, error)
+				return {kind: 'hard-failed', error}
+			}
 			const check = await checkDiskSpace(job.outputDir, expectedBytes)
 			if (!check.ok) {
 				const requiredFmt = check.requiredBytes !== undefined ? formatGB(check.requiredBytes) : '—'

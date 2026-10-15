@@ -11,11 +11,14 @@ const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 const DEFAULT_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF}
 
 vi.mock('@main/utils/diskSpace', () => ({checkDiskSpace: vi.fn()}))
+vi.mock('@main/utils/writableDirectory', () => ({checkWritableDirectory: vi.fn()}))
 
 import {checkDiskSpace} from '@main/utils/diskSpace.js'
+import {checkWritableDirectory} from '@main/utils/writableDirectory.js'
 
 beforeEach(() => {
 	vi.clearAllMocks()
+	vi.mocked(checkWritableDirectory).mockResolvedValue({ok: true})
 })
 
 function makeCtx(outputDir = '/output'): PhaseContext {
@@ -85,5 +88,33 @@ describe('PreflightPhase', () => {
 		if (outcome.kind === 'hard-failed') {
 			expect(outcome.error.raw).toContain('GB')
 		}
+	})
+
+	it('fails with outputNotWritable before checking disk space when the folder refuses writes', async () => {
+		vi.mocked(checkWritableDirectory).mockResolvedValue({ok: false, code: 'EACCES', error: "EACCES: permission denied, open '/locked/.arroxy-write-test'"})
+		const ctx = makeCtx('/locked')
+		const outcome = await PreflightPhase(500_000_000).run(ctx)
+
+		expect(outcome.kind).toBe('hard-failed')
+		if (outcome.kind === 'hard-failed') expect(outcome.error).toEqual({kind: 'outputNotWritable', raw: "/locked: EACCES: permission denied, open '/locked/.arroxy-write-test'"})
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', 'outputNotWritable', {dir: '/locked'}, expect.objectContaining({kind: 'outputNotWritable'}))
+		expect(checkDiskSpace).not.toHaveBeenCalled()
+	})
+
+	it('defers a disk-full write probe to the disk-space check', async () => {
+		vi.mocked(checkWritableDirectory).mockResolvedValue({ok: false, code: 'ENOSPC', error: "ENOSPC: no space left on device, open '/full/.arroxy-write-test'"})
+		vi.mocked(checkDiskSpace).mockResolvedValue({ok: false, freeBytes: 0, requiredBytes: 200 * 1024 * 1024})
+		const ctx = makeCtx('/full')
+		const outcome = await PreflightPhase(undefined).run(ctx)
+
+		expect(outcome.kind).toBe('hard-failed')
+		if (outcome.kind === 'hard-failed') expect(outcome.error.kind).toBe('outOfDiskSpace')
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', 'diskSpaceInsufficient', expect.any(Object), expect.objectContaining({kind: 'outOfDiskSpace'}))
+	})
+
+	it('checks that the job outputDir is writable', async () => {
+		vi.mocked(checkDiskSpace).mockResolvedValue({ok: true, freeBytes: 999, requiredBytes: undefined})
+		await PreflightPhase(undefined).run(makeCtx('/my/output'))
+		expect(checkWritableDirectory).toHaveBeenCalledWith('/my/output')
 	})
 })
