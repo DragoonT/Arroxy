@@ -6,7 +6,7 @@ sign-in, the way 4K Video Downloader+ does.
 **Status:** mechanism found and proven end to end, **now on macOS, Windows and
 Linux** (arm64, 2026-10-13, UA token `Desktop/1.0` — see the spec's manual
 matrix). No implementation yet.
-**Implementation spec:** [`dev-docs/in-app-browser-spec.md`](dev-docs/in-app-browser-spec.md)
+**Implementation spec:** [`dev-docs/in-app-browser-spec.md`](in-app-browser-spec.md)
 **Date:** 2026-08-27 / 2026-08-28 / 2026-08-29
 **Environment:** macOS (darwin 25.5), Electron 43.4.0 (Chromium 150.0.7871.224),
 Brave 151, yt-dlp 2026.07.04.
@@ -15,7 +15,7 @@ Brave 151, yt-dlp 2026.07.04.
 > redacted throughout.
 
 > **Superseded points (2026-10-13).** This is a research record and keeps its
-> history; [the spec](dev-docs/in-app-browser-spec.md) is authoritative where
+> history; [the spec](in-app-browser-spec.md) is authoritative where
 > they differ:
 >
 > - §1 / §3 recipe `Arroxy/1.0.0` → the UA token is **`Desktop/1.0`**; the product name is never used.

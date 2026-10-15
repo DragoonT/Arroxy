@@ -5,7 +5,7 @@ signed-in PO-token measurement and spec sign-off, then the implementation plan
 Updated: 2026-10-13 (cross-platform spike, cookie-freshness experiment,
 decisions D1–D6, review revision R1)
 
-Research and rationale: [`YOUTUBE-AUTH-RESEARCH.md`](../YOUTUBE-AUTH-RESEARCH.md).
+Research and rationale: [`youtube-auth-research.md`](youtube-auth-research.md).
 **Read §2 and §6a before touching any of this.** The user-agent rule is
 counter-intuitive and trivially broken by a well-meaning edit. Where this spec
 and the research record disagree, this spec wins (the research keeps its
@@ -216,7 +216,7 @@ interface SessionCookieJarPort {
 ```
 
 `ExploreSessionService` is the desktop adapter. This keeps the core/shell split
-in `DUAL_DEPLOY_PLAN.md` intact and makes the jar lifecycle unit-testable with a
+in [`dual-deploy-plan.md`](dual-deploy-plan.md) intact and makes the jar lifecycle unit-testable with a
 fake port.
 
 ### Main process — `ExploreSessionService`
