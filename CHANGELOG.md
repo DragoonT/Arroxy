@@ -10,15 +10,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## 0.4.27
 
-Arroxy finds the ffmpeg and yt-dlp installed on your system more reliably.
-
-## Highlights
-
-- **More reliable fallback to your own ffmpeg and yt-dlp.** When Arroxy falls back to copies installed on your system, it now reads your PATH directly instead of asking Windows' `where` tool. A slow or offline network drive on your PATH no longer hides the copies that are there, and a stray `ffmpeg.exe` or `yt-dlp.exe` in the folder Arroxy was started from is no longer picked up by mistake.
-
-## 0.4.26
-
-Download profiles can now put the thumbnail inside your files and choose which SponsorBlock segments to handle, and embedded subtitles now carry every language you pick.
+Download profiles can now put the thumbnail inside your files and choose which SponsorBlock segments to handle, embedded subtitles carry every language you pick, and Arroxy finds the ffmpeg and yt-dlp installed on your system more reliably.
 
 ## Highlights
 
@@ -27,6 +19,13 @@ Download profiles can now put the thumbnail inside your files and choose which S
 - **Fewer failed downloads with Embed thumbnail on.** Playlist and bulk downloads no longer fail when the chosen format can't hold cover art (for example "best" native audio); the option is hidden for those formats instead. A single WebM video with audio now gets its cover art too, saved as MKV.
 - **Embedded subtitles that actually embed, in every language.** With subtitles set to **Embed**, each language you choose now goes inside the video as its own track that you can switch on and off in your player. Embedding used to fail for auto-generated captions and leave separate subtitle files next to the video instead, and when it did work only one language made it in. Videos with an embedded thumbnail keep their cover art too.
 - **A clear message for a folder Arroxy can't save to.** If the download folder doesn't allow writing (missing permission, a read-only drive, or a folder macOS protects), Arroxy now says which folder is the problem before the download starts, instead of showing raw yt-dlp errors.
+- **More reliable fallback to your own ffmpeg and yt-dlp.** When Arroxy falls back to copies installed on your system, it now reads your PATH directly instead of asking Windows' `where` tool. A slow or offline network drive on your PATH no longer hides the copies that are there, and a stray `ffmpeg.exe` or `yt-dlp.exe` in the folder Arroxy was started from is no longer picked up by mistake.
+
+## Under the hood
+
+- **Electron 44.** Arroxy now runs on Electron 44 and its newer Chromium. Clipboard watching and the global hotkey work as before on the new clipboard API.
+- **An honest browser identity for YouTube tokens.** The hidden window Arroxy uses to get YouTube's download tokens no longer claims to be Chrome 130 on Linux. It now reports its real platform and Chromium version, matching the rest of what it sends.
+- **Security fix in a bundled HTTP caching library** (GHSA-ch52-4w7c-c8xp).
 
 ## 0.4.25
 
