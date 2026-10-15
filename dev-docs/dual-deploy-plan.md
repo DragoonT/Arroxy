@@ -320,9 +320,9 @@ after a `BrowserWindow`.
 ```dockerfile
 FROM node:22-alpine AS build
 WORKDIR /app
+COPY --from=oven/bun:1-alpine /usr/local/bin/bun /usr/local/bin/bun
 COPY package.json bun.lockb ./
 RUN apk add --no-cache python3 make g++ \
- && npm i -g bun \
  && bun install --frozen-lockfile
 COPY . .
 RUN bun run build:server && bun run build:web
