@@ -231,173 +231,22 @@ Fixture Product E2E is the **acceptance owner for real user workflows**, not the
 - If the concern is app boot, preload, or context isolation, use Mock Electron smoke tests.
 - If the concern is whether real YouTube currently works, use a tiny live smoke test outside normal acceptance.
 
-### Scenario design
-
-Do not create one giant "everything" E2E scenario. Group product E2E by risk case so failures are local and useful:
-
-- **Bulk input**: real clipboard paste, messy lists, invalid lines, duplicates, large lists.
-- **Metadata fetching**: concurrency limits, slow probes, partial failure, late thumbnails/subtitles, user navigation while probes are still running.
-- **Wizard navigation**: back/next while state is incomplete, skipped steps, preserved output/format choices.
-- **Queue controls**: active downloads, priority, pause item, resume item, cancel item, pause all, resume all.
-- **Failure and recovery**: failed metadata, failed media, subtitle soft failure, retry, cancel during slow stream.
-- **Persistence and restart**: pending queue, paused active item, restored output folder, completed/cancelled lifecycle after app restart.
-- **Scale and UX stress**: many URLs, long titles, drawer scrolling, progress churn, layout stability.
-
-For each risk group, add Fixture Product E2E only for behavior that needs real app wiring or realistic user interaction. Keep pure rules and local UI states in lower layers. Each Fixture Product E2E scenario should declare:
-
-1. The user-facing risk being tested.
-2. The fixture videos, delays, failures, and output directory.
-3. The real user actions, preferably via mouse, keyboard, and OS clipboard.
-4. The milestones that prove each workflow phase completed.
-5. The final oracles: visible UI state, E2E diagnostics when needed, filesystem outputs, and deny-proxy request log.
-
-### Workflow feedback rules
-
-- Prefer visible UI milestones first: title appears, row count changes, progress/status changes, buttons enable/disable, queue card reaches the expected state.
-- Use E2E-only diagnostics only when visible UI is insufficient. Gate diagnostics behind `ARROXY_E2E=1`; never expose them in normal packaged production.
-- Use filesystem assertions for download outcomes. A completed queue item is not enough if the expected output file is missing or implausible.
-- Use the deny proxy request log as an oracle. Deterministic fixture tests must fail if yt-dlp reaches non-local network.
-- Avoid hardcoded sleeps. Wait for specific UI, diagnostic, process, filesystem, or network milestones.
-- Capture screenshots/traces for complex scenario failures so an agent can inspect what a human would have seen.
-
-### Anti-patterns
-
-- Do not add unit tests to claim a real paste -> metadata -> queue -> download workflow is fixed.
-- Do not duplicate the same acceptance behavior in unit, jsdom, browser-mock, and fixture E2E layers.
-- Do not treat browser-mock as proof that real IPC, yt-dlp, queue scheduling, or filesystem behavior works.
-- Do not use fake yt-dlp as the normal download acceptance strategy. Keep fake yt-dlp only for process-supervision failures such as spawn failure, permission denied, crash, invalid JSON, huge stderr, hang, and signal termination.
-- Do not make one super scenario that covers every risk at once. Prefer grouped, realistic scenarios with clear ownership.
+How to design a Fixture Product E2E scenario (risk groups, what each scenario declares, milestone and oracle rules, anti-patterns) is in [`dev-docs/fixture-e2e.md`](dev-docs/fixture-e2e.md). Read it before adding or reshaping one.
 
 ---
 
-## Visual Debugging with agent-browser
+## Visual Debugging
 
-Prefer `agent-browser` for browser automation, screenshots, responsive layout checks, and interactive UI dogfooding. Use Playwright only when `agent-browser` is unavailable or when the task specifically needs Playwright traces/tests or Electron `_electron.launch()`.
-
-For renderer-only visual iteration, **use the project wrapper first**:
+For renderer-only visual work, start the browser-mock renderer through the project wrapper and read its URL from `doctor`:
 
 ```bash
 bun run dev:mock
 bun run doctor
 ```
 
-This starts the Vite renderer in `browser-mock` mode with the repo-owned defaults. `bun run doctor` reports the computed renderer URL. Full Electron automation is slower and should be reserved for Electron-specific behavior.
+`browserMock.ts` stubs `window.appApi` only in this explicit `browser-mock` mode; Electron dev and packaged builds always use the real preload bridge. The gallery lists every Scenario Workbench state (`?scenario=<id>`, ids in `src/renderer/src/dev/browserMockScenarios.ts`) and `?kit` opens the UI kit. Update-banner scenarios (`update-direct`, `update-scoop`, `update-homebrew`, `update-winget`, `update-portable`, `update-flatpak`) are the only ones that emit an update event. Prefer `agent-browser` for interactive checks and screenshots; Playwright only for traces, tests, or `_electron.launch()`.
 
-If browser automation needs a fixed URL, pin the port through the wrapper instead of bypassing it:
-
-```bash
-# POSIX shells
-ARROXY_RENDERER_PORT=5173 bun run dev:mock
-
-# PowerShell
-$env:ARROXY_RENDERER_PORT = "5173"; bun run dev:mock
-```
-
-Only bypass the wrapper when you intentionally need a custom Vite invocation, such as a different port or one-off debugging flags:
-
-```bash
-# Fallback only. From project root — uses src/renderer/vite.config.mjs (aliases + Tailwind + React)
-bunx vp dev src/renderer --port 5173 --mode browser-mock
-```
-
-The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, formats, settings when Vite runs in explicit `browser-mock` mode — no Electron needed. Electron dev and packaged builds must use the real preload bridge.
-
-For realtime interaction with the real Electron renderer, expose Electron CDP through `electron-vite`:
-
-```bash
-REMOTE_DEBUGGING_PORT=9333 bun run dev
-agent-browser --session arroxy-electron connect 9333
-agent-browser --session arroxy-electron snapshot -i
-```
-
-Use this for live app inspection when behavior depends on the real preload bridge, IPC, native shell, or Electron rendering. In Linux headless shells only, wrap the launch with `xvfb-run -a`; on a desktop session, macOS, or Windows, launch normally without `xvfb-run`. If another dev server is already running, isolate the session with `ARROXY_RENDERER_PORT`, `ELECTRON_USER_DATA`, and `ARROXY_DEV_TMP`. Playwright can attach to the same endpoint with `chromium.connectOverCDP('http://127.0.0.1:9333')`, but prefer it for scripted proofs, traces, or fallback JS rather than first-pass interactive exploration.
-
-### agent-browser workflow
-
-1. `agent-browser skills get core` before the first browser task in a session.
-2. `agent-browser --session arroxy-ui --args "--no-sandbox" open http://127.0.0.1:<doctor-port>/` when Chromium sandboxing fails in the dev VM.
-3. `agent-browser --session arroxy-ui set viewport 1190 768` to check breakpoint behavior.
-4. `agent-browser --session arroxy-ui snapshot -i` for interactive refs.
-5. `agent-browser --session arroxy-ui screenshot output/playwright/<name>.png` for review artifacts.
-6. `agent-browser --session arroxy-ui console` / `agent-browser --session arroxy-ui errors` for runtime issues.
-7. `agent-browser --session arroxy-ui close` after the visual pass.
-
-### Playwright fallback
-
-1. `browser_navigate` → the `http://127.0.0.1:<doctor-port>` URL from `bun run doctor`, then `browser_take_screenshot`.
-2. Zoom for pixel inspection via `browser_evaluate`:
-   ```js
-   () => {
-     const el = document.querySelector('.your-class');
-     el.style.transform = 'scale(3)';
-     el.style.transformOrigin = 'left center';
-     el.style.zIndex = '999';
-   };
-   // screenshot, then reset: el.style.transform = ''
-   ```
-3. Computed styles: `window.getComputedStyle(el).paddingLeft` etc.
-4. Bounding rect: `el.getBoundingClientRect()`.
-5. Interaction: `browser_click`, `browser_fill_form`, `browser_type`.
-6. Console errors: inspect log file from `browser_navigate` result.
-
-### Simulating locale / region
-
-The pre-created MCP context always reports `navigator.languages = ['en-US', 'en']`. To test locale-driven behavior (e.g. auto-redirects), spin a fresh context via `browser_run_code_unsafe`:
-
-```js
-async (page) => {
-  const context = await page
-    .context()
-    .browser()
-    .newContext({
-      locale: 'hi-IN',
-      timezoneId: 'Asia/Kolkata',
-      extraHTTPHeaders: { 'Accept-Language': 'hi-IN,hi;q=0.9,en;q=0.5' }
-    });
-  const p = await context.newPage();
-  await p.goto('https://orionus.dev/arroxy/');
-  await p.waitForTimeout(1500); // let inline redirect script fire
-  const result = { url: p.url(), title: await p.title() };
-  await context.close();
-  return result;
-};
-```
-
-### Wizard walkthrough via mock
-
-- Step 1 (URL): any `youtube.com` URL → "Fetch formats →" (1.4s mock delay)
-- Step 2 (Format): auto-loads mock formats with filesizes
-- Step 3 (Save): radio picker; "Custom…" returns a random mock path
-- Step 4 (Confirm): "Pull it! ↓" triggers simulated download
-- Downloads tab: progress updates every 500ms
-- Update banner in `browser-mock` mode is scenario-only. Use `?scenario=update-direct` for the default install flow, or `update-scoop` / `update-homebrew` / `update-winget` / `update-portable` / `update-flatpak` to preview channel-specific UX. Normal scenarios emit no update event.
-
-### Electron GPU / Backdrop debugging
-
-`bun run dev:mock` proves renderer visuals in the browser, **not** Electron GPU behavior. Host Chrome can show the WebGL backdrop while `bun run dev` falls back because Electron runs inside the VM / Electron Chromium stack.
-
-When Electron logs `webgl: disabled_off` and `glImplementationParts: '(gl=none,angle=none)'`, the renderer has no usable GL/ANGLE backend. If `bun run gpu:probe:force` still reports the same values, do not keep tweaking `ignore-gpu-blocklist` — the blocker is VM/driver/sandbox level.
-
-Use the probes before changing backdrop code:
-
-```bash
-bun run gpu:probe          # Electron default GPU status
-bun run gpu:probe:force    # adds ignore-gpu-blocklist + enable-gpu-rasterization
-bun run gpu:probe:swiftshader # forces SwiftShader and checks a real hidden WebGL canvas
-bun run profile:backdrop     # browser-side FPS / fallback profiler
-bun run profile:backdrop:weak # forced software + 2 reported cores + 4x CPU throttle
-```
-
-On the Ubuntu VMware dev VM observed on 2026-06-09, Xorg had VMware DRI2/DRI3 direct rendering enabled, but Electron/Chrome still logged `MESA-LOADER: failed to open dri_gbm.so: Permission denied` and `WebGL1 blocklisted`. `gpu:probe:force` stayed `gl=none`, while `gpu:probe:swiftshader` enabled WebGL through `ANGLE ... SwiftShader`. Use `bun run dev:swiftshader` only for VM visual iteration; it is CPU WebGL and intentionally opt-in via `ARROXY_BACKDROP_SOFTWARE=1`.
-
-Backdrop fallback is adaptive, not screenshot-based: `AppBackdrop` chooses the dark aurora or light ocean scene, then `CanvasSceneHost` probes WebGL on a scratch canvas first, rejects software renderers unless `backdropSoftware=1` / `ARROXY_BACKDROP_SOFTWARE=1` opts in, then draws the selected scene's static Canvas2D fallback at the current viewport size. The component keeps separate WebGL and Canvas2D canvases because once a canvas owns a WebGL context it cannot be reused for Canvas2D. In the no-GPU Electron fallback path, do not redraw Canvas2D during live window resize; stretch the existing bitmap and redraw once after resize settles. Use `backdropDebug=1` or `localStorage.backdropDebug = '1'` to log fallback mode decisions, resize scheduling, draw timing, and backing-store sizes. CSS gradients are only the last fallback when Canvas2D is unavailable.
-
-If testing Electron sandbox as the GPU blocker, the local Electron helper may need setuid before `bun run gpu:probe:sandbox` / `bun run dev:sandbox`:
-
-```bash
-sudo chown root:root node_modules/electron/dist/chrome-sandbox
-sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
-```
+Electron-specific behavior (real preload, IPC, GPU) needs the real app: `REMOTE_DEBUGGING_PORT=9333 bun run dev`, then attach over CDP. Backdrop or WebGL problems in Electron: run `bun run gpu:probe` before touching backdrop code. Port pinning, CDP attach, the agent-browser and Playwright recipes, locale simulation, and the GPU/backdrop fallback model are in [`dev-docs/visual-debugging.md`](dev-docs/visual-debugging.md).
 
 ---
 
@@ -427,9 +276,7 @@ Localized labels run 1.5–2x longer than English (`el`, `fr`, and `my` are the 
 
 **Font:** Poppins (`@fontsource/poppins`, weights 400/500/600/700). Don't reintroduce Outfit or Geist.
 
-**CSS tokens** (`src/renderer/src/styles.css`): `--border-strong` (darker border), `--text-subtle` (muted label), dark mode `--border: hsla(0,0%,100%,0.07)`.
-
-**Glow patterns:** primary buttons `shadow-[0_4px_14px_var(--brand-glow)]`, active radio `shadow-[0_0_0_2px_var(--brand-dim)]`, section labels `text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]`, back/ghost buttons `border-[1.5px] border-[var(--border-strong)]`.
+**Use tokens and variants, never arbitrary values** (defined in `src/renderer/src/styles.css`; the ratchet above rejects `shadow-[…]`, `text-[9px]`, `border-[1.5px]` and the like). The one primary action per view is `<Button variant="glow">` (`shadow-glow`; see `DESIGN.md`, "Bloom-Is-Rationed"). Selected/active surfaces use `bg-primary/12` (`--brand-dim`). Muted labels use `text-subtle-foreground` (`--text-subtle`), small type `text-caption`, stronger borders `border-border-strong` (`--border-strong`), back/secondary buttons `variant="outline"`.
 
 ## Layout Breakpoints
 
@@ -462,15 +309,7 @@ Renderer shows `<UpdateBanner>` between title bar and content area; `resolveActi
 - `direct` on darwin → "Download ↗" link to https://orionus.dev/arroxy/ (DMG is unsigned, can't self-update)
 - `direct` on win/linux (and `winget`) → "Install & Restart" button → invokes `updater:install` → main calls `downloadUpdate()` → on `update-downloaded` calls `quitAndInstall(false, true)`
 
-### Known gap: Linux tar.gz never sees the banner
-
-On Linux, electron-updater's default updater is `AppImageUpdater` (no `package-type` file shipped — we only build AppImage + tar.gz). `AppImageUpdater.isUpdaterActive()` returns `false` when `process.env.APPIMAGE` is unset, which silently short-circuits `AppUpdater.checkForUpdates()` (returns `null`, logs `"APPIMAGE env is not defined, current application is not an AppImage"`, never emits `update-available`). So tar.gz Linux users get **no update banner at all** — not an error, just silence. Verified in `node_modules/electron-updater/out/AppImageUpdater.js:17-28` and `AppUpdater.js:253-256`.
-
-**Decision: do not fix.** Audience is small (most Linux users get AppImage or Flatpak). Fixing would require bypassing electron-updater for this case and hitting `https://api.github.com/repos/antonio-orionus/Arroxy/releases/latest` directly to drive our own `updater:available` IPC.
-
-### IPC + types
-
-IPC channel names live in `IPC_CHANNELS` (`@shared/ipc`); payload types (`InstallChannel`, `UpdateAvailablePayload`) live in `@shared/types`. `resolveAction` is the pure helper at `src/renderer/src/components/updateBannerAction.ts` — extracted from `UpdateBanner.tsx` so the component file only exports a component (react-refresh requirement). Renderer `browser-mock` mode at `src/renderer/src/browserMock.ts` simulates an `updater:available` event only for explicit update scenarios.
+Details — the IPC/type layout and the known gap that Linux tar.gz installs never see the banner (decision: not fixed) — are in [`dev-docs/in-app-updates.md`](dev-docs/in-app-updates.md).
 
 ---
 
@@ -483,18 +322,9 @@ Pushing a `v*` tag publishes to **five channels in one go**: GitHub Releases, Sc
 - **`main`** = sole long-lived branch. Both beta (`v*-beta.N`) and stable (`v*`) tags cut from here. Feature work happens on short-lived feature branches merged into `main` when ready.
 - **Tags must be annotated** (`git tag -a NAME -m "..."`), not lightweight. `git push --follow-tags` only pushes annotated tags — lightweight tags get silently skipped, the release pipeline never fires. Lesson learned the hard way.
 
-### Pre-release flow (test pipeline w/o auto-updating users)
+### Pre-releases
 
-Tag w/ semver pre-release suffix (e.g. `v0.4.0-beta.1`):
-
-- electron-builder marks the GitHub Release `prerelease: true` automatically (semver `-` suffix triggers it).
-- electron-updater queries `/releases/latest` (excludes pre-releases) → existing user installs do **not** auto-update.
-- `release.yml` `publish-scoop`/`publish-homebrew` jobs guard `if: !contains(github.ref_name, '-')` so beta tags don't bump public package managers.
-- Winget skipped automatically — `release_to_winget.yml` triggers on `released` event which excludes pre-releases by GitHub API design.
-- Manually download the artifact from the GitHub Release page to validate.
-- When ready: bump to plain semver (`v0.4.0`), tag annotated, push.
-
-**NSIS installer:** pin `electron-builder ≥ 26.9.0` (26.8.x has a `multiUser.nsh:35` buffer over-read on cold-heap). Drop `build/installer.nsh`. Any future custom NSIS `Page custom` callback must open with `${If} ${Silent} \n Abort \n ${EndIf}`. Note: the registry `latest` dist-tag is broken `26.8.1`; pin from `next` channel — `bun update --latest` silently downgrades.
+A tag with a semver suffix (`v0.4.0-beta.1`) publishes a GitHub pre-release that installed copies never auto-update to, and skips Scoop, Homebrew and Winget. Then bump to plain semver and tag again. Details, and the electron-builder/NSIS pinning rules, are in [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md).
 
 ### Release notes — CHANGELOG.md is SSOT
 
@@ -542,39 +372,9 @@ git tag -a v0.4.0 -m "release 0.4.0"
 git push --follow-tags
 ```
 
-### Job graph
+### Pipeline internals
 
-`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `fetch-flatpak-source` downloads the Linux tarball from the draft release after `build` (it alone holds the write token; drafts are invisible to a read-only one), then `build-flatpak` (read-only: builds, signs the Flatpak repo with `scripts/flatpak/publish-repo.sh`, builds the bundle), then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew`, `publish-flatpak-repo` (GitHub Pages deploy), and `notify-web-release-manifest` after `publish-release`. Read the YAML for step-level detail.
-
-Windows is built separately via a dedicated Windows Installer workflow (smoke-testable before publish); `publish-release` polls up to 15min until the Windows Setup + Portable `.exe` artifacts appear before generating `SHA256SUMS` and un-drafting the release.
-
-Arroxy uses GitHub immutable releases for release asset integrity and the GitHub release asset verification UI. The workflow finishes all mutable release work while the release is still a draft, then publishes/undrafts as the last step. `actions/attest` is intentionally not used for release assets; immutable releases create release attestations for the published assets, while workflow provenance attestations are a separate SLSA/build-chain concern. Keep `SHA256SUMS` for package-manager hashes and offline verification; keep updater metadata (`latest*.yml`) and blockmaps outside the checksum contract.
-
-`.github/workflows/release_to_winget.yml` triggers on the `released` event: once `publish-release` un-drafts the release, the SHA-pinned `vedantmgoyal9/winget-releaser` action runs `komac update AntonioOrionus.Arroxy --submit` → opens a PR against `microsoft/winget-pkgs`. Microsoft reviewers merge within hours-to-a-day. Keep that third-party action pinned to a full commit SHA because it receives `WINGET_TOKEN`.
-
-### Required GitHub repo secret
-
-| Secret                    | Used by            | Scope                                                        |
-| ------------------------- | ------------------ | ------------------------------------------------------------ |
-| `WINGET_TOKEN`            | all 3 publish jobs | classic PAT, `public_repo` + `workflow`                      |
-| `FLATPAK_GPG_PRIVATE_KEY` | `build-flatpak`    | signs the Flatpak repo; must match `flatpak/repo-signing-key.asc` |
-
-Despite the name, this single token authenticates Scoop, Homebrew, **and** Winget pushes (needs `public_repo` to push to external bucket/tap repos and to fork `microsoft/winget-pkgs`). Rotate every 90 days.
-
-### Initial Winget submission (one-time, done)
-
-The `vedantmgoyal9/winget-releaser` action can only **update** an existing winget package, not create one. For Arroxy this was done once via [komac](https://github.com/russellbanks/Komac) (`komac new AntonioOrionus.Arroxy …`) → submitted PR [microsoft/winget-pkgs#365414](https://github.com/microsoft/winget-pkgs/pull/365414). Future tag pushes auto-bump the existing manifest with no manual work.
-
-If we ever change the PackageIdentifier, repeat that one-time submission for the new identifier and update `release_to_winget.yml`.
-
-### External repos this pipeline writes to
-
-- [`antonio-orionus/scoop-bucket`](https://github.com/antonio-orionus/scoop-bucket) — single `bucket/arroxy.json` manifest, auto-bumped per release
-- [`antonio-orionus/homebrew-arroxy`](https://github.com/antonio-orionus/homebrew-arroxy) — single `Casks/arroxy.rb` cask with `on_arm`/`on_intel` stanzas, auto-bumped per release
-- [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs) — community repo; PRs land at `manifests/a/AntonioOrionus/Arroxy/<version>/`
-- This repo's GitHub Pages — Arroxy's Flatpak repo at https://antonio-orionus.github.io/Arroxy/flatpak/, replaced by every stable release (`publish-flatpak-repo`). See [`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md); never rotate its signing key casually — installed copies reject updates signed by another key.
-
-GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppImage, tar.gz source, and a Flatpak bundle (stable bundles carry the Flatpak repo as their remote, so `flatpak update` works after installing one). No Snap. An AUR `arroxy-bin` package (repackaging the x64 tar.gz, auto-published like Scoop/Homebrew) is on the roadmap for Arch/Omarchy users, blocked until AUR reopens new-account registration (closed as of 2026-10).
+The release job graph, the Windows build hand-off, immutable releases and `SHA256SUMS`, required secrets (`WINGET_TOKEN`, `FLATPAK_GPG_PRIVATE_KEY`), the one-time Winget submission, the external repos the pipeline writes to, and the shipped asset list are in [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md). Keep third-party actions that receive a token pinned to a full commit SHA, and never rotate the Flatpak signing key casually ([`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md)).
 
 ---
 
@@ -591,21 +391,7 @@ Arroxy ships three third-party binaries. They split into two camps based on upda
 
 `electron-builder.json5` intentionally keeps the `runAsNode` fuse enabled because Arroxy uses its packaged Electron executable as yt-dlp's Node runtime. `ELECTRON_RUN_AS_NODE=1` must only be added to the yt-dlp child-process environment, never to `process.env` or persisted config. Packaged runtime smoke tests assert this fuse behavior, Node >=22, child-env isolation, managed yt-dlp selection, and bundled EJS availability.
 
-### How embed works
-
-- `scripts/build/fetch-embedded.sh <platform> <arch>` — fetches + verifies SHA + extracts ffmpeg+ffprobe (and Linux `libav*.so*` siblings) into `build/embedded/<platform>-<arch>/`. Reuses smoke-all.sh helpers via `scripts/test-binaries/_lib.sh`.
-- `build/beforeBuild.mjs` — electron-builder lifecycle hook, fires once per `(platform, arch)` build. Calls fetch-embedded.sh.
-- `electron-builder.json5` — per-platform `extraResources` with `${arch}` substitution copies the fetched binaries into `<resources>/` of the packed app.
-- Runtime: `BinaryManager.getFfmpegPath()` returns `process.resourcesPath/ffmpeg(.exe)` in prod, `build/embedded/<host>/ffmpeg(.exe)` in dev. `app.isPackaged` branches.
-- Linux only: BtbN's shared build expects `libav*.so.*` siblings; `spawnYtDlp` + `spawnFFmpeg` + `probeBinary` all inject `LD_LIBRARY_PATH=<dir>` at spawn time. No rpath patching needed.
-
-### License attribution
-
-`THIRD_PARTY_NOTICES.txt` ships at `<resources>/` via top-level `extraResources`. Covers ffmpeg (GPLv3) and yt-dlp (Unlicense). Arroxy stays MIT — spawn ≠ link, no GPL propagation into our code.
-
-### Smoke parity
-
-`scripts/test-binaries/smoke-all.sh` validates upstream binary source availability for runtime manifest automation and embedded ffmpeg/ffprobe fetches. Run before bumping fetch-embedded.sh asset names or runtime manifest source facts. **`scripts/test-binaries/` directory must stay tracked** — an earlier `.gitignore` rule `test-binaries/` accidentally matched it. Now anchored: `**/build/embedded/` (build output) and `/test-binaries/` (smoke output, root only).
+How the embed works (fetch script, `beforeBuild` hook, `extraResources`, dev vs packaged paths, Linux `LD_LIBRARY_PATH`), license attribution, and the smoke-parity script are in [`dev-docs/binary-distribution.md`](dev-docs/binary-distribution.md). `scripts/test-binaries/` must stay tracked.
 
 ---
 
@@ -650,171 +436,3 @@ The product screenshots in `build/` are generated, not hand-captured. `bun run s
 
 - `README.md`, `README.es.md`, `README.de.md`, … — generated from `readme-src/`
 
----
-
-<!-- rtk-instructions v2 -->
-
-# RTK (Rust Token Killer) - Token-Optimized Commands
-
-## Golden Rule
-
-**Always prefix commands with `rtk`**. If RTK has a dedicated filter, it uses it. If not, it passes through unchanged. This means RTK is always safe to use.
-
-**Important**: Even in command chains with `&&`, use `rtk`:
-
-```bash
-# ❌ Wrong
-git add . && git commit -m "msg" && git push
-
-# ✅ Correct
-rtk git add . && rtk git commit -m "msg" && rtk git push
-```
-
-## RTK Commands by Workflow
-
-### Build & Compile (80-90% savings)
-
-```bash
-rtk cargo build         # Cargo build output
-rtk cargo check         # Cargo check output
-rtk cargo clippy        # Clippy warnings grouped by file (80%)
-rtk tsc                 # TypeScript errors grouped by file/code (83%)
-rtk lint                # ESLint/Biome violations grouped (84%)
-rtk prettier --check    # Files needing format only (70%)
-rtk next build          # Next.js build with route metrics (87%)
-```
-
-### Test (60-99% savings)
-
-```bash
-rtk cargo test          # Cargo test failures only (90%)
-rtk go test             # Go test failures only (90%)
-rtk jest                # Jest failures only (99.5%)
-rtk vitest              # Vitest failures only (99.5%)
-rtk playwright test     # Playwright failures only (94%)
-rtk pytest              # Python test failures only (90%)
-rtk rake test           # Ruby test failures only (90%)
-rtk rspec               # RSpec test failures only (60%)
-rtk test <cmd>          # Generic test wrapper - failures only; not POSIX test
-```
-
-### Git (59-80% savings)
-
-```bash
-rtk git status          # Compact status
-rtk git log             # Compact log (works with all git flags)
-rtk git diff            # Compact diff (80%)
-rtk git show            # Compact show (80%)
-rtk git add             # Ultra-compact confirmations (59%)
-rtk git commit          # Ultra-compact confirmations (59%)
-rtk git push            # Ultra-compact confirmations
-rtk git pull            # Ultra-compact confirmations
-rtk git branch          # Compact branch list
-rtk git fetch           # Compact fetch
-rtk git stash           # Compact stash
-rtk git worktree        # Compact worktree
-```
-
-Note: Git passthrough works for ALL subcommands, even those not explicitly listed.
-
-### GitHub (26-87% savings)
-
-```bash
-rtk gh pr view <num>    # Compact PR view (87%)
-rtk gh pr checks        # Compact PR checks (79%)
-rtk gh run list         # Compact workflow runs (82%)
-rtk gh issue list       # Compact issue list (80%)
-rtk gh api              # Compact API responses (26%)
-```
-
-### JavaScript/TypeScript Tooling (70-90% savings)
-
-```bash
-rtk pnpm list           # Compact dependency tree (70%)
-rtk pnpm outdated       # Compact outdated packages (80%)
-rtk pnpm install        # Compact install output (90%)
-rtk bun run <script>    # Compact Bun script output
-rtk bunx <cmd>          # Compact Bun package-exec output
-rtk prisma              # Prisma without ASCII art (88%)
-```
-
-### Files & Search (60-75% savings)
-
-```bash
-rtk ls <path>           # Tree format, compact (65%)
-rtk read <file>         # Code reading with filtering (60%)
-rtk grep <pattern>      # Search grouped by file (75%). Format flags (-c, -l, -L, -o, -Z) run raw.
-rtk find <pattern>      # Simple find predicates grouped by directory (70%)
-```
-
-Use `rtk proxy find ...` or raw `find` for compound predicates/actions such as
-`(`, `)`, `-o`, `-a`, `!`, `-not`, `-exec`, `-delete`, or `-print0`. Use
-`rtk run "test -d path"` or raw shell `test` for POSIX file/string checks.
-
-### Analysis & Debug (70-90% savings)
-
-```bash
-rtk err <cmd>           # Filter errors only from any command
-rtk log <file>          # Deduplicated logs with counts
-rtk json <file>         # JSON structure without values
-rtk deps                # Dependency overview
-rtk env                 # Environment variables compact
-rtk summary <cmd>       # Smart summary of command output
-rtk diff                # Ultra-compact diffs
-```
-
-### Infrastructure (85% savings)
-
-```bash
-rtk docker ps           # Compact container list
-rtk docker images       # Compact image list
-rtk docker logs <c>     # Deduplicated logs
-rtk kubectl get         # Compact resource list
-rtk kubectl logs        # Deduplicated pod logs
-```
-
-### Network (65-70% savings)
-
-```bash
-rtk curl <url>          # Compact HTTP responses (70%)
-rtk wget <url>          # Compact download output (65%)
-```
-
-### Meta Commands
-
-```bash
-rtk gain                # View token savings statistics
-rtk gain --history      # View command history with savings
-rtk discover            # Analyze Claude Code sessions for missed RTK usage
-rtk proxy <cmd>         # Run command without filtering (for debugging)
-rtk init                # Add RTK instructions to CLAUDE.md
-rtk init --global       # Add RTK to ~/.claude/CLAUDE.md
-```
-
-## Token Savings Overview
-
-| Category         | Commands                       | Typical Savings |
-| ---------------- | ------------------------------ | --------------- |
-| Tests            | vitest, playwright, cargo test | 90-99%          |
-| Build            | next, tsc, lint, prettier      | 70-87%          |
-| Git              | status, log, diff, add, commit | 59-80%          |
-| GitHub           | gh pr, gh run, gh issue        | 26-87%          |
-| Package Managers | pnpm, bun, bunx                | 70-90%          |
-| Files            | ls, read, grep, find           | 60-75%          |
-| Infrastructure   | docker, kubectl                | 85%             |
-| Network          | curl, wget                     | 65-70%          |
-
-Overall average: **60-90% token reduction** on common development operations.
-
-<!-- /rtk-instructions -->
-
-<!-- CODEGRAPH_START -->
-## CodeGraph
-
-In repositories indexed by CodeGraph (a `.codegraph/` directory exists at the repo root), reach for it BEFORE grep/find or reading files when you need to understand or locate code:
-
-- **MCP tool** (when available): `codegraph_explore` answers most code questions in one call — the relevant symbols' verbatim source plus the call paths between them, including dynamic-dispatch hops grep can't follow. Name a file or symbol in the query to read its current line-numbered source. If it's listed but deferred, load it by name via tool search.
-- **Shell** (always works): `codegraph explore "<symbol names or question>"` prints the same output.
-
-If there is no `.codegraph/` directory, skip CodeGraph entirely — indexing is the user's decision.
-<!-- CODEGRAPH_END -->

@@ -54,4 +54,4 @@ launcher must do the same. With GNOME in unsafe mode, list stray windows via `Ev
 
 - Confirm that the guest is running and verify SSH reachability before use; its VMware NAT address may change.
 - Use the fixture E2E harness as the acceptance owner for deterministic product workflows. Use this VM for Linux/runtime/graphics-specific behavior that the harness cannot represent.
-- The current-tree GPU notes are in `AGENTS.md` under **Electron GPU / Backdrop debugging**. In particular, `bun run dev:swiftshader` is an explicit opt-in for VM visual iteration, not a production default.
+- The current-tree GPU notes are in [`dev-docs/visual-debugging.md`](../../dev-docs/visual-debugging.md) under **Electron GPU / Backdrop debugging**. In particular, `bun run dev:swiftshader` is an explicit opt-in for VM visual iteration, not a production default.
