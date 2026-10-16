@@ -8,6 +8,14 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.5.3
+
+## Under the hood
+
+- **Ad blocker update.** Explore's ad blocker now runs on Ghostery adblocker 2.20.1, which stops a filter from running inside embedded frames on sites it's meant to skip. Explore downloads its filter lists once more after this update.
+
+---
+
 ## 0.5.2
 
 Arroxy now reports less: no telemetry, just one anonymous heartbeat a day.
