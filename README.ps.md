@@ -49,6 +49,34 @@
 
 ## <a id="features"></a>ځانګړتیاوې
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>په Arroxy کې YouTube وګورئ او اوسنۍ پاڼه د خپل فعال پروفایل سره ډاونلوډ کړئ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د Explore لومړی سکرین</b><br/>Explore ته یوه ګړندۍ کتنه، او ولې دوهم اکاونټ خوندي sign in دی</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ډاونلوډونه درته وايي څه ستاسو سره اړتیا لري</b><br/>لینکونه په شاليد کې چمتو کېږي؛ ناکام لینک حل وړاندې کوي، اوږد playlist ستاسو انتخاب ته انتظار باسي</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="د Arroxy عمومي د ډاونلوډ هاټکي — په Windows او Linux کې Ctrl+Shift+D، په macOS کې Cmd+Shift+D، کاپي شوی لینک مستقیم د ډاونلوډ کتار ته لېږي" width="760" /></picture><br/><sub><b>عمومي د ډاونلوډ هاټکي</b><br/>هر چېرې لینک کاپي کړئ، یو ځل کېکاږئ — کتار ته ننوځي او ډاونلوډ پیلېږي</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>د پلی‌لېست د هر توکي پروفایل</b><br/>هر ویډیو ته خپل پروفایل ورکړئ — ځینې په 4K کې خوندي کړئ، پاتې یې د MP3 په توګه واخلئ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>د چټک ښکته کولو کور</b><br/>URL پیسټ کړئ او په خپل فعال پروفایل سره یې سمدلاسه ښکته کړئ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>د بیا کارونې وړ د ښکته کولو پروفایلونه</b><br/>بڼه، کیفیت او محصول د وړاندیز په توګه خوندي کړئ — په هر ښکته کولو کې یې بیا وکاروئ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>څو ژبني غږ مزي</b><br/>هغه دقیق غږ ژبه وټاکئ چې ویډیو یې لري</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby غږ</b><br/>د 5.1 او Dolby مزي پیژندل کیږي او ساتل کیږي</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>د ډله ییز URL حالت</b><br/>لیست پیسټ کړئ، په اتومات ډول نقلونه لرې کړئ، ټول یې په یوه وخت کې کتار کړئ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>موازي د ښکته کولو کتار</b><br/>د ژوندۍ پرمختیا سره په یوه وخت کې څو ښکته کول</sub></td>
+  </tr>
+</table>
+
 ### Explore: په Arroxy کې YouTube وګورئ
 
 - **Explore ټب** — د Arroxy په دننه کې YouTube وګورئ او هغه څه چې مومئ پرته له لینکونو کاپي کولو ډاونلوډ یې کړئ. **ډاونلوډ · *ستاسو پروفایل*** هغه ویډیو، playlist یا چینل په قطار کې اچوي چې تاسو یې ګورئ؛ د هغې تر څنګ تیر پروفایلونه بدلوي، او جادویي لرګی د فارمټونو، ساب ټایټلونو او نورو د ټاکلو لپاره ګام په ګام ډاونلوډ پرانیزي
@@ -101,34 +129,6 @@
 - **۲۰۰۰+ نور سایټونه** د yt-dlp له لارې — Vimeo، Twitch، Twitter/X، TikTok، SoundCloud، Bandcamp، Bilibili، BBC iPlayer، archive.org، او ډیر نور
 - **یوازې اوډیو او ساب ټایټلونه** د هر ملاتړ شوي سایټ پر مهال کار کوي، نه یوازې YouTube
 - که یو سایټ بدل شي، yt-dlp اونیزه فکسونه لیږدوي او Arroxy د پیلولو پر مهال بائنري اوتومات تازه کوي
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>په Arroxy کې YouTube وګورئ او اوسنۍ پاڼه د خپل فعال پروفایل سره ډاونلوډ کړئ</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د Explore لومړی سکرین</b><br/>Explore ته یوه ګړندۍ کتنه، او ولې دوهم اکاونټ خوندي sign in دی</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ډاونلوډونه درته وايي څه ستاسو سره اړتیا لري</b><br/>لینکونه په شاليد کې چمتو کېږي؛ ناکام لینک حل وړاندې کوي، اوږد playlist ستاسو انتخاب ته انتظار باسي</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="د Arroxy عمومي د ډاونلوډ هاټکي — په Windows او Linux کې Ctrl+Shift+D، په macOS کې Cmd+Shift+D، کاپي شوی لینک مستقیم د ډاونلوډ کتار ته لېږي" width="760" /></picture><br/><sub><b>عمومي د ډاونلوډ هاټکي</b><br/>هر چېرې لینک کاپي کړئ، یو ځل کېکاږئ — کتار ته ننوځي او ډاونلوډ پیلېږي</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>د پلی‌لېست د هر توکي پروفایل</b><br/>هر ویډیو ته خپل پروفایل ورکړئ — ځینې په 4K کې خوندي کړئ، پاتې یې د MP3 په توګه واخلئ</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>د چټک ښکته کولو کور</b><br/>URL پیسټ کړئ او په خپل فعال پروفایل سره یې سمدلاسه ښکته کړئ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>د بیا کارونې وړ د ښکته کولو پروفایلونه</b><br/>بڼه، کیفیت او محصول د وړاندیز په توګه خوندي کړئ — په هر ښکته کولو کې یې بیا وکاروئ</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>څو ژبني غږ مزي</b><br/>هغه دقیق غږ ژبه وټاکئ چې ویډیو یې لري</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby غږ</b><br/>د 5.1 او Dolby مزي پیژندل کیږي او ساتل کیږي</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>د ډله ییز URL حالت</b><br/>لیست پیسټ کړئ، په اتومات ډول نقلونه لرې کړئ، ټول یې په یوه وخت کې کتار کړئ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>موازي د ښکته کولو کتار</b><br/>د ژوندۍ پرمختیا سره په یوه وخت کې څو ښکته کول</sub></td>
-  </tr>
-</table>
 
 ---
 

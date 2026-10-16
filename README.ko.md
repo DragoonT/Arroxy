@@ -51,6 +51,34 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 
 ## <a id="features"></a>기능
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy 안에서 YouTube를 둘러보고, 보고 있는 페이지를 활성 프로필로 다운로드</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore 첫 화면</b><br/>Explore 간단 소개와 보조 계정 로그인이 더 안전한 이유</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>다운로드 탭이 도움이 필요한 항목을 알려 줍니다</b><br/>링크는 백그라운드에서 준비되고, 실패한 항목은 해결 방법을 제시하며, 긴 재생목록은 선택을 기다립니다</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>재생목록 항목별 프로필</b><br/>각 동영상에 개별 프로필을 지정해 일부는 4K로, 나머지는 MP3로 저장</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>빠른 다운로드 홈</b><br/>URL을 붙여 넣고 활성 프로필로 즉시 다운로드</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>재사용 가능한 다운로드 프로필</b><br/>형식, 화질, 출력 프리셋을 저장해 다운로드마다 재사용</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>다국어 오디오 트랙</b><br/>동영상에 포함된 정확한 오디오 언어 선택</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>서라운드 / Dolby 오디오</b><br/>5.1 및 Dolby 트랙을 감지하고 보존</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>URL 일괄 모드</b><br/>목록을 붙여 넣고 중복을 자동 제거한 뒤 모두 대기열에 추가</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>병렬 다운로드 대기열</b><br/>실시간 진행률과 함께 여러 다운로드를 동시에 실행</sub></td>
+  </tr>
+</table>
+
 ### Explore: Arroxy 안에서 YouTube 탐색
 
 - **Explore 탭** — Arroxy 안에서 YouTube를 둘러보고, 링크를 복사하지 않고도 찾은 영상을 바로 다운로드합니다. **다운로드 · *내 프로필*** 은 보고 있는 동영상, 재생목록 또는 채널을 대기열에 추가하고, 옆의 화살표로 프로필을 바꾸며, 마법봉은 형식·자막 등을 고르는 단계별 다운로드를 엽니다
@@ -103,34 +131,6 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - yt-dlp를 통한 **2000개 이상의 기타 사이트** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org 등
 - **오디오 전용 및 자막**은 YouTube뿐 아니라 지원되는 모든 사이트에서 작동
 - 사이트가 변경되면 yt-dlp가 매주 수정 사항을 제공하고 Arroxy가 시작할 때 바이너리를 자동 업데이트
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy 안에서 YouTube를 둘러보고, 보고 있는 페이지를 활성 프로필로 다운로드</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore 첫 화면</b><br/>Explore 간단 소개와 보조 계정 로그인이 더 안전한 이유</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>다운로드 탭이 도움이 필요한 항목을 알려 줍니다</b><br/>링크는 백그라운드에서 준비되고, 실패한 항목은 해결 방법을 제시하며, 긴 재생목록은 선택을 기다립니다</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>재생목록 항목별 프로필</b><br/>각 동영상에 개별 프로필을 지정해 일부는 4K로, 나머지는 MP3로 저장</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>빠른 다운로드 홈</b><br/>URL을 붙여 넣고 활성 프로필로 즉시 다운로드</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>재사용 가능한 다운로드 프로필</b><br/>형식, 화질, 출력 프리셋을 저장해 다운로드마다 재사용</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>다국어 오디오 트랙</b><br/>동영상에 포함된 정확한 오디오 언어 선택</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>서라운드 / Dolby 오디오</b><br/>5.1 및 Dolby 트랙을 감지하고 보존</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>URL 일괄 모드</b><br/>목록을 붙여 넣고 중복을 자동 제거한 뒤 모두 대기열에 추가</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>병렬 다운로드 대기열</b><br/>실시간 진행률과 함께 여러 다운로드를 동시에 실행</sub></td>
-  </tr>
-</table>
 
 ---
 

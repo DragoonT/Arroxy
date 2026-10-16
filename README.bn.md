@@ -49,6 +49,34 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 ## <a id="features"></a>বৈশিষ্ট্যসমূহ
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন এবং সক্রিয় প্রোফাইল দিয়ে বর্তমান পেজটি ডাউনলোড করুন</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore-এর প্রথম স্ক্রিন</b><br/>Explore-এর সংক্ষিপ্ত পরিচিতি, এবং সেকেন্ডারি অ্যাকাউন্ট কেন সাইন-ইনের নিরাপদ উপায়</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ডাউনলোড ট্যাব জানায় কোনটিতে আপনার দরকার</b><br/>লিংক ব্যাকগ্রাউন্ডে প্রস্তুত হয়; ব্যর্থ লিংক সমাধান দেখায়, আর লম্বা প্লেলিস্ট আপনার সিদ্ধান্তের অপেক্ষায় থাকে</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy-এর গ্লোবাল ডাউনলোড হটকি — Windows ও Linux-এ Ctrl+Shift+D, macOS-এ Cmd+Shift+D, কপি করা লিংক সরাসরি ডাউনলোড সারিতে পাঠায়" width="760" /></picture><br/><sub><b>গ্লোবাল ডাউনলোড হটকি</b><br/>যেকোনো জায়গায় লিংক কপি করুন, একবার চাপুন — সারিতে ঢুকে ডাউনলোড শুরু</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>প্লেলিস্টের প্রতিটি আইটেমের প্রোফাইল</b><br/>প্রতিটি ভিডিওকে নিজস্ব প্রোফাইল দিন — কিছু 4K-তে সংরক্ষণ করুন, বাকিগুলো MP3 হিসেবে নিন</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>দ্রুত ডাউনলোড হোম</b><br/>একটি URL পেস্ট করুন এবং আপনার সক্রিয় প্রোফাইল দিয়ে সঙ্গে সঙ্গে ডাউনলোড করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>পুনঃব্যবহারযোগ্য ডাউনলোড প্রোফাইল</b><br/>ফরম্যাট, মান ও আউটপুট প্রিসেট হিসেবে সংরক্ষণ করুন — প্রতি ডাউনলোডে পুনরায় ব্যবহার করুন</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>বহুভাষিক অডিও ট্র্যাক</b><br/>ভিডিওতে থাকা সঠিক অডিও ভাষা নির্বাচন করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>সারাউন্ড / Dolby অডিও</b><br/>5.1 এবং Dolby ট্র্যাক শনাক্ত করে সংরক্ষণ করা হয়</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>বাল্ক URL মোড</b><br/>একটি তালিকা পেস্ট করুন, স্বয়ংক্রিয়ভাবে ডুপ্লিকেট সরান, সব একসাথে সারিবদ্ধ করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>সমান্তরাল ডাউনলোড সারি</b><br/>লাইভ অগ্রগতিসহ একসাথে একাধিক ডাউনলোড</sub></td>
+  </tr>
+</table>
+
 ### Explore: Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন
 
 - **Explore ট্যাব** — Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন এবং লিংক কপি না করেই যা পান তা ডাউনলোড করুন। **ডাউনলোড · *আপনার প্রোফাইল*** আপনি যে ভিডিও, প্লেলিস্ট বা চ্যানেল দেখছেন সেটি সারিতে যোগ করে; পাশের তীর প্রোফাইল বদলায়, আর জাদুদণ্ড ফরম্যাট, সাবটাইটেল ইত্যাদি বেছে নিতে ধাপে ধাপে ডাউনলোড খোলে
@@ -101,34 +129,6 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 - **২০০০+ অন্যান্য সাইট** yt-dlp-এর মাধ্যমে — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org এবং আরও অনেক কিছু
 - **শুধু অডিও ও সাবটাইটেল** সমস্ত সমর্থিত সাইটে কাজ করে, শুধু YouTube-এ নয়
 - কোনো সাইট পরিবর্তিত হলে, yt-dlp সাপ্তাহিক ফিক্স পাঠায় এবং Arroxy লঞ্চে বাইনারি অটো-আপডেট করে
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন এবং সক্রিয় প্রোফাইল দিয়ে বর্তমান পেজটি ডাউনলোড করুন</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore-এর প্রথম স্ক্রিন</b><br/>Explore-এর সংক্ষিপ্ত পরিচিতি, এবং সেকেন্ডারি অ্যাকাউন্ট কেন সাইন-ইনের নিরাপদ উপায়</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ডাউনলোড ট্যাব জানায় কোনটিতে আপনার দরকার</b><br/>লিংক ব্যাকগ্রাউন্ডে প্রস্তুত হয়; ব্যর্থ লিংক সমাধান দেখায়, আর লম্বা প্লেলিস্ট আপনার সিদ্ধান্তের অপেক্ষায় থাকে</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy-এর গ্লোবাল ডাউনলোড হটকি — Windows ও Linux-এ Ctrl+Shift+D, macOS-এ Cmd+Shift+D, কপি করা লিংক সরাসরি ডাউনলোড সারিতে পাঠায়" width="760" /></picture><br/><sub><b>গ্লোবাল ডাউনলোড হটকি</b><br/>যেকোনো জায়গায় লিংক কপি করুন, একবার চাপুন — সারিতে ঢুকে ডাউনলোড শুরু</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>প্লেলিস্টের প্রতিটি আইটেমের প্রোফাইল</b><br/>প্রতিটি ভিডিওকে নিজস্ব প্রোফাইল দিন — কিছু 4K-তে সংরক্ষণ করুন, বাকিগুলো MP3 হিসেবে নিন</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>দ্রুত ডাউনলোড হোম</b><br/>একটি URL পেস্ট করুন এবং আপনার সক্রিয় প্রোফাইল দিয়ে সঙ্গে সঙ্গে ডাউনলোড করুন</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>পুনঃব্যবহারযোগ্য ডাউনলোড প্রোফাইল</b><br/>ফরম্যাট, মান ও আউটপুট প্রিসেট হিসেবে সংরক্ষণ করুন — প্রতি ডাউনলোডে পুনরায় ব্যবহার করুন</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>বহুভাষিক অডিও ট্র্যাক</b><br/>ভিডিওতে থাকা সঠিক অডিও ভাষা নির্বাচন করুন</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>সারাউন্ড / Dolby অডিও</b><br/>5.1 এবং Dolby ট্র্যাক শনাক্ত করে সংরক্ষণ করা হয়</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>বাল্ক URL মোড</b><br/>একটি তালিকা পেস্ট করুন, স্বয়ংক্রিয়ভাবে ডুপ্লিকেট সরান, সব একসাথে সারিবদ্ধ করুন</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>সমান্তরাল ডাউনলোড সারি</b><br/>লাইভ অগ্রগতিসহ একসাথে একাধিক ডাউনলোড</sub></td>
-  </tr>
-</table>
 
 ---
 

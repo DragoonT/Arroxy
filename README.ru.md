@@ -51,6 +51,34 @@
 
 ## <a id="features"></a>Возможности
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Просматривайте YouTube прямо в Arroxy и скачивайте текущую страницу с активным профилем</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Первый экран Explore</b><br/>Краткий обзор Explore и почему второй аккаунт — более безопасный вариант входа</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Загрузки подсказывают, что ждёт вас</b><br/>Ссылки готовятся в фоне; неудавшаяся предлагает решение, длинный плейлист ждёт вашего выбора</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобальная горячая клавиша загрузки Arroxy — Ctrl+Shift+D в Windows и Linux, Cmd+Shift+D в macOS, отправляет скопированную ссылку прямо в очередь загрузок" width="760" /></picture><br/><sub><b>Глобальная горячая клавиша загрузки</b><br/>Скопируйте ссылку где угодно и нажмите один раз — она попадёт в очередь и начнёт скачиваться</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профили для каждого видео плейлиста</b><br/>Своя настройка для каждого видео — часть в 4K, остальные как MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Главная быстрой загрузки</b><br/>Вставьте URL и сразу скачайте с активным профилем</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Многоразовые профили загрузки</b><br/>Сохраняйте формат, качество и вывод как пресеты — используйте при каждой загрузке</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Многоязычные аудиодорожки</b><br/>Выберите именно тот язык аудио, что есть в видео</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Объёмный / Dolby звук</b><br/>Дорожки 5.1 и Dolby распознаются и сохраняются</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим массовых URL</b><br/>Вставьте список, авто-удаление дубликатов, поставьте всё в очередь сразу</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Параллельная очередь загрузок</b><br/>Несколько загрузок одновременно с живым прогрессом</sub></td>
+  </tr>
+</table>
+
 ### Explore: просмотр YouTube прямо в Arroxy
 
 - **Вкладка Explore** — просматривайте YouTube прямо в Arroxy и скачивайте найденное без копирования ссылок. **Скачать · *ваш профиль*** ставит в очередь видео, плейлист или канал, который вы сейчас смотрите; стрелка рядом переключает профили, а волшебная палочка открывает пошаговую загрузку для выбора форматов, субтитров и не только
@@ -103,34 +131,6 @@
 - **2000+ других сайтов** через yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org и многие другие
 - **Только аудио и субтитры** работают на каждом поддерживаемом сайте, а не только на YouTube
 - Если сайт меняется, yt-dlp выпускает исправления еженедельно, а Arroxy обновляет бинарный файл при запуске
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Просматривайте YouTube прямо в Arroxy и скачивайте текущую страницу с активным профилем</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Первый экран Explore</b><br/>Краткий обзор Explore и почему второй аккаунт — более безопасный вариант входа</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Загрузки подсказывают, что ждёт вас</b><br/>Ссылки готовятся в фоне; неудавшаяся предлагает решение, длинный плейлист ждёт вашего выбора</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобальная горячая клавиша загрузки Arroxy — Ctrl+Shift+D в Windows и Linux, Cmd+Shift+D в macOS, отправляет скопированную ссылку прямо в очередь загрузок" width="760" /></picture><br/><sub><b>Глобальная горячая клавиша загрузки</b><br/>Скопируйте ссылку где угодно и нажмите один раз — она попадёт в очередь и начнёт скачиваться</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профили для каждого видео плейлиста</b><br/>Своя настройка для каждого видео — часть в 4K, остальные как MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Главная быстрой загрузки</b><br/>Вставьте URL и сразу скачайте с активным профилем</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Многоразовые профили загрузки</b><br/>Сохраняйте формат, качество и вывод как пресеты — используйте при каждой загрузке</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Многоязычные аудиодорожки</b><br/>Выберите именно тот язык аудио, что есть в видео</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Объёмный / Dolby звук</b><br/>Дорожки 5.1 и Dolby распознаются и сохраняются</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим массовых URL</b><br/>Вставьте список, авто-удаление дубликатов, поставьте всё в очередь сразу</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Параллельная очередь загрузок</b><br/>Несколько загрузок одновременно с живым прогрессом</sub></td>
-  </tr>
-</table>
 
 ---
 

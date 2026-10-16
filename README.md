@@ -49,6 +49,34 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 ## <a id="features"></a>Features
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Browse YouTube inside Arroxy and download the page you're on with your active profile</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore's first screen</b><br/>A quick look at Explore, and why a secondary account is the safer sign-in</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Downloads tells you what needs you</b><br/>Links prepare in the background; a failed one offers its fix, a long playlist waits for your choice</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy global download hotkey — Ctrl+Shift+D on Windows and Linux, Cmd+Shift+D on macOS, sending the copied link straight into the download queue" width="760" /></picture><br/><sub><b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Quick Download home</b><br/>Paste a URL and pull it instantly with your active profile</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Reusable download profiles</b><br/>Save format, quality, and output presets — reuse per download</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Multi-language audio tracks</b><br/>Pick the exact audio language a video ships</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby audio</b><br/>5.1 and Dolby tracks detected and preserved</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Bulk URL mode</b><br/>Paste a list, auto-dedupe, queue them all at once</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallel download queue</b><br/>Several downloads at once with live progress</sub></td>
+  </tr>
+</table>
+
 ### Explore: browse YouTube inside Arroxy
 
 - **Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more
@@ -101,34 +129,6 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - **2000+ other sites** via yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, and many more
 - **Audio-only and subtitles** work across every supported site, not just YouTube
 - If a site changes, yt-dlp ships fixes weekly and Arroxy auto-updates the binary on launch
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Browse YouTube inside Arroxy and download the page you're on with your active profile</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore's first screen</b><br/>A quick look at Explore, and why a secondary account is the safer sign-in</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Downloads tells you what needs you</b><br/>Links prepare in the background; a failed one offers its fix, a long playlist waits for your choice</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy global download hotkey — Ctrl+Shift+D on Windows and Linux, Cmd+Shift+D on macOS, sending the copied link straight into the download queue" width="760" /></picture><br/><sub><b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Quick Download home</b><br/>Paste a URL and pull it instantly with your active profile</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Reusable download profiles</b><br/>Save format, quality, and output presets — reuse per download</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Multi-language audio tracks</b><br/>Pick the exact audio language a video ships</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby audio</b><br/>5.1 and Dolby tracks detected and preserved</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Bulk URL mode</b><br/>Paste a list, auto-dedupe, queue them all at once</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallel download queue</b><br/>Several downloads at once with live progress</sub></td>
-  </tr>
-</table>
 
 ---
 

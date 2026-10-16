@@ -51,6 +51,34 @@
 
 ## <a id="features"></a>ความสามารถ
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>เรียกดู YouTube ใน Arroxy แล้วดาวน์โหลดหน้าที่กำลังดูด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>หน้าแรกของ Explore</b><br/>แนะนำ Explore สั้น ๆ และเหตุผลที่บัญชีสำรองปลอดภัยกว่าสำหรับการเข้าสู่ระบบ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>แท็บดาวน์โหลดบอกว่าอะไรต้องให้คุณจัดการ</b><br/>ลิงก์เตรียมข้อมูลเบื้องหลัง ลิงก์ที่ล้มเหลวจะเสนอวิธีแก้ และเพลย์ลิสต์ยาวจะรอให้คุณเลือก</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="ปุ่มลัดดาวน์โหลดทั่วระบบของ Arroxy — Ctrl+Shift+D บน Windows และ Linux, Cmd+Shift+D บน macOS เพื่อส่งลิงก์ที่คัดลอกเข้าคิวโดยตรง" width="760" /></picture><br/><sub><b>ปุ่มลัดดาวน์โหลดทั่วระบบ</b><br/>คัดลอกลิงก์ที่ไหนก็ได้ กดครั้งเดียว แล้วลิงก์จะเข้าคิวและเริ่มดาวน์โหลด</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>โปรไฟล์แยกต่อรายการเพลย์ลิสต์</b><br/>ให้แต่ละวิดีโอใช้โปรไฟล์ของตัวเอง — เก็บบางรายการเป็น 4K และที่เหลือเป็น MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>หน้าดาวน์โหลดด่วน</b><br/>วาง URL แล้วดาวน์โหลดทันทีด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>โปรไฟล์ดาวน์โหลดที่ใช้ซ้ำได้</b><br/>บันทึกรูปแบบ คุณภาพ และปลายทาง แล้วใช้ซ้ำในแต่ละงาน</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>แทร็กเสียงหลายภาษา</b><br/>เลือกภาษาเสียงที่มากับวิดีโอได้อย่างแม่นยำ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>เสียง surround / Dolby</b><br/>ตรวจพบและเก็บแทร็ก 5.1 กับ Dolby ไว้</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>โหมด URL จำนวนมาก</b><br/>วางรายการ ลบรายการซ้ำอัตโนมัติ แล้วเพิ่มทั้งหมดเข้าคิว</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>คิวดาวน์โหลดแบบขนาน</b><br/>ดาวน์โหลดหลายงานพร้อมกันพร้อมความคืบหน้าแบบสด</sub></td>
+  </tr>
+</table>
+
 ### Explore: เรียกดู YouTube ใน Arroxy
 
 - **แท็บ Explore** — เรียกดู YouTube ภายใน Arroxy และดาวน์โหลดสิ่งที่พบโดยไม่ต้องคัดลอกลิงก์ **ดาวน์โหลด · *โปรไฟล์ของคุณ*** จะเข้าคิววิดีโอ เพลย์ลิสต์ หรือช่องที่กำลังดูอยู่ ลูกศรข้างปุ่มใช้สลับโปรไฟล์ ส่วนไม้กายสิทธิ์เปิดการดาวน์โหลดทีละขั้นเพื่อเลือกรูปแบบ คำบรรยาย และอื่น ๆ
@@ -103,34 +131,6 @@
 - **เว็บไซต์อื่นกว่า 2000 แห่ง** ผ่าน yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org และอีกมาก
 - **เฉพาะเสียงและคำบรรยาย** ใช้ได้กับทุกเว็บไซต์ที่รองรับ ไม่ใช่แค่ YouTube
 - เมื่อเว็บไซต์เปลี่ยน yt-dlp จะออกการแก้ไขทุกสัปดาห์ และ Arroxy อัปเดตไบนารีอัตโนมัติเมื่อเปิดแอป
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>เรียกดู YouTube ใน Arroxy แล้วดาวน์โหลดหน้าที่กำลังดูด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>หน้าแรกของ Explore</b><br/>แนะนำ Explore สั้น ๆ และเหตุผลที่บัญชีสำรองปลอดภัยกว่าสำหรับการเข้าสู่ระบบ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>แท็บดาวน์โหลดบอกว่าอะไรต้องให้คุณจัดการ</b><br/>ลิงก์เตรียมข้อมูลเบื้องหลัง ลิงก์ที่ล้มเหลวจะเสนอวิธีแก้ และเพลย์ลิสต์ยาวจะรอให้คุณเลือก</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="ปุ่มลัดดาวน์โหลดทั่วระบบของ Arroxy — Ctrl+Shift+D บน Windows และ Linux, Cmd+Shift+D บน macOS เพื่อส่งลิงก์ที่คัดลอกเข้าคิวโดยตรง" width="760" /></picture><br/><sub><b>ปุ่มลัดดาวน์โหลดทั่วระบบ</b><br/>คัดลอกลิงก์ที่ไหนก็ได้ กดครั้งเดียว แล้วลิงก์จะเข้าคิวและเริ่มดาวน์โหลด</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>โปรไฟล์แยกต่อรายการเพลย์ลิสต์</b><br/>ให้แต่ละวิดีโอใช้โปรไฟล์ของตัวเอง — เก็บบางรายการเป็น 4K และที่เหลือเป็น MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>หน้าดาวน์โหลดด่วน</b><br/>วาง URL แล้วดาวน์โหลดทันทีด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>โปรไฟล์ดาวน์โหลดที่ใช้ซ้ำได้</b><br/>บันทึกรูปแบบ คุณภาพ และปลายทาง แล้วใช้ซ้ำในแต่ละงาน</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>แทร็กเสียงหลายภาษา</b><br/>เลือกภาษาเสียงที่มากับวิดีโอได้อย่างแม่นยำ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>เสียง surround / Dolby</b><br/>ตรวจพบและเก็บแทร็ก 5.1 กับ Dolby ไว้</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>โหมด URL จำนวนมาก</b><br/>วางรายการ ลบรายการซ้ำอัตโนมัติ แล้วเพิ่มทั้งหมดเข้าคิว</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>คิวดาวน์โหลดแบบขนาน</b><br/>ดาวน์โหลดหลายงานพร้อมกันพร้อมความคืบหน้าแบบสด</sub></td>
-  </tr>
-</table>
 
 ---
 

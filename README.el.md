@@ -49,6 +49,34 @@
 
 ## <a id="features"></a>Χαρακτηριστικά
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Περιηγηθείτε στο YouTube μέσα στο Arroxy και κατεβάστε τη σελίδα που βλέπετε με το ενεργό προφίλ σας</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Η πρώτη οθόνη του Explore</b><br/>Μια γρήγορη ματιά στο Explore και γιατί ένας δευτερεύων λογαριασμός είναι η ασφαλέστερη σύνδεση</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Οι Λήψεις σας λένε τι χρειάζεται εσάς</b><br/>Οι σύνδεσμοι προετοιμάζονται στο παρασκήνιο· ένας αποτυχημένος προτείνει τη λύση, μια μεγάλη playlist περιμένει την επιλογή σας</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Καθολική συντόμευση λήψης του Arroxy — Ctrl+Shift+D σε Windows και Linux, Cmd+Shift+D σε macOS, στέλνει τον αντιγραμμένο σύνδεσμο απευθείας στην ουρά λήψεων" width="760" /></picture><br/><sub><b>Καθολική συντόμευση λήψης</b><br/>Αντίγραψε έναν σύνδεσμο οπουδήποτε, πάτα μία φορά — μπαίνει στην ουρά και ξεκινά η λήψη</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Προφίλ ανά βίντεο σε playlist</b><br/>Δώστε σε κάθε βίντεο το δικό του προφίλ — άλλα σε 4K, τα υπόλοιπα ως MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Αρχική Γρήγορης λήψης</b><br/>Επικολλήστε ένα URL και κατεβάστε το αμέσως με το ενεργό προφίλ σας</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Επαναχρησιμοποιήσιμα προφίλ λήψης</b><br/>Αποθηκεύστε μορφή, ποιότητα και έξοδο ως προεπιλογές — επαναχρησιμοποιήστε σε κάθε λήψη</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Πολύγλωσσα κομμάτια ήχου</b><br/>Επιλέξτε την ακριβή γλώσσα ήχου που διαθέτει το βίντεο</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Ήχος Surround / Dolby</b><br/>Τα κομμάτια 5.1 και Dolby εντοπίζονται και διατηρούνται</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Λειτουργία μαζικών URL</b><br/>Επικολλήστε μια λίστα, αυτόματη αφαίρεση διπλότυπων, βάλτε τα όλα στην ουρά μαζί</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Παράλληλη ουρά λήψεων</b><br/>Πολλές λήψεις ταυτόχρονα με ζωντανή πρόοδο</sub></td>
+  </tr>
+</table>
+
 ### Explore: περιήγηση στο YouTube μέσα στο Arroxy
 
 - **Καρτέλα Explore** — περιηγηθείτε στο YouTube μέσα στο Arroxy και κατεβάστε ό,τι βρείτε χωρίς αντιγραφή συνδέσμων. Το **Λήψη · *το προφίλ σας*** βάζει στην ουρά το βίντεο, την playlist ή το κανάλι που βλέπετε· το βέλος δίπλα αλλάζει προφίλ και η μαγική ράβδος ανοίγει τη λήψη βήμα προς βήμα για επιλογή μορφών, υποτίτλων και άλλων
@@ -101,34 +129,6 @@
 - **2000+ άλλοι ιστοτόποι** μέσω yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org και πολλοί άλλοι
 - **Μόνο ήχος και υπότιτλοι** λειτουργούν σε κάθε υποστηριζόμενο ιστοτόπο, όχι μόνο στο YouTube
 - Αν ένας ιστοτόπος αλλάξει, το yt-dlp παρέχει διορθώσεις εβδομαδιαία και το Arroxy ενημερώνει αυτόματα το εκτελέσιμο κατά την εκκίνηση
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Περιηγηθείτε στο YouTube μέσα στο Arroxy και κατεβάστε τη σελίδα που βλέπετε με το ενεργό προφίλ σας</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Η πρώτη οθόνη του Explore</b><br/>Μια γρήγορη ματιά στο Explore και γιατί ένας δευτερεύων λογαριασμός είναι η ασφαλέστερη σύνδεση</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Οι Λήψεις σας λένε τι χρειάζεται εσάς</b><br/>Οι σύνδεσμοι προετοιμάζονται στο παρασκήνιο· ένας αποτυχημένος προτείνει τη λύση, μια μεγάλη playlist περιμένει την επιλογή σας</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Καθολική συντόμευση λήψης του Arroxy — Ctrl+Shift+D σε Windows και Linux, Cmd+Shift+D σε macOS, στέλνει τον αντιγραμμένο σύνδεσμο απευθείας στην ουρά λήψεων" width="760" /></picture><br/><sub><b>Καθολική συντόμευση λήψης</b><br/>Αντίγραψε έναν σύνδεσμο οπουδήποτε, πάτα μία φορά — μπαίνει στην ουρά και ξεκινά η λήψη</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Προφίλ ανά βίντεο σε playlist</b><br/>Δώστε σε κάθε βίντεο το δικό του προφίλ — άλλα σε 4K, τα υπόλοιπα ως MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Αρχική Γρήγορης λήψης</b><br/>Επικολλήστε ένα URL και κατεβάστε το αμέσως με το ενεργό προφίλ σας</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Επαναχρησιμοποιήσιμα προφίλ λήψης</b><br/>Αποθηκεύστε μορφή, ποιότητα και έξοδο ως προεπιλογές — επαναχρησιμοποιήστε σε κάθε λήψη</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Πολύγλωσσα κομμάτια ήχου</b><br/>Επιλέξτε την ακριβή γλώσσα ήχου που διαθέτει το βίντεο</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Ήχος Surround / Dolby</b><br/>Τα κομμάτια 5.1 και Dolby εντοπίζονται και διατηρούνται</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Λειτουργία μαζικών URL</b><br/>Επικολλήστε μια λίστα, αυτόματη αφαίρεση διπλότυπων, βάλτε τα όλα στην ουρά μαζί</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Παράλληλη ουρά λήψεων</b><br/>Πολλές λήψεις ταυτόχρονα με ζωντανή πρόοδο</sub></td>
-  </tr>
-</table>
 
 ---
 

@@ -51,6 +51,34 @@
 
 ## <a id="features"></a>Можливості
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Переглядайте YouTube просто в Arroxy і завантажуйте поточну сторінку з активним профілем</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Перший екран Explore</b><br/>Короткий огляд Explore і чому другий акаунт — безпечніший спосіб входу</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Завантаження підказують, що чекає на вас</b><br/>Посилання готуються у фоні; невдале пропонує рішення, довгий плейлист чекає на ваш вибір</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобальна гаряча клавіша завантаження Arroxy — Ctrl+Shift+D у Windows і Linux, Cmd+Shift+D у macOS, надсилає скопійоване посилання просто до черги завантажень" width="760" /></picture><br/><sub><b>Глобальна гаряча клавіша завантаження</b><br/>Скопіюйте посилання будь-де, натисніть один раз — воно потрапляє в чергу й починає завантажуватися</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профілі для кожного відео плейлиста</b><br/>Власний профіль для кожного відео — частину в 4K, решту як MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Головна швидкого завантаження</b><br/>Вставте URL і одразу завантажте з активним профілем</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Багаторазові профілі завантаження</b><br/>Зберігайте формат, якість і вивід як пресети — використовуйте для кожного завантаження</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Багатомовні аудіодоріжки</b><br/>Виберіть саме ту мову звуку, що є у відео</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Об'ємний / Dolby звук</b><br/>Доріжки 5.1 і Dolby розпізнаються та зберігаються</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим масових URL</b><br/>Вставте список, авто-вилучення дублікатів, поставте все в чергу одразу</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Паралельна черга завантажень</b><br/>Кілька завантажень одночасно з живим прогресом</sub></td>
+  </tr>
+</table>
+
 ### Explore: перегляд YouTube просто в Arroxy
 
 - **Вкладка Explore** — переглядайте YouTube просто в Arroxy і завантажуйте знайдене без копіювання посилань. **Завантажити · *ваш профіль*** додає в чергу відео, плейлист або канал, який ви зараз дивитеся; стрілка поруч перемикає профілі, а чарівна паличка відкриває покрокове завантаження для вибору форматів, субтитрів тощо
@@ -103,34 +131,6 @@
 - **2000+ інших сайтів** через yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org та багато іншого
 - **Лише аудіо та субтитри** працюють на кожному підтримуваному сайті, а не лише на YouTube
 - Якщо сайт змінюється, yt-dlp щотижня випускає виправлення, а Arroxy оновлює бінарний файл при запуску
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Переглядайте YouTube просто в Arroxy і завантажуйте поточну сторінку з активним профілем</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Перший екран Explore</b><br/>Короткий огляд Explore і чому другий акаунт — безпечніший спосіб входу</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Завантаження підказують, що чекає на вас</b><br/>Посилання готуються у фоні; невдале пропонує рішення, довгий плейлист чекає на ваш вибір</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобальна гаряча клавіша завантаження Arroxy — Ctrl+Shift+D у Windows і Linux, Cmd+Shift+D у macOS, надсилає скопійоване посилання просто до черги завантажень" width="760" /></picture><br/><sub><b>Глобальна гаряча клавіша завантаження</b><br/>Скопіюйте посилання будь-де, натисніть один раз — воно потрапляє в чергу й починає завантажуватися</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профілі для кожного відео плейлиста</b><br/>Власний профіль для кожного відео — частину в 4K, решту як MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Головна швидкого завантаження</b><br/>Вставте URL і одразу завантажте з активним профілем</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Багаторазові профілі завантаження</b><br/>Зберігайте формат, якість і вивід як пресети — використовуйте для кожного завантаження</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Багатомовні аудіодоріжки</b><br/>Виберіть саме ту мову звуку, що є у відео</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Об'ємний / Dolby звук</b><br/>Доріжки 5.1 і Dolby розпізнаються та зберігаються</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим масових URL</b><br/>Вставте список, авто-вилучення дублікатів, поставте все в чергу одразу</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Паралельна черга завантажень</b><br/>Кілька завантажень одночасно з живим прогресом</sub></td>
-  </tr>
-</table>
 
 ---
 

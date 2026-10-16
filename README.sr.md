@@ -49,6 +49,34 @@
 
 ## <a id="features"></a>Функционалности
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Прегледајте YouTube унутар Arroxy-ја и преузмите страницу на којој сте са активним профилом</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Први екран Explore-а</b><br/>Кратак поглед на Explore и зашто је помоћни налог безбеднија пријава</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Преузимања вам показују шта чека вас</b><br/>Линкови се припремају у позадини; неуспели нуди решење, дугачка плејлиста чека ваш избор</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобална пречица за преузимање у Arroxy — Ctrl+Shift+D на Windows и Linux, Cmd+Shift+D на macOS, шаље копирани линк право у ред за преузимање" width="760" /></picture><br/><sub><b>Глобална пречица за преузимање</b><br/>Копирајте линк било где, притисните једном — улази у ред и преузимање почиње</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профили по ставци плејлисте</b><br/>Дајте сваком видеу сопствени профил — неке у 4K, остале као MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Почетна брзог преузимања</b><br/>Налепите URL и одмах преузмите са активним профилом</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Поново употребљиви профили преузимања</b><br/>Сачувајте формат, квалитет и излаз као поставке — користите за свако преузимање</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Вишејезичне аудио траке</b><br/>Изаберите тачан језик звука који видео носи</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Сараунд / Dolby звук</b><br/>Траке 5.1 и Dolby се препознају и чувају</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим масовних URL-ова</b><br/>Налепите листу, аутоматско уклањање дупликата, ставите све у ред одједном</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Паралелни ред преузимања</b><br/>Више преузимања истовремено уз праћење уживо</sub></td>
+  </tr>
+</table>
+
 ### Explore: прегледајте YouTube унутар Arroxy-ја
 
 - **Explore картица** — прегледајте YouTube унутар Arroxy-ја и преузимајте шта нађете без копирања линкова. **Преузми · *ваш профил*** ставља у ред видео, плејлисту или канал који гледате; стрелица поред мења профиле, а чаробни штапић отвара вођено преузимање корак по корак за избор формата, титлова и још тога
@@ -101,34 +129,6 @@
 - **2000+ других сajтова** преко yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org и многи други
 - **Само аудио и титлови** раде на свaком подржаном сaјту, не само на YouTube-у
 - Ако сajт промени нешто, yt-dlp испоручује исправке недељно, а Arroxy аутоматски ажурира бинарни фajл при покретању
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Прегледајте YouTube унутар Arroxy-ја и преузмите страницу на којој сте са активним профилом</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Први екран Explore-а</b><br/>Кратак поглед на Explore и зашто је помоћни налог безбеднија пријава</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Преузимања вам показују шта чека вас</b><br/>Линкови се припремају у позадини; неуспели нуди решење, дугачка плејлиста чека ваш избор</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобална пречица за преузимање у Arroxy — Ctrl+Shift+D на Windows и Linux, Cmd+Shift+D на macOS, шаље копирани линк право у ред за преузимање" width="760" /></picture><br/><sub><b>Глобална пречица за преузимање</b><br/>Копирајте линк било где, притисните једном — улази у ред и преузимање почиње</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профили по ставци плејлисте</b><br/>Дајте сваком видеу сопствени профил — неке у 4K, остале као MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Почетна брзог преузимања</b><br/>Налепите URL и одмах преузмите са активним профилом</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Поново употребљиви профили преузимања</b><br/>Сачувајте формат, квалитет и излаз као поставке — користите за свако преузимање</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Вишејезичне аудио траке</b><br/>Изаберите тачан језик звука који видео носи</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Сараунд / Dolby звук</b><br/>Траке 5.1 и Dolby се препознају и чувају</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим масовних URL-ова</b><br/>Налепите листу, аутоматско уклањање дупликата, ставите све у ред одједном</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Паралелни ред преузимања</b><br/>Више преузимања истовремено уз праћење уживо</sub></td>
-  </tr>
-</table>
 
 ---
 

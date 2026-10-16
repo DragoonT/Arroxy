@@ -51,6 +51,34 @@
 
 ## <a id="features"></a>फ़ीचर
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy के अंदर ही YouTube ब्राउज़ करें और सक्रिय प्रोफ़ाइल से मौजूदा पेज डाउनलोड करें</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore की पहली स्क्रीन</b><br/>Explore की एक झलक, और सेकेंडरी अकाउंट से साइन इन करना क्यों सुरक्षित है</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>डाउनलोड टैब बताता है कि किसे आपकी ज़रूरत है</b><br/>लिंक बैकग्राउंड में तैयार होते हैं; फ़ेल हुआ लिंक उपाय सुझाता है, और लंबी प्लेलिस्ट आपके चुनाव का इंतज़ार करती है</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy की ग्लोबल डाउनलोड हॉटकी — Windows और Linux पर Ctrl+Shift+D, macOS पर Cmd+Shift+D, कॉपी किया गया लिंक सीधे डाउनलोड कतार में भेजती है" width="760" /></picture><br/><sub><b>ग्लोबल डाउनलोड हॉटकी</b><br/>कहीं भी लिंक कॉपी करें, एक बार दबाएँ — वह कतार में आकर डाउनलोड होने लगता है</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>प्लेलिस्ट के हर आइटम के लिए प्रोफ़ाइल</b><br/>हर वीडियो को उसकी अपनी प्रोफ़ाइल दें — कुछ को 4K में सहेजें, बाकी को MP3 के रूप में लें</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>क्विक डाउनलोड होम</b><br/>एक URL पेस्ट करें और अपनी सक्रिय प्रोफ़ाइल से तुरंत डाउनलोड करें</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>पुन: प्रयोज्य डाउनलोड प्रोफ़ाइल</b><br/>फ़ॉर्मेट, गुणवत्ता और आउटपुट को प्रीसेट के रूप में सहेजें — हर डाउनलोड पर दोबारा उपयोग करें</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>बहुभाषी ऑडियो ट्रैक</b><br/>वीडियो में मौजूद सटीक ऑडियो भाषा चुनें</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>सराउंड / Dolby ऑडियो</b><br/>5.1 और Dolby ट्रैक पहचाने और सुरक्षित रखे जाते हैं</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>बल्क URL मोड</b><br/>एक सूची पेस्ट करें, स्वतः डुप्लिकेट हटाएँ, सभी को एक साथ कतार में लगाएँ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>समानांतर डाउनलोड कतार</b><br/>लाइव प्रगति के साथ एक साथ कई डाउनलोड</sub></td>
+  </tr>
+</table>
+
 ### Explore: Arroxy के अंदर ही YouTube ब्राउज़ करें
 
 - **Explore टैब** — Arroxy के अंदर ही YouTube ब्राउज़ करें और जो मिले उसे लिंक कॉपी किए बिना डाउनलोड करें। **डाउनलोड · *आपकी प्रोफ़ाइल*** आपके देखे जा रहे वीडियो, प्लेलिस्ट या चैनल को कतार में डालता है; उसके बगल का तीर प्रोफ़ाइल बदलता है, और जादुई छड़ी फ़ॉर्मैट, सबटाइटल वगैरह चुनने के लिए चरण-दर-चरण डाउनलोड खोलती है
@@ -103,34 +131,6 @@
 - **2000+ अन्य साइट** yt-dlp के ज़रिए — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org और भी बहुत कुछ
 - **सिर्फ ऑडियो और सबटाइटल** हर समर्थित साइट पर काम करते हैं, न सिर्फ YouTube पर
 - अगर कोई साइट बदलती है, तो yt-dlp हर हफ़्ते फ़िक्स जारी करता है और Arroxy लॉन्च पर बाइनरी ऑटो-अपडेट करता है
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy के अंदर ही YouTube ब्राउज़ करें और सक्रिय प्रोफ़ाइल से मौजूदा पेज डाउनलोड करें</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore की पहली स्क्रीन</b><br/>Explore की एक झलक, और सेकेंडरी अकाउंट से साइन इन करना क्यों सुरक्षित है</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>डाउनलोड टैब बताता है कि किसे आपकी ज़रूरत है</b><br/>लिंक बैकग्राउंड में तैयार होते हैं; फ़ेल हुआ लिंक उपाय सुझाता है, और लंबी प्लेलिस्ट आपके चुनाव का इंतज़ार करती है</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy की ग्लोबल डाउनलोड हॉटकी — Windows और Linux पर Ctrl+Shift+D, macOS पर Cmd+Shift+D, कॉपी किया गया लिंक सीधे डाउनलोड कतार में भेजती है" width="760" /></picture><br/><sub><b>ग्लोबल डाउनलोड हॉटकी</b><br/>कहीं भी लिंक कॉपी करें, एक बार दबाएँ — वह कतार में आकर डाउनलोड होने लगता है</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>प्लेलिस्ट के हर आइटम के लिए प्रोफ़ाइल</b><br/>हर वीडियो को उसकी अपनी प्रोफ़ाइल दें — कुछ को 4K में सहेजें, बाकी को MP3 के रूप में लें</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>क्विक डाउनलोड होम</b><br/>एक URL पेस्ट करें और अपनी सक्रिय प्रोफ़ाइल से तुरंत डाउनलोड करें</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>पुन: प्रयोज्य डाउनलोड प्रोफ़ाइल</b><br/>फ़ॉर्मेट, गुणवत्ता और आउटपुट को प्रीसेट के रूप में सहेजें — हर डाउनलोड पर दोबारा उपयोग करें</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>बहुभाषी ऑडियो ट्रैक</b><br/>वीडियो में मौजूद सटीक ऑडियो भाषा चुनें</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>सराउंड / Dolby ऑडियो</b><br/>5.1 और Dolby ट्रैक पहचाने और सुरक्षित रखे जाते हैं</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>बल्क URL मोड</b><br/>एक सूची पेस्ट करें, स्वतः डुप्लिकेट हटाएँ, सभी को एक साथ कतार में लगाएँ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>समानांतर डाउनलोड कतार</b><br/>लाइव प्रगति के साथ एक साथ कई डाउनलोड</sub></td>
-  </tr>
-</table>
 
 ---
 

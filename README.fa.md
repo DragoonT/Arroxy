@@ -51,6 +51,34 @@
 
 ## <a id="features"></a>قابلیت‌ها
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>YouTube را داخل Arroxy مرور کنید و صفحهٔ فعلی را با نمایهٔ فعالتان دانلود کنید</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>صفحهٔ اول Explore</b><br/>نگاهی سریع به Explore و اینکه چرا حساب ثانویه ورود امن‌تری است</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>دانلودها نشان می‌دهند چه چیزی به شما نیاز دارد</b><br/>پیوندها در پس‌زمینه آماده می‌شوند؛ پیوند ناموفق راه‌حلش را پیشنهاد می‌دهد و فهرست پخش بلند منتظر انتخاب شما می‌ماند</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="میان‌بر سراسری دانلود Arroxy — Ctrl+Shift+D در Windows و Linux و Cmd+Shift+D در macOS که پیوند کپی‌شده را مستقیم به صف می‌فرستد" width="760" /></picture><br/><sub><b>میان‌بر سراسری دانلود</b><br/>هرجا پیوندی را کپی و یک بار کلیدها را بزنید؛ به صف می‌رود و دانلود آغاز می‌شود</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>نمایهٔ جدا برای هر مورد فهرست پخش</b><br/>به هر ویدیو نمایهٔ خودش را بدهید؛ برخی را 4K و بقیه را MP3 بگیرید</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>صفحهٔ دانلود سریع</b><br/>نشانی را بچسبانید و فوراً با نمایهٔ فعال دانلود کنید</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>نمایه‌های دانلود قابل استفادهٔ دوباره</b><br/>قالب، کیفیت و مقصد را ذخیره و در هر دانلود استفاده کنید</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>قطعه‌های صوتی چندزبانه</b><br/>زبان دقیق صدای همراه ویدیو را انتخاب کنید</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>صدای فراگیر / Dolby</b><br/>قطعه‌های 5.1 و Dolby شناسایی و حفظ می‌شوند</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>حالت نشانی‌های گروهی</b><br/>فهرستی را بچسبانید، موارد تکراری را خودکار حذف و همه را به صف اضافه کنید</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>صف دانلود موازی</b><br/>چند دانلود هم‌زمان با پیشرفت زنده</sub></td>
+  </tr>
+</table>
+
 ### Explore: مرور YouTube داخل Arroxy
 
 - **زبانهٔ Explore** — YouTube را داخل Arroxy مرور کنید و هرچه پیدا کردید بدون کپی‌کردن پیوند دانلود کنید. **دانلود · *نمایهٔ شما*** ویدیو، فهرست پخش یا کانالی را که می‌بینید در صف می‌گذارد؛ پیکان کنارش نمایه را عوض می‌کند و چوب جادو دانلود مرحله‌به‌مرحله را برای انتخاب قالب‌ها، زیرنویس و موارد دیگر باز می‌کند
@@ -103,34 +131,6 @@
 - **بیش از ۲۰۰۰ سایت دیگر** با yt-dlp — Vimeo، Twitch، Twitter/X، TikTok، SoundCloud، Bandcamp، Bilibili، BBC iPlayer، archive.org و بسیاری دیگر
 - **فقط صدا و زیرنویس** در همهٔ سایت‌های پشتیبانی‌شده کار می‌کند، نه فقط YouTube
 - اگر سایتی تغییر کند، yt-dlp هر هفته اصلاحیه می‌دهد و Arroxy فایل اجرایی را هنگام شروع خودکار به‌روز می‌کند
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>YouTube را داخل Arroxy مرور کنید و صفحهٔ فعلی را با نمایهٔ فعالتان دانلود کنید</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>صفحهٔ اول Explore</b><br/>نگاهی سریع به Explore و اینکه چرا حساب ثانویه ورود امن‌تری است</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>دانلودها نشان می‌دهند چه چیزی به شما نیاز دارد</b><br/>پیوندها در پس‌زمینه آماده می‌شوند؛ پیوند ناموفق راه‌حلش را پیشنهاد می‌دهد و فهرست پخش بلند منتظر انتخاب شما می‌ماند</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="میان‌بر سراسری دانلود Arroxy — Ctrl+Shift+D در Windows و Linux و Cmd+Shift+D در macOS که پیوند کپی‌شده را مستقیم به صف می‌فرستد" width="760" /></picture><br/><sub><b>میان‌بر سراسری دانلود</b><br/>هرجا پیوندی را کپی و یک بار کلیدها را بزنید؛ به صف می‌رود و دانلود آغاز می‌شود</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>نمایهٔ جدا برای هر مورد فهرست پخش</b><br/>به هر ویدیو نمایهٔ خودش را بدهید؛ برخی را 4K و بقیه را MP3 بگیرید</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>صفحهٔ دانلود سریع</b><br/>نشانی را بچسبانید و فوراً با نمایهٔ فعال دانلود کنید</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>نمایه‌های دانلود قابل استفادهٔ دوباره</b><br/>قالب، کیفیت و مقصد را ذخیره و در هر دانلود استفاده کنید</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>قطعه‌های صوتی چندزبانه</b><br/>زبان دقیق صدای همراه ویدیو را انتخاب کنید</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>صدای فراگیر / Dolby</b><br/>قطعه‌های 5.1 و Dolby شناسایی و حفظ می‌شوند</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>حالت نشانی‌های گروهی</b><br/>فهرستی را بچسبانید، موارد تکراری را خودکار حذف و همه را به صف اضافه کنید</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>صف دانلود موازی</b><br/>چند دانلود هم‌زمان با پیشرفت زنده</sub></td>
-  </tr>
-</table>
 
 ---
 

@@ -49,6 +49,34 @@
 
 ## <a id="features"></a>الميزات
 
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>تصفّح YouTube داخل Arroxy ونزّل الصفحة التي أنت فيها بملف تعريفك النشط</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>الشاشة الأولى في Explore</b><br/>نظرة سريعة على Explore، ولماذا الحساب الثانوي أكثر أماناً لتسجيل الدخول</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>التنزيلات تخبرك بما يحتاج إليك</b><br/>تُجهَّز الروابط في الخلفية؛ والرابط الفاشل يقترح حله، وقائمة التشغيل الطويلة تنتظر اختيارك</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="اختصار التنزيل العام في Arroxy — Ctrl+Shift+D على Windows وLinux، وCmd+Shift+D على macOS، يرسل الرابط المنسوخ مباشرة إلى طابور التنزيل" width="760" /></picture><br/><sub><b>اختصار تنزيل عام</b><br/>انسخ رابطاً في أي مكان واضغط مرة واحدة — يدخل الطابور ويبدأ التنزيل</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>ملفات تعريف لكل عنصر في قائمة التشغيل</b><br/>امنح كل فيديو ملف تعريف خاصًا به — احفظ بعضها بدقة 4K وخذ الباقي بصيغة MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>صفحة التنزيل السريع</b><br/>الصق رابطًا ونزّله فورًا بملفك النشط</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>ملفات تنزيل قابلة لإعادة الاستخدام</b><br/>احفظ التنسيق والجودة والإخراج كإعدادات مسبقة — أعد استخدامها لكل تنزيل</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>مسارات صوت متعددة اللغات</b><br/>اختر لغة الصوت الدقيقة التي يوفرها الفيديو</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>صوت Surround / Dolby</b><br/>يتم اكتشاف مسارات 5.1 وDolby والحفاظ عليها</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>وضع الروابط المجمّعة</b><br/>الصق قائمة، وأزل التكرارات تلقائيًا، وضعها كلها في الطابور دفعة واحدة</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>قائمة تنزيل متوازية</b><br/>عدة تنزيلات في وقت واحد مع تقدم مباشر</sub></td>
+  </tr>
+</table>
+
 ### Explore: تصفّح YouTube داخل Arroxy
 
 - **تبويب Explore** — تصفّح YouTube داخل Arroxy ونزّل ما تجده دون نسخ الروابط. زر **تنزيل · *ملف تعريفك*** يضيف إلى قائمة الانتظار الفيديو أو قائمة التشغيل أو القناة التي تشاهدها؛ والسهم المجاور يبدّل ملفات التعريف، وعصا السحر تفتح التنزيل خطوة بخطوة لاختيار الصيغ والترجمات وغير ذلك
@@ -101,34 +129,6 @@
 - **أكثر من 2000 موقع آخر** عبر yt-dlp — Vimeo وTwitch وTwitter/X وTikTok وSoundCloud وBandcamp وBilibili وBBC iPlayer وarchive.org وغيرها الكثير
 - **الصوت فقط والترجمات** تعملان على كل موقع مدعوم، ليس يوتيوب فحسب
 - إذا تغيَّر موقع ما، يُصدر yt-dlp إصلاحات أسبوعياً ويحدِّث Arroxy الملف التنفيذي تلقائياً عند التشغيل
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>تصفّح YouTube داخل Arroxy ونزّل الصفحة التي أنت فيها بملف تعريفك النشط</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>الشاشة الأولى في Explore</b><br/>نظرة سريعة على Explore، ولماذا الحساب الثانوي أكثر أماناً لتسجيل الدخول</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>التنزيلات تخبرك بما يحتاج إليك</b><br/>تُجهَّز الروابط في الخلفية؛ والرابط الفاشل يقترح حله، وقائمة التشغيل الطويلة تنتظر اختيارك</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="اختصار التنزيل العام في Arroxy — Ctrl+Shift+D على Windows وLinux، وCmd+Shift+D على macOS، يرسل الرابط المنسوخ مباشرة إلى طابور التنزيل" width="760" /></picture><br/><sub><b>اختصار تنزيل عام</b><br/>انسخ رابطاً في أي مكان واضغط مرة واحدة — يدخل الطابور ويبدأ التنزيل</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>ملفات تعريف لكل عنصر في قائمة التشغيل</b><br/>امنح كل فيديو ملف تعريف خاصًا به — احفظ بعضها بدقة 4K وخذ الباقي بصيغة MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>صفحة التنزيل السريع</b><br/>الصق رابطًا ونزّله فورًا بملفك النشط</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>ملفات تنزيل قابلة لإعادة الاستخدام</b><br/>احفظ التنسيق والجودة والإخراج كإعدادات مسبقة — أعد استخدامها لكل تنزيل</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>مسارات صوت متعددة اللغات</b><br/>اختر لغة الصوت الدقيقة التي يوفرها الفيديو</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>صوت Surround / Dolby</b><br/>يتم اكتشاف مسارات 5.1 وDolby والحفاظ عليها</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>وضع الروابط المجمّعة</b><br/>الصق قائمة، وأزل التكرارات تلقائيًا، وضعها كلها في الطابور دفعة واحدة</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>قائمة تنزيل متوازية</b><br/>عدة تنزيلات في وقت واحد مع تقدم مباشر</sub></td>
-  </tr>
-</table>
 
 ---
 
