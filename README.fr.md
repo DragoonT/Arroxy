@@ -382,7 +382,7 @@ Tu as une fonctionnalité en tête ? [Ouvre une demande](../../issues) — les r
 
 ## <a id="support"></a>Soutenir Arroxy
 
-Arroxy est gratuit et sous licence MIT — pas de publicité, pas de version payante. S'il te fait gagner du temps, tu peux soutenir le développement avec Bitcoin ou Tron : les adresses se trouvent dans [DONATE.md](DONATE.md), la seule source officielle. Arroxy ne t'enverra jamais d'adresse par e-mail ou par message privé. Mettre une étoile au dépôt, signaler des bugs et améliorer les traductions aident tout autant.
+Arroxy est gratuit et sous licence MIT — pas de publicité, pas de télémétrie, pas de version payante. S'il te fait gagner du temps, tu peux soutenir le développement avec Bitcoin ou Tron : les adresses se trouvent dans [DONATE.md](DONATE.md), la seule source officielle. Arroxy ne t'enverra jamais d'adresse par e-mail ou par message privé. Mettre une étoile au dépôt, signaler des bugs et améliorer les traductions aident tout autant.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

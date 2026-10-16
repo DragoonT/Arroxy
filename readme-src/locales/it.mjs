@@ -295,7 +295,7 @@ export const it = {
   dl_pm_intro: "Usi già un gestore pacchetti? Puoi saltare il download manuale.",
   tech_content: TECH_CONTENT,
   support_h2: "Sostieni Arroxy",
-  support_note: "Arroxy è gratuito e distribuito con licenza MIT: niente pubblicità e nessun piano a pagamento. Se ti fa risparmiare tempo, puoi sostenere lo sviluppo con Bitcoin o Tron; gli indirizzi si trovano in [DONATE.md](DONATE.md), l'unica fonte ufficiale. Arroxy non invierà mai un indirizzo tramite e-mail o messaggio diretto. Mettere una stella al repository, segnalare errori e migliorare le traduzioni è altrettanto utile.",
+  support_note: "Arroxy è gratuito e distribuito con licenza MIT: niente pubblicità, niente telemetria e nessun piano a pagamento. Se ti fa risparmiare tempo, puoi sostenere lo sviluppo con Bitcoin o Tron; gli indirizzi si trovano in [DONATE.md](DONATE.md), l'unica fonte ufficiale. Arroxy non invierà mai un indirizzo tramite e-mail o messaggio diretto. Mettere una stella al repository, segnalare errori e migliorare le traduzioni è altrettanto utile.",
   tos_h2: "Condizioni d'uso",
   tos_note: "Arroxy è uno strumento destinato esclusivamente all'uso personale e privato. Sei l'unico responsabile di verificare che i download rispettino i [Termini di servizio](https://www.youtube.com/t/terms) di YouTube e le leggi sul diritto d'autore della tua giurisdizione. Non usare Arroxy per scaricare, riprodurre o distribuire contenuti che non hai il diritto di utilizzare. Gli sviluppatori non rispondono di eventuali usi impropri.",
   footer_credit: 'Licenza MIT · Realizzato con cura da <a href="https://x.com/OrionusAI">@OrionusAI</a>',

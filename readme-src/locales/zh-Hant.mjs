@@ -370,7 +370,7 @@ export const zhHant = {
   plan_cta: "有想法？[提交請求](../../issues) — 社羣意見決定優先順序。",
   tech_content: TECH_CONTENT,
   support_h2: "支援 Arroxy",
-  support_note: "Arroxy 完全免費並採用 MIT 授權條款 —— 沒有廣告、沒有付費版本。如果它為你節省了時間，你可以透過 Bitcoin 或 Tron 支援它的開發：地址見 [DONATE.md](DONATE.md)，這是唯一的官方來源。Arroxy 絕不會透過電子郵件或私信向你傳送地址。給儲存庫點星、報告問題和改進翻譯同樣有幫助。",
+  support_note: "Arroxy 完全免費並採用 MIT 授權條款 —— 沒有廣告、沒有遙測、沒有付費版本。如果它為你節省了時間，你可以透過 Bitcoin 或 Tron 支援它的開發：地址見 [DONATE.md](DONATE.md)，這是唯一的官方來源。Arroxy 絕不會透過電子郵件或私信向你傳送地址。給儲存庫點星、報告問題和改進翻譯同樣有幫助。",
   tos_h2: "使用條款",
   tos_note:
     "Arroxy 僅供個人私人使用。你需要自行確保下載行為符合 YouTube 的[服務條款](https://www.youtube.com/t/terms)及你所在地區的版權法律。請勿使用 Arroxy 下載、複製或分發你不享有權利的內容。開發者對任何濫用行為不承擔責任。",

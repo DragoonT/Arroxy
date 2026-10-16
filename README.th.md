@@ -382,7 +382,7 @@ yt-dlp อัปเดตอัตโนมัติเมื่อเปิด�
 
 ## <a id="support"></a>สนับสนุน Arroxy
 
-Arroxy ฟรีและใช้ MIT License — ไม่มีโฆษณาหรือระดับแบบชำระเงิน ถ้าช่วยประหยัดเวลา คุณสนับสนุนการพัฒนาด้วย Bitcoin หรือ Tron ได้ ที่อยู่ระบุไว้ใน [DONATE.md](DONATE.md) ซึ่งเป็นแหล่งทางการเพียงแห่งเดียว Arroxy จะไม่ส่งที่อยู่ให้ทางอีเมลหรือข้อความส่วนตัว การกดดาวให้ repository รายงานบั๊ก และปรับปรุงคำแปลก็ช่วยได้มากเช่นกัน
+Arroxy ฟรีและใช้ MIT License — ไม่มีโฆษณา ไม่มีเทเลเมทรี และไม่มีระดับแบบชำระเงิน ถ้าช่วยประหยัดเวลา คุณสนับสนุนการพัฒนาด้วย Bitcoin หรือ Tron ได้ ที่อยู่ระบุไว้ใน [DONATE.md](DONATE.md) ซึ่งเป็นแหล่งทางการเพียงแห่งเดียว Arroxy จะไม่ส่งที่อยู่ให้ทางอีเมลหรือข้อความส่วนตัว การกดดาวให้ repository รายงานบั๊ก และปรับปรุงคำแปลก็ช่วยได้มากเช่นกัน
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

@@ -382,7 +382,7 @@ yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时�
 
 ## <a id="support"></a>支持 Arroxy
 
-Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有付费版本。如果它为你节省了时间，你可以通过 Bitcoin 或 Tron 支持它的开发：地址见 [DONATE.md](DONATE.md)，这是唯一的官方来源。Arroxy 绝不会通过电子邮件或私信向你发送地址。给仓库点星、报告问题和改进翻译同样有帮助。
+Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有遥测、没有付费版本。如果它为你节省了时间，你可以通过 Bitcoin 或 Tron 支持它的开发：地址见 [DONATE.md](DONATE.md)，这是唯一的官方来源。Arroxy 绝不会通过电子邮件或私信向你发送地址。给仓库点星、报告问题和改进翻译同样有帮助。
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

@@ -308,7 +308,7 @@ export const ko = {
   dl_pm_intro: "이미 패키지 관리자를 사용하나요? 수동 다운로드 단계를 건너뛸 수 있습니다.",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy 후원",
-  support_note: "Arroxy는 무료이며 MIT 라이선스를 사용합니다. 광고나 유료 등급이 없습니다. 시간을 절약해 주었다면 Bitcoin 또는 Tron으로 개발을 후원할 수 있습니다. 주소는 유일한 공식 출처인 [DONATE.md](DONATE.md)에 있습니다. Arroxy는 이메일이나 개인 메시지로 주소를 보내지 않습니다. 저장소에 별을 주고, 버그를 신고하고, 번역을 개선하는 것도 같은 만큼 도움이 됩니다.",
+  support_note: "Arroxy는 무료이며 MIT 라이선스를 사용합니다. 광고, 텔레메트리, 유료 등급이 없습니다. 시간을 절약해 주었다면 Bitcoin 또는 Tron으로 개발을 후원할 수 있습니다. 주소는 유일한 공식 출처인 [DONATE.md](DONATE.md)에 있습니다. Arroxy는 이메일이나 개인 메시지로 주소를 보내지 않습니다. 저장소에 별을 주고, 버그를 신고하고, 번역을 개선하는 것도 같은 만큼 도움이 됩니다.",
   tos_h2: "이용 약관",
   tos_note: "Arroxy는 개인적이고 비공개인 용도로만 사용하는 도구입니다. 다운로드가 YouTube [서비스 약관](https://www.youtube.com/t/terms)과 사용자의 관할권에 적용되는 저작권법을 준수하는지 확인할 책임은 전적으로 사용자에게 있습니다. 사용 권한이 없는 콘텐츠를 다운로드, 복제 또는 배포하는 데 Arroxy를 사용하지 마세요. 개발자는 오용에 책임지지 않습니다.",
   footer_credit: 'MIT 라이선스 · <a href="https://x.com/OrionusAI">@OrionusAI</a>가 정성껏 제작',

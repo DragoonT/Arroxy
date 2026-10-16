@@ -380,7 +380,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ## <a id="support"></a>Υποστήριξη του Arroxy
 
-Το Arroxy είναι δωρεάν και με άδεια MIT — χωρίς διαφημίσεις, χωρίς επί πληρωμή έκδοση. Αν σου εξοικονομεί χρόνο, μπορείς να στηρίξεις την ανάπτυξή του με Bitcoin ή Tron: οι διευθύνσεις βρίσκονται στο [DONATE.md](DONATE.md), τη μοναδική επίσημη πηγή γι' αυτές. Το Arroxy δεν θα σου στείλει ποτέ διεύθυνση με email ή προσωπικό μήνυμα. Ένα αστέρι στο αποθετήριο, οι αναφορές σφαλμάτων και οι βελτιώσεις στις μεταφράσεις βοηθούν εξίσου.
+Το Arroxy είναι δωρεάν και με άδεια MIT — χωρίς διαφημίσεις, χωρίς τηλεμετρία, χωρίς επί πληρωμή έκδοση. Αν σου εξοικονομεί χρόνο, μπορείς να στηρίξεις την ανάπτυξή του με Bitcoin ή Tron: οι διευθύνσεις βρίσκονται στο [DONATE.md](DONATE.md), τη μοναδική επίσημη πηγή γι' αυτές. Το Arroxy δεν θα σου στείλει ποτέ διεύθυνση με email ή προσωπικό μήνυμα. Ένα αστέρι στο αποθετήριο, οι αναφορές σφαλμάτων και οι βελτιώσεις στις μεταφράσεις βοηθούν εξίσου.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

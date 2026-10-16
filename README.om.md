@@ -380,7 +380,7 @@ Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa
 
 ## <a id="support"></a>Arroxy Deggeri
 
-Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin ykn Tron'iin deggeruu dandeessa: teessoowwan [DONATE.md](DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.
+Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, telemetriin hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin ykn Tron'iin deggeruu dandeessa: teessoowwan [DONATE.md](DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

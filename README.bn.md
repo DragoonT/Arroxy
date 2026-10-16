@@ -380,7 +380,7 @@ yt-dlp চালুর সময় স্বয়ংক্রিয়ভা�
 
 ## <a id="support"></a>Arroxy-কে সমর্থন করুন
 
-Arroxy বিনামূল্যের এবং MIT লাইসেন্সপ্রাপ্ত — কোনো বিজ্ঞাপন নেই, পেইড সংস্করণ নেই। এটি যদি আপনার সময় বাঁচায়, তাহলে আপনি Bitcoin বা Tron দিয়ে এর উন্নয়নে সহায়তা করতে পারেন: ঠিকানাগুলো [DONATE.md](DONATE.md)-এ রয়েছে, যা এগুলোর একমাত্র আনুষ্ঠানিক উৎস। Arroxy কখনোই আপনাকে ইমেল বা সরাসরি বার্তায় ঠিকানা পাঠাবে না। রিপোতে স্টার দেওয়া, বাগ রিপোর্ট করা এবং অনুবাদ উন্নত করাও সমান সহায়ক।
+Arroxy বিনামূল্যের এবং MIT লাইসেন্সপ্রাপ্ত — কোনো বিজ্ঞাপন নেই, টেলিমেট্রি নেই, পেইড সংস্করণ নেই। এটি যদি আপনার সময় বাঁচায়, তাহলে আপনি Bitcoin বা Tron দিয়ে এর উন্নয়নে সহায়তা করতে পারেন: ঠিকানাগুলো [DONATE.md](DONATE.md)-এ রয়েছে, যা এগুলোর একমাত্র আনুষ্ঠানিক উৎস। Arroxy কখনোই আপনাকে ইমেল বা সরাসরি বার্তায় ঠিকানা পাঠাবে না। রিপোতে স্টার দেওয়া, বাগ রিপোর্ট করা এবং অনুবাদ উন্নত করাও সমান সহায়ক।
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

@@ -380,7 +380,7 @@ yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy ه
 
 ## <a id="support"></a>Arroxy ملاتړ وکړئ
 
-Arroxy وړیا دی او د MIT جواز لري — نه اعلانونه او نه د پیسو نسخه. که ستاسو وخت خوندي کوي، کولی شئ د Bitcoin یا Tron له لارې یې پرمختګ ملاتړ کړئ: پتې په [DONATE.md](DONATE.md) کې دي، چې د هغوی یوازینۍ رسمي سرچینه ده. Arroxy به تاسو ته هیڅکله د بریښنالیک یا مستقیم پیغام له لارې پته وا نه لېږي. ریپو ته ستوری ورکول، د ستونزو راپور ورکول او د ژباړو ښه کول هم په همدې اندازه ګټور دي.
+Arroxy وړیا دی او د MIT جواز لري — نه اعلانونه، نه ټیلي‌مېټري، او نه د پیسو نسخه. که ستاسو وخت خوندي کوي، کولی شئ د Bitcoin یا Tron له لارې یې پرمختګ ملاتړ کړئ: پتې په [DONATE.md](DONATE.md) کې دي، چې د هغوی یوازینۍ رسمي سرچینه ده. Arroxy به تاسو ته هیڅکله د بریښنالیک یا مستقیم پیغام له لارې پته وا نه لېږي. ریپو ته ستوری ورکول، د ستونزو راپور ورکول او د ژباړو ښه کول هم په همدې اندازه ګټور دي.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

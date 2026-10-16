@@ -380,7 +380,7 @@ yt-dlp се аутоматски ажурира при покретању, а Ar
 
 ## <a id="support"></a>Подржи Arroxy
 
-Arroxy је бесплатан и под MIT лиценцом — без реклама, без плаћене верзије. Ако ти штеди време, можеш подржати развој путем Bitcoin-а или Tron-а: адресе се налазе у [DONATE.md](DONATE.md), једином званичном извору за њих. Arroxy ти никада неће послати адресу имејлом или директном поруком. Звездица на репозиторијуму, пријаве грешака и побољшање превода помажу подједнако.
+Arroxy је бесплатан и под MIT лиценцом — без реклама, без телеметрије, без плаћене верзије. Ако ти штеди време, можеш подржати развој путем Bitcoin-а или Tron-а: адресе се налазе у [DONATE.md](DONATE.md), једином званичном извору за њих. Arroxy ти никада неће послати адресу имејлом или директном поруком. Звездица на репозиторијуму, пријаве грешака и побољшање превода помажу подједнако.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
