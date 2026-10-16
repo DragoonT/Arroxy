@@ -8,6 +8,17 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.5.1
+
+A small follow-up to 0.5.0 that polishes two things you see right away.
+
+## Highlights
+
+- **Release notes read properly.** The "What's new" window after an update now shows bold and italic text as formatting instead of stray asterisks.
+- **Long audio track names fit.** In the step-by-step download, a long audio track name now ends with "…" instead of being cut off mid-word, and the full name is still there when you point at it.
+
+---
+
 ## 0.5.0
 
 Arroxy now has **Explore**, a built-in browser tab for finding videos and signing in to YouTube when a download needs your account.
