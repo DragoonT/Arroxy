@@ -1,4 +1,4 @@
-import {useEffect, useState, type ReactNode} from 'react'
+import {useCallback, useEffect, useState, type ReactNode} from 'react'
 import {Sparkles, Square} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {type UiStyle, uiStyleSchema} from '@shared/schemas.js'
@@ -26,10 +26,10 @@ export function StyleToggle({hintReady}: {hintReady: boolean}): ReactNode {
 	// the flag back, and the hint must still not come back during this session.
 	const [hint, setHint] = useState<'idle' | 'shown' | 'done'>('idle')
 
-	function finishHint(): void {
+	const finishHint = useCallback((): void => {
 		setHint('done')
 		void dismissStyleHint()
-	}
+	}, [dismissStyleHint])
 
 	useEffect(() => {
 		if (hint !== 'idle' || !hintReady || !hintPending) return
@@ -41,9 +41,7 @@ export function StyleToggle({hintReady}: {hintReady: boolean}): ReactNode {
 		if (hint !== 'shown') return
 		const hide = setTimeout(finishHint, HINT_VISIBLE_MS)
 		return () => clearTimeout(hide)
-		// finishHint only closes over the stable dismiss action.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [hint])
+	}, [hint, finishHint])
 
 	return (
 		<Tooltip open={hint === 'shown' && hintPending}>
@@ -54,7 +52,7 @@ export function StyleToggle({hintReady}: {hintReady: boolean}): ReactNode {
 						const next = uiStyleSchema.safeParse(values[0])
 						if (!next.success) return
 						setUiStyle(next.data)
-						void dismissStyleHint()
+						finishHint()
 					}}
 					size="sm"
 				>
