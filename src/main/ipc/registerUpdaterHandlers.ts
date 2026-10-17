@@ -6,13 +6,15 @@ import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {resolveUpdateFeed} from '@main/updateFeed.js'
+import {canMoveUnderHomebrew, installArroxyWithHomebrew, upgradeArroxyWithHomebrew} from '@main/services/binary/HomebrewRepair.js'
 import type {InstallChannel, UpdateAvailablePayload, UpdateInstallResult} from '@shared/types.js'
 
 // Channels where the in-app installer should not run — either because an
-// external package manager owns updates (scoop/homebrew/flatpak) or because the
+// external package manager owns updates (scoop/flatpak) or because the
 // install layout can't accept an NSIS overwrite (portable). The renderer
-// still gets a banner so the user can copy the upgrade command.
-const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'homebrew', 'portable', 'flatpak'])
+// still gets a banner so the user can copy the upgrade command. Homebrew is
+// handled separately: the app runs `brew upgrade` itself, then relaunches.
+const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'portable', 'flatpak'])
 
 // Map the running version's semver prerelease tag to an electron-updater
 // release channel. Stable versions follow `latest` and must never see beta
@@ -68,10 +70,26 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	// IPC call instead of leaving the renderer spinner hanging forever.
 	let pendingInstall: ((result: UpdateInstallResult) => void) | null = null
 
-	autoUpdater.on('update-available', info => {
+	// Decided by the main process, never by the renderer: only a stable direct
+	// install in /Applications with brew on the Mac may be moved under Homebrew.
+	// Prereleases are excluded because the cask is stable-only: the force-install
+	// would downgrade a beta user to the previous stable release.
+	let homebrewOnMac = false
+	// The version the banner announced. Homebrew runs must reach it before the app
+	// relaunches: a stale tap or an already-current cask also exits 0.
+	let announcedVersion = ''
+
+	async function announceUpdate(version: string): Promise<void> {
+		announcedVersion = version
+		// A failed probe only withholds the offer; it must never swallow the update notice.
+		if (installChannel === 'direct' && !allowPrerelease) homebrewOnMac = await canMoveUnderHomebrew().catch(() => false)
 		if (mainWindow.isDestroyed()) return
-		const payload: UpdateAvailablePayload = {version: info.version, currentVersion: app.getVersion(), installChannel}
+		const payload: UpdateAvailablePayload = {version, currentVersion: app.getVersion(), installChannel, homebrewAvailable: homebrewOnMac}
 		mainWindow.webContents.send(IPC_CHANNELS.updaterAvailable, payload)
+	}
+
+	autoUpdater.on('update-available', info => {
+		void announceUpdate(info.version)
 	})
 
 	autoUpdater.on('update-downloaded', () => {
@@ -90,6 +108,31 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 		}
 	})
 
+	// The cask upgrade swaps the .app bundle in place; relaunching starts the new
+	// version from the same path. A second invoke mid-upgrade must not start a
+	// second `brew`, which would just fight over Homebrew's lock.
+	let homebrewUpgradeRunning = false
+	async function updateWithHomebrew(runBrew: (expectedVersion: string) => Promise<void>): Promise<UpdateInstallResult> {
+		if (!announcedVersion) return {ok: false, error: 'No update has been announced.'}
+		if (homebrewUpgradeRunning) return {ok: false, error: 'An upgrade is already running.'}
+		homebrewUpgradeRunning = true
+		try {
+			await runBrew(announcedVersion)
+		} catch (err) {
+			homebrewUpgradeRunning = false
+			const message = err instanceof Error ? err.message : String(err)
+			log.error('[updater] brew update failed', message)
+			return {ok: false, error: message}
+		}
+		app.relaunch()
+		// quit(), not exit(): exit() skips `before-quit`, which cancels running
+		// downloads and disposes the tray, hotkeys and token service. With running
+		// downloads quit() finishes asynchronously, and the renderer re-enables its
+		// button as soon as this resolves, so the guard stays set after a success.
+		app.quit()
+		return {ok: true}
+	}
+
 	ipcMain.removeHandler(IPC_CHANNELS.updaterInstall)
 	ipcMain.handle(IPC_CHANNELS.updaterInstall, async (): Promise<UpdateInstallResult> => {
 		// Defense-in-depth: the renderer never exposes the install button on these
@@ -97,6 +140,9 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 		if (NON_INSTALLABLE.has(installChannel)) {
 			return {ok: false, error: `install not supported for channel: ${installChannel}`}
 		}
+
+		if (installChannel === 'homebrew') return updateWithHomebrew(upgradeArroxyWithHomebrew)
+		if (installChannel === 'direct' && homebrewOnMac) return updateWithHomebrew(installArroxyWithHomebrew)
 
 		const {promise, resolve} = Promise.withResolvers<UpdateInstallResult>()
 		pendingInstall = resolve

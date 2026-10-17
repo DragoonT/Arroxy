@@ -113,7 +113,7 @@ describe('UpdateBanner integration in App', () => {
 		expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument()
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 
 		expect(screen.getByTestId('update-banner')).toBeInTheDocument()
@@ -131,7 +131,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '3.1.0', currentVersion: '2.5.1', installChannel: 'direct'})
+			capturedListener!({version: '3.1.0', currentVersion: '2.5.1', installChannel: 'direct', homebrewAvailable: false})
 		})
 
 		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 3.1.0 is available — you have 2.5.1.')
@@ -149,7 +149,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 		expect(screen.getByTestId('update-banner')).toBeInTheDocument()
 
@@ -172,7 +172,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 
 		await act(async () => {
@@ -196,7 +196,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 
 		await act(async () => {
@@ -219,7 +219,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 		expect(screen.getByTestId('update-banner')).toBeInTheDocument()
 
@@ -242,7 +242,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 
 		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 2.0.0 is available — download the new DMG.')
@@ -263,7 +263,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 
 		await act(async () => {
@@ -288,7 +288,7 @@ describe('UpdateBanner integration in App', () => {
 		await act(async () => {})
 
 		act(() => {
-			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct', homebrewAvailable: false})
 		})
 
 		await act(async () => {
