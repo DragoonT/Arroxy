@@ -1,6 +1,17 @@
 # Binary distribution
 
-How the embedded ffmpeg/ffprobe get into the app and stay licensed and verified. `AGENTS.md` keeps the strategy table and the Electron-as-Node security rule; yt-dlp's runtime manifest is in [`runtime-binaries.md`](runtime-binaries.md).
+How the embedded ffmpeg/ffprobe get into the app and stay licensed and verified. yt-dlp's runtime manifest is in [`runtime-binaries.md`](runtime-binaries.md); the decision is ADR 0003.
+
+## Strategy
+
+Arroxy ships three third-party binaries, split by update cadence:
+
+| Binary | Strategy | Source | Why |
+| --- | --- | --- | --- |
+| ffmpeg + ffprobe | **Embedded at build time** via `extraResources` | BtbN GPL builds (Win/Linux), Martin-Riedl GPL (macOS) | Static codec semantics; pair coherence solved by construction |
+| yt-dlp | Runtime-fetched | GitHub `yt-dlp/yt-dlp(-nightly-builds)` | Ships fixes about weekly with YouTube's bot-protection cycle; can't bundle and ship an app release per fix |
+
+**Electron as Node.** `electron-builder.json5` keeps the `runAsNode` fuse enabled because the packaged Electron executable is yt-dlp's Node runtime. `ELECTRON_RUN_AS_NODE=1` goes only into the yt-dlp child-process environment, never `process.env` or persisted config. Packaged runtime smoke tests assert the fuse, Node >=22, child-env isolation, managed yt-dlp selection and bundled EJS availability.
 
 | Lives in | What |
 | --- | --- |

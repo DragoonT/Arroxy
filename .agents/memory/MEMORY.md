@@ -18,5 +18,6 @@
 - [yt-dlp stdout corrupts scraped paths](ytdlp-stdout-drops-non-ascii.md) — four ways the stdout we scrape media/subtitle paths from mangles them, all failing silently as ENOENT; fixed with `--encoding utf-8` + a decoding line reader.
 - [Dependabot never bumps overrides](dependabot-never-bumps-overrides.md) — stale `overrides` pins become the vulnerable versions; app.asar ships no node_modules (main bundles everything, guarded by check:main-bundle); never delete lock entries to re-resolve.
 - [shadcn CLI writes a bogus cn import](shadcn-cli-cn-import.md) — `shadcn add` imports from "cn" and installs an unrelated package; revert deps, fix the import.
-- [README edits skip the PR](readme-edits-skip-pr.md) — README-only changes go straight to main after `bun run check`; code still goes through a PR.
+- [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`; code still goes through a PR.
+- [Download workflow map](download-workflow-map.md) — read `dev-docs/download-workflows.md` before changing how downloads start; update it with the change.
 - [Translate at the final stage](translate-at-final-stage.md) — app PO + README locales are translated once, right before the PR; during development en only, `check:i18n` red is accepted.

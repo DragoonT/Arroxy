@@ -42,21 +42,9 @@ Use the canonical glossary in [`GLOSSARY.md`](./GLOSSARY.md).
 
 The glossary is the single source of terminology for this repo. Keep it implementation-free (no module names, file paths, or migration notes) and update it when vocabulary decisions change. This prevents ambiguous PR reviews and keeps architecture and UX aligned.
 
-### What is an ADR?
+### ADRs
 
-An ADR (Architecture Decision Record) is a short, high-signal note for a design decision that is:
-
-- hard to reverse,
-- surprising without context,
-- and chosen through a real trade-off.
-
-Use `docs/adr/0001-slug.md` style files for those decisions. Keep them concise.
-
-### ADR creation rules
-
-- Create [`docs/adr/`](./docs/adr/) only when the first ADR is needed.
-- Use sequential file names: `0001-...`, `0002-...`, and so on.
-- Skip ADRs for reversible or obvious implementation choices.
+Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision that is hard to reverse, surprising without context, and chosen through a real trade-off. Keep it short; skip ADRs for reversible or obvious choices.
 
 ---
 
@@ -209,29 +197,9 @@ Rebuild first (`bun run build`) — the E2E suites launch `out/main/index.js`, n
 
 ## Arroxy Testing Architecture
 
-Arroxy is an Electron desktop app. Do not let React/component testing habits replace product workflow validation. A bug found through real user actions such as paste, metadata loading, wizard navigation, queue controls, pause/resume/cancel, or file output must be verified through the layer that can exercise those actions in the real app.
+Arroxy is an Electron desktop app: do not let React/component testing habits replace product workflow validation. A bug found through real user actions (paste, metadata loading, wizard navigation, queue controls, pause/resume/cancel, file output) must be verified through the layer that can exercise those actions in the real app: **Fixture Product E2E** (`ARROXY_E2E=1`) is the acceptance owner for real user workflows. Pure rules go to fast logic tests, visual states to the Scenario Workbench, boot/preload to Mock Electron smoke tests, and live YouTube only ever to a tiny drift smoke test, never the acceptance gate.
 
-Fixture Product E2E is the **acceptance owner for real user workflows**, not the default test type for every behavior. Keep it to a small number of strong scenarios per risk group. Local rules, rendering states, process-supervision failures, and startup/security checks still belong in their cheaper owning layers.
-
-### Test layer ownership
-
-- **Fast logic tests** (`tests/unit`, Vitest): use for pure rules and closed interfaces such as `QueueEvent` transition, `ProgressNormalizer`, URL parsing, yt-dlp argument construction, extractor classification, error classification, and `WizardStepGraph`. These tests should not pretend to prove a full user workflow.
-- **Renderer tests** (`tests/renderer`, jsdom): use for renderer-local state and component contracts when the behavior is too small to justify a full app launch. Do not use these as acceptance tests for download, probe, queue, or filesystem workflows.
-- **Scenario Workbench** (`tests/browser`, `bun run dev:mock`): use browser-mock and the scenario gallery for visual inspection, layout stress, screenshots, and fast review of many UI states. This proves how a state looks, not whether the real product workflow works.
-- **Mock Electron smoke tests** (`tests/e2e` with `MOCK_BACKEND=1`): use for app shell, preload bridge, context isolation, startup resilience, and mocked persistence checks. Do not use this layer for normal download acceptance.
-- **Fixture Product E2E** (`ARROXY_E2E=1`): use as the acceptance layer for real product workflows that require real Electron, real IPC, real yt-dlp, filesystem output, or realistic user interaction. This layer runs real Electron, real IPC, real `ProbeService`, real `DownloadService`, real `QueueService`, real filesystem effects, and real spawned yt-dlp, while only the video platform is deterministic through the fixture extractor plugin, local media server, and deny proxy.
-- **Cold-start packaged E2E**: use for packaged binary/warmup behavior, managed binary downloads, and production bootstrapping. Keep it narrow because it is slow.
-- **Live smoke tests**: use only to detect real YouTube/yt-dlp drift. They are external, flaky by nature, and must not be the acceptance gate for Arroxy product workflow correctness.
-
-### Choosing the right test
-
-- If the issue was discovered by manually opening the app and performing a workflow, prefer Fixture Product E2E.
-- If the behavior is a pure domain rule with no UI, filesystem, process, or IPC requirement, use a fast logic test.
-- If the concern is visual layout, responsive fit, empty/loading/error surfaces, or screenshot review, use the Scenario Workbench.
-- If the concern is app boot, preload, or context isolation, use Mock Electron smoke tests.
-- If the concern is whether real YouTube currently works, use a tiny live smoke test outside normal acceptance.
-
-How to design a Fixture Product E2E scenario (risk groups, what each scenario declares, milestone and oracle rules, anti-patterns) is in [`dev-docs/fixture-e2e.md`](dev-docs/fixture-e2e.md). Read it before adding or reshaping one.
+The layer-ownership table, how to choose a layer, and how to design a scenario (risk groups, milestones, oracles, anti-patterns) are in [`dev-docs/fixture-e2e.md`](dev-docs/fixture-e2e.md). Read it before adding or reshaping a test.
 
 ---
 
@@ -252,187 +220,55 @@ Electron-specific behavior (real preload, IPC, GPU) needs the real app: `REMOTE_
 
 ## shadcn/ui Configuration
 
-Config (style, aliases, icon library, CSS entry) lives in `components.json`. Runtime deps already present: `class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`.
+shadcn/ui (`base-nova`, config in `components.json`) is the primary source for renderer UI primitives. Reuse an installed component or install one with `bunx shadcn@latest add <component>` before inventing controls, panels, form layouts, option groups, empty states, callouts or badges; prefer composing primitives (`Field`, `InputGroup`, `ButtonGroup`, `ToggleGroup`, `Card`, `Alert`, `Empty`, `Separator`, `Badge`) over raw styled markup. Custom primitives only when shadcn has no fit or the component encodes Arroxy-specific behavior.
 
-shadcn/ui is the primary source for renderer UI primitives. Before inventing custom controls, panels, form layouts, option groups, empty states, callouts, badges, or grouped inputs, first reuse an installed shadcn component or install the needed component through the shadcn CLI. Prefer composition of shadcn primitives (`Field`, `InputGroup`, `ButtonGroup`, `ToggleGroup`, `Card`, `Alert`, `Empty`, `Separator`, `Badge`, etc.) over raw styled `div`/`button` markup. Custom primitives are acceptable only when shadcn has no fitting component or the component encodes Arroxy-specific product behavior.
+- **Do not add Radix** (`@radix-ui/*`) or assume it is available; never hand-roll `@base-ui/react/*` wrappers.
+- **One-off styling is ratcheted** by `tests/unit/ui-consistency-ratchet.test.ts`: counts may only go down. Use a primitive variant or token instead of an arbitrary value.
+- **Segmented controls own their layout**: never style a `ToggleGroupItem` at the call site; use `shape="chip"` plus `flex-wrap` for short tokens, and `wrap-anywhere`, not `break-words`.
+- Review primitive changes in the UI Kit (`bun run dev:mock`, then `/?kit`).
 
-**Do not add Radix.** This project does **not** use `@radix-ui/*` — the `base-nova` registry doesn't depend on Radix primitives. Don't add Radix deps or assume Radix is available.
-
-**Install via CLI:** `bunx shadcn@latest add <component>` (style: `base-nova`). Never hand-roll `@base-ui/react/*` wrappers. After install, modify freely to match app style.
-
-**One-off styling is ratcheted.** Outside `components/ui/` and `dev/`, arbitrary font sizes, colours, shadows, radii, type metrics, raw Tailwind palette colours, and raw `<button>`/`<input>`/`<select>`/`<textarea>`/`<label>` are counted per file by `tests/unit/ui-consistency-ratchet.test.ts` against `tests/unit/ui-consistency-baseline.json`. Counts may only go down: express the need as a primitive variant or token (`variant="glow"`, `Badge size="sm"`, `text-caption`, `text-subtle-foreground`, `bg-primary/12`, `shadow-glow`, `text-success`), and after a cleanup lower the baseline with `UPDATE_UI_RATCHET=1 bunx vp test run --project node tests/unit/ui-consistency-ratchet.test.ts`. Never raise it.
-
-**Review primitive changes in the UI Kit.** `bun run dev:mock` then open `/?kit` (or the gallery's "UI kit" button): every primitive in every variant on the real glass surfaces, with theme and LTR/RTL switches. `tests/browser/ui-kit.spec.ts` keeps it rendering in both skies and directions.
-
-**Segmented controls own their own layout.** `toggleVariants` already provides pressed-state brand styling, `min-w-0`, `wrap-anywhere`, and `min-h-*` sizing, so a `ToggleGroupItem` never needs `whitespace-*`, `shrink-*`, `min-w-*`, a fixed `h-*`, or any `aria-pressed:` / `data-[state=on]:` colour at the call site. Pass `shape="chip"` when a short token (bitrate, extension, file format) must stay on one line — and give that group `flex-wrap`, since `ToggleGroup` is a non-wrapping flex row by default and unshrinkable chips would otherwise overflow it.
-
-Use `wrap-anywhere`, not `break-words`: `overflow-wrap: break-word` does not shrink a flex/grid item's intrinsic min-content width, so a single long word still overflows its track.
-
-Localized labels run 1.5–2x longer than English (`el`, `fr`, and `my` are the worst cases measured), so English-only review will not surface an overflow. Two tests keep this fixed: `tests/unit/toggle-styling-invariants.test.ts` fails the build if pressed-state styling reappears outside `components/ui/`, and `tests/browser/toggle-overflow.spec.ts` sweeps every toggle group on the real screens at the minimum window size and at 150% zoom.
+The token list, ratchet baseline command, toggle rules and translation-width tests are in [`DESIGN.md`](DESIGN.md) §7.
 
 ---
 
 ## Brand / Visual
 
-**Font:** Poppins (`@fontsource/poppins`, weights 400/500/600/700). Don't reintroduce Outfit or Geist.
+**Font:** Poppins (`@fontsource/poppins`, weights 400/500/600/700); don't reintroduce Outfit or Geist. Use tokens and variants from `src/renderer/src/styles.css`, never arbitrary values: one primary action per view is `<Button variant="glow">`, selected surfaces `bg-primary/12`, muted labels `text-subtle-foreground`, small type `text-caption`, back/secondary buttons `variant="outline"` (see `DESIGN.md`).
 
-**Use tokens and variants, never arbitrary values** (defined in `src/renderer/src/styles.css`; the ratchet above rejects `shadow-[…]`, `text-[9px]`, `border-[1.5px]` and the like). The one primary action per view is `<Button variant="glow">` (`shadow-glow`; see `DESIGN.md`, "Bloom-Is-Rationed"). Selected/active surfaces use `bg-primary/12` (`--brand-dim`). Muted labels use `text-subtle-foreground` (`--text-subtle`), small type `text-caption`, stronger borders `border-border-strong` (`--border-strong`), back/secondary buttons `variant="outline"`.
-
-## Layout Breakpoints
-
-Arroxy uses Tailwind v4 default mobile-first breakpoints: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px. There are no custom Tailwind breakpoint overrides.
-
-The real Electron window has min size `720x760` and default size `900x760`, so production normally starts above `sm` and around `md`; `<640px` is mainly browser-mock/test coverage.
+Breakpoints are Tailwind v4's defaults (`sm` 640, `md` 768, `lg` 1024, `xl` 1280, `2xl` 1536), no overrides. The Electron window's minimum is 720×760 and default 1024×860 (`WINDOW_*` in `src/shared/constants.ts`), so `<640px` is browser-mock/test coverage only.
 
 ---
 
 ## Subtitle Pipeline
 
-Two-phase download: (1) video + audio with `--no-write-subs --no-write-auto-subs`; (2) subs only if phase 1 exits 0 and `subtitleLanguages` non-empty (`--skip-download --write-subs --sub-langs <langs>`). Phase 2 failure is **soft** — emit `subtitlesFailed`, finalize as `completed`; video is kept. Embed mode still uses phase 2: `SidecarSubsPhase(true)` fetches subtitles, then muxes them into the saved video with ffmpeg.
-
-`FormatProbeService.sanitizeSubtitleMap()` filters `automatic_captions` to `-orig` keys only (actual cached auto-captions). Without this, hundreds of live-translation-request keys appear and hit rate limits.
-
-Container format is NOT a subtitle concern: `subtitleMode === 'embed'` passes `--merge-output-format mkv`; sidecar/subfolder pass nothing.
+Subtitles are a soft second phase (ADR 0002): phase 1 downloads media with `--no-write-subs --no-write-auto-subs`; phase 2 runs only if phase 1 exits 0 and languages were picked. A phase-2 failure emits `subtitlesFailed` and still finalizes as `completed`. Embed mode also uses phase 2, then muxes with ffmpeg and passes `--merge-output-format mkv`; sidecar and subfolder modes pass no container flag. `sanitizeSubtitleMap` (`ProbeService.ts`) keeps only `-orig` automatic captions for sites whose `autoCaptionRequiresOrigSuffix` is set (YouTube); see memory `youtube-auto-caption-orig-tracks`.
 
 ---
 
 ## In-App Update Notifications
 
-`electron-updater` v6, GitHub provider. Auto-download is **disabled** — user initiates everything. Main calls `autoUpdater.checkForUpdates()` 5s after launch and emits `updater:available` to the renderer with `{ version, currentVersion, installChannel }`. Per-platform `installChannel` detection (flatpak/scoop/homebrew/portable/direct) lives in `src/main/installChannel.ts`. Subtlety: `direct` intentionally absorbs Winget — at runtime indistinguishable from a direct NSIS install, NSIS auto-update works either way.
-
-Renderer shows `<UpdateBanner>` between title bar and content area; `resolveAction(channel, platform)` picks the UX:
-
-- `scoop` → copy-command for `scoop update arroxy`
-- `homebrew` → copy-command for `brew upgrade --cask arroxy`
-- `flatpak` → copy-command for `flatpak update io.github.antonio_orionus.Arroxy` (updates come from Arroxy's own Flatpak repo; see Release Pipeline). On Linux electron-updater only checks inside an AppImage, so Flatpak sets `autoUpdater.forceDevUpdateConfig` to let the *check* run; `flatpak` is non-installable, nothing is downloaded.
-- `portable` → "Download ↗" link to https://orionus.dev/arroxy/ (NSIS auto-update can't run from a %TEMP% extract)
-- `direct` on darwin → "Download ↗" link to https://orionus.dev/arroxy/ (DMG is unsigned, can't self-update)
-- `direct` on win/linux (and `winget`) → "Install & Restart" button → invokes `updater:install` → main calls `downloadUpdate()` → on `update-downloaded` calls `quitAndInstall(false, true)`
-
-Details — the IPC/type layout and the known gap that Linux tar.gz installs never see the banner (decision: not fixed) — are in [`dev-docs/in-app-updates.md`](dev-docs/in-app-updates.md).
+`electron-updater` checks 5 s after launch; auto-download is **off**, the user starts every update. `resolveAction(channel, platform)` picks the banner's action per install channel (copy-command for Scoop/Homebrew/Flatpak, download link for portable and macOS, "Install & Restart" otherwise). Linux tar.gz installs never see the banner, by decision. Channel table, IPC and the gap: [`dev-docs/in-app-updates.md`](dev-docs/in-app-updates.md).
 
 ---
 
 ## Release Pipeline
 
-Pushing a `v*` tag publishes to **five channels in one go**: GitHub Releases, Scoop, Homebrew Cask, Winget, and Arroxy's own Flatpak repo. No per-release manual steps.
+Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Both are cut from `main`, the only long-lived branch.
 
-### Branch + tag conventions
+- **When the user says "release X":** run `bun run check`, add the `## X` section to `CHANGELOG.md`, commit `release: X` with the `package.json` bump, then run `bun run release:beta` or `bun run release:stable` yourself. Don't hand the script back to the user.
+- **Tags must be annotated** (the wrapper enforces it): `git push --follow-tags` silently skips lightweight tags and the pipeline never fires.
+- **`CHANGELOG.md` is the release-notes source.** Never edit GitHub release notes in the web UI or with `gh release edit`; `publish-release` overwrites them. Fix the changelog and re-run that job.
 
-- **`main`** = sole long-lived branch. Both beta (`v*-beta.N`) and stable (`v*`) tags cut from here. Feature work happens on short-lived feature branches merged into `main` when ready.
-- **Tags must be annotated** (`git tag -a NAME -m "..."`), not lightweight. `git push --follow-tags` only pushes annotated tags — lightweight tags get silently skipped, the release pipeline never fires. Lesson learned the hard way.
-
-### Pre-releases
-
-A tag with a semver suffix (`v0.4.0-beta.1`) publishes a GitHub pre-release that installed copies never auto-update to, and skips Scoop, Homebrew and Winget. Then bump to plain semver and tag again. Details, and the electron-builder/NSIS pinning rules, are in [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md).
-
-### Release notes — CHANGELOG.md is SSOT
-
-Release notes are hand-written in `CHANGELOG.md` and keyed by version (e.g. `## 0.3.5-beta.1`). The `publish-release` job in `release.yml` extracts the matching section, appends the auto-generated "What's Changed" PR list + Full Changelog link, and posts the combined body as the GitHub Release notes.
-
-**Before tagging a release**, add a new `## <version>` section at the top of `CHANGELOG.md` in the same shape as the previous entry. Tone is friendly user-facing prose grouped by feature (look at `## 0.3.4` as the reference). If no matching section exists, the workflow falls back to pure auto-generated notes and emits a `::warning::` — the release will still publish but the body will only be the PR list.
-
-Do **not** edit GitHub Release notes directly via the web UI or `gh release edit`. The `publish-release` step runs late in the pipeline and will overwrite manual edits made before it. Edit `CHANGELOG.md` instead and push a fix-up commit; re-running `publish-release` rewrites the notes from the file.
-
-### Pre-release checks
-
-**Before committing the release bump**, run the full local gate and fix any failures. A broken release commit fails CI and the tag-side `quality-gate` in `release.yml` now blocks publishing before any artifacts are built:
-
-```bash
-bun run check      # vp check (format + lint + types + import cycles) + tests + knip + tooling contract + package gates
-```
-
-Do not skip. A type error, dead export, circular import, stale locale key, or test failure that slips into a release tag breaks the remote release gate.
-
-### Trigger
-
-Use the wrapper scripts — they enforce branch, version-shape, clean tree, no-duplicate-tag, annotated tag, and `--follow-tags` in one shot. Refuses every footgun that has bitten before. See `scripts/release.sh`.
-
-**When user says "release X":** run checks → commit → `bun run release:beta` (or `release:stable`) autonomously. Do not stop and ask the user to run the script themselves.
-
-```bash
-# beta
-git checkout main
-# bump package.json: e.g. 0.3.1-beta.3 → 0.3.1-beta.4
-git commit -am "release: 0.3.1-beta.4"
-bun run release:beta   # tags + pushes
-
-# stable
-git checkout main
-# bump package.json: e.g. 0.3.1-beta.4 → 0.3.1
-git commit -am "release: 0.3.1"
-bun run release:stable
-```
-
-Manual fallback if the script is unavailable:
-
-```bash
-# package.json version must match tag exactly. annotated tag required.
-git tag -a v0.4.0 -m "release 0.4.0"
-git push --follow-tags
-```
-
-### Pipeline internals
-
-The release job graph, the Windows build hand-off, immutable releases and `SHA256SUMS`, required secrets (`WINGET_TOKEN`, `FLATPAK_GPG_PRIVATE_KEY`), the one-time Winget submission, the external repos the pipeline writes to, and the shipped asset list are in [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md). Keep third-party actions that receive a token pinned to a full commit SHA, and never rotate the Flatpak signing key casually ([`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md)).
+Checklist, beta-then-stable sequence and manual fallback: [`dev-docs/release-runbook.md`](dev-docs/release-runbook.md). Job graph, secrets, Winget, external repos and shipped assets: [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md). Keep third-party actions that receive a token pinned to a full commit SHA, and never rotate the Flatpak signing key casually ([`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md)).
 
 ---
 
 ## Binary distribution strategy
 
-Arroxy ships three third-party binaries. They split into two camps based on update cadence:
-
-| Binary           | Strategy                                        | Source                                                | Why                                                                                            |
-| ---------------- | ----------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| ffmpeg + ffprobe | **Embedded at build time** via `extraResources` | BtbN GPL builds (Win/Linux), Martin-Riedl GPL (macOS) | Static codec semantics; pair coherence solved by construction                                  |
-| yt-dlp           | Runtime-fetched                                 | GitHub `yt-dlp/yt-dlp(-nightly-builds)`               | Ships fixes ~weekly w/ YouTube bot-protection cycle; can't bundle and ship app release per fix |
-
-### Electron-as-Node security note
-
-`electron-builder.json5` intentionally keeps the `runAsNode` fuse enabled because Arroxy uses its packaged Electron executable as yt-dlp's Node runtime. `ELECTRON_RUN_AS_NODE=1` must only be added to the yt-dlp child-process environment, never to `process.env` or persisted config. Packaged runtime smoke tests assert this fuse behavior, Node >=22, child-env isolation, managed yt-dlp selection, and bundled EJS availability.
-
-How the embed works (fetch script, `beforeBuild` hook, `extraResources`, dev vs packaged paths, Linux `LD_LIBRARY_PATH`), license attribution, and the smoke-parity script are in [`dev-docs/binary-distribution.md`](dev-docs/binary-distribution.md). `scripts/test-binaries/` must stay tracked.
+ffmpeg/ffprobe are embedded at build time; yt-dlp is fetched and updated at runtime (ADR 0003). Keep the `runAsNode` fuse: the packaged Electron is yt-dlp's Node runtime, and `ELECTRON_RUN_AS_NODE=1` goes **only** into the yt-dlp child environment, never `process.env` or persisted config. `scripts/test-binaries/` must stay tracked. Strategy table, embed mechanics and licensing: [`dev-docs/binary-distribution.md`](dev-docs/binary-distribution.md).
 
 ---
 
 ## Updating Public-Facing Content (READMEs)
 
-README files (English + every other supported locale) are **generated** — never edit them directly. Source-of-truth:
-
-| Source                                                     | Generates                        | Command                     |
-| ---------------------------------------------------------- | -------------------------------- | --------------------------- |
-| `readme-src/locales/{lang}.mjs` + `readme-src/template.md` | `README.md` + `README.{lang}.md` | `node readme-src/build.mjs` |
-
-Each locale is its own file under `readme-src/locales/`. `readme-src/strings.mjs` only imports those and exports the ordered `LOCALES` array — edit the per-locale files, not the aggregator.
-
-The `Last updated:` date in each README is stamped by `build.mjs` — never hand-edit it. Each README keeps the date of the last build that actually changed its content (the build compares its render against the file on disk, ignoring the stamp), so rebuilding an unchanged README is a no-op and a single-locale edit bumps only that locale's date. A `readme-src/**` lint-staged rule rebuilds and re-stamps the READMEs into the same commit.
-
-The build script validates **key parity** — if any locale is missing a key that `en` has (or has an extra key), the build fails loudly. Every new string must be translated into every supported language.
-
-The landing site (`orionus.dev/arroxy/`; the old `arroxy.orionus.dev` 301s there) lives in a separate repo: [antonio-orionus/arroxy-web](https://github.com/antonio-orionus/arroxy-web). Don't update landing copy from here — open a PR there instead.
-
-### Adding a new feature
-
-1. Keys are grouped as `feat_<group>_<n>` (e.g. `feat_workflow_11`, `feat_quality_3`, `feat_privacy_2`). Pick the group the feature belongs to, add the next number in that group to `readme-src/locales/en.mjs` first, then to every other `readme-src/locales/*.mjs`, then add `- {{feat_<group>_<n>}}` to `readme-src/template.md` in the matching section.
-2. Run `node readme-src/build.mjs` and confirm `✓` for every locale.
-3. Commit the source files **and** the regenerated `README*.md` files together.
-
-### Locales in scope — source of truth
-
-Do **not** hardcode the locale list or count anywhere in code, docs, or memory. Read from the canonical sources:
-
-| Surface                        | Canonical list                                                        | Type                                                                                      |
-| ------------------------------ | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Renderer + main process (i18n) | `SUPPORTED_LANGS` in [`src/shared/schemas.ts`](src/shared/schemas.ts) | `SupportedLang` (re-exported from [`src/shared/i18n/types.ts`](src/shared/i18n/types.ts)) |
-| README build                   | `LOCALES` in [`readme-src/strings.mjs`](readme-src/strings.mjs)       | —                                                                                         |
-
-Both must stay in lockstep with the landing-site locale list in the `arroxy-web` repo. The `en` locale is the canonical reference; the build script and the `WidenStrings<EnTranslation>` type (see `src/shared/i18n/types.ts`) diff every other locale against it.
-
-### README screenshots
-
-The product screenshots in `build/` are generated, not hand-captured. `bun run screenshots:readme` renders the browser-mock renderer with showcase content (`?showcase=1`: neutral sample titles and generated artwork, never real video art) and the software WebGL backdrop (`?backdropSoftware=1`, so headless Chromium shows the GPU look rather than the no-GPU fallback) and overwrites each file; `bun run screenshots:readme -g "Bulk URLs"` retakes one. The recipe list lives in `tests/screenshots/readme-screenshots.spec.ts`. After a UI change, rerun it and commit the updated PNGs with the change. For a new feature: add a Scenario Workbench scenario that shows it (if none does), add a recipe entry, run the command, and reference `build/<file>` from `readme-src/template.md`. The Global hotkey image is an illustration and `demo.gif` is a screen recording; neither is generated.
-
-### What NOT to edit directly
-
-- `README.md`, `README.es.md`, `README.de.md`, … — generated from `readme-src/`
-
+`README.md` and every `README.{lang}.md` are **generated** from `readme-src/` by `node readme-src/build.mjs`: never edit them, or their `Last updated:` stamp, directly. Every new string goes into every locale (the build fails on key-parity drift), and the locale list or count is never hardcoded anywhere. Landing-site copy lives in the `arroxy-web` repo. Adding a feature line, the canonical locale lists, and regenerating screenshots: [`dev-docs/readme-pipeline.md`](dev-docs/readme-pipeline.md).

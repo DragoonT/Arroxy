@@ -1,9 +1,9 @@
 # In-App Browser (Explore) Spec
 
-Status: implemented on `feat/explore`; manual matrix passed on the product build (2026-10-15/16) — shipping as
-**Arroxy 0.5.0** in a single PR
-Updated: 2026-10-13 (cross-platform spike, cookie-freshness experiment,
-decisions D1–D6, review revision R1)
+Status: implemented and released in **Arroxy 0.5.0** (merged to `main` as PR #275). The manual matrix passed on
+the product build (2026-10-15/16).
+Updated: 2026-10-17 (executed build plan removed; stale references fixed). Spike, freshness measurements and
+decisions D1–D6 date from 2026-10-13/16.
 
 Research and rationale: [`youtube-auth-research.md`](youtube-auth-research.md).
 **Read §2 and §6a before touching any of this.** The user-agent rule is
@@ -25,16 +25,16 @@ and never a UI label.
 | `src/shared/sites/types.ts`, `src/shared/sites/youtube.ts` | `Site.explore` capability (D5); owned `ExploreCookie` type — no Electron types in `src/shared` |
 | `src/main/services/cookiesResolver.ts` | exhaustive switch over `(cookiesMode, auth)`; `file`/`browser`/`off` results unchanged |
 | `src/main/services/YtDlp.ts` | `auth` run option (replaces `withoutCookies`); per-spawn jar via the injected port inside `invokeOnce`; stale-cookie warning detection |
-| `src/main/services/YtDlp.ts` `invokeWithRetry` | escalated runs bypass the PoT ladder (no anonymous token); `HiddenWindowTokenProvider` `CHROME_UA` fix ships separately first (PR #263) |
+| `src/main/services/YtDlp.ts` `invokeWithRetry` | escalated runs bypass the PoT ladder (no anonymous token); `HiddenWindowTokenProvider` `CHROME_UA` fix shipped separately first (PR #263) |
 | `src/main/services/ProbeService.ts` | probe-time escalation; `auth` on the probe result |
 | `src/main/services/QueueService.ts` | carries `auth` from item to `StartDownloadInput`; persists escalation before the escalated spawn |
 | `src/main/services/phases/VideoPhase.ts`, `SidecarSubsPhase.ts`, `SubtitleOnlyPhase.ts` | every `ytDlp.run` caller passes the job's `auth`; escalated jobs bypass `CookielessRetry` (D4) |
 | `src/shared/schemas.ts` | `cookiesModeSchema` + `'explore'`; `jobAuthSchema`; `auth` on queue item, `probeInfoJsonRefSchema`, `startDownloadSchema`; new `common` fields |
 | `src/shared/ipc.ts`, preload | `explore:*` channels, zod-validated in main |
 | `src/renderer/src/components/wizard/DownloadProfilesHome.tsx` | the **existing** tab bar — Explore is added as one more tab |
-| `src/renderer/src/store/wizard/probeErrorExperience.ts`, `DownloadProfilesSettingsTab.tsx`, `src/main/services/analytics.ts` | `explore` mode in error guidance, settings and the ban warning, analytics |
+| `src/renderer/src/store/wizard/probeErrorExperience.ts`, `DownloadProfilesSettingsTab.tsx` | `explore` mode in error guidance, settings and the ban warning |
 | `src/main/services/download/startupTempSweep.ts` | sweeps temp jars orphaned by a crash |
-| `design/in-app-browser/` | mockups — `Main.dc.html` chosen, `MinWindow.dc.html` the minimum-window layout (drawn at 720x680; the real minimum is 720x760). **Gitignored (`/design/`), so local-only**; layout decisions are restated in [UI](#ui) |
+| `design/in-app-browser/` | mockups (`Main.dc.html`, `MinWindow.dc.html`). **Gitignored (`/design/`), so local-only and not in the repo**; layout decisions are restated in [UI](#ui). The real minimum window is 720x760 (`WINDOW_MIN_*` in `src/shared/constants.ts`) |
 
 ## Goal
 
@@ -163,7 +163,7 @@ one identity source, so a job never mixes two identities.
 | `file`, `browser` | unchanged: those cookies on every run, `CookielessRetry` as today; no escalation |
 | `off` | no cookies, ever — a real opt-out even when signed in to Explore |
 
-- **Auto-switch at first Explore open, not at app start.** The first time a user opens the Explore tab with `cookiesMode === 'off'`, it switches to `explore` silently (they are opening the account feature). Users who never open Explore keep exactly today's settings and behaviour — no change to their error guidance, ban warning, analytics, or downgrade safety. A marker (`exploreModeAutoSwitched`) makes it happen once, so a later deliberate `off` is respected. The schema default stays `off`.
+- **Auto-switch at first Explore open, not at app start.** The first time a user opens the Explore tab with `cookiesMode === 'off'`, it switches to `explore` silently (they are opening the account feature). Users who never open Explore keep exactly today's settings and behaviour — no change to their error guidance, ban warning, or downgrade safety. A marker (`exploreModeAutoSwitched`) makes it happen once, so a later deliberate `off` is respected. The schema default stays `off`.
 - **`file` / `browser` are never switched automatically** — those users are signed in today; a silent switch would break their gated downloads until they sign in to Explore, change on-every-run behaviour to on-demand, and may move them off a deliberately chosen secondary account.
 - **In-tab nudge:** opening Explore while `cookiesMode` is `file` / `browser` (or a deliberate `off`) shows an alert naming the current mode — "Downloads use your cookies file, not your Explore sign-in" — with **[Use Explore sign-in]** (sets `cookiesMode` to `explore`; reversible in Settings) and **[Not now]** (remembered until `cookiesMode` next changes). It takes its own row above the browser view and never stacks with the first-run notice. Reuse the `CookiesErrorAlert` / `OpenCookiesSettingsButton` patterns.
 - **Every `cookiesMode` consumer handles `explore` explicitly:**
@@ -171,7 +171,6 @@ one identity source, so a job never mixes two identities.
   - `probeErrorExperience.ts` (bot-wall / needs-cookies guidance keyed on `mode === 'off'`): under `explore`, signed out → "Sign in in Explore"; signed in → today's "enabled" variant.
   - Settings: `explore` option, and the ban warning shown for it (it is shown for any non-`off` mode today).
   - `ProbeService.probe`'s option type uses `CookiesMode`, not a hand-written literal union.
-  - Analytics: `cookies_mode` gains `explore`; add an `escalated` property on download events. No URLs, titles or account data.
 - **Downgrade:** an older build fails to parse `cookiesMode: 'explore'` and resets the `common` settings section to defaults (`SettingsStore`). Accepted and documented in the CHANGELOG — it only affects users who chose Explore.
 
 ## The rule that must not be broken
@@ -362,9 +361,9 @@ as "cookies + `web.gvs` token → 0 formats". So:
   | Signed-in, **no token** (raw yt-dlp) | `tv_samsung`, `web_embedded` | `401+258`, **2160p**; no withheld-formats warning |
 
   The research's "cookies + `web.gvs` token → 0 formats" came from the old `mweb` path and **does not reproduce** on current yt-dlp. The anonymous token on a signed-in run is harmless for formats but still pairs two identities.
-- **Decided 2026-10-14 (reverses the earlier "build account-bound minting with escalation"):** escalated runs send **no PO token** in v1. It removes the identity mismatch, measured full quality, and drops the largest piece of step 3 (minting inside the Explore partition, an identity-keyed `TokenService`). The pipeline's existing withheld-formats signal (`formatsWithheld`) is logged per escalated run; account-bound minting (`data_sync_id`) is added only if that signal shows up on escalated jobs. Not yet covered by the measurement: age-restricted / members-only videos, which need an age-verified account.
+- **Decided 2026-10-14 (reverses the earlier "build account-bound minting with escalation"):** escalated runs send **no PO token** in v1. It removes the identity mismatch, measured full quality, and drops the largest piece of the escalation work (minting inside the Explore partition, an identity-keyed `TokenService`). The pipeline's existing withheld-formats signal (`formatsWithheld`) is logged per escalated run; account-bound minting (`data_sync_id`) is added only if that signal shows up on escalated jobs. Not yet covered by the measurement: age-restricted / members-only videos, which need an age-verified account.
 - Signed-in runs currently use `web_embedded` / `tv_samsung` / `web` ([yt-dlp #17805](https://github.com/yt-dlp/yt-dlp/pull/17805)); `android_vr` does not support cookies. Do not hard-code client assumptions; they move with yt-dlp releases.
-- **`CHROME_UA` fix ships separately, first:** `HiddenWindowTokenProvider` declares `X11; Linux x86_64 … Chrome/130` regardless of host — the same class of lie as above, affecting every user's minting today. Its own PR and beta, independent of Explore.
+- **`CHROME_UA` fix shipped separately, first (PR #263):** `HiddenWindowTokenProvider` used to declare `X11; Linux x86_64 … Chrome/130` regardless of host — the same class of lie as above, affecting every user's minting. The constant is gone from `src/`.
 
 ## Settings and schema
 
@@ -409,9 +408,9 @@ a run uses instead of combining flags.
 
 ## UI
 
-Mockups (local-only, gitignored): `design/in-app-browser/` — `Main.dc.html`
-is the chosen split layout, `MinWindow.dc.html` the minimum-window layout (drawn at 720x680; the real
-minimum is 720x760).
+Mockups were local-only (`design/in-app-browser/` is gitignored and not in the
+repo). The layout is the split layout described below; it must hold at the real
+minimum window, 720x760.
 
 - **Tab bar:** the existing one gains Explore after URL (D3), with a "New" badge; URL stays the launch tab. With `exploreEnabled` off, the bar is exactly today's.
 - **Explore first run:** ban-risk notice, then the YouTube home page. The view mounts on first open only (D3.1). The notice opens with a decorative preview of Explore (`aria-hidden`, `inert`): the toolbar in miniature with the real Download split naming the active profile, over an abstract video page (top bar with search and avatar, side menu, chip row, two-column card grid) in neutral shapes and theme colours — no site branding, artwork or people. It is shorter in a narrow card (a container query on the card, which measures unzoomed CSS px, so any UI zoom above 100% at the 720 px floor gets the short form). At 720x760 and UI zoom 100% the whole notice, Continue included, is in view without scrolling (asserted in en, el, fr, my, pl and ur); at 125% and above, scrolling to reach Continue is accepted.
@@ -433,7 +432,7 @@ minimum is 720x760).
 - **A snapshot stands in for the hidden page (P2-R35).** When an overlay opens, the renderer first asks main for a snapshot (`explore:capture`: `capturePage`, encoded as a quality-85 JPEG data URL at full device resolution, so it is sharp on HiDPI — ~15 ms to encode, where a full-size PNG takes ~300 ms), shows it in the placeholder where the view was, and only then hides the view. On close the live view is shown first, then the picture is dropped. No picture (nothing shown, an error, a failed or rejected capture, or none within ~300 ms) means the view hides at once, as before: the overlay is never held up. The picture lives only in the viewport's state; it is never stored or logged. An error surface or leaving the tab hides the view at once, without a picture. Toasts keep their own rule (P2-R16): the view shrinks for them and does not hide.
 - **Sound follows the tab:** the view is muted while the Explore tab is not the active tab (P2-R32); a dialog over it hides it but does not mute it.
 - **Even tab spacing:** each tab trigger sizes to its content and shares the free room equally; pills are inset along the row, cast no sideways glow, and keyboard focus rings the pill from inside (plus a transparent inset outline, so forced colours still show focus), so any two lit pills (selected, hovered, a working Downloads tab) keep the same clear gap. The tab-bar sweep measures it.
-- **Five tabs at the 720px floor** with the longest locales (`el`, `fr`, `my`) is the main layout risk. There is no tab-bar overflow test to extend today — add a case to `tests/browser/toggle-overflow.spec.ts`.
+- **Five tabs at the 720px floor** with the longest locales (`el`, `fr`, `my`) is the main layout risk. `tests/browser/toggle-overflow.spec.ts` covers the tab bar (`overflowingTabs`).
 - shadcn primitives only; no Radix; `toggleVariants` rules; the ui-consistency ratchet must not rise.
 
 ## Ad blocker
@@ -479,14 +478,14 @@ Grab reads `url` from state — no separate channel. **Cookies never cross IPC.*
 
 ## Testing
 
-Following the layer ownership in AGENTS.md — Explore is **not** an excuse to
+Following the layer ownership in [`fixture-e2e.md`](fixture-e2e.md) — Explore is **not** an excuse to
 drive real YouTube login from CI.
 
 | Layer | Covers |
 |---|---|
 | Unit (`tests/unit`) | Jar writer: host-only cookies (`FALSE`, no leading dot), `#HttpOnly_`, expiry `0` for session cookies, `__Host-`/`__Secure-` names; domain filter (`.google.com` excluded); escalation matcher over `(kind, message)` incl. private, members-only, WL/LL, botBlock-after-ladder, and every non-escalating kind; sticky `auth` through probe result → ref → queue item → `StartDownloadInput`, playlist inheritance, persistence before the escalated spawn; per-job spawn cap; concurrency/pacing; `CookielessRetry` bypass (D4); `resolveCookies` exhaustive over modes, `file`/`browser`/`off` unchanged; auto-switch at first open exactly once, later `off` respected, `file`/`browser` never switched; `probeErrorExperience` under `explore`; stale warning → verify → one retry / signed-out state; navigation policy decisions; `exploreUserAgent` validation; devtools gate; **UA invariant**; escalated runs never receive the anonymous PO token |
 | Renderer (`tests/renderer`) | Explore tab after URL, "New" badge, URL still the launch tab, absent when `exploreEnabled` off; first-run notice; nudge shown/hidden/dismissed; view not mounted before first open; placeholder hidden while a modal is open; overlay snapshot order (capture → picture → hide; show → drop) and its fallbacks |
-| Browser mock (`tests/browser`) | Explore layout at the minimum window size (720x760) and 150% zoom; new tab-bar case in `toggle-overflow.spec.ts` across `el`/`fr`/`my` |
+| Browser mock (`tests/browser`) | Explore layout at the minimum window size (720x760) and 150% zoom; tab-bar case in `toggle-overflow.spec.ts` across `el`/`fr`/`my` |
 | Mock Electron E2E | Partition isolation from the app session; no cookies over IPC; no Explore partition activity before first open; `will-download` cancelled |
 | Fixture Product E2E | Needs an **E2E-only hook** (gated on `ARROXY_E2E=1`) to seed cookies into the Explore partition. **Escalation scenario:** the fixture plugin reads a marker cookie via `self._get_cookies('https://www.youtube.com')` and raises "Sign in to confirm your age" without it; the probe fails anonymously, escalates, downloads. Oracles: the plugin reports the marker per request (reusing the existing `signedIn` request field), so other items are shown anonymous; the item's `auth` persisted; the file exists; deny proxy clean. **D4 scenario** with `COOKIE_LIMITED_VIDEO_ID`: an escalated, quality-limited job asserts no cookieless retry happens. **Last page:** after a restart the view reopens the fixture origin's second page, never asking for home. **Never real YouTube auth.** |
 | Manual | Cross-platform matrix on the product build (below), logging off-allowlist hosts |
@@ -508,7 +507,7 @@ Observed on every platform, and binding on the implementation:
 - **YouTube reloads itself on first load** (`?themeRefresh=1`), aborting the initial `loadURL` with `ERR_ABORTED`. Treat that abort as normal navigation, never as a failure. (`HiddenWindowTokenProvider` already loads the `themeRefresh` URL, likely for this reason.)
 - **Google inserted `challenge/recaptcha` before the password step** every time (new account; may not apply to established ones). The Explore view must be large enough to solve a reCAPTCHA at the 720x760 minimum window.
 - **Linux ran with `--no-sandbox`** — identical to the shipped Linux build (`build/afterPack.mjs`), so no deviation from production.
-- **Electron 44.6.0 / Chromium 152** (the version `main` moved to on 2026-10-14): page-load probe on macOS still reaches `GlifWebSignIn` with `Desktop/1.0`. The full matrix is repeated on the product build (implementation step 6).
+- **Electron 44.6.0 / Chromium 152** (the version `main` moved to on 2026-10-14): page-load probe on macOS still reaches `GlifWebSignIn` with `Desktop/1.0`. The full matrix was repeated on the product build (below).
 - Not yet run: x64 Windows/Linux (same Chromium; low risk — run one probe before release) and bot-wall relief (cannot be provoked on demand).
 
 **Manual matrix on the product build — executed 2026-10-15/16** (packaged `feat/explore` builds, Electron 44.6.0, fresh profile per platform, a spare Google account signed in by hand inside Explore). Oracle as above: Watch Later (`list=WL`) fails signed out with *"The playlist does not exist"*, then escalates and downloads.
@@ -522,24 +521,8 @@ Observed on every platform, and binding on the implementation:
 - **Windows shows a "Sign in with a passkey" dialog before the email step.** Google's sign-in page offers passkeys up front; in Chrome that is a quiet autofill suggestion, but Electron has no conditional-mediation UI, so Windows Security opens its own dialog. Cancel continues to email and password. Accepted: no injection into the sign-in page, and real security keys keep working.
 - Downloads ran with the signed-in pacing (`sleepingBetweenRequests` 6 s) and one fresh `0600` jar per spawn, deleted afterwards.
 
-## Implementation order
-
-0. **Separate PR, now:** `CHROME_UA` fix in `HiddenWindowTokenProvider` → **verify:** unit test on the UA; live smoke that anonymous minting still works on all three platforms.
-1. **Seams, no behaviour change:** `ExploreCookie` + `Site.explore` (YouTube values), `netscapeCookieJar` + domain filter, `SessionCookieJarPort`, `cookiesModeSchema` + `'explore'` with an exhaustive `resolveCookies`, `jobAuthSchema`, the identity run option replacing `withoutCookies`, `explore` handled in `probeErrorExperience` / settings / analytics (option not yet offered in UI) → **verify:** unit tests; all existing tests pass untouched.
-2. **`ExploreSessionService` headless:** partition, UA + validation, proxy, permissions, `will-download`, devtools gate, cookie reads, `hasAuthCookies`, `verifySignedIn`, port adapter, E2E-only seeding hook, startup jar sweep → **verify:** unit + mock E2E isolation.
-3. **Escalation:** matcher; `auth` data flow (probe result → ref → queue item → `StartDownloadInput`, persistence, playlist inheritance, every `ytDlp.run` caller); `VideoPhase` persist-before-spawn; `CookielessRetry` bypass; escalated runs skip the PoT ladder (no anonymous token — see PO tokens); stale-warning handling; spawn cap, concurrency, pacing → **verify:** unit + fixture E2E escalation and D4 scenarios; a live escalated `smoke:download` reaches full quality.
-4. **Explore UI:** tab, lazy `WebContentsView`, IPC (bounds/visibility/navigation/state), overlay policy, navigation policy, first-run notice, auto-switch at first open + nudge, `explore` in cookie settings, kill switch, Bluetooth plist key → **verify:** renderer + browser tests (720x680, 150%, worst-case locales).
-5. **Shipping scope:** all strings in every locale via `translate-arroxy-i18n`; README feature key in every `readme-src/locales/*.mjs` + a screenshot recipe; CHANGELOG (incl. the downgrade note); `GLOSSARY.md` glossary; ADR (UA rule + Explore as a cookie mode) → **verify:** `bun run check`, `node readme-src/build.mjs`.
-6. **Manual matrix on the product build** (macOS, Windows, Linux + one x64 probe), logging off-allowlist hosts and the permissions sign-in actually requests → **verify:** the table above repeated against the real app.
-
-**Separate track:** cookie encryption at rest (fuse) — own change, own beta, own
-ADR; required before Explore reaches a stable release.
-
-Steps 0–3 carry no UI risk. The spike retired the step that could have
-invalidated the design.
-
 ## Open items
 
-- **Members-only wording** — confirm the message against a real members-only video (D1).
-- **Sign-in permissions** — the product-build matrix saw no permission request beyond the Windows passkey dialog (WebAuthn); security-key sign-in over Bluetooth on macOS still needs a real key to confirm.
-- **x64 probe** — one x64 Windows or Linux page-load probe before the release (same Chromium as arm64; low risk).
+- **Members-only wording** — confirm the message against a real members-only video (D1). UNVERIFIED: `tests/unit/explore-escalation.test.ts` covers the patterns, but nothing here records a check against a real video.
+- **Sign-in permissions** — the product-build matrix saw no permission request beyond the Windows passkey dialog (WebAuthn); security-key sign-in over Bluetooth on macOS still needs a real key to confirm (UNVERIFIED).
+- **x64 probe** — one x64 Windows or Linux page-load probe (same Chromium as arm64; low risk). UNVERIFIED whether it was run before 0.5.0 shipped; no record in this doc.

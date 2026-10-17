@@ -81,7 +81,7 @@ cd counterscale && pnpm install --frozen-lockfile
 cd packages/server && pnpm exec react-router dev --port 3005 --host 127.0.0.1
 ```
 
-Locally the Analytics Engine write is simulated, so add a temporary `console.log(JSON.stringify(datapoint))` at the top of `writeDataPoint` in `app/analytics/collect.ts` to see what would be stored. Then from the Arroxy checkout:
+Locally the Analytics Engine write is simulated, so add a temporary `console.log(JSON.stringify(datapoint))` at the top of `writeDataPoint` in `app/analytics/collect.ts` (in the Counterscale clone) to see what would be stored. Then from the Arroxy checkout:
 
 ```bash
 ARROXY_HEARTBEAT_URL=http://127.0.0.1:3005/collect bun run dev

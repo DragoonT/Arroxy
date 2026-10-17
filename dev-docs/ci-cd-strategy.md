@@ -24,19 +24,12 @@
 | Startup Nightly                      | `startup-nightly.yml`          | cron 03:00 UTC + dispatch               | degraded-environment startup journeys, all 3 platforms, non-blocking                                             |
 | Runtime Binary Manifest Validation   | `runtime-binaries.yml`         | dispatch                                | validates signed runtime manifest generator                                                                      |
 | Windows yt-dlp probe soak            | `windows-ytdlp-probe-soak.yml` | dispatch                                | probe-duration soak measurements                                                                                 |
+| ytdlp-errors Upstream Scan           | `ytdlp-errors-upstream-scan.yml` | cron Mon 06:00 UTC + dispatch         | bumps the pinned yt-dlp release in `packages/ytdlp-errors/data` and adds new in-scope error strings (`kind: null`), then opens a PR for triage; skips while a scan PR is open |
 | Publish yt-dlp-bridge / ytdlp-errors | `publish-*.yml`                | package tags + dispatch                 | registry publish of workspace packages                                                                           |
 
 ## Startup verification tiers
 
-Decision record: the PR gate is Linux-only on purpose — [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md).
-
-| Tier      | Where                        | Platforms | Blocking                                               | Journeys                                                                 |
-| --------- | ---------------------------- | --------- | ------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `pr`      | E2E Cold Start               | Linux     | yes                                                    | `fresh-cold`, `warm-restart`                                             |
-| `release` | `release.yml` `startup-gate` | all 3     | not yet — soak first, then wire into `prepare-release` | + `inherited-update`                                                     |
-| `nightly` | Startup Nightly              | all 3     | no — failure opens a `startup-nightly` issue           | `fresh-cold` + `index-off`, `no-GPU`, `contaminated PATH`, `corrupt profile` (no `offline`) |
-
-Journeys are data in `scripts/startup/journeys.ts`; the runner launches the packaged app, waits for a real milestone, and a pure log oracle asserts clean logs. A missing verdict is a failure — "ran nothing" can never look like "passed". Invocation: `ARROXY_STARTUP_TIER=<tier> PACKAGED_EXE=<exe> bun run verify:startup`. Details in `dev-docs/startup-verification.md`.
+Three tiers (`pr`, `release`, `nightly`), journeys, current state and open defects live in [startup-verification.md](startup-verification.md). Decision record: the PR gate is Linux-only on purpose — [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md).
 
 ## Branch protection contract (`main`)
 

@@ -1,6 +1,7 @@
 # Arroxy Dual-Deploy Architecture Plan
 
-> Status: Tranche 1 planned in full detail; Tranches 2-6 are direction-level design only.
+> Status: not started — parked program; no core/shell split exists in the code yet (`src/` has only `main`, `preload`, `renderer`, `shared`).
+> Tranche 1 was planned in full detail; Tranches 2-6 are direction-level design only.
 > Owner: Antonio (OrionusAI@proton.me).
 > Last revised: 2026-08-26.
 
@@ -9,10 +10,8 @@ Section 9 is the tranche map. Sections 1-8 describe decisions that are settled;
 sections 10-12 describe work that is directionally chosen but not yet designed
 against the current tree.
 
-The Tranche 1 implementation plan lives at
-`docs/superpowers/plans/2026-08-25-core-shell-boundary.md`, which is **untracked**
-(`.gitignore` excludes `docs/superpowers/*`). Anything from it that must outlive
-the branch belongs here or in `docs/adr/`.
+The boundary decision is recorded in
+[ADR 0005](../docs/adr/0005-core-shell-boundary-three-ports-and-an-inward-dependency-rule.md).
 
 ## 1. Goal
 
@@ -40,7 +39,7 @@ cannot import Electron.
 
 ## 3. Current state (measured 2026-08-26)
 
-Measured against the tree, not estimated.
+Measured against the tree on 2026-08-26, not estimated. These numbers are dated and have not been re-measured; the tree has changed since.
 
 - `src/main/` is **10,377 LOC across 87 `.ts` files**. Only **11** import Electron at value level.
 - **Seven** further files carry a dedicated `import type {BrowserWindow}` that erases at compile time. All three event bridges are in this group, which is what makes the event-sink work cheap.
@@ -50,7 +49,7 @@ Measured against the tree, not estimated.
 - `src/main/index.ts` is a **481-line composition root** already threading dependencies explicitly. `TokenProvider` is already an interface with two implementations selected at composition time.
 - With DOM removed, **core and `src/shared` compile clean** — all 72 `src/shared` files pass. There is no existing DOM coupling to find.
 
-### The 11 Electron-coupled files
+### The Electron-coupled files (11 on 2026-08-26; the analytics handler has since been removed, 10 remain)
 
 | File | Value imports | Destination |
 | --- | --- | --- |
@@ -58,7 +57,6 @@ Measured against the tree, not estimated.
 | `ipc/utils.ts` | `app`, `ipcMain` | core (ported) |
 | `ipc/fileHandlers.ts` | `app`, `dialog`, `shell` | shell |
 | `ipc/registerUpdaterHandlers.ts` | `app`, `ipcMain` | shell |
-| `ipc/analyticsHandlers.ts` | `ipcMain` | core (ported) |
 | `ipc/diagnosticsHandlers.ts` | `ipcMain` | core (ported) |
 | `services/BinaryManager.ts` | `app` | core (injected) |
 | `services/TrayManager.ts` | `Tray`, `Menu`, `nativeImage` | shell |
@@ -153,6 +151,8 @@ state) lives in shared. Ports with state live in `src/main/core/ports/`.
 ```
 
 ## 5. Ports: three, not six
+
+The decision itself is in [ADR 0005](../docs/adr/0005-core-shell-boundary-three-ports-and-an-inward-dependency-rule.md); this section keeps the per-port reasoning and the cut candidates, which the ADR points here for.
 
 A port earns its place when a second implementation genuinely arrives.
 
@@ -430,7 +430,7 @@ aspirational.
 
 ## 15. Test strategy
 
-> The layer ownership rules in `AGENTS.md` govern. This section covers only what
+> The layer ownership rules in [`fixture-e2e.md`](fixture-e2e.md) govern. This section covers only what
 > the dual-deploy split adds. Not re-validated since 2026-05-26 — an earlier
 > draft assumed a `createCore(ports)` factory that this program does not build.
 

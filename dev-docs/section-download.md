@@ -4,6 +4,8 @@
 omniget/yt-dlp research (verified 2026-09-05) so v1 can be built without
 re-deriving it. Suggested v1 slice is at the bottom.
 
+Workflow context and the proposed single-video review screen: [download-workflows.md](download-workflows.md).
+
 Download only a time range of a video (`START-END`), via yt-dlp
 `--download-sections "*START-END"` (`*` = time-range mode; without it yt-dlp
 reads the value as a chapter-title regex; `inf` = open end).
@@ -19,7 +21,7 @@ Arroxy-side code lives in:
 - `src/shared/filenameTemplate.ts` — `{title} [{id}]` output template (`:67`)
 - `src/shared/playlistMedia.ts` — `findPlayableFileName` (`:14`), consumed by `src/main/services/playlistM3u.ts:28` and `src/main/ipc/playlistHandlers.ts`
 - `src/main/stores/QueueStore.ts` — job persistence (retry must preserve the new fields)
-- `node_modules/yt-dlp-bridge/dist/schemas.d.ts:145` — bridge **already supports `downloadSections: string[]`**; no argv plumbing needed
+- `packages/yt-dlp-bridge/src/workflow.ts` (`CallerMediaWorkflowInput`, ~`:65-76`) — the app only sends the bridge "caller" media requests, and that input has **no `downloadSections` field**. `downloadSections: string[]` exists only on the managed-download input (`packages/yt-dlp-bridge/src/schemas.ts:87`, argv at `workflow.ts:512`), as does `forceKeyframesAtCuts` (`schemas.ts:142`, argv at `workflow.ts:569`). Clips need the bridge change below first
 
 Reference implementations (outside this repo, paths may rot):
 
@@ -32,8 +34,12 @@ Reference implementations (outside this repo, paths may rot):
 
 Two argv entries: `--download-sections "*START-END"`. Omniget builds the range
 in `buildTimeRange()` (`+page.svelte:324-331`, defaults `0`/`inf`) and prepends
-`*` in `downloads.rs:875`. For Arroxy, pass `downloadSections: ["*START-END"]`
-on the bridge media request instead of raw argv.
+`*` in `downloads.rs:875`. For Arroxy, add `downloadSections` (and optionally
+`forceKeyframesAtCuts`) to the bridge's caller media request
+(`CallerMediaWorkflowInput`), emit the argv in `planCallerMediaWorkflow`, then
+pass `downloadSections: ["*START-END"]` from the app instead of raw argv. The
+bridge publishes on its own tag (`yt-dlp-bridge-v*`), but the app consumes it
+via `workspace:*`, so the change is usable here immediately.
 
 ## 2. yt-dlp behavior that shapes the UX
 
@@ -96,13 +102,16 @@ approximate" hint, suffixed filenames, full-length subs documented.
   (Do NOT read anything into the existing `'clip'` profile icon in
   `downloadProfileIconSchema` — it's the low-res/small-file icon from
   `downloadProfiles.ts:54,59-60`, unrelated to trim.)
+- `packages/yt-dlp-bridge`: add `downloadSections` (and optionally
+  `forceKeyframesAtCuts`) to `CallerMediaWorkflowInput` and its planner, with
+  bridge tests; run `bun run bridge:check`.
 - `VideoPhase`: map to `downloadSections: ["*START-END"]` next to the
   `sponsorBlock` passthrough. `YtDlp.ts` spawn needs no changes.
 - i18n: new keys in `en.json`; other 23 locales fall back until translated.
 - Tests: vitest for the validator (valid / invalid / reversed /
   beyond-duration); one Fixture Product E2E for a short section download
   (filesystem oracle: suffixed file exists; deny-proxy log clean). Do not
-  claim the workflow with unit/jsdom tests alone (see AGENTS.md test layers).
+  claim the workflow with unit/jsdom tests alone (see the test layers in `fixture-e2e.md`).
 
 Open questions for implementation time: confirm the "quick download" flow
 name/scope still exists; decide full-subs vs cut-subs; decide suffix format.

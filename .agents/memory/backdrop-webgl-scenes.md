@@ -1,11 +1,11 @@
 ---
 name: backdrop-webgl-scenes
-description: The app background is a scene-selected WebGL backdrop: dark aurora plus light ocean, with Canvas2D fallback before CSS
+description: The app background is a scene-selected WebGL backdrop: dark aurora plus light ocean, with a CSS-gradient fallback
 metadata:
   type: project
 ---
 
-The animated app background is **WebGL**, selected by `AppBackdrop` and rendered by `CanvasSceneHost` in `src/renderer/src/components/layout/background/`. Dark mode uses the nimitz-inspired dark aurora scene. Light mode uses a separate cheap ocean/cloud shader. Canvas2D is the normal no-WebGL fallback; CSS gradients are last fallback only when Canvas2D is unavailable.
+The animated app background is **WebGL**, selected by `AppBackdrop` and rendered by `CanvasSceneHost` in `src/renderer/src/components/layout/background/`. Dark mode uses the nimitz-inspired dark aurora scene. Light mode uses a separate cheap ocean/cloud shader. When WebGL is unavailable (or rejected as software rendering), the host falls back to the CSS gradients; there is no Canvas2D fallback (removed in `fdbee81a`).
 
 Key decisions (all learned the hard way over several wrong attempts — hand-rolled FBM streaks and snaking-ribbon shaders both failed):
 
@@ -16,12 +16,12 @@ Key decisions (all learned the hard way over several wrong attempts — hand-rol
 - **Stars:** dark aurora keeps hashed twinkling dots in the upper sky. Light ocean has no stars.
 - **Sharpness:** raw nimitz reads as fog. Three knobs make it read as defined curtains: `triNoise2d` return exponent `pow(rz*29.0, 1.5)` (was 1.3 = thinner brighter peaks), `aur = smoothstep(0.0, 1.15, aur)` contrast lift, and `aur.rgb = pow(aur.rgb, vec3(0.85))` gamma.
 - **Render scale:** dark aurora is heavier and renders at its scene scale. Light ocean is deliberately cheaper: one fragment shader, no Three.js, no meshes, no render targets, no postprocessing.
-- rAF pauses on `document.hidden`; `prefers-reduced-motion` draws one static frame. If WebGL is unavailable the host uses the selected scene's Canvas2D fallback; CSS gradients show only when Canvas2D is unavailable.
+- rAF pauses on `document.hidden`; `prefers-reduced-motion` draws one static frame. If WebGL is unavailable the host switches to the CSS gradient fallback (`backdrop-static-fallback` body class, set by `CanvasSceneHost`).
 
 Tune the right layer:
 
 - WebGL dark aurora: `src/renderer/src/components/layout/background/darkAurora/shader.ts`.
-- Canvas2D dark aurora fallback: `src/renderer/src/components/layout/background/darkAurora/fallback.ts`.
-- CSS `--backdrop` / `--backdrop-accent` + `body::before/::after`: last-resort no-WebGL/no-Canvas2D fallback only.
+- WebGL light ocean: `src/renderer/src/components/layout/background/lightOcean/shader.ts`.
+- CSS `--backdrop` / `--backdrop-accent` + `body::before/::after`: the no-WebGL fallback.
 
 Verify changes via the **`?backdrop=1`** isolation stage (browser-mock; also reachable from the Scenario Gallery "Backdrop only" button), using the `http://127.0.0.1:<doctor-port>/` URL reported by `bun run doctor`, e.g. `?theme=dark&platform=linux&backdrop=1` or `?theme=light&platform=linux&backdrop=1`. Also check at least one wide desktop viewport when adjusting bloom placement: broad full-width blooms can wash out the top of the scene and reduce glass-panel contrast. Browser-mock verifies renderer visuals; Electron GPU/fallback behavior still needs the probes documented in `AGENTS.md`. See [[glow-intensity-policy]].

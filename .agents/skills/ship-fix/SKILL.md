@@ -7,7 +7,7 @@ description: End-to-end Arroxy flow for taking a bug fix (or small feature) from
 
 One pass from report to released version. This skill is the order of operations; the rules live elsewhere and are linked, not repeated. Read them when a phase points at them.
 
-- `AGENTS.md`: Post-Task Checks, "Choosing the right test", Release Pipeline.
+- `AGENTS.md`: Post-Task Checks, Release Pipeline; `dev-docs/fixture-e2e.md`: "Choosing the right test"; `dev-docs/release-runbook.md`.
 - `.agents/memory/MEMORY.md` index, especially `coderabbit-review-workflow.md`, `finish-before-pr.md`, `no-ai-attribution.md`.
 - `scripts/release.sh`: what a release refuses to do.
 
@@ -34,7 +34,7 @@ Work only inside it. Never use bare `git stash` (the stash stack is shared acros
 verify: `git status` is clean, `git rev-parse HEAD` equals `origin/main`, `bun run doctor` is healthy.
 
 ### 3. Implement, test first
-Write the failing test at the layer that owns the behavior ("Choosing the right test" in `AGENTS.md`). A bug found by using the app belongs in Fixture Product E2E: `bun run build`, then run with `ARROXY_E2E_HEADLESS=1` so no window steals focus. Make it pass with the smallest change. Finish the whole change per `finish-before-pr.md`: locales and README sources are not follow-ups. When the release follows straight after the merge (this flow), the CHANGELOG entry is written in the release commit (phase 9) rather than in the PR. Delegate the implementation to a cheaper subagent with a precise spec; review its diff yourself.
+Write the failing test at the layer that owns the behavior ("Choosing the right test" in `dev-docs/fixture-e2e.md`). A bug found by using the app belongs in Fixture Product E2E: `bun run build`, then run with `ARROXY_E2E_HEADLESS=1` so no window steals focus. Make it pass with the smallest change. Finish the whole change per `finish-before-pr.md`: locales and README sources are not follow-ups. When the release follows straight after the merge (this flow), the CHANGELOG entry is written in the release commit (phase 9) rather than in the PR. Delegate the implementation to a cheaper subagent with a precise spec; review its diff yourself.
 verify: the new test failed before the fix and passes after; the diff contains only what the design called for.
 
 ### 4. Gate

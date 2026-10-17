@@ -6,16 +6,17 @@
 | Runner / oracle / provisioner / verdicts    | `scripts/startup/runJourney.ts`, `logOracle.ts`, `provisionProfile.ts`, `checkVerdicts.ts`, `fetchPreviousRelease.ts` |
 | Entry point (Playwright Test spec)          | `tests/e2e/startup-journeys.spec.ts`                                                                                  |
 | Workflows                                   | `e2e-cold-start.yml` (pr), `release.yml` `startup-gate` (release), `startup-nightly.yml` (nightly)                    |
-| Design spec + plan (local-only, gitignored) | `docs/superpowers/specs+plans/2026-08-30-startup-verification-ci*`                                                    |
 | Decision records                            | `docs/adr/0006` · map: `dev-docs/ci-cd-strategy.md`                                                                   |
 
-## Current state (2026-08-30)
+## Current state (2026-10-17)
 
 | Tier                                         | Status                                                                        |
 | -------------------------------------------- | ----------------------------------------------------------------------------- |
-| `pr` (Linux, blocking via branch protection) | ✅ green in CI, verified against a real packaged build                        |
-| `release` (all 3 platforms, on tags)         | ⚠️ advisory — not wired into `prepare-release` yet; never fired (needs a tag) |
-| `nightly` (all 3 platforms, scheduled)       | ✅ green — 5/5 verdicts on all three platforms ([run 33309036291](https://github.com/antonio-orionus/Arroxy/actions/runs/33309036291)) |
+| `pr` (Linux, blocking via branch protection) | blocking; green in CI and verified against a real packaged build (as of 2026-08-30; not re-checked) |
+| `release` (all 3 platforms, on tags)         | advisory. `startup-gate` runs on every `v*` tag but is **not** in `prepare-release`'s `needs:` (that job needs only `quality-gate`), so a red gate does not stop a publish. It passed on all three platforms for the six tags `v0.4.25`, `v0.4.26`, `v0.4.27`, `v0.5.0`, `v0.5.1` and `v0.5.2` (checked 2026-10-17 with `gh run view`) |
+| `nightly` (all 3 platforms, scheduled)       | green — 5/5 verdicts on all three platforms as of 2026-08-30 ([run 33309036291](https://github.com/antonio-orionus/Arroxy/actions/runs/33309036291)); UNVERIFIED since |
+
+The soak criterion in the NOTE above `startup-gate` in `release.yml` (green on all three platforms across three consecutive tags) is met by the runs above. Wiring the gate in is still open; see Known defects.
 
 Invocation: `ARROXY_STARTUP_TIER=<tier> PACKAGED_EXE=<exe> bun run verify:startup`.
 
@@ -34,7 +35,7 @@ Invocation: `ARROXY_STARTUP_TIER=<tier> PACKAGED_EXE=<exe> bun run verify:startu
 
 ## Known defects (open)
 
-1. **Wire `startup-gate` into `prepare-release`** after the soak (see decision 5). Until then a broken macOS cold start can ship.
+1. **Wire `startup-gate` into `prepare-release`** (see decision 5). The soak criterion is met (see Current state), but the gate is not wired yet, so a broken macOS cold start can still ship.
 
 Fixed or resolved: the nightly's unseedable warm journeys (fixed — `fresh-cold` seeds the tier, named via decision 10) and the unenforceable `offline-no-cache` journey (descoped, see Known gaps). Nightly failures open a `startup-nightly` issue automatically (`startup-nightly.yml` `notify` job), so a red nightly reaches a human the same day, and the first green run closes the issue again.
 
