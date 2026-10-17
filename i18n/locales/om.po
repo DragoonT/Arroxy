@@ -251,6 +251,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Irra deebi'i"
 
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Fuula irratti liinkii viidiyoo, tarree taphachiisaa ykn channel kamiyyuu irratti right-click godhiitii Profaayilii hojiirra jiruun buufadhu, profaayilii biraa filadhu, ykn Buufata walnaqqee bani."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Buufachuuf liinkii irratti right-click godhi"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Hidhata garagalchi"
@@ -2444,6 +2452,14 @@ msgstr "Thumbnail .jpg faayilii suuraa ta'ee daawniloodii cinaa ni kuusa."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Thumbnail kuusi"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Kaardii viidiyoo irratti gara «Kutaa» jijjiiri, jalqabaa fi dhumaa ykn boqonnaa tokko filadhu, achiis kutaa sana qofa buufadhu."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Kutaa viidiyoo tokko qofa buufadhu"
 
 msgctxt "wizard.part.chapters"
 msgid "Chapters"

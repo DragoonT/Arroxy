@@ -50,7 +50,7 @@ beforeEach(() => {
 	})
 	useAppStore.getState().bindExploreView()
 	const base = defaultAppSettings('/tmp')
-	useAppStore.setState({queue: [], wizardUrl: '', settings: {...base, common: {...base.common, exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore'}}})
+	useAppStore.setState({queue: [], wizardUrl: '', settings: {...base, common: {...base.common, exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreLinkCalloutDismissed: true}}})
 })
 
 afterEach(() => {
@@ -141,5 +141,50 @@ describe('Explore link menu picks', () => {
 		fireEvent.click(screen.getByRole('tab', {name: /^url/i}))
 
 		expect(linkListener).toBeNull()
+	})
+})
+
+describe('One-time right-click callout in Explore', () => {
+	function seedTip(common: Record<string, unknown> = {}): void {
+		const base = defaultAppSettings('/tmp')
+		useAppStore.setState({settings: {...base, common: {...base.common, exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', ...common}}})
+	}
+
+	it('points out the link menu until it is closed', async () => {
+		seedTip()
+		renderExplore()
+		expect(await screen.findByTestId('explore-link-callout')).toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('explore-link-callout-dismiss'))
+
+		await waitFor(() => expect(window.appApi.settings.update).toHaveBeenCalledWith({common: {exploreLinkCalloutDismissed: true}}))
+		expect(screen.queryByTestId('explore-link-callout')).toBeNull()
+	})
+
+	it('never shows once dismissed', async () => {
+		seedTip({exploreLinkCalloutDismissed: true})
+		renderExplore()
+		await screen.findByTestId('explore-tab')
+		expect(screen.queryByTestId('explore-link-callout')).toBeNull()
+	})
+
+	it('counts using the link menu as having seen it', async () => {
+		seedTip()
+		useAppStore.setState({quickDownload: vi.fn().mockResolvedValue(undefined)})
+		renderExplore()
+		await screen.findByTestId('explore-link-callout')
+		await waitFor(() => expect(linkListener).not.toBeNull())
+
+		pick({kind: 'download', url: WATCH_URL})
+
+		await waitFor(() => expect(window.appApi.settings.update).toHaveBeenCalledWith({common: {exploreLinkCalloutDismissed: true}}))
+		expect(screen.queryByTestId('explore-link-callout')).toBeNull()
+	})
+
+	it('makes way for the cookies warning', async () => {
+		seedTip({cookiesMode: 'file'})
+		renderExplore()
+		await screen.findByTestId('explore-mode-nudge')
+		expect(screen.queryByTestId('explore-link-callout')).toBeNull()
 	})
 })

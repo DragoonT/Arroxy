@@ -583,6 +583,8 @@
 			"chapters": "챕터",
 			"chapterUntitled": "챕터 {{number}}",
 			"exactCut": {"label": "정확한 자르기(재인코딩, 느림)", "hint": "꺼짐: 각 자르기는 가장 가까운 키프레임에서 이루어지므로 입력한 시간과 몇 초 차이가 날 수 있습니다."},
+			"calloutTitle": "동영상의 일부만 다운로드",
+			"calloutBody": "동영상 카드에서 ‘일부’로 바꾸면 시작과 끝 또는 챕터를 골라 그 구간만 다운로드할 수 있습니다.",
 			"connectionsNote": "일부 다운로드는 ffmpeg를 통해 진행되므로 다운로드 연결 및 속도 조절 설정이 적용되지 않습니다.",
 			"urlStart": "링크는 {{time}}에서 시작합니다",
 			"useUrlStart": "시작 시간으로 사용",
@@ -845,6 +847,7 @@
 			"continue": "계속"
 		},
 		"nudge": {"off": "쿠키가 꺼져 있어 다운로드에 Explore 로그인이 사용되지 않습니다.", "file": "다운로드에는 Explore 로그인이 아니라 쿠키 파일이 사용됩니다.", "browser": "다운로드에는 Explore 로그인이 아니라 브라우저의 쿠키가 사용됩니다.", "useExplore": "Explore 로그인 사용", "notNow": "나중에"},
+		"linkCallout": {"title": "링크를 오른쪽 클릭해 다운로드하세요", "body": "페이지의 동영상, 재생목록 또는 채널 링크를 오른쪽 클릭하면 활성 프로필로 다운로드하거나, 다른 프로필을 고르거나, 대화형 다운로드를 열 수 있습니다."},
 		"linkMenu": {"downloadWith": "프로필로 다운로드", "copyLink": "링크 복사"},
 		"toolbar": {
 			"aria": "현재 페이지",

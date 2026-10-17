@@ -612,6 +612,8 @@
 			"chapters": "Kapitel",
 			"chapterUntitled": "Kapitel {{number}}",
 			"exactCut": {"label": "Exakter Schnitt (neu kodiert, langsamer)", "hint": "Aus: Jeder Schnitt landet am nächstgelegenen Keyframe, der einige Sekunden von der eingegebenen Zeit entfernt sein kann."},
+			"calloutTitle": "Nur einen Teil eines Videos herunterladen",
+			"calloutBody": "Auf der Videokarte zu „Ausschnitt“ wechseln, Anfang und Ende oder ein Kapitel festlegen und nur diesen Abschnitt herunterladen.",
 			"connectionsNote": "Ein Ausschnitt wird über ffmpeg heruntergeladen, daher gelten deine Download-Verbindungen und Pausen-Einstellungen dafür nicht.",
 			"urlStart": "Dein Link beginnt bei {{time}}",
 			"useUrlStart": "Als Start verwenden",
@@ -894,6 +896,7 @@
 			"useExplore": "Explore-Anmeldung nutzen",
 			"notNow": "Nicht jetzt"
 		},
+		"linkCallout": {"title": "Rechtsklick auf einen Link zum Herunterladen", "body": "Klicke auf der Seite mit der rechten Maustaste auf einen Video-, Playlist- oder Kanal-Link. So lädst du mit deinem aktiven Profil herunter, wählst ein anderes Profil oder öffnest den Interaktiven Download."},
 		"linkMenu": {"downloadWith": "Download mit", "copyLink": "Link kopieren"},
 		"toolbar": {
 			"aria": "Explore-Browsersteuerung",

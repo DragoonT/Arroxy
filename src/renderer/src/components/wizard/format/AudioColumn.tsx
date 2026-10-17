@@ -1,4 +1,4 @@
-import {Fragment, useState, type ReactNode} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {AudioBitrate, AudioConvertTarget} from '@shared/types.js'
 import {AUDIO_BITRATES, type AudioTrackQuality} from '@shared/schemas.js'
@@ -73,9 +73,8 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 		if (replacement) onSelect({kind: 'native', formatId: replacement.formatId})
 	}
 
-	// One column per codec, best bitrate first; row i holds each codec's i-th stream.
+	// One column per codec, best bitrate first.
 	const codecColumns = view.lines.map(line => ({line, rows: line.variants.filter(shown)})).filter(column => column.rows.length > 0)
-	const depth = Math.max(0, ...codecColumns.map(column => column.rows.length))
 	// Two or more codec columns only fit a narrow window with stacked chips.
 	const narrowStack = codecColumns.length >= 2
 	const drcTag = t('wizard.formats.drc.tag')
@@ -137,21 +136,18 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 			{view.selectedVideoIsMuxed ? <div className="mb-1.5 flex">{noneChip}</div> : null}
 
 			{codecColumns.length > 0 ? (
-				<div className="grid items-center justify-start gap-x-2 gap-y-1.5 pt-1 pe-1.5" style={{gridTemplateColumns: `repeat(${codecColumns.length}, auto)`}}>
-					{codecColumns.map(({line}) => (
-						<span key={line.name} aria-hidden className="px-3 text-caption text-subtle-foreground">
-							{line.name}
-						</span>
-					))}
-					{Array.from({length: depth}, (_, index) => (
-						<Fragment key={index}>
-							{codecColumns.map(({line, rows}) => {
-								const row = rows[index]
-								if (!row) return <span key={line.name} />
+				// One block per codec, wrapping onto the next line when the column is too narrow for them side by side.
+				<div className="flex flex-wrap items-start justify-start gap-x-2 gap-y-3 pt-1 pe-1.5">
+					{codecColumns.map(({line, rows}) => (
+						<div key={line.name} className="flex flex-col items-start gap-y-1.5">
+							<span aria-hidden className="px-3 text-caption text-subtle-foreground">
+								{line.name}
+							</span>
+							{rows.map(row => {
 								const qualityLabel = row.quality ? t(QUALITY_LABEL_KEY[row.quality]) : null
 								return (
 									<FormatChip
-										key={line.name}
+										key={row.formatId}
 										value={`native:${row.formatId}`}
 										name={streamName(row, [qualityLabel, row.isProfilePick ? profileLabel : null])}
 										label={row.chipLabel}
@@ -164,7 +160,7 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 									/>
 								)
 							})}
-						</Fragment>
+						</div>
 					))}
 				</div>
 			) : null}

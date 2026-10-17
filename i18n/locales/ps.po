@@ -251,6 +251,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "بیا هڅه وکړه"
 
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "په پاڼه کې د هر ویډیو، پلې‌لېست یا چینل پر لینک ښي کلیک وکړئ ترڅو د فعال پروفایل سره یې ډاونلوډ کړئ، بل پروفایل وټاکئ یا تعاملي ډاونلوډ پرانیزئ."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "د ډاونلوډ لپاره پر لینک ښي کلیک وکړئ"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "لینک کاپي کړئ"
@@ -2444,6 +2452,14 @@ msgstr "تھمبنیل د ډاونلوډ سره یوځای د .jpg انځور ف
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "تھمبنیل خوندي کړه"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "د ویډیو په کارت کې «برخه» ته واړوئ، پیل او پای یا یو څپرکی وټاکئ، او یوازې همدا برخه ډاونلوډ کړئ."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "د ویډیو یوازې یوه برخه ډاونلوډ کړئ"
 
 msgctxt "wizard.part.chapters"
 msgid "Chapters"

@@ -605,6 +605,8 @@
 			"chapters": "Bölümler",
 			"chapterUntitled": "Bölüm {{number}}",
 			"exactCut": {"label": "Tam kesim (yeniden kodlar, daha yavaş)", "hint": "Kapalı: her kesim en yakın anahtar kareye denk gelir; bu, yazdığın zamandan birkaç saniye farklı olabilir."},
+			"calloutTitle": "Videonun yalnızca bir kısmını indirin",
+			"calloutBody": "Video kartında «Kısım»a geçin, bir başlangıç ve bitiş ya da bir bölüm seçin ve yalnızca o aralığı indirin.",
 			"connectionsNote": "Bir kısım ffmpeg ile indirilir, bu yüzden indirme bağlantıların ve hız ayarların ona uygulanmaz.",
 			"urlStart": "Bağlantın {{time}} noktasında başlıyor",
 			"useUrlStart": "Başlangıç olarak kullan",
@@ -867,6 +869,7 @@
 			"continue": "Devam et"
 		},
 		"nudge": {"off": "Çerezler kapalı, bu yüzden indirmeler Explore oturumunu kullanmaz.", "file": "İndirmeler Explore oturumunu değil, çerez dosyanı kullanır.", "browser": "İndirmeler Explore oturumunu değil, tarayıcının çerezlerini kullanır.", "useExplore": "Explore oturumunu kullan", "notNow": "Şimdi değil"},
+		"linkCallout": {"title": "İndirmek için bir bağlantıya sağ tıkla", "body": "Sayfadaki herhangi bir video, oynatma listesi veya kanal bağlantısına sağ tıklayarak etkin profilinle indirebilir, başka bir profil seçebilir veya Etkileşimli İndirme'yi açabilirsin."},
 		"linkMenu": {"downloadWith": "Profille indir", "copyLink": "Bağlantıyı kopyala"},
 		"toolbar": {
 			"aria": "Explore tarayıcı denetimleri",

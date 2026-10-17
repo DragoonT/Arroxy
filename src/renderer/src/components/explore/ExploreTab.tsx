@@ -9,6 +9,7 @@ import {useAppStore} from '../../store/useAppStore.js'
 import {Card} from '../ui/card.js'
 import {ExploreAddressHint, ExploreAddressHintLive} from './ExploreAddressHint.js'
 import {openExploreInteractive, useExploreLinkActions} from './exploreLinkActions.js'
+import {ExploreLinkCallout} from './ExploreLinkCallout.js'
 import {ExploreModeNudge, type NudgeMode} from './ExploreModeNudge.js'
 import {submitExploreAddress} from './exploreAddress.js'
 import {ExploreNotice} from './ExploreNotice.js'
@@ -56,6 +57,9 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 	const nudgeMode = useExploreModeNudge()
 	useExploreLinkActions()
 	const {setCookiesMode, dismissExploreModeNudge} = useAppStore(useShallow(s => ({setCookiesMode: s.setCookiesMode, dismissExploreModeNudge: s.dismissExploreModeNudge})))
+	// The cookies warning comes first; the callout waits until it is gone.
+	const linkCalloutPending = useAppStore(s => s.settings?.common !== undefined && s.settings.common.exploreLinkCalloutDismissed !== true)
+	const dismissExploreLinkCallout = useAppStore(s => s.dismissExploreLinkCallout)
 
 	// A Download prepares in the background as a row in Downloads; the page
 	// title names the row until the probe knows the video's own.
@@ -80,6 +84,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 	return (
 		<Card variant="glass" size="sm" className="@container min-h-0 flex-1 px-3" data-testid="explore-tab">
 			{nudgeMode ? <ExploreModeNudge mode={nudgeMode} onUseExplore={() => void setCookiesMode('explore')} onDismiss={() => void dismissExploreModeNudge(nudgeMode)} /> : null}
+			{!nudgeMode && linkCalloutPending ? <ExploreLinkCallout onDismiss={() => void dismissExploreLinkCallout()} /> : null}
 			<ExploreToolbar
 				state={state}
 				pointerEntries={pointerEntries}

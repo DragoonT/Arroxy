@@ -620,6 +620,8 @@
 			"chapters": "Boblar",
 			"chapterUntitled": "{{number}}-bob",
 			"exactCut": {"label": "Aniq kesish (qayta kodlanadi, sekinroq)", "hint": "O'chiq bo'lsa, har bir kesim eng yaqin keyframega tushadi, u siz kiritgan vaqtdan bir necha soniya farq qilishi mumkin."},
+			"calloutTitle": "Videoning faqat bir qismini yuklab oling",
+			"calloutBody": "Video kartasida «Qism»ga o‘ting, boshlanish va tugash yoki bobni tanlang va faqat shu qismni yuklab oling.",
 			"connectionsNote": "Qism ffmpeg orqali yuklab olinadi, shuning uchun yuklab olish ulanishlari va pauza sozlamalari unga tatbiq etilmaydi.",
 			"urlStart": "Havolangiz {{time}} dan boshlanadi",
 			"useUrlStart": "Boshi sifatida ishlatish",
@@ -902,6 +904,7 @@
 			"useExplore": "Explore orqali kirishdan foydalanish",
 			"notNow": "Hozir emas"
 		},
+		"linkCallout": {"title": "Yuklab olish uchun havolani sichqonchaning o‘ng tugmasi bilan bosing", "body": "Sahifadagi istalgan video, pleylist yoki kanal havolasini sichqonchaning o‘ng tugmasi bilan bosing: faol profil bilan yuklab oling, boshqa profilni tanlang yoki Interaktiv yuklab olishni oching."},
 		"linkMenu": {"downloadWith": "Profil bilan yuklab olish", "copyLink": "Havolani nusxalash"},
 		"toolbar": {
 			"aria": "Explore brauzer boshqaruvlari",

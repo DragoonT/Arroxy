@@ -551,6 +551,8 @@
 			"chapters": "章节",
 			"chapterUntitled": "章节 {{number}}",
 			"exactCut": {"label": "精确剪辑（重新编码，较慢）", "hint": "关闭时，每个剪辑点会落在最近的关键帧上，可能与您输入的时间相差几秒。"},
+			"calloutTitle": "只下载视频的一部分",
+			"calloutBody": "在视频卡片上切换到“片段”，选择起点和终点或某个章节，即可只下载那一段。",
 			"connectionsNote": "片段通过 ffmpeg 下载，因此您的下载连接数和节奏设置不适用于片段。",
 			"urlStart": "您的链接从 {{time}} 开始",
 			"useUrlStart": "用作开始时间",
@@ -803,6 +805,7 @@
 			"continue": "继续"
 		},
 		"nudge": {"off": "Cookies 已关闭，因此下载不会使用你的 Explore 登录。", "file": "下载使用的是你的 Cookies 文件，而不是你的 Explore 登录。", "browser": "下载使用的是浏览器的 Cookies，而不是你的 Explore 登录。", "useExplore": "使用 Explore 登录", "notNow": "暂不"},
+		"linkCallout": {"title": "右键点击链接即可下载", "body": "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置文件下载、改选其他配置，或打开交互式下载。"},
 		"linkMenu": {"downloadWith": "使用配置文件下载", "copyLink": "复制链接"},
 		"toolbar": {
 			"aria": "当前页面",

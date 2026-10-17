@@ -599,6 +599,8 @@
 			"chapters": "Capítulos",
 			"chapterUntitled": "Capítulo {{number}}",
 			"exactCut": {"label": "Corte exato (recodifica, mais lento)", "hint": "Desativado: cada corte cai no keyframe mais próximo, que pode ficar alguns segundos distante do tempo digitado."},
+			"calloutTitle": "Baixe só um trecho do vídeo",
+			"calloutBody": "Mude para «Trecho» no cartão do vídeo para escolher um início e um fim, ou um capítulo, e baixe apenas essa parte.",
 			"connectionsNote": "Um trecho é baixado pelo ffmpeg, então suas conexões de download e as configurações de ritmo não se aplicam a ele.",
 			"urlStart": "Seu link começa em {{time}}",
 			"useUrlStart": "Usar como início",
@@ -881,6 +883,7 @@
 			"useExplore": "Usar login do Explore",
 			"notNow": "Agora não"
 		},
+		"linkCallout": {"title": "Clique com o botão direito num link para baixá-lo", "body": "Clique com o botão direito em qualquer link de vídeo, playlist ou canal da página para baixá-lo com o seu perfil ativo, escolher outro perfil ou abrir o Download Interativo."},
 		"linkMenu": {"downloadWith": "Baixar com", "copyLink": "Copiar link"},
 		"toolbar": {
 			"aria": "Controles do navegador do Explore",

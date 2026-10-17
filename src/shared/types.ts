@@ -179,6 +179,8 @@ export interface CommonSettings {
 	shareHighValueBannerDismissed?: boolean
 	multiProfileHintDismissed?: boolean
 	styleHintDismissed?: boolean
+	videoPartCalloutDismissed?: boolean
+	exploreLinkCalloutDismissed?: boolean
 }
 
 export interface BinaryOverrides {

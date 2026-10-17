@@ -251,6 +251,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Mencoba kembali"
 
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Klik kanan tautan video, playlist, atau kanal mana pun di halaman untuk mengunduhnya dengan profil aktif, memilih profil lain, atau membuka Unduhan Interaktif."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Klik kanan tautan untuk mengunduhnya"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Salin tautan"
@@ -2444,6 +2452,14 @@ msgstr "Menyimpan thumbnail sebagai file gambar .jpg di sebelah unduhan."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Simpan gambar kecil"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Beralih ke «Bagian» di kartu video untuk memilih awal dan akhir, atau satu bab, lalu unduh potongan itu saja."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Unduh sebagian video saja"
 
 msgctxt "wizard.part.chapters"
 msgid "Chapters"

@@ -562,6 +562,8 @@
 			"chapters": "章節",
 			"chapterUntitled": "章節 {{number}}",
 			"exactCut": {"label": "精確剪輯（重新編碼，較慢）", "hint": "關閉時，每個剪輯點會落在最近的關鍵影格上，可能與您輸入的時間相差幾秒。"},
+			"calloutTitle": "只下載影片的一部分",
+			"calloutBody": "在影片卡片上切換到「片段」，選擇起點與終點或某個章節，就能只下載那一段。",
 			"connectionsNote": "片段會透過 ffmpeg 下載，因此您的下載連線數與節奏設定不適用於片段。",
 			"urlStart": "您的連結從 {{time}} 開始",
 			"useUrlStart": "用作開始時間",
@@ -824,6 +826,7 @@
 			"continue": "繼續"
 		},
 		"nudge": {"off": "Cookie 已關閉，因此下載不會使用你的 Explore 登入。", "file": "下載使用的是你的 Cookie 檔案，而不是你的 Explore 登入。", "browser": "下載使用的是瀏覽器的 Cookie，而不是你的 Explore 登入。", "useExplore": "使用 Explore 登入", "notNow": "暫時不要"},
+		"linkCallout": {"title": "在連結上按右鍵即可下載", "body": "在頁面上任何影片、播放清單或頻道連結上按右鍵，即可用目前設定檔下載、改選其他設定檔，或開啟互動式下載。"},
 		"linkMenu": {"downloadWith": "使用設定檔下載", "copyLink": "複製連結"},
 		"toolbar": {
 			"aria": "目前頁面",

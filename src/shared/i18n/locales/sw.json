@@ -602,6 +602,8 @@
 			"chapters": "Sura",
 			"chapterUntitled": "Sura ya {{number}}",
 			"exactCut": {"label": "Ukataji kamili (husimba upya, polepole zaidi)", "hint": "Imezimwa: kila ukataji hutua kwenye fremu kuu iliyo karibu zaidi, ambayo inaweza kuwa sekunde chache kutoka muda uliouandika."},
+			"calloutTitle": "Pakua sehemu tu ya video",
+			"calloutBody": "Badilisha hadi «Sehemu» kwenye kadi ya video ili kuchagua mwanzo na mwisho, au sura, kisha upakue kipande hicho tu.",
 			"connectionsNote": "Sehemu hupakuliwa kupitia ffmpeg, kwa hiyo miunganisho yako ya upakuaji na mipangilio ya kasi haitumiki kwake.",
 			"urlStart": "Kiungo chako kinaanzia {{time}}",
 			"useUrlStart": "Tumia kama mwanzo",
@@ -877,6 +879,7 @@
 			"useExplore": "Tumia kuingia kwa Explore",
 			"notNow": "Si sasa"
 		},
+		"linkCallout": {"title": "Bofya kulia kiungo ili kukipakua", "body": "Bofya kulia kiungo chochote cha video, orodha ya kucheza au kituo kwenye ukurasa ili kukipakua kwa wasifu unaotumika, kuchagua wasifu mwingine, au kufungua upakuaji shirikishi."},
 		"linkMenu": {"downloadWith": "Pakua kwa", "copyLink": "Nakili kiungo"},
 		"toolbar": {
 			"aria": "Vidhibiti vya kivinjari cha Explore",

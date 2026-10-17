@@ -612,6 +612,8 @@
 			"chapters": "Bab",
 			"chapterUntitled": "Bab {{number}}",
 			"exactCut": {"label": "Potongan tepat (encode ulang, lebih lambat)", "hint": "Nonaktif: setiap potongan jatuh di keyframe terdekat, yang bisa berselisih beberapa detik dari waktu yang Anda ketik."},
+			"calloutTitle": "Unduh sebagian video saja",
+			"calloutBody": "Beralih ke «Bagian» di kartu video untuk memilih awal dan akhir, atau satu bab, lalu unduh potongan itu saja.",
 			"connectionsNote": "Sebuah bagian diunduh melalui ffmpeg, jadi koneksi unduhan dan pengaturan kecepatan Anda tidak berlaku.",
 			"urlStart": "Tautan Anda dimulai pada {{time}}",
 			"useUrlStart": "Gunakan sebagai awal",
@@ -881,6 +883,7 @@
 			"continue": "Lanjutkan"
 		},
 		"nudge": {"off": "Cookie nonaktif, jadi unduhan tidak memakai login Explore Anda.", "file": "Unduhan memakai berkas cookie Anda, bukan login Explore.", "browser": "Unduhan memakai cookie peramban Anda, bukan login Explore.", "useExplore": "Pakai login Explore", "notNow": "Nanti saja"},
+		"linkCallout": {"title": "Klik kanan tautan untuk mengunduhnya", "body": "Klik kanan tautan video, playlist, atau kanal mana pun di halaman untuk mengunduhnya dengan profil aktif, memilih profil lain, atau membuka Unduhan Interaktif."},
 		"linkMenu": {"downloadWith": "Unduh dengan", "copyLink": "Salin tautan"},
 		"toolbar": {
 			"aria": "Kontrol peramban Explore",
