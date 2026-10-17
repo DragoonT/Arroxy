@@ -8,14 +8,6 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## Unreleased
-
-## Highlights
-
-- **One-time callouts point out features you might miss.** On the Format screen, a callout explains that your profile pre-selects the formats and that its menu and pencil tune it without leaving the download; another points out **Part**. In Explore, one points out the right-click menu on video, playlist and channel links. Each goes away once you close it or use the feature, and never comes back.
-
----
-
 ## 0.6.0
 
 ## Highlights
@@ -31,6 +23,8 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - **Moved or deleted files are flagged.** A download whose files were moved or deleted outside Arroxy is marked **Missing**. The mark clears once the files are back.
 - **Update from the banner on Homebrew.** Homebrew installs get a **Run & Restart** button. If you installed from the DMG and have Homebrew, the banner can switch you over while it updates.
 - **A fuller Mac menu bar.** It now has Settings (⌘,), the download speed limit, style and theme, logs and a diagnostics file.
+- **One-time callouts point out features you might miss.** On the Format screen, a callout explains that your profile pre-selects the formats and that its menu and pencil tune it without leaving the download; another points out **Part**. In Explore, one points out the right-click menu on video, playlist and channel links. Each goes away once you close it or use the feature, and never comes back.
+- **Feedback in your language.** The feedback form now opens in the language Arroxy is set to.
 - **Khmer.** Arroxy is now available in Khmer.
 
 ## Fixes
