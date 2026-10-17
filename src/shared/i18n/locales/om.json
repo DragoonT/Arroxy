@@ -369,6 +369,8 @@
 		"formats": {
 			"kind": {"label": "Maal buufachuu barbaaddaa", "video": "Viidiyoo", "audio": "Sagalee", "subtitles": "Axxiinni qofa"},
 			"profile": {
+				"calloutTitle": "Formaatonni profaayilii keessan irraa jalqabu",
+				"calloutBody": "Profaayiliin keessan hojiirra jiru istiriimota duraan isiniif filata. Menu irraa profaayilii jijjiiraa, ykn buufata kana osoo hin dhiisin qalamiin tokko sirreessaa.",
 				"preselected": "Duraan filatame, madda:",
 				"tag": "Piroofaayilii",
 				"closestTag": "Piroofaayiliitti dhiyoo",

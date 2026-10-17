@@ -366,6 +366,8 @@
 		"formats": {
 			"kind": {"label": "Yang diunduh", "video": "Video", "audio": "Audio", "subtitles": "Hanya subtitle"},
 			"profile": {
+				"calloutTitle": "Format dimulai dari profil Anda",
+				"calloutBody": "Profil aktif Anda memilihkan stream lebih dulu. Ganti profil lewat menu, atau pakai ikon pensil untuk menyesuaikan satu profil tanpa keluar dari unduhan ini.",
 				"preselected": "Dipilih sebelumnya dari",
 				"tag": "Profil",
 				"closestTag": "Terdekat dengan profil",

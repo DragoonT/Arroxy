@@ -344,6 +344,8 @@
 		"formats": {
 			"kind": {"label": "What to download", "video": "Video", "audio": "Audio", "subtitles": "Subtitles only"},
 			"profile": {
+				"calloutTitle": "Formats start from your profile",
+				"calloutBody": "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download.",
 				"preselected": "Pre-selected from",
 				"tag": "Profile",
 				"closestTag": "Closest to profile",

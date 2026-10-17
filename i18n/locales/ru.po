@@ -2237,6 +2237,14 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "Без аудио"
 
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Активный профиль заранее выбирает потоки за тебя. Переключай профили в меню или настраивай профиль карандашом, не выходя из этой загрузки."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Форматы выбираются по твоему профилю"
+
 msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "Ближайшее к профилю"

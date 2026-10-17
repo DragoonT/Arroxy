@@ -739,7 +739,8 @@ const commonSettingsSchema = z.object({
 	multiProfileHintDismissed: z.boolean().optional(),
 	styleHintDismissed: z.boolean().optional(),
 	videoPartCalloutDismissed: z.boolean().optional(),
-	exploreLinkCalloutDismissed: z.boolean().optional()
+	exploreLinkCalloutDismissed: z.boolean().optional(),
+	formatProfileCalloutDismissed: z.boolean().optional()
 })
 
 const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})

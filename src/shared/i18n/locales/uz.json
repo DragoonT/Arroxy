@@ -374,6 +374,8 @@
 		"formats": {
 			"kind": {"label": "Nimani yuklab olish", "video": "Video", "audio": "Audio", "subtitles": "Faqat subtitrlar"},
 			"profile": {
+				"calloutTitle": "Formatlar profilingizdan boshlanadi",
+				"calloutBody": "Faol profilingiz oqimlarni siz uchun oldindan tanlaydi. Profilni menyudan almashtiring yoki shu yuklab olishdan chiqmay qalam bilan birini sozlang.",
 				"preselected": "Oldindan tanlangan:",
 				"tag": "Profil",
 				"closestTag": "Profilga eng yaqin",

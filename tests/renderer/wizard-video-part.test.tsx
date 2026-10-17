@@ -83,9 +83,10 @@ describe('Part of video on the Format screen', () => {
 describe('One-time Part of video callout', () => {
 	const update = vi.fn((patch: {common?: Record<string, unknown>}) => Promise.resolve({ok: true as const, data: {...defaultAppSettings('/downloads'), common: {...defaultAppSettings('/downloads').common, ...patch.common}}}))
 
+	// The profile callout goes first on the Format step, so these start with it already seen.
 	function seed(common: Record<string, unknown> = {}): void {
 		const base = defaultAppSettings('/downloads')
-		useAppStore.setState({settings: {...base, common: {...base.common, ...common}}})
+		useAppStore.setState({settings: {...base, common: {...base.common, formatProfileCalloutDismissed: true, ...common}}})
 	}
 
 	beforeEach(() => {
@@ -128,6 +129,12 @@ describe('One-time Part of video callout', () => {
 		fireEvent.click(screen.getByTestId('video-part-part'))
 
 		await waitFor(() => expect(update).toHaveBeenCalledWith({common: {videoPartCalloutDismissed: true}}))
+		expect(screen.queryByTestId('video-part-callout')).toBeNull()
+	})
+
+	it('waits for the profile callout, so the step shows one at a time', () => {
+		seed({formatProfileCalloutDismissed: false})
+		render(<VideoPartCallout />)
 		expect(screen.queryByTestId('video-part-callout')).toBeNull()
 	})
 })

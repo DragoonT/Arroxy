@@ -2237,6 +2237,14 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "بدون صدا"
 
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "نمایهٔ فعال شما جریان‌ها را از پیش برایتان انتخاب می‌کند. از منو نمایه را عوض کنید یا با مداد یکی را بدون خروج از این دانلود تنظیم کنید."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "قالب‌ها از نمایهٔ شما شروع می‌شوند"
+
 msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "نزدیک‌ترین به نمایه"

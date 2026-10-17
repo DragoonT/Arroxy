@@ -12,6 +12,7 @@ import {AudioColumn} from './format/AudioColumn.js'
 import {FormatFooter} from './format/FormatFooter.js'
 import {WizardProfileLine} from './format/WizardProfileLine.js'
 import {FitNotices} from './format/FitNotices.js'
+import {FormatProfileCallout} from './format/FormatProfileCallout.js'
 import {UrlStartOffer, VideoPartCallout, VideoPartPanel, VideoPartSwitch} from './format/VideoPartControls.js'
 import {SubtitleFields} from './SubtitleFields.js'
 import {SpeechBubble} from '../shared/SpeechBubble.js'
@@ -67,6 +68,8 @@ export function StepFormatSelect(): ReactNode {
 				<UrlStartOffer />
 
 				<VideoPartPanel />
+
+				<FormatProfileCallout />
 
 				<WizardProfileLine />
 

@@ -37,7 +37,7 @@ function isMediaKind(value: string | undefined): value is WizardMediaKind {
 // every setting, so it asks first when the user has changed something.
 export function WizardProfileLine(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, wizardOutputDir, wizardProfile, wizardMediaKind, hasVideo, hasAudio, hasSubtitles, hasEdits, profileFallback, setWizardMediaKind, chooseWizardProfile, saveDownloadProfile, chooseWizardFolder} = useAppStore(
+	const {settings, wizardOutputDir, wizardProfile, wizardMediaKind, hasVideo, hasAudio, hasSubtitles, hasEdits, profileFallback, setWizardMediaKind, chooseWizardProfile, saveDownloadProfile, chooseWizardFolder, dismissCallout} = useAppStore(
 		useShallow(state => ({
 			settings: state.settings,
 			wizardOutputDir: state.wizardOutputDir,
@@ -51,7 +51,8 @@ export function WizardProfileLine(): ReactNode {
 			setWizardMediaKind: state.setWizardMediaKind,
 			chooseWizardProfile: state.chooseWizardProfile,
 			saveDownloadProfile: state.saveDownloadProfile,
-			chooseWizardFolder: state.chooseWizardFolder
+			chooseWizardFolder: state.chooseWizardFolder,
+			dismissCallout: state.dismissFormatProfileCallout
 		}))
 	)
 	const [menuOpen, setMenuOpen] = useState(false)
@@ -85,6 +86,21 @@ export function WizardProfileLine(): ReactNode {
 		offer({profile, reason: editing?.profile ? 'updated' : 'switch'})
 	}
 
+	// Using the menu or the pencil is having found them, so the profile callout retires.
+	function noticeProfileControls(): void {
+		if (settings?.common?.formatProfileCalloutDismissed !== true) void dismissCallout()
+	}
+
+	function changeMenuOpen(open: boolean): void {
+		setMenuOpen(open)
+		if (open) noticeProfileControls()
+	}
+
+	function editActive(): void {
+		setEditing({profile: activeProfile})
+		noticeProfileControls()
+	}
+
 	const kindEnabled: Record<WizardMediaKind, boolean> = {video: hasVideo, audio: hasAudio, subtitles: hasSubtitles}
 	const editLabel = t('wizard.formats.profile.edit', {name: activeProfile.name})
 
@@ -93,7 +109,7 @@ export function WizardProfileLine(): ReactNode {
 			<div className="flex min-w-0 items-center gap-2">
 				<span className="text-sm text-muted-foreground">{t('wizard.formats.profile.preselected')}</span>
 				<div className="flex min-w-0 items-center gap-0.5">
-					<Popover open={menuOpen} onOpenChange={setMenuOpen}>
+					<Popover open={menuOpen} onOpenChange={changeMenuOpen}>
 						<Hint label={t('wizard.url.profile.switchTitle')}>
 							<PopoverTrigger
 								render={
@@ -118,7 +134,7 @@ export function WizardProfileLine(): ReactNode {
 						/>
 					</Popover>
 					<Hint label={editLabel}>
-						<Button type="button" variant="ghost" size="icon-sm" aria-label={editLabel} onClick={() => setEditing({profile: activeProfile})} className="text-muted-foreground hover:text-foreground" data-testid="wizard-profile-edit">
+						<Button type="button" variant="ghost" size="icon-sm" aria-label={editLabel} onClick={editActive} className="text-muted-foreground hover:text-foreground" data-testid="wizard-profile-edit">
 							<PenLine aria-hidden />
 						</Button>
 					</Hint>

@@ -628,6 +628,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'exploreLinkCalloutDismissed', {exploreLinkCalloutDismissed: true})
 		},
 
+		dismissFormatProfileCallout: async () => {
+			await applyCommonPatchAsync(get, set, 'formatProfileCalloutDismissed', {formatProfileCalloutDismissed: true})
+		},
+
 		acknowledgeExploreNotice: async () => {
 			await applyCommonPatchAsync(get, set, 'exploreNoticeSeen', {exploreNoticeSeen: true})
 		},

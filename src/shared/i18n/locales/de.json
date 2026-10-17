@@ -366,6 +366,8 @@
 		"formats": {
 			"kind": {"label": "Was herunterladen", "video": "Video", "audio": "Audio", "subtitles": "Nur Untertitel"},
 			"profile": {
+				"calloutTitle": "Formate starten mit deinem Profil",
+				"calloutBody": "Dein aktives Profil wählt die Streams für dich vor. Wechsle das Profil über das Menü oder passe es mit dem Stift an, ohne diesen Download zu verlassen.",
 				"preselected": "Vorausgewählt aus",
 				"tag": "Profil",
 				"closestTag": "Dem Profil am nächsten",

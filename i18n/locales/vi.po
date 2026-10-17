@@ -2237,6 +2237,14 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "Không có âm thanh"
 
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Hồ sơ đang dùng sẽ chọn sẵn các luồng cho bạn. Đổi hồ sơ từ menu, hoặc dùng biểu tượng bút chì để chỉnh một hồ sơ mà không rời khỏi lần tải này."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Định dạng bắt đầu từ hồ sơ của bạn"
+
 msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "Gần nhất với hồ sơ"

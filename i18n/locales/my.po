@@ -2237,6 +2237,14 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "အသံမပါ"
 
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "သင့်လက်ရှိ ပရိုဖိုင်က စထရိမ်များကို ကြိုတင်ရွေးပေးသည်။ မီနူးမှ ပရိုဖိုင်ပြောင်းပါ၊ သို့မဟုတ် ဤဒေါင်းလုဒ်မှ မထွက်ဘဲ ခဲတံဖြင့် ပရိုဖိုင်တစ်ခုကို ချိန်ညှိပါ။"
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "ဖော်မတ်များသည် သင့်ပရိုဖိုင်မှ စတင်သည်"
+
 msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "ပရိုဖိုင်နှင့် အနီးစပ်ဆုံး"
