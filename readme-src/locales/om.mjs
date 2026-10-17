@@ -167,6 +167,8 @@ export const om = {
     "**Profaayiloota buufannaa viidiyoo playlist keessaa tokkoon tokkoon** — sirna tokko guutummaa tarreef fayyadamuu mannaa, viidiyoo playlist keessa jiru hundaaf piroofaayilii buufannaa addaa kennuu dandeessa; kanaanis dabarsa tokkoon garii qulqullina guutuun kuufamee, hafan immoo akka MP3tti fudhatamuu danda'a",
   feat_workflow_13: "**Quick Download duubatti hojjeta** — hidhaan battaluma Buufata keessatti mul'ata achittis qophaa'a, ergaan **Ilaali** qabu ni mirkaneessa, bakki URL immoo hidhaa itti aanuuf qulqullaa'a. Kanneen duraa utuu qophaa'aa jiranii kan feete baay'ee jalqabi",
   feat_workflow_14: "**Buufata maal akka si barbaaduu sitti hima** — Arroxy hidhaa dubbisuu yoo hin dandeenye, sarara isaa sababa ibsee furmaata dhiyeessa: Irra deebi'i, kuukkii bani, ykn Explore keessatti seeni. Kuukkiin yeroo cufamu, **Explore'n seeni** erga seentee booda siif irra deebi'a. Playlist daangaa fe'uu kee caalu sarara isaa irratti eegaa jira, hunda, kan jalqabaa ykn ilaalcha akka filattu. Tabiin Buufata sarara si eegaa jiru lakkaa'a",
+  feat_workflow_15:
+    "**Kutaa viidiyoo tokko qofa buufadhu** — much'aa Foormaatii irratti jalqaba fi xumura, ykn boqonnaa filadhu, Arroxy ardii kana qofa olkaa'a; maqaan isaas id viidiyoo booda ardii kanaan moggaafama. Muruun keyframe isa dhiyoo irratti kufa; muruu sirrii banuun immoo deebisee koodii godha",
   feat_post_h3: "Subtitle & seensuu boodaa",
   feat_post_1:
     "**Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti",
@@ -378,8 +380,6 @@ export const om = {
     "Queue drawer gara manager guutuutti guddisuu, items queue keessa jiranif destination folder jijjiiruu dabalatee",
   plan_r5_name: "**Buufannoo yeroo qabamee**",
   plan_r5_desc: "Queue yeroo qindaawaa irratti eegali (halkaniidhumaan hojeti)",
-  plan_r7_name: "**Muraa Clip**",
-  plan_r7_desc: "Tokkicha kutaa yeroo eegaluu/dhumu irratti buusi",
   plan_r9_name: "**Paakeejii AUR**",
   plan_r9_desc: "Arch Linux fi Omarchy irratti `yay -S arroxy-bin` fayyadamuun fe'i",
   plan_cta:

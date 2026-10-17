@@ -115,6 +115,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 - **Hồ sơ theo từng video trong danh sách phát** — gán cho mỗi video trong danh sách phát hồ sơ tải riêng thay vì một cài đặt chung cho cả danh sách, để một lượt tải có thể lưu trữ một số video ở chất lượng đầy đủ và lấy phần còn lại dưới dạng MP3
 - **Quick Download chạy nền** — liên kết hiện ngay trong Tải xuống và được chuẩn bị tại đó, một thông báo có nút **Xem** xác nhận, và ô URL được xóa để nhập liên kết tiếp theo. Bạn có thể bắt đầu bao nhiêu lượt tùy ý trong khi các lượt trước vẫn đang chuẩn bị
 - **Tải xuống cho bạn biết điều gì cần bạn xử lý** — nếu Arroxy không đọc được một liên kết, dòng của nó nêu lý do và đề xuất cách khắc phục: Thử lại, bật cookie hoặc đăng nhập trong Explore. Khi cookie tắt, **Đăng nhập bằng Explore** sẽ thử lại giúp bạn sau khi bạn đã đăng nhập. Danh sách phát dài hơn giới hạn tải sẽ chờ trên dòng của nó để bạn chọn toàn bộ, vài video đầu, hoặc xem lại. Tab Tải xuống đếm số dòng đang chờ bạn
+- **Chỉ tải một đoạn của video** — chọn điểm bắt đầu và kết thúc, hoặc một chương, trên màn hình Format và Arroxy chỉ lưu đoạn đó, tên tệp ghi khoảng thời gian sau ID video. Điểm cắt rơi vào keyframe gần nhất; bật cắt chính xác để mã hóa lại thay vào đó
 
 ### Phụ đề & hậu xử lý
 
@@ -372,7 +373,6 @@ Vẫn được lên kế hoạch — theo thứ tự ưu tiên tương đối:
 | **Khôi phục retry mạnh hơn** | Một đường retry mới cho các lượt tải xuống bị gián đoạn bởi kết nối internet không ổn định hoặc có vấn đề |
 | **Drawer quản lý tải xuống đầy đủ** | Biến queue drawer thành manager đầy đủ hơn, bao gồm đổi thư mục đích cho các mục đang chờ |
 | **Tải xuống theo lịch** | Bắt đầu hàng đợi vào thời điểm đặt trước (chạy qua đêm) |
-| **Cắt đoạn clip** | Chỉ tải xuống một đoạn theo thời gian bắt đầu/kết thúc |
 | **Gói AUR** | Cài đặt trên Arch Linux và Omarchy bằng `yay -S arroxy-bin` |
 
 Bạn có ý tưởng tính năng? [Mở yêu cầu](../../issues) — ý kiến cộng đồng định hình thứ tự ưu tiên.

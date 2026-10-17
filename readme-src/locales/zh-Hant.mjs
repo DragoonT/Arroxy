@@ -168,6 +168,8 @@ export const zhHant = {
     "**Quick Download 在背景執行** — 連結會立即出現在「下載」中並在那裡準備，附有 **檢視** 的提示加以確認，URL 輸入框隨即清空，方便貼上下一個連結。前面的還在準備時，可以繼續開始任意多個",
   feat_workflow_14:
     "**「下載」會告訴你哪些需要處理** — Arroxy 讀取不了某個連結時，該列會說明原因並提供解決辦法：重試、開啟 Cookie，或在 Explore 登入。Cookie 關閉時，登入後點選 **使用 Explore 登入** 會幫你重試。超過載入上限的播放清單會在其所在列等你選擇：全部、前幾個，或先檢閱。「下載」分頁會顯示等你處理的列數",
+  feat_workflow_15:
+    "**只下載影片的一部分** — 在「Format」畫面選擇開始與結束時間或某個章節，Arroxy 就只儲存該範圍，檔名會在影片 ID 後加上該範圍。剪輯點會落在最近的關鍵影格上；開啟精確剪輯則改為重新編碼",
   feat_post_h3: "字幕與後處理",
   feat_post_1:
     "**字幕**以 SRT、VTT 或 ASS 格式下載 — 手動或自動生成，支援任意可用語言",
@@ -364,8 +366,6 @@ export const zhHant = {
   plan_r4_desc: "將佇列面板擴充套件為更完整的管理器，包括為排隊專案更改目標資料夾",
   plan_r5_name: "**定時下載**",
   plan_r5_desc: "在設定時間啟動佇列（適合連夜批次下載）",
-  plan_r7_name: "**片段裁剪**",
-  plan_r7_desc: "按起止時間只下載影片的某一段",
   plan_r9_name: "**AUR 套件**",
   plan_r9_desc: "在 Arch Linux 與 Omarchy 上以 `yay -S arroxy-bin` 安裝",
   plan_cta: "有想法？[提交請求](../../issues) — 社羣意見決定優先順序。",
