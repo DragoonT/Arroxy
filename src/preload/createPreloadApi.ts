@@ -1,23 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {AppApi} from '@shared/api.js'
-import type {
-	ExploreLinkAction,
-	ExploreViewState,
-	HotkeyOutcomeEvent,
-	HotkeyTriggerPayload,
-	LocalizedError,
-	MenuAction,
-	ProbeProgressEvent,
-	ProgressEvent,
-	QueueItem,
-	QueueLane,
-	QueueSelectionAction,
-	QueueSchedulerEventPayload,
-	QueueSnapshotPayload,
-	StatusEvent,
-	UpdateAvailablePayload,
-	WarmupProgressEvent
-} from '@shared/types.js'
+import type {ExploreLinkAction, ExploreViewState, HotkeyOutcomeEvent, HotkeyTriggerPayload, LocalizedError, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
 import type {QueueChoice} from '@shared/schemas.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
@@ -104,7 +87,9 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 				}
 			},
 			onMenuAction: listener => {
-				const wrapped = (_: unknown, action: MenuAction): void => listener(action)
+				// Left unparsed: zod cannot be bundled into the sandboxed preload, so the
+				// renderer validates the payload (see subscribeMenuActions).
+				const wrapped = (_: unknown, payload: unknown): void => listener(payload)
 				ipcRenderer.on(IPC_CHANNELS.eventsMenuAction, wrapped)
 				return () => {
 					ipcRenderer.removeListener(IPC_CHANNELS.eventsMenuAction, wrapped)
