@@ -7,7 +7,7 @@
 #   - version/mode mismatch (beta tag w/o -, stable tag with -)
 #   - duplicate tag (local or remote)
 #   - lightweight tag (always uses -a, annotated)
-#   - forgotten --follow-tags
+#   - stale local tags riding along (pushes only the branch and this tag)
 #
 # Usage:
 #   scripts/release.sh beta     # for v*-beta.N tags from main
@@ -119,7 +119,7 @@ if [[ -n "$REMOTE" && "$LOCAL" != "$REMOTE" ]]; then
     exit 1
   fi
   if (( AHEAD > 0 )); then
-    echo "Note: local '$BRANCH' is $AHEAD commit(s) ahead of origin/$BRANCH — git push --follow-tags will push them with the tag."
+    echo "Note: local '$BRANCH' is $AHEAD commit(s) ahead of origin/$BRANCH — they will be pushed with the tag."
   fi
 elif [[ -z "$REMOTE" && "$MODE" == "stable" ]]; then
   echo "ERR: could not resolve origin/main; stable releases must be cut from remote-tracked main." >&2
@@ -172,8 +172,12 @@ fi
 echo "Tagging $TAG (annotated) on '$BRANCH'…"
 git tag -a "$TAG" -m "release $VERSION"
 
+# Push exactly the branch and this tag. --follow-tags would also push every
+# stale annotated local tag reachable from main, and GitHub creates no tag
+# events at all when a push carries more than three tags, so the release
+# workflow would never start.
 echo "Pushing branch + tag…"
-git push --follow-tags
+git push --atomic origin "HEAD:refs/heads/$BRANCH" "refs/tags/$TAG"
 
 echo
 echo "✓ pushed $TAG"
