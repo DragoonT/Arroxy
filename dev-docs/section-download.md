@@ -1,10 +1,12 @@
-# Section Download (Trim) — Deferred Feature
+# Section Download (Trim) — Research
 
-**Status: DEFERRED.** Not scoped for any milestone. This doc preserves the
-omniget/yt-dlp research (verified 2026-09-05) so v1 can be built without
-re-deriving it. Suggested v1 slice is at the bottom.
+**Status: scheduled** as "part of video" in
+[interactive-download.md](interactive-download.md), which decides the UX and
+overrides this doc where they differ (single mode only, `t=` offered rather
+than prefilled, SponsorBlock off for a part). This doc keeps the
+omniget/yt-dlp research (verified 2026-09-05) and its constraints.
 
-Workflow context and the proposed single-video review screen: [download-workflows.md](download-workflows.md).
+Workflow context: [download-workflows.md](download-workflows.md).
 
 Download only a time range of a video (`START-END`), via yt-dlp
 `--download-sections "*START-END"` (`*` = time-range mode; without it yt-dlp
