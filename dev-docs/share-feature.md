@@ -4,15 +4,11 @@ Shipping reference for the in-app **Share** feature: dialog, all entry points, p
 
 - `src/shared/types.ts` — settings shape
 - `src/shared/schemas.ts` — zod patch validator
-- `src/shared/queueItem.ts` — `isHighValueDownload` helper (gates the SmartDrawer banner)
 - `src/renderer/src/store/types.ts` — slice signature
 - `src/renderer/src/store/systemSlice.ts` — state, helpers, actions
-- `src/renderer/src/components/system/ShareDialog.tsx` — the dialog (26 destinations, popularity-sorted, brand icons via `unplugin-icons` + Iconify `logos:*` / `simple-icons:*`)
-- `src/renderer/src/components/layout/SmartDrawer.tsx` — high-value passive banner
+- `src/renderer/src/components/system/ShareDialog.tsx` — the dialog (25 destinations, popularity-sorted, brand icons via `unplugin-icons` + Iconify `logos:*` / `simple-icons:*`)
 - `src/renderer/src/App.tsx` — footer button + dialog mount
-- `src/renderer/src/components/layout/TitleBar.tsx` — title-bar button
 - `src/renderer/src/components/system/AboutDialog.tsx` — about-dialog button
-- `src/renderer/src/components/wizard/StepUrlInput.tsx` — wizard inline card
 - `src/shared/i18n/locales/*.json` — generated runtime locale resources
 - `i18n/locales/*.po` — agent-edited translation catalogs
 
@@ -22,109 +18,75 @@ Shipping reference for the in-app **Share** feature: dialog, all entry points, p
 
 Three optional fields on `CommonSettings` (see `src/shared/types.ts`):
 
-| Field                           | Type      | Purpose                                                                                                                                | Set by                                       |
-| ------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| `successfulDownloadCount`       | `number`  | Lifetime count of completed downloads. Milestone fires when this transitions to any value in `SHARE_MILESTONES` (`3`, `25`, `100`).    | Status-event `done` branch in `initialize()` |
-| `shareInlineCardDismissed`      | `boolean` | User clicked × on the wizard URL-step inline card. Hides only that surface.                                                            | `setShareInlineCardDismissed()`              |
-| `shareHighValueBannerDismissed` | `boolean` | User clicked × on the SmartDrawer high-value banner. Hides only that surface.                                                          | `setShareHighValueBannerDismissed()`         |
+| Field                           | Type      | Purpose                                                                                                                              | Set by                                                 |
+| ------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| `successfulDownloadCount`       | `number`  | Lifetime count of completed downloads. A milestone fires when the count passes any value in `SHARE_MILESTONES` (`3`, `25`, `100`).   | `handleCompletedDownloadMilestones()` in `systemSlice.ts` |
+| `shareInlineCardDismissed`      | `boolean` | **Unused.** Left over from the wizard URL-step card, which was removed. Still in the schema and written only by an unused store action. | `setShareInlineCardDismissed()` (no caller)            |
+| `shareHighValueBannerDismissed` | `boolean` | **Unused.** Left over from the SmartDrawer banner, which was removed. Same status.                                                    | `setShareHighValueBannerDismissed()` (no caller)       |
 
 All three are `.optional()` in `commonSettingsPatchSchema`. No default values — undefined === never set.
 
-`shareAutoPromptDisabled` and `shareLastAutoPromptAt` were removed when the global "Don't ask again" footer was dropped — milestones cap at 3 lifetime events, so a global kill switch is unnecessary. Per-surface dismiss flags remain.
+The two dismiss fields are still persisted and still validated, but no UI reads them: a grep of `src/` finds them only in `schemas.ts`, `types.ts`, the store type, and the unused store actions. They can be deleted together with those actions.
+
+`shareAutoPromptDisabled` and `shareLastAutoPromptAt` were removed when the global "Don't ask again" footer was dropped — milestones cap at 3 lifetime events, so a global kill switch is unnecessary.
 
 ---
 
 ## 2. Trigger System
 
-Entry points: footer, title bar, About dialog, wizard inline card, download milestones, and the high-value inline banner. Every one sets `shareDialogOpen: true`; the store does not record which surface opened the dialog.
+Entry points: the footer button, the About dialog button, and download milestones. Every one sets `shareDialogOpen: true`; the store does not record which surface opened the dialog.
 
-The previous `time` trigger (a 20-minute recurring modal) and `queue-item` button (a per-completed-item Share2 button — visually ambiguous next to a downloaded file) were removed.
+Removed entry points: the `time` trigger (a 20-minute recurring modal), the per-completed-item `queue-item` button, the title-bar button, the wizard URL-step inline card, and the SmartDrawer high-value banner (with `isHighValueDownload`).
 
 ### Truth table
 
-| Trigger             | Source                    | Kind                            |
-| ------------------- | ------------------------- | ------------------------------- |
-| `footer`            | App footer Share button   | manual                          |
-| `titlebar`          | TitleBar Share icon       | manual                          |
-| `about`             | About dialog → Share      | manual                          |
-| `wizard-card`       | URL step inline card body | manual click on passive surface |
-| `milestone`         | 3rd / 25th / 100th download | **automatic modal**           |
-| `high-value-inline` | SmartDrawer banner click  | manual click on passive surface |
+| Trigger     | Source                      | Kind                 |
+| ----------- | --------------------------- | -------------------- |
+| `footer`    | App footer Share button     | manual               |
+| `about`     | About dialog → Share        | manual               |
+| `milestone` | 3rd / 25th / 100th download | **automatic modal**  |
 
-No global "Don't ask again". Per-surface × dismisses gate `wizard-card` (`shareInlineCardDismissed`) and `high-value-inline` (`shareHighValueBannerDismissed`). `milestone` fires at most 3 times per install; no per-surface dismiss needed.
-
-### Wizard inline card — visibility predicate
-
-`StepUrlInput.tsx`:
-
-```ts
-const shareCardVisible = !(settings?.common?.shareInlineCardDismissed ?? false);
-```
-
-Card body click opens the dialog with `openShareDialog()`. × dismiss persists `shareInlineCardDismissed`.
-
-Visual: `[Share2 icon] [body text] [×]` — single share icon on the left as the affordance signal, no trailing arrow. (Earlier iterations used `Sparkles` + `ArrowRight`; both were dropped because the chevron implied "open detail panel" rather than "open share dialog".)
-
-### SmartDrawer high-value banner — visibility predicate
-
-`SmartDrawer.tsx`:
-
-```ts
-const hasHighValueCompletion = useMemo(() => queue.some(isHighValueDownload), [queue]);
-const showShareBanner = hasHighValueCompletion && !shareHighValueBannerDismissed;
-```
-
-`isHighValueDownload(item)` lives in `src/shared/queueItem.ts`. Returns `true` when:
-
-- `item.status === 'done'` AND
-- any of: `playlistGroupId` set, `job.kind` is `audio-convert` / `subtitle-only` / `playlist-preset`, OR (kind `single-format` AND any of: subtitle languages selected, SponsorBlock mode `mark|remove`, `formatLabel` matches `/2160|4K|3840/i`).
-
-Banner appears compact above the queue list inside the drawer body. The whole text row is one clickable button — opens the dialog with `openShareDialog()`. × dismiss (separate trailing button) persists `shareHighValueBannerDismissed`.
-
-Visual: `[Share2 icon] [body text] [×]` — same single-icon layout as the wizard card. No trailing chevron.
+No global "Don't ask again" and no per-surface dismiss. `milestone` fires at most 3 times per install.
 
 ### Milestone trigger
 
-Inside the `event.stage === 'done'` branch of the status-event handler in `systemSlice.ts`:
+The queue projection (`bindQueueProjection` in `queueProjection.ts`) reports how many items reached `done` in a batch of events. `handleCompletedDownloadMilestones()` in `systemSlice.ts`:
 
-1. Standard queue-item update (status, progress, finishedAt).
-2. Read `prevCount = settings.common.successfulDownloadCount ?? 0`.
-3. `nextCount = prevCount + 1`.
-4. Persist via `commonPatch({ successfulDownloadCount: nextCount })`.
-5. If `SHARE_MILESTONES.includes(nextCount)`, open the dialog.
+1. Reads `prevCount = settings.common.successfulDownloadCount ?? 0` (via `readSuccessfulDownloadCount`).
+2. `nextCount = prevCount + doneIncrements`.
+3. Persists via `commonPatch({ successfulDownloadCount: nextCount })`.
+4. If any count in `prevCount + 1 … nextCount` is in `SHARE_MILESTONES`, opens the dialog once.
 
 `SHARE_MILESTONES = [3, 25, 100]`. Wide spacing intentional — first prompt at proven engagement (3), second at clearly-engaged user (25), third at power user (100). After 100 the modal never fires again. No global opt-out: 3 lifetime events is bearable, and no automatic surface needs a kill switch.
 
-Constants (top of `systemSlice.ts`):
+Constant (top of `systemSlice.ts`):
 
 ```ts
-const SHARE_MILESTONES: readonly number[] = [3, 25, 100];
+const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
 ```
-
-(The previous `SHARE_PROMPT_INTERVAL_MS` and `SHARE_TIMER_TICK_MS` are gone along with the time trigger.)
 
 ---
 
 ## 3. Dialog (`ShareDialog.tsx`)
 
-Single instance, mounted once in `App.tsx` (`<ShareDialog />` after `<AboutDialog />`). Reads state directly from store via Zustand selectors:
+Single instance, lazy-loaded and mounted in `App.tsx` only while `shareDialogOpen` is true. Reads state directly from store via Zustand selectors:
 
 - `shareDialogOpen` — controlled `open`
 - `closeShareDialog` — action
 
-Dialog width: `sm:max-w-lg md:max-w-2xl` (widened from `sm:max-w-md` to fit the 26-destination grid).
+Dialog width: `sm:max-w-lg md:max-w-2xl` (widened from `sm:max-w-md` to fit the destination grid).
 
-### 26 destinations — popularity-sorted
+### 25 destinations — popularity-sorted
 
 `SOCIAL_DESTINATIONS` is an unordered list of all entries. `POPULARITY_ORDER: Exclude<DestinationId, 'copy'>[]` defines render order:
 
 ```
-facebook, whatsapp, twitter, linkedin, reddit, pinterest, telegram, viber,
+facebook, whatsapp, twitter, linkedin, reddit, pinterest, telegram,
 threads, bluesky, mastodon, email, hackernews, tumblr, pocket, buffer, skype,
 line, weibo, qq, qzone, naver, kakao, hatena, douban, diaspora
 ```
 
-Viber uses the `viber://forward?text=...` deep link — opens the installed desktop Viber client via `shell.openExternal`. Devices without Viber will get an "unknown protocol" handler error from the OS; acceptable trade-off given Viber has no public web-share intent.
+Viber was dropped: its `viber://forward` link is rejected by the http(s)-only allowlist in `shell.openExternal`, so the button did nothing. Restoring it would mean allowing `viber://` in the IPC layer.
 
 The dialog computes `sortedDestinations = useMemo(() => POPULARITY_ORDER.map(id => SOCIAL_DESTINATIONS.find(...)), [])`. Less-popular destinations remain visible — they just appear later in the responsive grid. Copy is the primary action above the grid, not part of the social list.
 
@@ -144,7 +106,7 @@ grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7
 | Western                       | X, Facebook, Reddit, LinkedIn, Pinterest, Tumblr, Hacker News, Skype, Pocket, Buffer |
 | Fediverse                     | Bluesky, Threads, Mastodon, Diaspora                                                 |
 | LatAm/India/MENA/Africa       | WhatsApp                                                                             |
-| Russia/Iran/global messengers | Telegram, Viber                                                                      |
+| Russia/Iran/global messengers | Telegram                                                                             |
 | Japan/Taiwan/Thailand         | LINE, はてな                                                                         |
 | South Korea                   | 카카오스토리, 네이버                                                                 |
 | China                         | 微博, QQ, QQ空间, 豆瓣                                                               |
@@ -165,21 +127,15 @@ Uses `navigator.clipboard.writeText(WEBSITE_URL)`. Renders `Copy` ↔ `CopyCheck
 
 ---
 
-## 4. Entry Points (5 manual surfaces + 1 automatic modal)
+## 4. Entry Points (2 manual surfaces + 1 automatic modal)
 
-| Surface                                           | File                | `data-testid`                    | Kind                           |
-| ------------------------------------------------- | ------------------- | -------------------------------- | ------------------------------ |
-| Footer icon + label                               | `App.tsx`           | `btn-share`                      | manual                         |
-| Title-bar icon (`WebkitAppRegion: no-drag`)       | `TitleBar.tsx`      | `btn-share-titlebar`             | manual                         |
-| About dialog Share button (closes About on click) | `AboutDialog.tsx`   | `about-link-share`               | manual                         |
-| Wizard URL inline card body                       | `StepUrlInput.tsx`  | `share-inline-card-body`         | manual click on passive card   |
-| SmartDrawer high-value banner action button       | `SmartDrawer.tsx`   | `share-high-value-banner-action` | manual click on passive banner |
-| Milestone modal (3rd / 25th / 100th download)     | `systemSlice.ts`    | (dialog renders directly)        | automatic                      |
+| Surface                                           | File                | `data-testid`             | Kind      |
+| ------------------------------------------------- | ------------------- | ------------------------- | --------- |
+| Footer icon + label (label hidden on narrow windows) | `App.tsx`        | `btn-share`, `btn-share-label` | manual |
+| About dialog Share button (closes About on click) | `AboutDialog.tsx`   | `about-link-share`        | manual    |
+| Milestone modal (3rd / 25th / 100th download)     | `systemSlice.ts`    | (dialog renders directly) | automatic |
 
-The previous per-completed-item Share2 icon button (`btn-share-item` in `QueueItemCard.tsx`) was removed — visually adjacent to a downloaded file, the share icon read as "share this file" rather than "share Arroxy". Manual share access remains via the four other surfaces.
-
-Wizard card × dismiss: `data-testid="share-inline-card-dismiss"` → `setShareInlineCardDismissed()`.
-SmartDrawer banner × dismiss: `data-testid="share-high-value-banner-dismiss"` → `setShareHighValueBannerDismissed()`.
+The per-completed-item Share2 button was removed — beside a downloaded file the icon read as "share this file" rather than "share Arroxy".
 
 ---
 
@@ -191,7 +147,7 @@ None. Share surfaces send no events; the app reports nothing but the daily anony
 
 ## 6. i18n
 
-12 keys under `share.*` in every locale (21 total — see `src/shared/schemas.ts` `supportedLangSchema` for the canonical list). `bun run check:app` enforces key parity, placeholder leakage, and gettext catalog freshness; runtime non-English JSON is generated from `i18n/locales/*.po`.
+8 keys under `share.*` in every locale (see `SUPPORTED_LANGS` in `src/shared/schemas.ts` for the canonical list). `bun run check:app` enforces key parity, placeholder leakage, and gettext catalog freshness; runtime non-English JSON is generated from `i18n/locales/*.po`.
 
 Keys:
 
@@ -201,13 +157,9 @@ share.description            // dialog subtitle
 share.copyLink               // copy-link button label
 share.copied                 // copy-link button label after click
 share.defaultMessage         // share text appended to share intents
-share.footerTooltip          // tooltip on footer + titlebar + queue-item buttons
+share.footerTooltip          // tooltip on the footer button
 share.footerLabel            // text label on the footer button
-share.shareAction            // About-dialog Share button label + SmartDrawer banner action label
-share.inlineCard.body        // wizard inline card body text
-share.inlineCard.dismiss     // wizard inline card × aria-label
-share.highValueBanner.body   // SmartDrawer high-value banner body text
-share.highValueBanner.dismiss// SmartDrawer high-value banner × aria-label
+share.shareAction            // About-dialog Share button label
 ```
 
 Brand/platform names are **not** in the i18n machinery. Hardcoded in `SOCIAL_DESTINATIONS`.
@@ -215,21 +167,20 @@ Brand/platform names are **not** in the i18n machinery. Hardcoded in `SOCIAL_DES
 Default English message (line break preserved on Telegram/WhatsApp/Email/Mastodon/Bluesky/Threads; collapsed to space on X/Reddit/Facebook/LinkedIn):
 
 ```
-Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.
+Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.
 4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock
 ```
 
-When keys change, edit English first, run `bun run i18n:sync`, translate the fuzzy/untranslated PO entries across all 20 non-English locales, then run `bun run i18n:compile`.
+When keys change, edit English first, run `bun run i18n:sync`, translate the fuzzy/untranslated PO entries across every non-English locale, then run `bun run i18n:compile`.
 
 ---
 
 ## 7. Edge Cases & Concurrency Notes
 
-- **Concurrent triggers.** If a milestone fires while a manual surface is already open, the milestone path sets `shareDialogOpen: true` again. Acceptable — opening is idempotent and the timestamp write is a single optimistic patch.
+- **Concurrent triggers.** If a milestone fires while a manual surface is already open, the milestone path sets `shareDialogOpen: true` again. Acceptable — opening is idempotent.
 - **Settings race.** `commonPatch()` does an optimistic local `set()` and a fire-and-forget `settings.update()`. If the update fails, local state stays ahead of disk. Acceptable trade-off for share fields — no critical data loss, and `notify.settingsSaveFailed('share', err)` logs the failure.
 - **`window.open` vs `shell.openExternal`.** Renderer `window.open` doesn't trigger Electron's external browser by default. All destinations route through IPC. The explicit `browser-mock` dev mode in `src/renderer/src/browserMock.ts` polyfills `shell.openExternal` to call `window.open`, so dev-server testing still works.
 - **Mock state in dev.** The renderer dev server uses `browserMock.ts` to stub `window.appApi` only when Vite runs with `--mode browser-mock`. Settings mutations there don't survive page reload — full Electron run is required to verify persistence.
-- **High-value detection narrowness.** `isHighValueDownload` returns `false` for plain single-format SD/HD downloads with no subs/SponsorBlock — so the banner does NOT spam the drawer after every successful pull. It only surfaces after the user has actually exercised a feature beyond the default path.
 
 ---
 
@@ -251,11 +202,8 @@ bun run doctor
 Drive in a browser via the Playwright MCP tools or manually:
 
 1. Click footer share → dialog opens, no Don't-ask button. Close it, reopen, click Copy → the icon swaps to a check for ~1.5 s.
-2. Click title-bar icon → dialog opens.
-3. Open About → click Share → About closes, dialog opens.
-4. Drive a download to completion → confirm the queue-item card renders no `Share2` icon (only `FolderOpen` for `done` items).
-5. Wizard URL step → confirm the card layout is `[Share2] [body text] [×]` — single share icon left, no trailing `ArrowRight`. Click body → dialog opens. Click × → card hides, `shareInlineCardDismissed: true` in store.
-6. Edit `browserMock.ts` to push a queue item with high-value attributes (e.g. `subtitles.languages = ['en']` or `formatLabel` containing `2160`). On completion, the SmartDrawer banner appears at the top of the drawer body. Confirm layout is `[Share2] [body text] [×]` — no trailing chevron. Click body → dialog opens. Click × → banner hides, `shareHighValueBannerDismissed: true`.
-7. Drive 3 mock completions → on the 3rd success, the dialog opens. No "Don't ask again" button. Close the dialog. Confirm 4th–24th completions do **not** re-open the dialog. Drive completion #25 → modal re-opens. Same again at #100. After #100 the modal never fires again.
-8. Click each social destination → `shell.openExternal` called with a correctly-encoded URL.
-9. Resize browser to 360 / 640 / 900 / 1200 px widths → confirm the destination grid reflows (3 / 5 / 6 / 7 columns).
+2. Open About → click Share → About closes, dialog opens.
+3. Drive a download to completion → confirm the queue-item card renders no `Share2` icon (only `FolderOpen` for `done` items).
+4. Drive 3 mock completions → on the 3rd success, the dialog opens. No "Don't ask again" button. Close the dialog. Confirm 4th–24th completions do **not** re-open the dialog. Drive completion #25 → modal re-opens. Same again at #100. After #100 the modal never fires again.
+5. Click each social destination → `shell.openExternal` called with a correctly-encoded URL.
+6. Resize browser to 360 / 640 / 900 / 1200 px widths → confirm the destination grid reflows (3 / 5 / 6 / 7 columns).

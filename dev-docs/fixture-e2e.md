@@ -1,12 +1,32 @@
 # Fixture Product E2E — scenario guide
 
-How to write Fixture Product E2E scenarios. `AGENTS.md` decides *which* layer owns a test; this file is for when the answer is Fixture Product E2E.
+Which test layer owns a behavior, and how to write Fixture Product E2E scenarios when the answer is that layer.
 
 | Lives in | What |
 | --- | --- |
 | `tests/e2e/fixture-*.spec.ts` | Scenarios grouped by risk |
 | `tests/e2e/fixtureHarness.ts` | Fixture extractor, local media server, deny proxy, diagnostics |
 | `src/main/e2eHarness.ts` | `ARROXY_E2E` / `ARROXY_E2E_HEADLESS` app-side switches |
+
+## Test layer ownership
+
+Fixture Product E2E is the **acceptance owner for real user workflows**, not the default test type for every behavior. Keep it to a small number of strong scenarios per risk group; local rules, rendering states, process-supervision failures and startup/security checks belong in their cheaper owning layers.
+
+- **Fast logic tests** (`tests/unit`, Vitest): pure rules and closed interfaces such as `QueueEvent` transition, `ProgressNormalizer`, URL parsing, yt-dlp argument construction, extractor classification, error classification, and `WizardStepGraph`. They never prove a full user workflow.
+- **Renderer tests** (`tests/renderer`, jsdom): renderer-local state and component contracts too small to justify a full app launch. Never the acceptance test for download, probe, queue or filesystem workflows.
+- **Scenario Workbench** (`tests/browser`, `bun run dev:mock`): browser-mock and the scenario gallery for visual inspection, layout stress, screenshots and fast review of many UI states. Proves how a state looks, not whether the workflow works.
+- **Mock Electron smoke tests** (`tests/e2e` with `MOCK_BACKEND=1`): app shell, preload bridge, context isolation, startup resilience, mocked persistence. Not for normal download acceptance.
+- **Fixture Product E2E** (`ARROXY_E2E=1`): real Electron, real IPC, real `ProbeService`, `DownloadService` and `QueueService`, real filesystem effects and spawned yt-dlp; only the video platform is deterministic, through the fixture extractor plugin, local media server and deny proxy.
+- **Cold-start packaged E2E**: packaged binary/warmup behavior, managed binary downloads, production bootstrapping. Keep it narrow; it is slow.
+- **Live smoke tests**: only to detect real YouTube/yt-dlp drift. External and flaky by nature; never the acceptance gate.
+
+### Choosing the right test
+
+- Found by opening the app and performing a workflow → Fixture Product E2E.
+- Pure domain rule with no UI, filesystem, process or IPC requirement → fast logic test.
+- Visual layout, responsive fit, empty/loading/error surfaces, screenshot review → Scenario Workbench.
+- App boot, preload, context isolation → Mock Electron smoke test.
+- Whether real YouTube currently works → a tiny live smoke test outside normal acceptance.
 
 ## Scenario design
 

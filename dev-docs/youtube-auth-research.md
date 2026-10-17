@@ -3,9 +3,11 @@
 Investigation into whether Arroxy can offer an in-app browser with YouTube
 sign-in, the way 4K Video Downloader+ does.
 
-**Status:** mechanism found and proven end to end, **now on macOS, Windows and
-Linux** (arm64, 2026-10-13, UA token `Desktop/1.0` — see the spec's manual
-matrix). No implementation yet.
+**Status:** archived research record. The mechanism was proven end to end on
+macOS, Windows and Linux (arm64, 2026-10-13, UA token `Desktop/1.0`), and Explore
+implemented it, shipped in Arroxy 0.5.0. The implementation lives in
+[`in-app-browser-spec.md`](in-app-browser-spec.md) and
+[ADR 0008](../docs/adr/0008-explore-signs-in-without-impersonating.md).
 **Implementation spec:** [`dev-docs/in-app-browser-spec.md`](in-app-browser-spec.md)
 **Date:** 2026-08-27 / 2026-08-28 / 2026-08-29
 **Environment:** macOS (darwin 25.5), Electron 43.4.0 (Chromium 150.0.7871.224),

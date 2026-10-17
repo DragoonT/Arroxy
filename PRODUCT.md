@@ -6,7 +6,7 @@
 
 web
 
-Electron desktop app (Windows, macOS, Linux) whose UI is a web renderer with its own title bar. Minimum window 720×680, default 900×760; widths below 640px exist only in browser-mock and tests.
+Electron desktop app (Windows, macOS, Linux) whose UI is a web renderer with its own title bar. Minimum window 720×760, default 1024×860; widths below 640px exist only in browser-mock and tests.
 
 ## Users
 
