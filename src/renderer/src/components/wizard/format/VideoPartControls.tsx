@@ -1,10 +1,11 @@
 import {useId, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {Clock, Info} from 'lucide-react'
+import {Clock, Info, Scissors, X} from 'lucide-react'
 import {useShallow} from 'zustand/react/shallow'
 import {formatPartTime, parsePartTime, type VideoPartError} from '@shared/videoPart.js'
 import {useAppStore} from '../../../store/useAppStore.js'
 import {partUnavailableReason, wizardPartValidation, type PartUnavailableReason} from '../../../store/wizard/videoPart.js'
+import {Alert, AlertAction, AlertDescription, AlertTitle} from '../../ui/alert.js'
 import {Button} from '../../ui/button.js'
 import {Card} from '../../ui/card.js'
 import {Field, FieldDescription, FieldError, FieldLabel} from '../../ui/field.js'
@@ -28,7 +29,7 @@ type PartScope = 'whole' | 'part'
 // hint, where a part can't apply (Subtitles mode, no known length).
 export function VideoPartSwitch(): ReactNode {
 	const {t} = useTranslation()
-	const {partOn, unavailable, setEnabled, audioSource} = useAppStore(useShallow(state => ({partOn: state.wizardPart !== null, unavailable: partUnavailableReason(state), setEnabled: state.setWizardPartEnabled, audioSource: state.wizardIsAudioOnlySource})))
+	const {partOn, unavailable, setEnabled, audioSource, dismissTip} = useAppStore(useShallow(state => ({partOn: state.wizardPart !== null, unavailable: partUnavailableReason(state), setEnabled: state.setWizardPartEnabled, audioSource: state.wizardIsAudioOnlySource, dismissTip: state.dismissVideoPartCallout})))
 	const scope: PartScope = partOn && unavailable === null ? 'part' : 'whole'
 	return (
 		<Hint label={unavailable ? t(UNAVAILABLE_KEYS[unavailable]) : undefined}>
@@ -38,7 +39,9 @@ export function VideoPartSwitch(): ReactNode {
 				spacing={1}
 				value={[scope]}
 				onValueChange={values => {
-					if (values[0] === 'whole' || values[0] === 'part') setEnabled(values[0] === 'part')
+					if (values[0] !== 'whole' && values[0] !== 'part') return
+					setEnabled(values[0] === 'part')
+					if (values[0] === 'part') void dismissTip()
 				}}
 				disabled={unavailable !== null}
 				aria-label={t('wizard.part.switchLabel')}
@@ -53,6 +56,27 @@ export function VideoPartSwitch(): ReactNode {
 				</ToggleGroupItem>
 			</ToggleGroup>
 		</Hint>
+	)
+}
+
+// One-time callout under the video card: new users would otherwise take the card
+// for a plain summary and never notice a part can be downloaded. Choosing Part
+// counts as having seen it.
+export function VideoPartCallout(): ReactNode {
+	const {t} = useTranslation()
+	const {pending, available, dismiss} = useAppStore(useShallow(state => ({pending: state.settings !== null && state.settings.common?.videoPartCalloutDismissed !== true, available: partUnavailableReason(state) === null && state.wizardPart === null, dismiss: state.dismissVideoPartCallout})))
+	if (!pending || !available) return null
+	return (
+		<Alert variant="info" data-testid="video-part-callout">
+			<Scissors />
+			<AlertTitle>{t('wizard.part.calloutTitle')}</AlertTitle>
+			<AlertDescription>{t('wizard.part.calloutBody')}</AlertDescription>
+			<AlertAction>
+				<Button type="button" variant="ghost" size="icon-sm" aria-label={t('titleBar.close')} onClick={() => void dismiss()} data-testid="video-part-callout-dismiss">
+					<X />
+				</Button>
+			</AlertAction>
+		</Alert>
 	)
 }
 

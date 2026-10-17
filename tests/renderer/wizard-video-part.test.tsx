@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
-import {fireEvent, render, screen} from '@testing-library/react'
-import {beforeEach, describe, expect, it} from 'vite-plus/test'
-import {UrlStartOffer, VideoPartPanel, VideoPartSwitch} from '@renderer/components/wizard/format/VideoPartControls.js'
+import {fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {UrlStartOffer, VideoPartCallout, VideoPartPanel, VideoPartSwitch} from '@renderer/components/wizard/format/VideoPartControls.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 
@@ -77,5 +77,57 @@ describe('Part of video on the Format screen', () => {
 		expect(screen.getByTestId('video-part-part')).toBeDisabled()
 		expect(screen.queryByTestId('video-part-panel')).toBeNull()
 		expect(screen.queryByTestId('video-part-url-start')).toBeNull()
+	})
+})
+
+describe('One-time Part of video callout', () => {
+	const update = vi.fn((patch: {common?: Record<string, unknown>}) => Promise.resolve({ok: true as const, data: {...defaultAppSettings('/downloads'), common: {...defaultAppSettings('/downloads').common, ...patch.common}}}))
+
+	function seed(common: Record<string, unknown> = {}): void {
+		const base = defaultAppSettings('/downloads')
+		useAppStore.setState({settings: {...base, common: {...base.common, ...common}}})
+	}
+
+	beforeEach(() => {
+		update.mockClear()
+		window.appApi = {settings: {update}} as unknown as typeof window.appApi
+	})
+
+	it('points out the Part switch the first time, until dismissed', async () => {
+		seed()
+		render(<VideoPartCallout />)
+		expect(screen.getByTestId('video-part-callout')).toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('video-part-callout-dismiss'))
+
+		await waitFor(() => expect(update).toHaveBeenCalledWith({common: {videoPartCalloutDismissed: true}}))
+		expect(screen.queryByTestId('video-part-callout')).toBeNull()
+	})
+
+	it('never shows once dismissed', () => {
+		seed({videoPartCalloutDismissed: true})
+		render(<VideoPartCallout />)
+		expect(screen.queryByTestId('video-part-callout')).toBeNull()
+	})
+
+	it('stays hidden where a part cannot apply', () => {
+		seed()
+		useAppStore.setState({wizardMediaKind: 'subtitles'})
+		render(<VideoPartCallout />)
+		expect(screen.queryByTestId('video-part-callout')).toBeNull()
+	})
+
+	it('counts choosing Part as having seen it', async () => {
+		seed()
+		render(
+			<>
+				<VideoPartSwitch />
+				<VideoPartCallout />
+			</>
+		)
+		fireEvent.click(screen.getByTestId('video-part-part'))
+
+		await waitFor(() => expect(update).toHaveBeenCalledWith({common: {videoPartCalloutDismissed: true}}))
+		expect(screen.queryByTestId('video-part-callout')).toBeNull()
 	})
 })

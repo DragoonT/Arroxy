@@ -251,6 +251,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "እንደገና ሞክር"
 
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "በገጹ ላይ ማንኛውንም የቪዲዮ፣ የቪዲዮ ዝርዝር ወይም የቻናል አገናኝ በቀኝ ጠቅ በማድረግ በንቁ መገለጫዎ ያውርዱት፣ ሌላ መገለጫ ይምረጡ ወይም በይነተገናኝ ማውረድን ይክፈቱ።"
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "ለማውረድ አገናኝ ላይ በቀኝ ጠቅ ያድርጉ"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "ሊንክ ቅዳ"
@@ -2444,6 +2452,14 @@ msgstr "ድንክ ምስሉን እንደ .jpg ምስል ፋይል ከዳውን�
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "ድንክ ምስል አስቀምጥ"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "በቪዲዮ ካርዱ ላይ «ክፍል»ን ይምረጡ፤ መጀመሪያና መጨረሻ ወይም ምዕራፍ መርጠው ያንን ክፍል ብቻ ያውርዱ።"
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "የቪዲዮውን ክፍል ብቻ ያውርዱ"
 
 msgctxt "wizard.part.chapters"
 msgid "Chapters"

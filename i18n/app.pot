@@ -250,6 +250,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr ""
 
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr ""
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr ""
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr ""
@@ -2437,6 +2445,14 @@ msgstr ""
 
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
+msgstr ""
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr ""
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
 msgstr ""
 
 msgctxt "wizard.part.chapters"

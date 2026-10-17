@@ -12,7 +12,7 @@ import {AudioColumn} from './format/AudioColumn.js'
 import {FormatFooter} from './format/FormatFooter.js'
 import {WizardProfileLine} from './format/WizardProfileLine.js'
 import {FitNotices} from './format/FitNotices.js'
-import {UrlStartOffer, VideoPartPanel, VideoPartSwitch} from './format/VideoPartControls.js'
+import {UrlStartOffer, VideoPartCallout, VideoPartPanel, VideoPartSwitch} from './format/VideoPartControls.js'
 import {SubtitleFields} from './SubtitleFields.js'
 import {SpeechBubble} from '../shared/SpeechBubble.js'
 
@@ -62,6 +62,8 @@ export function StepFormatSelect(): ReactNode {
 			<div className="@container flex w-full max-w-6xl flex-col gap-3">
 				<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} webpageUrl={wizardWebpageUrl} chapterCount={chapterCount} action={<VideoPartSwitch />} />
 
+				<VideoPartCallout />
+
 				<UrlStartOffer />
 
 				<VideoPartPanel />
@@ -77,8 +79,8 @@ export function StepFormatSelect(): ReactNode {
 				) : wizardMediaKind === 'audio' ? (
 					<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
 				) : (
-					// Stacked while the step is under 36rem wide (a zoomed minimum window), halves up to lg; from lg both lists sit at their own width, so a wide window adds no gap between them. The container is this wrapper, never a column: a size-contained column could not take its chips' width.
-					<div className="grid grid-cols-1 gap-5 @xl:grid-cols-2 lg:grid-cols-[auto_minmax(0,auto)] lg:justify-start lg:gap-x-12">
+					// Stacked while the step is under 36rem wide (a zoomed minimum window), halves up to lg (`max-lg:` keeps the container query from overriding the next rule); from lg both lists sit at their own width, so a wide window adds no gap between them. The container is this wrapper, never a column: a size-contained column could not take its chips' width.
+					<div className="grid grid-cols-1 gap-5 @xl:max-lg:grid-cols-2 lg:grid-cols-[auto_minmax(0,auto)] lg:justify-start lg:gap-x-12">
 						<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
 						<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
 					</div>

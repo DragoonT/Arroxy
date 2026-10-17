@@ -599,6 +599,8 @@
 			"chapters": "Capitoli",
 			"chapterUntitled": "Capitolo {{number}}",
 			"exactCut": {"label": "Taglio preciso (ricodifica, più lento)", "hint": "Disattivato: ogni taglio cade sul keyframe più vicino, che può distare alcuni secondi dall'ora inserita."},
+			"calloutTitle": "Scarica solo una parte di un video",
+			"calloutBody": "Passa a «Parte» sulla scheda del video per scegliere inizio e fine, o un capitolo, e scarica solo quel tratto.",
 			"connectionsNote": "Una parte viene scaricata tramite ffmpeg, quindi le connessioni di download e le impostazioni di ritmo non si applicano.",
 			"urlStart": "Il tuo link inizia da {{time}}",
 			"useUrlStart": "Usa come inizio",
@@ -881,6 +883,7 @@
 			"continue": "Continua"
 		},
 		"nudge": {"off": "I cookie sono disattivati, quindi i download non usano l'accesso a Explore.", "file": "I download usano il tuo file di cookie, non l'accesso a Explore.", "browser": "I download usano i cookie del tuo browser, non l'accesso a Explore.", "useExplore": "Usa l'accesso a Explore", "notNow": "Non ora"},
+		"linkCallout": {"title": "Clic destro su un link per scaricarlo", "body": "Fai clic destro su qualsiasi link di un video, una playlist o un canale nella pagina per scaricarlo con il tuo profilo attivo, scegliere un altro profilo o aprire il download interattivo."},
 		"linkMenu": {"downloadWith": "Scarica con", "copyLink": "Copia link"},
 		"toolbar": {
 			"aria": "Controlli del browser di Explore",

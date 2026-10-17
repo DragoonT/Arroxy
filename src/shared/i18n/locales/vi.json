@@ -592,6 +592,8 @@
 			"chapters": "Chương",
 			"chapterUntitled": "Chương {{number}}",
 			"exactCut": {"label": "Cắt chính xác (mã hóa lại, chậm hơn)", "hint": "Tắt: mỗi điểm cắt rơi vào keyframe gần nhất, có thể lệch vài giây so với thời gian bạn nhập."},
+			"calloutTitle": "Chỉ tải một đoạn của video",
+			"calloutBody": "Chuyển sang «Một đoạn» trên thẻ video để chọn điểm bắt đầu và kết thúc, hoặc một chương, rồi chỉ tải đoạn đó.",
 			"connectionsNote": "Một đoạn được tải qua ffmpeg, nên số kết nối tải xuống và cài đặt nhịp độ của bạn không áp dụng cho nó.",
 			"urlStart": "Liên kết của bạn bắt đầu từ {{time}}",
 			"useUrlStart": "Dùng làm điểm bắt đầu",
@@ -860,6 +862,7 @@
 			"useExplore": "Dùng đăng nhập Explore",
 			"notNow": "Để sau"
 		},
+		"linkCallout": {"title": "Nhấp chuột phải vào liên kết để tải xuống", "body": "Nhấp chuột phải vào bất kỳ liên kết video, danh sách phát hoặc kênh nào trên trang để tải xuống bằng hồ sơ đang dùng, chọn hồ sơ khác hoặc mở Tải tương tác."},
 		"linkMenu": {"downloadWith": "Tải xuống với", "copyLink": "Sao chép liên kết"},
 		"toolbar": {
 			"aria": "Điều khiển trình duyệt Explore",

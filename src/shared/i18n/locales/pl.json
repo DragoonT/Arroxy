@@ -607,6 +607,8 @@
 			"chapters": "Rozdziały",
 			"chapterUntitled": "Rozdział {{number}}",
 			"exactCut": {"label": "Dokładne cięcie (ponowne kodowanie, wolniej)", "hint": "Wyłączone: każde cięcie trafia w najbliższą klatkę kluczową, co może być kilka sekund od wpisanego czasu."},
+			"calloutTitle": "Pobierz tylko fragment filmu",
+			"calloutBody": "Przełącz na „Fragment” na karcie filmu, wybierz początek i koniec albo rozdział i pobierz tylko ten odcinek.",
 			"connectionsNote": "Fragment jest pobierany przez ffmpeg, więc ustawienia połączeń pobierania i tempa go nie dotyczą.",
 			"urlStart": "Twój link zaczyna się od {{time}}",
 			"useUrlStart": "Użyj jako początku",
@@ -882,6 +884,7 @@
 			"useExplore": "Użyj logowania w Explore",
 			"notNow": "Nie teraz"
 		},
+		"linkCallout": {"title": "Kliknij link prawym przyciskiem, aby go pobrać", "body": "Kliknij prawym przyciskiem dowolny link do filmu, playlisty lub kanału na stronie, aby pobrać go z aktywnym profilem, wybrać inny profil albo otworzyć pobieranie interaktywne."},
 		"linkMenu": {"downloadWith": "Pobierz z profilem", "copyLink": "Kopiuj link"},
 		"toolbar": {
 			"aria": "Elementy sterujące przeglądarki Explore",

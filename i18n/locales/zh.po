@@ -251,6 +251,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "重试"
 
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置文件下载、改选其他配置，或打开交互式下载。"
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "右键点击链接即可下载"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "复制链接"
@@ -2444,6 +2452,14 @@ msgstr "将缩略图保存为 .jpg 图片文件，放在下载文件旁边。"
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "保存缩略图"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "在视频卡片上切换到“片段”，选择起点和终点或某个章节，即可只下载那一段。"
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "只下载视频的一部分"
 
 msgctxt "wizard.part.chapters"
 msgid "Chapters"

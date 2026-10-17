@@ -583,6 +583,8 @@
 			"chapters": "Chapters",
 			"chapterUntitled": "Chapter {{number}}",
 			"exactCut": {"label": "Exact cut (re-encodes, slower)", "hint": "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."},
+			"calloutTitle": "Download just part of a video",
+			"calloutBody": "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch.",
 			"connectionsNote": "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it.",
 			"urlStart": "Your link starts at {{time}}",
 			"useUrlStart": "Use as start",
@@ -845,6 +847,7 @@
 			"continue": "Continue"
 		},
 		"nudge": {"off": "Cookies are off, so downloads don't use your Explore sign-in.", "file": "Downloads use your cookies file, not your Explore sign-in.", "browser": "Downloads use your browser's cookies, not your Explore sign-in.", "useExplore": "Use Explore sign-in", "notNow": "Not now"},
+		"linkCallout": {"title": "Right-click a link to download it", "body": "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."},
 		"linkMenu": {"downloadWith": "Download with", "copyLink": "Copy link"},
 		"toolbar": {
 			"aria": "Explore browser controls",

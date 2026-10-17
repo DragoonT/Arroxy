@@ -251,6 +251,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Reintentar"
 
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Haz clic derecho en cualquier enlace de vídeo, lista de reproducción o canal de la página para descargarlo con tu perfil activo, elegir otro perfil o abrir la descarga interactiva."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Haz clic derecho en un enlace para descargarlo"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Copiar enlace"
@@ -2444,6 +2452,14 @@ msgstr "Guarda la miniatura como archivo .jpg junto a la descarga."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Guardar miniatura"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Cambia a «Parte» en la tarjeta del vídeo para elegir un inicio y un final, o un capítulo, y descarga solo ese tramo."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Descarga solo una parte de un vídeo"
 
 msgctxt "wizard.part.chapters"
 msgid "Chapters"

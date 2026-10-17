@@ -15,6 +15,9 @@ export function openExploreInteractive(url: string): void {
 // came from a web page: only one the bar could take goes through.
 async function runLinkAction(action: ExploreLinkAction): Promise<void> {
 	if (!isExploreGrabbable(action.url)) return
+	// Using the menu is having found it.
+	const {settings, dismissExploreLinkCallout} = useAppStore.getState()
+	if (settings?.common.exploreLinkCalloutDismissed !== true) void dismissExploreLinkCallout()
 	switch (action.kind) {
 		case 'interactive':
 			openExploreInteractive(action.url)

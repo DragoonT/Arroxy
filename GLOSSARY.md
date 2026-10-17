@@ -118,6 +118,10 @@ _Avoid_: clip, trim, section, cut
 A warning that a video can't honour part of the download profile (a resolution, MP4, subtitle languages), naming what was picked instead.
 _Avoid_: fallback, mismatch error
 
+**Feature callout**:
+A one-time card in the page flow that points to a capability people may not have noticed yet, placed where that capability lives. Closing it, or using the feature, retires it for good: it does not return on another video or after a restart. Not a hover bubble, and not a warning.
+_Avoid_: tip, hint, alert, nudge, onboarding, coach mark
+
 **URL intent**:
 The classification of a pasted URL as a single video, a playlist, a mix of both, or unknown.
 _Avoid_: URL type, URL kind

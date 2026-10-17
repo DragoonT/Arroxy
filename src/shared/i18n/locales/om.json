@@ -615,6 +615,8 @@
 			"chapters": "Boqonnaalee",
 			"chapterUntitled": "Boqonnaa {{number}}",
 			"exactCut": {"label": "Muruu sirrii (deebisee koodii godha, suuta)", "hint": "Cufaa: muruun hunduu keyframe isa dhiyoo irratti kufa, kunis yeroo ati barreessite irraa sekoondii muraasa fagaachuu danda'a."},
+			"calloutTitle": "Kutaa viidiyoo tokko qofa buufadhu",
+			"calloutBody": "Kaardii viidiyoo irratti gara «Kutaa» jijjiiri, jalqabaa fi dhumaa ykn boqonnaa tokko filadhu, achiis kutaa sana qofa buufadhu.",
 			"connectionsNote": "Kutaan ffmpeg-n buufata, kanaaf walitti hidhamiinsi buufataa fi qindaa'inni saffisaa isaaf hin hojjetu.",
 			"urlStart": "Liinkiin kee {{time}} irratti jalqaba",
 			"useUrlStart": "Akka jalqabaatti fayyadami",
@@ -897,6 +899,7 @@
 			"useExplore": "Seensa Explore fayyadami",
 			"notNow": "Amma miti"
 		},
+		"linkCallout": {"title": "Buufachuuf liinkii irratti right-click godhi", "body": "Fuula irratti liinkii viidiyoo, tarree taphachiisaa ykn channel kamiyyuu irratti right-click godhiitii Profaayilii hojiirra jiruun buufadhu, profaayilii biraa filadhu, ykn Buufata walnaqqee bani."},
 		"linkMenu": {"downloadWith": "Profaayiliin buusi", "copyLink": "Hidhata garagalchi"},
 		"toolbar": {
 			"aria": "To'annoo browser Explore",
