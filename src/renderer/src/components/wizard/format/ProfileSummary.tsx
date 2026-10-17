@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next'
 import {TriangleAlert} from 'lucide-react'
 import {useAppStore} from '../../../store/useAppStore.js'
 import {buildDownloadReview, conflictLabelKey} from '../../../store/wizard/downloadReviewProjection.js'
+import {mp4CaveatCodec} from '../../../store/wizard/resolveContainer.js'
 import {buildSingleSettingsSummary} from '../../../store/wizard/singleSettingsSummary.js'
 import {Button} from '../../ui/button.js'
 import {createTranslationPort} from '../../../lib/translation.js'
@@ -17,6 +18,7 @@ export function ProfileSummary(): ReactNode {
 	const translate = createTranslationPort(t)
 	const summary = buildSingleSettingsSummary(state, {t: translate, language: i18n.language})
 	const conflicts = buildDownloadReview(state, {t: translate, language: i18n.language, commonPaths: state.commonPaths}).conflictWarnings
+	const caveat = mp4CaveatCodec(state)
 	const profileName = state.wizardProfile?.name ?? ''
 	const showSubtitles = state.wizardMediaKind !== 'subtitles'
 
@@ -48,6 +50,12 @@ export function ProfileSummary(): ReactNode {
 					{t('wizard.formats.summary.reviewAll')}
 				</Button>
 			</div>
+			{caveat ? (
+				<p className="flex items-center gap-1.5 text-caption text-warning" data-testid="summary-mp4-caveat">
+					<TriangleAlert className="size-3.5 shrink-0" aria-hidden />
+					{t(caveat === 'VP9' ? 'fileType.mp4CaveatVp9' : 'fileType.mp4CaveatAv1')}
+				</p>
+			) : null}
 			{conflicts.map(conflict => (
 				<p key={conflict.code} className="flex items-center gap-1.5 text-caption text-warning" data-testid={`summary-conflict-${conflict.code}`}>
 					<TriangleAlert className="size-3.5 shrink-0" aria-hidden />

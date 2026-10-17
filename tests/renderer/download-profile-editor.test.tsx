@@ -12,15 +12,17 @@ import {expectHint} from '../shared/hint.js'
 const LINUX_COMMON_PATHS = {desktop: '/home/user/Desktop', documents: '/home/user/Documents', downloads: '/home/user/Downloads', home: '/home/user', music: '/home/user/Music', pictures: '/home/user/Pictures', videos: '/home/user/Videos'}
 
 describe('DownloadProfileEditor', () => {
-	it('shows best native audio for best native video profiles', async () => {
+	it('marks the Best picture goal for best native video profiles', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
 		expect(profile).toBeDefined()
 
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
 
-		expect(await screen.findByTestId('profiles-editor-video-codec')).toHaveTextContent('Best native')
-		expect(await screen.findByTestId('profiles-editor-audio-format')).toHaveTextContent('Best native')
-		expect(screen.getByTestId('profiles-editor-audio-format')).not.toBeDisabled()
+		expect(await screen.findByTestId('profiles-editor-video-goal-best-picture')).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.getByTestId('profiles-editor-video-goal-smart-tv')).toHaveAttribute('aria-pressed', 'false')
+		expect(screen.getByTestId('profiles-editor-video-goal-best-picture')).toHaveTextContent('Best picture')
+		expect(screen.getByTestId('profiles-editor-video-goal-best-picture')).toHaveTextContent('AV1 · VP9')
+		expect(screen.queryByTestId('profiles-editor-audio-format')).not.toBeInTheDocument()
 		expect(screen.queryByTestId('profiles-editor-audio-quality')).not.toBeInTheDocument()
 	})
 
@@ -30,21 +32,27 @@ describe('DownloadProfileEditor', () => {
 
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
 
-		expect(await screen.findByTestId('profiles-editor-video-codec')).toBeInTheDocument()
+		expect(await screen.findByTestId('profiles-editor-video-goal')).toBeInTheDocument()
 		expect(screen.queryByTestId('profiles-editor-playlist-cap')).not.toBeInTheDocument()
 		expect(screen.queryByText('Playlist probe cap')).not.toBeInTheDocument()
 	})
 
-	it('shows M4A/AAC audio preference for Smart TV H.264 MP4 video profiles', async () => {
+	it('shows the Smart TV goal with its tag and keeps WebM out of reach', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-1080')
 		expect(profile).toBeDefined()
 
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
 
-		expect(await screen.findByTestId('profiles-editor-video-codec')).toHaveTextContent('Smart TV H.264 MP4')
-		expect(await screen.findByTestId('profiles-editor-audio-format')).toHaveTextContent('M4A / AAC')
-		expect(screen.getByTestId('profiles-editor-audio-format')).not.toBeDisabled()
-		expect(screen.queryByTestId('profiles-editor-audio-quality')).not.toBeInTheDocument()
+		const card = await screen.findByTestId('profiles-editor-video-goal-smart-tv')
+		expect(card).toHaveAttribute('aria-pressed', 'true')
+		expect(card).toHaveTextContent('Smart TV')
+		expect(card).toHaveTextContent('MP4 · H.264')
+
+		fireEvent.click(screen.getByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-video-file-type')).toHaveTextContent('Auto')
+		expect(screen.getByTestId('profiles-editor-video-advanced')).toHaveTextContent("WebM isn't offered with Smart TV: it can't hold H.264.")
+		fireEvent.click(screen.getByTestId('profiles-editor-video-file-type'))
+		expect(await screen.findByTestId('profiles-editor-video-file-type-option-webm')).toHaveAttribute('aria-disabled', 'true')
 	})
 
 	it('limits Smart TV H.264 MP4 profile resolution choices to 1080p and below', async () => {
@@ -79,35 +87,112 @@ describe('DownloadProfileEditor', () => {
 		expect(screen.getByTestId('profiles-editor-video-resolution-option-144')).toBeInTheDocument()
 	})
 
-	it('pairs video compatibility with the matching native audio default', async () => {
+	it('sends the file type back to Auto when the goal becomes Smart TV', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
 		expect(profile).toBeDefined()
 
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
 
-		fireEvent.click(await screen.findByTestId('profiles-editor-video-codec'))
-		fireEvent.click(await screen.findByTestId('profiles-editor-video-codec-option-mp4'))
-		expect(screen.getByTestId('profiles-editor-audio-format')).toHaveTextContent('M4A / AAC')
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-file-type'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-file-type-option-webm'))
+		expect(screen.getByTestId('profiles-editor-video-file-type')).toHaveTextContent('WebM')
 
-		fireEvent.click(screen.getByTestId('profiles-editor-video-codec'))
-		fireEvent.click(await screen.findByTestId('profiles-editor-video-codec-option-best'))
-		expect(screen.getByTestId('profiles-editor-audio-format')).toHaveTextContent('Best native')
+		fireEvent.click(screen.getByTestId('profiles-editor-video-goal-smart-tv'))
+		expect(screen.getByTestId('profiles-editor-video-file-type')).toHaveTextContent('Auto')
 	})
 
-	it('saves the selected video-audio audio preference', async () => {
+	it('saves the chosen file type and native audio override', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} globalNativeAudioPreference="surround" />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-native-audio')).toHaveTextContent('Use app setting (Prefer surround / Dolby)')
+		fireEvent.click(screen.getByTestId('profiles-editor-video-file-type'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-file-type-option-mp4'))
+		fireEvent.click(screen.getByTestId('profiles-editor-native-audio'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-native-audio-option-compatible'))
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({media: {kind: 'video-audio', goal: 'best-picture', tier: '1440', fileType: 'mp4', audio: {native: {kind: 'custom', preference: 'compatible'}}}}))
+		})
+	})
+
+	it('offers an HDR video override and names what the app setting means', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} globalHdrSetting="hdr" />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-hdr')).toHaveTextContent('Use app setting (HDR)')
+		expect(screen.getByTestId('profiles-editor-video-advanced')).toHaveTextContent('HDR looks washed out on regular screens.')
+		fireEvent.click(screen.getByTestId('profiles-editor-hdr'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-hdr-option-sdr'))
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({media: expect.objectContaining({hdr: {kind: 'custom', preference: 'sdr'}})}))
+		})
+	})
+
+	it('names Auto as the app setting by default, and lists the screen as the reason', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-hdr')).toHaveTextContent('Use app setting (Auto)')
+		fireEvent.click(screen.getByTestId('profiles-editor-selection-order-toggle'))
+		// Auto reads the screen; this test window has none that shows HDR.
+		expect(await screen.findByTestId('profiles-editor-selection-order-list')).toHaveTextContent("SDR before HDR · this screen isn't HDR")
+	})
+
+	it('stores no HDR choice while the profile follows the app setting', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
 		expect(profile).toBeDefined()
 		const onSave = vi.fn<(saved: DownloadProfile) => void>()
 
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
 
-		fireEvent.click(await screen.findByTestId('profiles-editor-audio-format'))
-		fireEvent.click(await screen.findByTestId('profiles-editor-audio-format-option-m4a'))
-		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+		fireEvent.click(await screen.findByRole('button', {name: 'Save profile'}))
 
 		await waitFor(() => {
-			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({media: {kind: 'video-audio', codec: 'best', tiers: ['1440'], audio: {format: 'm4a'}}}))
+			expect(onSave).toHaveBeenCalled()
 		})
+		expect(onSave.mock.calls[0]?.[0].media).not.toHaveProperty('hdr')
+	})
+
+	it('says SDR is first in the list of how the profile picks', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} globalHdrSetting="sdr" />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-selection-order-toggle'))
+		expect(await screen.findByTestId('profiles-editor-selection-order-list')).toHaveTextContent('SDR before HDR · looks right on any screen')
+	})
+
+	it('lists how the profile picks, with the app setting named as the audio source', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-720')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		expect(await screen.findByTestId('profiles-editor-selection-order')).toHaveTextContent('Up to 720p · plays on any device')
+		expect(screen.queryByTestId('profiles-editor-selection-order-list')).not.toBeInTheDocument()
+		fireEvent.click(screen.getByTestId('profiles-editor-selection-order-toggle'))
+		const list = await screen.findByTestId('profiles-editor-selection-order-list')
+		expect(list).toHaveTextContent('H.264 video')
+		expect(list).toHaveTextContent('Up to 720p')
+		expect(list).toHaveTextContent('AAC audio')
+		expect(list).not.toHaveTextContent('AV1, then VP9')
 	})
 
 	it('adds subtitle languages by searching their name', async () => {
