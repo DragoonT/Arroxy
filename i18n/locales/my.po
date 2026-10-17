@@ -1047,6 +1047,10 @@ msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "{{title}} ၏ ဖိုင်များကို ပြရန်"
 
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "အရွယ်အစား"
+
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
 msgstr "{{label}} ဖြင့် စီရန်"

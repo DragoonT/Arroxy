@@ -1046,6 +1046,10 @@ msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr ""
 
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr ""
+
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
 msgstr ""
