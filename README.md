@@ -88,6 +88,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 - **Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more
 - **Right-click to download** — right-click any video, playlist, or channel link in Explore to download it with your profile, pick another profile from **Download with**, open the step-by-step download, or copy the link. No need to open each video first
+- **Compact layout** — one click in Explore's toolbar moves Arroxy's tabs into it and gives the page more room
 - **Address bar** — type to search YouTube or paste a YouTube link. Explore only browses YouTube, so a link from another site isn't opened there, but you can download it with one click
 - **Downloads that need an account** — sign in once in Explore and Arroxy can download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Arroxy still downloads signed out and only uses your Explore sign-in when a download fails in a way an account can fix. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in
 - **Use a secondary account** — Explore's first screen explains why: downloading with an account carries some risk of that account being restricted. Sign out of Explore from Settings whenever you want to forget the sign-in
@@ -98,7 +99,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - Up to **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **High frame rate** preserved as-is — 60 fps, 120 fps, HDR
 - **Audio** — export audio-only as MP3, M4A/AAC, Opus, or WAV. In interactive downloads, pick the source's native surround/Dolby tracks (AC-3, E-AC-3, 5.1, DRC) when available, or set a global **Prefer surround / Dolby** default
-- Quick presets: *Best quality* · *Balanced* · *Small file*
+- **Profiles with a goal** — *Best picture* (AV1 · VP9) or *Smart TV* (MP4 · H.264), saved as Auto, MP4, MKV, or WebM without re-encoding. HDR is *Auto* (only when your screen can show it), *SDR*, or *HDR*
 
 ### Privacy & control
 
@@ -123,6 +124,10 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - **Quick Download works in the background** — the link shows up in Downloads right away and prepares there, a note with **View** confirms it, and the URL field clears for the next link. Start as many as you like while earlier ones prepare
 - **Downloads tells you what needs you** — if Arroxy can't read a link, its row says why and offers the fix: Retry, turn on cookies, or sign in in Explore. With cookies off, **Sign in with Explore** retries it for you once you're signed in. A playlist longer than your load limit waits on its row for you to pick all of it, the first ones, or a review. The Downloads tab counts the rows waiting for you
 - **Download just part of a video** — pick a start and end, or a chapter, on the Format screen and Arroxy saves only that range, named with the range after the video id. Cuts land on the nearest keyframe; turn on exact cut to re-encode instead
+- **Remove finished downloads** — optional: a finished download leaves the list 5 seconds later. Its files stay on disk, and failed downloads stay listed
+- **Size and Missing in Downloads** — a sortable **Size** column shows how much space each download takes, and **Missing** flags files moved or deleted outside Arroxy
+- **Aurora or Minimal, dark or light** — glass panels over a moving sky, or quiet solid surfaces; switch from the footer. Computers without graphics acceleration get Minimal automatically
+- **Mac menu bar** — on macOS, open Settings (`Cmd+,`), set the download speed limit, switch style and theme, and open logs or save a diagnostics file from the menu bar
 
 ### Subtitles & post-processing
 

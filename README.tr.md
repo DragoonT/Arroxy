@@ -90,6 +90,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 
 - **Explore sekmesi** — YouTube'a Arroxy içinden göz at ve bulduklarını bağlantı kopyalamadan indir. **İndir · *profilin*** baktığın videoyu, oynatma listesini veya kanalı kuyruğa ekler; yanındaki ok profil değiştirir, sihirli değnek ise biçim, altyazı ve daha fazlasını seçebileceğin adım adım indirmeyi açar
 - **Sağ tıklayarak indir** — Explore'da herhangi bir video, oynatma listesi veya kanal bağlantısına sağ tıklayıp profilinle indir, **Profille indir** menüsünden başka bir profil seç, adım adım indirmeyi aç ya da bağlantıyı kopyala. Her videoyu önce açman gerekmez
+- **Kompakt düzen** — Explore araç çubuğundaki tek bir tıklama Arroxy'nin sekmelerini oraya taşır ve sayfaya daha fazla yer açar
 - **Adres çubuğu** — YouTube'da aramak için yaz ya da bir YouTube bağlantısı yapıştır. Explore yalnızca YouTube'a göz atar, bu yüzden başka bir siteden gelen bağlantı orada açılmaz ama tek tıkla indirebilirsin
 - **Hesap gerektiren indirmeler** — Explore'da bir kez giriş yap; Arroxy hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Arroxy yine de oturum açmadan indirir ve Explore girişini yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır. YouTube robot olmadığını doğrulamanı istediğinde Arroxy Explore girişini de dener
 - **İkincil hesap kullan** — Explore'un ilk ekranı nedenini açıklar: bir hesapla indirmek, o hesabın kısıtlanması riskini bir ölçüde taşır. Girişi unutmak istediğinde Ayarlar'dan Explore'dan çıkış yap
@@ -100,7 +101,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 - **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p'ye kadar
 - **Yüksek kare hızı** olduğu gibi korunur — 60 fps, 120 fps, HDR
 - **Ses** — yalnızca sesi MP3, M4A/AAC, Opus veya WAV olarak dışa aktar. Etkileşimli indirmelerde varsa kaynağın yerel surround/Dolby parçalarını (AC-3, E-AC-3, 5.1, DRC) seç veya genel **Surround / Dolby tercih et** varsayılanı ayarla
-- Hızlı ön ayarlar: *En iyi kalite* · *Dengeli* · *Küçük dosya*
+- **Hedefli profiller** — *En iyi görüntü* (AV1 · VP9) veya *Akıllı TV* (MP4 · H.264); yeniden kodlamadan Otomatik, MP4, MKV veya WebM olarak kaydedilir. HDR ise *Otomatik* (yalnızca ekranın gösterebiliyorsa), *SDR* veya *HDR*
 
 ### Gizlilik ve kontrol
 
@@ -125,6 +126,10 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 - **Hızlı İndirme arka planda çalışır** — bağlantı hemen İndirmeler'de görünür ve orada hazırlanır, **Görüntüle** içeren bir not bunu doğrular ve URL alanı bir sonraki bağlantı için temizlenir. Öncekiler hazırlanırken istediğin kadar başlat
 - **İndirmeler sana neye ihtiyaç olduğunu söyler** — Arroxy bir bağlantıyı okuyamazsa satırı nedenini söyler ve çözümü sunar: Tekrar dene, çerezleri aç veya Explore'da giriş yap. Çerezler kapalıyken **Explore ile giriş yap**, giriş yaptıktan sonra bunu senin için yeniden dener. Yükleme sınırından uzun bir oynatma listesi satırında bekler; tamamını, ilk birkaç videoyu veya bir incelemeyi seçmeni bekler. İndirmeler sekmesi sende bekleyen satırları sayar
 - **Videonun yalnızca bir kısmını indir** — Biçim ekranında bir başlangıç ve bitiş ya da bir bölüm seç, Arroxy yalnızca o aralığı kaydeder; dosya adında video kimliğinden sonra aralık yer alır. Kesimler en yakın anahtar kareye denk gelir; bunun yerine yeniden kodlamak için tam kesimi aç
+- **Biten indirmeleri otomatik kaldır** — isteğe bağlı: biten bir indirme 5 saniye sonra listeden kalkar. Dosyaları diskte kalır, başarısız indirmeler ise listede durur
+- **İndirmeler'de Boyut ve Eksik** — sıralanabilir **Boyut** sütunu her indirmenin ne kadar yer kapladığını gösterir, **Eksik** ise Arroxy dışında taşınan ya da silinen dosyaları işaretler
+- **Aurora veya Minimal, koyu veya açık** — hareketli bir gökyüzü üzerinde cam paneller ya da sakin düz yüzeyler; alt bilgi çubuğundan değiştir. Grafik hızlandırması olmayan bilgisayarlar otomatik olarak Minimal'i alır
+- **Mac menü çubuğu** — macOS'ta menü çubuğundan Ayarlar'ı (`Cmd+,`) aç, indirme hızı sınırını belirle, stil ve temayı değiştir, günlükleri aç ya da tanılama dosyasını kaydet
 
 ### Altyazılar ve son işleme
 

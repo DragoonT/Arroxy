@@ -8,18 +8,32 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.5.3
+## 0.6.0
 
 ## Highlights
 
-- **Download straight from Explore's video grids.** Right-click any video, playlist or channel link in Explore to download it with your active profile, pick another profile from **Download with**, open the step-by-step flow, or copy the link — no need to open each video first.
-- **File sizes in Downloads.** A new **Size** column shows how much space each finished download takes on disk, and you can sort by it. Downloads finished before this update get their sizes when Arroxy starts.
-- **Update from the banner if you use Homebrew.** On a Homebrew install, the update banner now has a **Run & Restart** button next to the upgrade command, so you don't need to open a terminal. If you installed from the DMG into Applications and Homebrew is on your Mac, the banner also offers to switch to Homebrew while it updates, so later updates work the same way.
-- **Moved or deleted files are flagged.** If a finished download's files were moved or deleted outside Arroxy, its row now says **Missing**. When the files come back, for example after you reconnect a drive, the mark clears the next time Arroxy starts.
+- **Download part of a video.** In the step-by-step download, switch a video to **Part** and set a start and end, or pick a chapter. **Exact cut** trims to the precise second, but is slower. A start time in the link (`t=`) is offered as the start.
+- **A simpler step-by-step download for single videos.** It's now two screens. **Format** comes pre-filled from your active profile and shows each stream as a chip, sorted by resolution and HDR. A pencil there edits the profile without leaving the download. **Review** holds subtitles, SponsorBlock, folder and file name, shows what you changed, and can save your choices as a new profile.
+- **Profiles that say what they're for.** Pick a goal, **Best picture** or **Smart TV**, and a file type: Auto, MP4, MKV or WebM. Arroxy never re-encodes to get one. HDR now offers **Auto / SDR / HDR**, and Auto picks HDR only when your screen can show it. The Format screen shows each video's codec and why the profile chose it, and warns when an MP4 may not play everywhere.
+- **New Minimal style.** Switch between Aurora and Minimal from the footer, in light or dark. Computers without graphics acceleration get Minimal automatically.
+- **Download straight from Explore's video grids.** Right-click any video, playlist or channel link in Explore to download it with your active profile, pick another profile, open the step-by-step flow, or copy the link.
+- **Compact Explore.** A toolbar button moves the tabs into Explore's toolbar to give the page more room.
+- **Remove finished downloads automatically.** An optional switch next to the Downloads title clears a download from the list 5 seconds after it finishes. Your files stay on disk, and failed downloads stay in the list.
+- **File sizes in Downloads.** A sortable **Size** column shows how much space each finished download takes.
+- **Moved or deleted files are flagged.** A download whose files were moved or deleted outside Arroxy is marked **Missing**. The mark clears once the files are back.
+- **Update from the banner on Homebrew.** Homebrew installs get a **Run & Restart** button. If you installed from the DMG and have Homebrew, the banner can switch you over while it updates.
+- **A fuller Mac menu bar.** It now has Settings (⌘,), the download speed limit, style and theme, logs and a diagnostics file.
+- **Khmer.** Arroxy is now available in Khmer.
 
-## Under the hood
+## Fixes
 
-- **Ad blocker update.** Explore's ad blocker now runs on Ghostery adblocker 2.20.1, which stops a filter from running inside embedded frames on sites it's meant to skip. Explore downloads its filter lists once more after this update.
+- Explore now follows Arroxy's light or dark theme instead of your system's.
+- Long audio track lists in the step-by-step download scroll properly instead of spilling over the screen.
+
+## Good to know
+
+- Existing installs keep picking HDR first, as before. New installs start on HDR **Auto**.
+- Profiles are saved in a new format. If you go back to an older Arroxy, it drops your custom profiles. A copy of your old settings is kept as `settings.before-selection-order.json`.
 
 ---
 

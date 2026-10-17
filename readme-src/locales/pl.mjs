@@ -118,6 +118,7 @@ export const pl = {
   feat_explore_h3: "Explore: przeglądaj YouTube w Arroxy",
   feat_explore_1: "**Karta Explore** — przeglądaj YouTube w Arroxy i pobieraj znalezione filmy bez kopiowania linków. **Pobierz · *Twój profil*** dodaje do kolejki oglądany film, playlistę lub kanał; strzałka obok przełącza profile, a różdżka otwiera pobieranie krok po kroku, gdzie wybierzesz formaty, napisy i więcej",
   feat_explore_6: "**Pobieranie prawym przyciskiem** — kliknij prawym przyciskiem dowolny link do filmu, playlisty lub kanału w Explore, aby pobrać go ze swoim profilem, wybrać inny profil w **Pobierz z profilem**, otworzyć pobieranie krok po kroku lub skopiować link. Nie trzeba najpierw otwierać każdego filmu",
+  feat_explore_7: "**Układ kompaktowy** — jedno kliknięcie na pasku narzędzi Explore przenosi do niego karty Arroxy i daje stronie więcej miejsca",
   feat_explore_2: "**Pasek adresu** — wpisz frazę, aby wyszukać w YouTube, albo wklej link do YouTube. Explore przegląda tylko YouTube, więc link z innej witryny nie zostanie tam otwarty, ale możesz go pobrać jednym kliknięciem",
   feat_explore_3: "**Pobieranie wymagające konta** — zaloguj się raz w Explore, a Arroxy pobierze prywatne filmy i filmy tylko dla członków, które może oglądać Twoje konto, filmy z ograniczeniem wieku (jeśli wiek konta jest zweryfikowany) oraz listy Do obejrzenia i Polubione. Arroxy nadal pobiera bez logowania i używa Twojego logowania w Explore tylko wtedy, gdy pobieranie kończy się błędem, który może naprawić konto. Gdy YouTube prosi o potwierdzenie, że nie jesteś botem, Arroxy próbuje też użyć Twojego logowania w Explore",
   feat_explore_4: "**Użyj dodatkowego konta** — pierwszy ekran Explore wyjaśnia dlaczego: pobieranie z użyciem konta niesie pewne ryzyko, że konto zostanie ograniczone. Wyloguj się z Explore w Ustawieniach, kiedy tylko chcesz, aby logowanie zostało zapomniane",
@@ -126,7 +127,7 @@ export const pl = {
   feat_quality_1: "Do **4K UHD (2160p)**, a także 1440p, 1080p, 720p, 480p i 360p",
   feat_quality_2: "**Wysoka liczba klatek** zachowana bez zmian — 60 kl./s, 120 kl./s, HDR",
   feat_quality_3: "**Dźwięk** — eksportuj sam dźwięk jako MP3, M4A/AAC, Opus lub WAV. Podczas pobierania interaktywnego możesz wybrać natywne ścieżki surround/Dolby źródła (AC-3, E-AC-3, 5.1, DRC), gdy są dostępne, albo ustawić globalne **Preferuj surround / Dolby**",
-  feat_quality_4: "Szybkie ustawienia: *Najlepsza jakość* · *Zrównoważone* · *Mały plik*",
+  feat_quality_4: "**Profile z celem** — *Najlepszy obraz* (AV1 · VP9) lub *Smart TV* (MP4 · H.264), zapisywane jako Automatycznie, MP4, MKV lub WebM bez ponownego kodowania. HDR to *Automatycznie* (tylko gdy ekran potrafi go wyświetlić), *SDR* lub *HDR*",
   feat_privacy_h3: "Prywatność i kontrola",
   feat_privacy_1: "Przetwarzanie w 100% lokalne — pliki trafiają prosto z YouTube na Twój dysk",
   feat_privacy_2: "**Otwarty kod źródłowy** — każdą linię można sprawdzić, licencja MIT",
@@ -148,6 +149,14 @@ export const pl = {
   feat_workflow_14: "**Pobieranie pokazuje, co wymaga Twojej uwagi** — jeśli Arroxy nie może odczytać linku, jego wiersz podaje powód i proponuje rozwiązanie: Spróbuj ponownie, włącz cookie lub zaloguj się w Explore. Przy wyłączonych cookie **Zaloguj się przez Explore** ponowi próbę za Ciebie po zalogowaniu. Playlista dłuższa niż Twój limit wczytywania czeka w swoim wierszu, aż wybierzesz całość, pierwsze filmy lub przegląd. Karta Pobieranie liczy wiersze czekające na Ciebie",
   feat_workflow_15:
     "**Pobieraj tylko fragment filmu** — wybierz początek i koniec albo rozdział na ekranie Format, a Arroxy zapisze tylko ten zakres, dodając go do nazwy po identyfikatorze filmu. Cięcia trafiają w najbliższą klatkę kluczową; włącz dokładne cięcie, aby zamiast tego ponownie zakodować materiał",
+  feat_workflow_16:
+    "**Usuwaj ukończone pobierania** — opcjonalnie: ukończone pobieranie znika z listy po 5 sekundach. Jego pliki zostają na dysku, a nieudane pobierania pozostają na liście",
+  feat_workflow_17:
+    "**Rozmiar i Brak w sekcji Pobieranie** — sortowalna kolumna **Rozmiar** pokazuje, ile miejsca zajmuje każde pobieranie, a **Brak** oznacza pliki przeniesione lub usunięte poza Arroxy",
+  feat_workflow_18:
+    "**Aurora lub Minimalistyczny, ciemny lub jasny** — szklane panele na ruchomym niebie albo spokojne, jednolite powierzchnie; przełączasz je w stopce. Komputery bez akceleracji grafiki dostają Minimalistyczny automatycznie",
+  feat_workflow_19:
+    "**Pasek menu Maca** — w macOS otwórz Ustawienia (`Cmd+,`), ustaw limit prędkości pobierania, przełącz styl i motyw oraz otwórz dzienniki lub zapisz plik diagnostyczny z paska menu",
   feat_post_h3: "Napisy i obróbka końcowa",
   feat_post_1: "**Napisy** w SRT, VTT lub ASS — ręczne albo generowane automatycznie, w każdym dostępnym języku",
   feat_post_2: "Zapisuj obok filmu, osadzaj w `.mkv` albo porządkuj w podfolderze `Subtitles/`",

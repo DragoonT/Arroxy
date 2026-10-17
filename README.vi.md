@@ -88,6 +88,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 - **Tab Explore** — duyệt YouTube ngay trong Arroxy và tải những gì bạn tìm thấy mà không cần sao chép liên kết. **Tải xuống · *hồ sơ của bạn*** đưa video, danh sách phát hoặc kênh bạn đang xem vào hàng đợi; mũi tên bên cạnh để đổi hồ sơ, còn cây đũa phép mở trình tải từng bước để chọn định dạng, phụ đề, v.v.
 - **Nhấp chuột phải để tải** — nhấp chuột phải vào bất kỳ liên kết video, danh sách phát hoặc kênh nào trong Explore để tải bằng hồ sơ của bạn, chọn hồ sơ khác trong **Tải xuống với**, mở trình tải từng bước hoặc sao chép liên kết. Không cần mở từng video trước
+- **Bố cục thu gọn** — một cú nhấp trên thanh công cụ của Explore chuyển các tab của Arroxy vào đó và cho trang thêm không gian
 - **Thanh địa chỉ** — gõ để tìm kiếm trên YouTube hoặc dán một liên kết YouTube. Explore chỉ duyệt YouTube nên liên kết từ trang khác sẽ không mở ở đó, nhưng bạn có thể tải nó chỉ với một cú nhấp
 - **Tải video cần tài khoản** — đăng nhập một lần trong Explore là Arroxy có thể tải video riêng tư và video dành cho thành viên mà tài khoản của bạn xem được, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Arroxy vẫn tải khi chưa đăng nhập và chỉ dùng đăng nhập Explore của bạn khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục. Khi YouTube yêu cầu xác nhận bạn không phải robot, Arroxy cũng thử dùng đăng nhập Explore của bạn
 - **Dùng tài khoản phụ** — màn hình đầu tiên của Explore giải thích lý do: tải bằng tài khoản có một chút rủi ro tài khoản đó bị hạn chế. Hãy đăng xuất khỏi Explore trong Cài đặt bất cứ khi nào bạn muốn xóa thông tin đăng nhập
@@ -98,7 +99,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 - Lên tới **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Tốc độ khung hình cao** được giữ nguyên — 60 fps, 120 fps, HDR
 - **Âm thanh** — xuất chỉ âm thanh thành MP3, M4A/AAC, Opus hoặc WAV. Trong tải xuống tương tác, chọn các bản âm thanh surround/Dolby gốc của nguồn (AC-3, E-AC-3, 5.1, DRC) khi có sẵn, hoặc đặt mặc định toàn cục **Ưu tiên surround / Dolby**
-- Cài đặt nhanh: *Chất lượng tốt nhất* · *Cân bằng* · *File nhỏ*
+- **Hồ sơ theo mục tiêu** — *Hình ảnh đẹp nhất* (AV1 · VP9) hoặc *TV thông minh* (MP4 · H.264), lưu dưới dạng Tự động, MP4, MKV hoặc WebM mà không mã hóa lại. HDR là *Tự động* (chỉ khi màn hình của bạn hiển thị được), *SDR* hoặc *HDR*
 
 ### Quyền riêng tư & kiểm soát
 
@@ -123,6 +124,10 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 - **Quick Download chạy nền** — liên kết hiện ngay trong Tải xuống và được chuẩn bị tại đó, một thông báo có nút **Xem** xác nhận, và ô URL được xóa để nhập liên kết tiếp theo. Bạn có thể bắt đầu bao nhiêu lượt tùy ý trong khi các lượt trước vẫn đang chuẩn bị
 - **Tải xuống cho bạn biết điều gì cần bạn xử lý** — nếu Arroxy không đọc được một liên kết, dòng của nó nêu lý do và đề xuất cách khắc phục: Thử lại, bật cookie hoặc đăng nhập trong Explore. Khi cookie tắt, **Đăng nhập bằng Explore** sẽ thử lại giúp bạn sau khi bạn đã đăng nhập. Danh sách phát dài hơn giới hạn tải sẽ chờ trên dòng của nó để bạn chọn toàn bộ, vài video đầu, hoặc xem lại. Tab Tải xuống đếm số dòng đang chờ bạn
 - **Chỉ tải một đoạn của video** — chọn điểm bắt đầu và kết thúc, hoặc một chương, trên màn hình Format và Arroxy chỉ lưu đoạn đó, tên tệp ghi khoảng thời gian sau ID video. Điểm cắt rơi vào keyframe gần nhất; bật cắt chính xác để mã hóa lại thay vào đó
+- **Tự động gỡ các mục tải xuống đã xong** — tùy chọn: mục tải xuống đã xong sẽ rời khỏi danh sách sau 5 giây. Tệp của nó vẫn còn trên ổ đĩa, còn các mục tải xuống thất bại vẫn nằm trong danh sách
+- **Kích thước và Thiếu trong Tải xuống** — cột **Kích thước** có thể sắp xếp cho biết mỗi mục chiếm bao nhiêu dung lượng, còn **Thiếu** đánh dấu các tệp bị di chuyển hoặc xóa bên ngoài Arroxy
+- **Aurora hoặc Tối giản, tối hoặc sáng** — các bảng kính trên bầu trời chuyển động, hoặc các bề mặt đặc yên tĩnh; chuyển đổi từ chân trang. Máy tính không có tăng tốc đồ họa sẽ tự động dùng Tối giản
+- **Thanh menu Mac** — trên macOS, mở Cài đặt (`Cmd+,`), đặt giới hạn tốc độ tải, đổi kiểu và giao diện, rồi mở nhật ký hoặc lưu tệp chẩn đoán từ thanh menu
 
 ### Phụ đề & hậu xử lý
 

@@ -124,6 +124,7 @@ export const fr = {
   feat_explore_h3: "Explore : parcours YouTube dans Arroxy",
   feat_explore_1: "**Onglet Explore** — parcours YouTube dans Arroxy et télécharge ce que tu trouves sans copier de liens. **Télécharger · *ton profil*** met en file la vidéo, la playlist ou la chaîne que tu regardes ; la flèche à côté change de profil, et la baguette ouvre le téléchargement pas à pas pour choisir les formats, les sous-titres, etc.",
   feat_explore_6: "**Clic droit pour télécharger** — fais un clic droit sur n'importe quel lien de vidéo, de playlist ou de chaîne dans Explore pour le télécharger avec ton profil, choisir un autre profil dans **Télécharger avec**, ouvrir le téléchargement pas à pas ou copier le lien. Inutile d'ouvrir chaque vidéo d'abord",
+  feat_explore_7: "**Disposition compacte** — un clic dans la barre d'outils d'Explore y déplace les onglets d'Arroxy et donne plus de place à la page",
   feat_explore_2: "**Barre d'adresse** — tape pour chercher sur YouTube ou colle un lien YouTube. Explore ne parcourt que YouTube : un lien d'un autre site ne s'y ouvre pas, mais tu peux le télécharger en un clic",
   feat_explore_3: "**Téléchargements qui demandent un compte** — connecte-toi une fois dans Explore et Arroxy pourra télécharger les vidéos privées et réservées aux membres que ton compte peut voir, les vidéos soumises à une limite d'âge si l'âge du compte est vérifié, ainsi que tes listes À regarder plus tard et J'aime. Arroxy télécharge toujours sans connexion et n'utilise ta connexion Explore que lorsqu'un téléchargement échoue d'une manière qu'un compte peut corriger. Quand YouTube demande de confirmer que tu n'es pas un robot, Arroxy essaie aussi ta connexion Explore",
   feat_explore_4: "**Utilise un compte secondaire** — le premier écran d'Explore explique pourquoi : télécharger avec un compte comporte un certain risque que ce compte soit restreint. Déconnecte-toi d'Explore depuis les Paramètres quand tu veux oublier la connexion",
@@ -134,7 +135,7 @@ export const fr = {
   feat_quality_3:
     "**Audio** — exporte l'audio seul en MP3, M4A/AAC, Opus ou WAV. Dans les téléchargements interactifs, choisis les pistes natives surround/Dolby de la source (AC-3, E-AC-3, 5.1, DRC) quand elles sont disponibles, ou définis une valeur par défaut globale **Préférer le surround / Dolby**",
   feat_quality_4:
-    "Préréglages rapides : *Meilleure qualité* · *Équilibré* · *Petit fichier*",
+    "**Des profils avec un objectif** — *Meilleure image* (AV1 · VP9) ou *TV connectée* (MP4 · H.264), enregistrés en Auto, MP4, MKV ou WebM sans réencodage. Le HDR est *Auto* (seulement si ton écran peut l'afficher), *SDR* ou *HDR*",
   feat_privacy_h3: "Confidentialité & contrôle",
   feat_privacy_1:
     "Traitement 100 % local — les téléchargements vont directement de YouTube à ton disque",
@@ -168,6 +169,14 @@ export const fr = {
   feat_workflow_14: "**Téléchargements te dit ce qui a besoin de toi** — si Arroxy ne peut pas lire un lien, sa ligne explique pourquoi et propose la solution : Réessayer, activer les cookies ou se connecter dans Explore. Quand les cookies sont désactivés, **Se connecter avec Explore** le relance pour toi une fois connecté. Une playlist plus longue que ta limite de chargement attend sur sa ligne que tu choisisses tout, les premières vidéos ou une revue. L'onglet Téléchargements compte les lignes qui t'attendent",
   feat_workflow_15:
     "**Téléchargez seulement une partie d'une vidéo** : choisissez un début et une fin, ou un chapitre, sur l'écran Format et Arroxy n'enregistre que cet intervalle, indiqué dans le nom après l'identifiant de la vidéo. Les coupes tombent sur l'image clé la plus proche ; activez la coupe exacte pour réencoder à la place",
+  feat_workflow_16:
+    "**Retirer les téléchargements terminés** — facultatif : un téléchargement terminé quitte la liste 5 secondes plus tard. Ses fichiers restent sur le disque, et les téléchargements en échec restent listés",
+  feat_workflow_17:
+    "**Taille et Manquant dans Téléchargements** — une colonne **Taille** triable indique l'espace pris par chaque téléchargement, et **Manquant** signale les fichiers déplacés ou supprimés en dehors d'Arroxy",
+  feat_workflow_18:
+    "**Aurora ou Minimaliste, sombre ou clair** — des panneaux de verre sur un ciel en mouvement, ou des surfaces pleines et discrètes ; bascule depuis le pied de page. Les ordinateurs sans accélération graphique passent automatiquement en Minimaliste",
+  feat_workflow_19:
+    "**Barre des menus du Mac** — sous macOS, ouvre les Réglages (`Cmd+,`), règle la limite de vitesse de téléchargement, change le style et le thème, et ouvre les journaux ou enregistre un fichier de diagnostic depuis la barre des menus",
   feat_post_h3: "Sous-titres & post-traitement",
   feat_post_1:
     "**Sous-titres** en SRT, VTT ou ASS — manuels ou auto-générés, dans toute langue disponible",

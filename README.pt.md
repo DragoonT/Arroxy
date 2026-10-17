@@ -90,6 +90,7 @@ Se o Arroxy economiza seu tempo, uma ⭐ ajuda outras pessoas a encontrá-lo.
 
 - **Aba Explore** — navegue pelo YouTube dentro do Arroxy e baixe o que encontrar sem copiar links. **Baixar · *seu perfil*** coloca na fila o vídeo, a playlist ou o canal que você está vendo; a seta ao lado troca de perfil, e a varinha abre o download passo a passo para escolher formatos, legendas e mais
 - **Clique direito para baixar** — clique com o botão direito em qualquer link de vídeo, playlist ou canal no Explore para baixá-lo com seu perfil, escolher outro perfil em **Baixar com**, abrir o download passo a passo ou copiar o link. Não é preciso abrir cada vídeo antes
+- **Layout compacto** — um clique na barra de ferramentas do Explore move as abas do Arroxy para dentro dela e dá mais espaço à página
 - **Barra de endereço** — digite para pesquisar no YouTube ou cole um link do YouTube. O Explore só navega pelo YouTube, então um link de outro site não é aberto ali, mas você pode baixá-lo com um clique
 - **Downloads que precisam de uma conta** — entre uma vez no Explore e o Arroxy poderá baixar vídeos privados e exclusivos para membros que a sua conta consiga assistir, vídeos com restrição de idade se a idade da conta for verificada, e as suas listas Assistir mais tarde e Curtidos. O Arroxy continua baixando sem login e só usa o seu login do Explore quando um download falha de um jeito que uma conta pode resolver. Quando o YouTube pede para confirmar que você não é um robô, o Arroxy também tenta o seu login do Explore
 - **Use uma conta secundária** — a primeira tela do Explore explica o motivo: baixar com uma conta traz algum risco de essa conta ser restringida. Saia do Explore pelas configurações sempre que quiser esquecer o login
@@ -100,7 +101,7 @@ Se o Arroxy economiza seu tempo, uma ⭐ ajuda outras pessoas a encontrá-lo.
 - Até **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Alta taxa de quadros** preservada como está — 60 fps, 120 fps, HDR
 - **Áudio** — exporte apenas o áudio como MP3, M4A/AAC, Opus ou WAV. Nos downloads interativos, escolha as faixas surround/Dolby nativas da fonte (AC-3, E-AC-3, 5.1, DRC) quando existirem, ou defina um padrão global de **Preferir surround / Dolby**
-- Predefinições rápidas: *Melhor qualidade* · *Equilibrado* · *Arquivo pequeno*
+- **Perfis com um objetivo** — *Melhor imagem* (AV1 · VP9) ou *Smart TV* (MP4 · H.264), salvos como Automático, MP4, MKV ou WebM sem recodificar. O HDR é *Automática* (só quando sua tela consegue exibi-lo), *SDR* ou *HDR*
 
 ### Privacidade e controle
 
@@ -125,6 +126,10 @@ Se o Arroxy economiza seu tempo, uma ⭐ ajuda outras pessoas a encontrá-lo.
 - **O Quick Download funciona em segundo plano** — o link aparece na hora em Downloads e é preparado ali, uma nota com **Ver** confirma, e o campo de URL é limpo para o próximo link. Inicie quantos quiser enquanto os anteriores são preparados
 - **Downloads mostra o que precisa de você** — se o Arroxy não consegue ler um link, a linha dele diz o motivo e oferece a solução: Tentar novamente, ativar os cookies ou entrar no Explore. Com os cookies desativados, **Entrar com o Explore** tenta de novo por você assim que você entrar. Uma playlist maior que o seu limite de carregamento espera na própria linha até você escolher toda ela, os primeiros vídeos ou uma revisão. A aba Downloads conta as linhas que esperam por você
 - **Baixe apenas um trecho do vídeo** — escolha um início e um fim, ou um capítulo, na tela Formato e o Arroxy salva só esse intervalo, com o intervalo no nome depois do id do vídeo. Os cortes caem no keyframe mais próximo; ative o corte exato para recodificar em vez disso
+- **Remover downloads concluídos automaticamente** — opcional: um download concluído sai da lista 5 segundos depois. Os arquivos continuam no disco, e downloads com falha continuam na lista
+- **Tamanho e Ausente em Downloads** — uma coluna **Tamanho** ordenável mostra quanto espaço cada download ocupa, e **Ausente** sinaliza arquivos movidos ou excluídos fora do Arroxy
+- **Aurora ou Minimalista, escuro ou claro** — painéis de vidro sobre um céu em movimento, ou superfícies sólidas e discretas; alterne pelo rodapé. Computadores sem aceleração gráfica recebem Minimalista automaticamente
+- **Barra de menus do Mac** — no macOS, abra as Configurações (`Cmd+,`), defina o limite de velocidade de download, alterne estilo e tema e abra os logs ou salve um arquivo de diagnóstico pela barra de menus
 
 ### Legendas e pós-processamento
 

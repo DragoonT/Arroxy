@@ -33,6 +33,7 @@ export const id = {
   "feat_explore_h3": "Explore: jelajahi YouTube di dalam Arroxy",
   "feat_explore_1": "**Tab Explore** — jelajahi YouTube di dalam Arroxy dan unduh yang Anda temukan tanpa menyalin tautan. **Unduh · *profil Anda*** memasukkan video, daftar putar, atau saluran yang sedang Anda lihat ke antrean; panah di sebelahnya mengganti profil, dan tongkat sihir membuka unduhan langkah demi langkah untuk memilih format, subtitle, dan lainnya",
   "feat_explore_6": "**Klik kanan untuk mengunduh** — klik kanan tautan video, daftar putar, atau saluran mana pun di Explore untuk mengunduhnya dengan profil Anda, memilih profil lain dari **Unduh dengan**, membuka unduhan langkah demi langkah, atau menyalin tautan. Anda tidak perlu membuka setiap video terlebih dahulu",
+  "feat_explore_7": "**Tata letak ringkas** — satu klik di bilah alat Explore memindahkan tab Arroxy ke sana dan memberi halaman lebih banyak ruang",
   "feat_explore_2": "**Bilah alamat** — ketik untuk mencari di YouTube atau tempel tautan YouTube. Explore hanya menjelajahi YouTube, jadi tautan dari situs lain tidak dibuka di sana, tetapi Anda bisa mengunduhnya dengan satu klik",
   "feat_explore_3": "**Unduhan yang memerlukan akun** — masuk sekali di Explore dan Arroxy dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Arroxy tetap mengunduh tanpa masuk dan hanya memakai login Explore Anda saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda",
   "feat_explore_4": "**Gunakan akun sekunder** — layar pertama Explore menjelaskan alasannya: mengunduh dengan akun membawa risiko tertentu akun tersebut dibatasi. Keluar dari Explore lewat Pengaturan kapan pun Anda ingin melupakan login",
@@ -41,7 +42,7 @@ export const id = {
   "feat_quality_1": "Hingga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   "feat_quality_2": "**Kecepatan frame tinggi** dipertahankan apa adanya — 60 fps, 120 fps, HDR",
   "feat_quality_3": "**Audio** — mengekspor audio saja sebagai MP3, M4A/AAC, Opus, atau WAV. Dalam download interaktif, pilih trek surround/Dolby asli sumber (AC-3, E-AC-3, 5.1, DRC) bila tersedia, atau atur global **Prefer surround / Dolby** default",
-  "feat_quality_4": "Preset cepat: *Kualitas terbaik* · *Seimbang* · *File kecil*",
+  "feat_quality_4": "**Profil dengan tujuan** — *Gambar terbaik* (AV1 · VP9) atau *TV Pintar* (MP4 · H.264), disimpan sebagai Otomatis, MP4, MKV, atau WebM tanpa encode ulang. HDR adalah *Otomatis* (hanya jika layar Anda bisa menampilkannya), *SDR*, atau *HDR*",
   "feat_privacy_h3": "Privasi & kontrol",
   "feat_privacy_1": "100% pemrosesan lokal — pengunduhan langsung dari YouTube ke disk Anda",
   "feat_privacy_2": "**Sumber terbuka** — setiap baris dapat diaudit, berlisensi MIT",
@@ -63,6 +64,14 @@ export const id = {
   "feat_workflow_14": "**Unduhan memberi tahu apa yang butuh perhatian Anda** — jika Arroxy tidak bisa membaca tautan, barisnya menjelaskan alasannya dan menawarkan solusi: Coba lagi, aktifkan cookie, atau masuk di Explore. Saat cookie nonaktif, **Masuk dengan Explore** mencobanya lagi untuk Anda setelah Anda masuk. Playlist yang lebih panjang dari batas muat Anda menunggu di barisnya sampai Anda memilih semuanya, beberapa yang pertama, atau meninjau. Tab Unduhan menghitung baris yang menunggu Anda",
   "feat_workflow_15":
     "**Unduh hanya sebagian video** — pilih waktu mulai dan selesai, atau sebuah bab, di layar Format dan Arroxy hanya menyimpan rentang itu, dengan rentangnya dicantumkan pada nama setelah id video. Potongan jatuh di keyframe terdekat; aktifkan potongan tepat untuk encode ulang",
+  "feat_workflow_16":
+    "**Hapus otomatis unduhan yang selesai** — opsional: unduhan yang selesai keluar dari daftar 5 detik kemudian. Filenya tetap ada di disk, dan unduhan yang gagal tetap tercantum",
+  "feat_workflow_17":
+    "**Ukuran dan Hilang di Unduhan** — kolom **Ukuran** yang dapat diurutkan menunjukkan ruang yang dipakai tiap unduhan, dan **Hilang** menandai file yang dipindahkan atau dihapus di luar Arroxy",
+  "feat_workflow_18":
+    "**Aurora atau Minimalis, gelap atau terang** — panel kaca di atas langit yang bergerak, atau permukaan solid yang tenang; ganti dari footer. Komputer tanpa akselerasi grafis otomatis mendapat Minimalis",
+  "feat_workflow_19":
+    "**Bilah menu Mac** — di macOS, buka Pengaturan (`Cmd+,`), atur batas kecepatan unduh, ganti gaya dan tema, serta buka log atau simpan file diagnostik dari bilah menu",
   "feat_post_h3": "Subtitle & pasca-pemrosesan",
   "feat_post_1": "**Subtitel** dalam SRT, VTT, atau ASS — dibuat secara manual atau otomatis, dalam bahasa apa pun yang tersedia",
   "feat_post_2": "Simpan di samping video, sematkan ke `.mkv`, atau atur ke dalam subfolder `Subtitles/`",

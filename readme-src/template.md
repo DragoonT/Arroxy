@@ -90,6 +90,7 @@
 
 - {{feat_explore_1}}
 - {{feat_explore_6}}
+- {{feat_explore_7}}
 - {{feat_explore_2}}
 - {{feat_explore_3}}
 - {{feat_explore_4}}
@@ -125,6 +126,10 @@
 - {{feat_workflow_13}}
 - {{feat_workflow_14}}
 - {{feat_workflow_15}}
+- {{feat_workflow_16}}
+- {{feat_workflow_17}}
+- {{feat_workflow_18}}
+- {{feat_workflow_19}}
 
 ### {{feat_post_h3}}
 

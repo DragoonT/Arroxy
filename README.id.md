@@ -90,6 +90,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 - **Tab Explore** — jelajahi YouTube di dalam Arroxy dan unduh yang Anda temukan tanpa menyalin tautan. **Unduh · *profil Anda*** memasukkan video, daftar putar, atau saluran yang sedang Anda lihat ke antrean; panah di sebelahnya mengganti profil, dan tongkat sihir membuka unduhan langkah demi langkah untuk memilih format, subtitle, dan lainnya
 - **Klik kanan untuk mengunduh** — klik kanan tautan video, daftar putar, atau saluran mana pun di Explore untuk mengunduhnya dengan profil Anda, memilih profil lain dari **Unduh dengan**, membuka unduhan langkah demi langkah, atau menyalin tautan. Anda tidak perlu membuka setiap video terlebih dahulu
+- **Tata letak ringkas** — satu klik di bilah alat Explore memindahkan tab Arroxy ke sana dan memberi halaman lebih banyak ruang
 - **Bilah alamat** — ketik untuk mencari di YouTube atau tempel tautan YouTube. Explore hanya menjelajahi YouTube, jadi tautan dari situs lain tidak dibuka di sana, tetapi Anda bisa mengunduhnya dengan satu klik
 - **Unduhan yang memerlukan akun** — masuk sekali di Explore dan Arroxy dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Arroxy tetap mengunduh tanpa masuk dan hanya memakai login Explore Anda saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda
 - **Gunakan akun sekunder** — layar pertama Explore menjelaskan alasannya: mengunduh dengan akun membawa risiko tertentu akun tersebut dibatasi. Keluar dari Explore lewat Pengaturan kapan pun Anda ingin melupakan login
@@ -100,7 +101,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - Hingga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Kecepatan frame tinggi** dipertahankan apa adanya — 60 fps, 120 fps, HDR
 - **Audio** — mengekspor audio saja sebagai MP3, M4A/AAC, Opus, atau WAV. Dalam download interaktif, pilih trek surround/Dolby asli sumber (AC-3, E-AC-3, 5.1, DRC) bila tersedia, atau atur global **Prefer surround / Dolby** default
-- Preset cepat: *Kualitas terbaik* · *Seimbang* · *File kecil*
+- **Profil dengan tujuan** — *Gambar terbaik* (AV1 · VP9) atau *TV Pintar* (MP4 · H.264), disimpan sebagai Otomatis, MP4, MKV, atau WebM tanpa encode ulang. HDR adalah *Otomatis* (hanya jika layar Anda bisa menampilkannya), *SDR*, atau *HDR*
 
 ### Privasi & kontrol
 
@@ -125,6 +126,10 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - **Unduh Cepat berjalan di latar belakang** — tautan langsung muncul di Unduhan dan disiapkan di sana, catatan dengan **Lihat** mengonfirmasinya, dan kolom URL dikosongkan untuk tautan berikutnya. Mulai sebanyak yang Anda mau selagi yang sebelumnya disiapkan
 - **Unduhan memberi tahu apa yang butuh perhatian Anda** — jika Arroxy tidak bisa membaca tautan, barisnya menjelaskan alasannya dan menawarkan solusi: Coba lagi, aktifkan cookie, atau masuk di Explore. Saat cookie nonaktif, **Masuk dengan Explore** mencobanya lagi untuk Anda setelah Anda masuk. Playlist yang lebih panjang dari batas muat Anda menunggu di barisnya sampai Anda memilih semuanya, beberapa yang pertama, atau meninjau. Tab Unduhan menghitung baris yang menunggu Anda
 - **Unduh hanya sebagian video** — pilih waktu mulai dan selesai, atau sebuah bab, di layar Format dan Arroxy hanya menyimpan rentang itu, dengan rentangnya dicantumkan pada nama setelah id video. Potongan jatuh di keyframe terdekat; aktifkan potongan tepat untuk encode ulang
+- **Hapus otomatis unduhan yang selesai** — opsional: unduhan yang selesai keluar dari daftar 5 detik kemudian. Filenya tetap ada di disk, dan unduhan yang gagal tetap tercantum
+- **Ukuran dan Hilang di Unduhan** — kolom **Ukuran** yang dapat diurutkan menunjukkan ruang yang dipakai tiap unduhan, dan **Hilang** menandai file yang dipindahkan atau dihapus di luar Arroxy
+- **Aurora atau Minimalis, gelap atau terang** — panel kaca di atas langit yang bergerak, atau permukaan solid yang tenang; ganti dari footer. Komputer tanpa akselerasi grafis otomatis mendapat Minimalis
+- **Bilah menu Mac** — di macOS, buka Pengaturan (`Cmd+,`), atur batas kecepatan unduh, ganti gaya dan tema, serta buka log atau simpan file diagnostik dari bilah menu
 
 ### Subtitle & pasca-pemrosesan
 

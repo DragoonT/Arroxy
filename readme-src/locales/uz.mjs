@@ -122,6 +122,8 @@ export const uz = {
   feat_explore_h3: "Explore: YouTube'ni Arroxy ichida ko'rib chiqing",
   feat_explore_1: "**Explore bo'limi** — YouTube'ni Arroxy ichida ko'rib chiqing va topganingizni havola nusxalamasdan yuklab oling. **Yuklab olish · *profilingiz*** siz ko'rayotgan video, pleylist yoki kanalni navbatga qo'yadi; yonidagi o'q profilni almashtiradi, sehrli tayoqcha esa format, subtitr va boshqalarni tanlash uchun bosqichma-bosqich yuklab olishni ochadi",
   feat_explore_6: "**O'ng tugma bilan yuklab olish** — Explore'dagi istalgan video, pleylist yoki kanal havolasini o'ng tugma bilan bosib, uni profilingiz bilan yuklab oling, **Profil bilan yuklab olish** orqali boshqa profilni tanlang, bosqichma-bosqich yuklab olishni oching yoki havolani nusxalang. Har bir videoni avval ochish shart emas",
+  feat_explore_7:
+    "**Ixcham ko'rinish** — Explore asboblar panelidagi bir bosish Arroxy'ning yorliqlarini unga ko'chiradi va sahifaga ko'proq joy beradi",
   feat_explore_2: "**Manzil satri** — YouTube'da qidirish uchun yozing yoki YouTube havolasini joylang. Explore faqat YouTube'ni ko'rsatadi, shuning uchun boshqa saytdan olingan havola u yerda ochilmaydi, lekin uni bir bosishda yuklab olishingiz mumkin",
   feat_explore_3: "**Hisob talab qiladigan yuklamalar** — Explore'da bir marta tizimga kiring, shunda Arroxy hisobingiz ko'ra oladigan yopiq va faqat a'zolar uchun videolarni, hisob yoshi tasdiqlangan bo'lsa yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni yuklab oladi. Arroxy baribir tizimga kirmasdan yuklaydi va Explore orqali kirishingizdan faqat yuklab olish hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda foydalanadi. YouTube robot emasligingizni tasdiqlashni so'rasa, Arroxy Explore orqali kirishingizni ham sinab ko'radi",
   feat_explore_4: "**Qo'shimcha hisobdan foydalaning** — Explore'ning birinchi ekrani sababini tushuntiradi: hisob bilan yuklab olish o'sha hisob cheklanishi xavfini keltiradi. Kirishni unutmoqchi bo'lsangiz, istalgan payt Sozlamalardan Explore'dan chiqing",
@@ -133,7 +135,7 @@ export const uz = {
   feat_quality_3:
     "**Audio** — faqat audioni MP3, M4A/AAC, Opus yoki WAV sifatida eksport qiling. Interaktiv yuklab olishlarda mavjud bo'lganda manbaning asl surround/Dolby treklarini (AC-3, E-AC-3, 5.1, DRC) tanlang yoki global **Surround / Dolbyni afzal ko'rish** standartini o'rnating",
   feat_quality_4:
-    "Tezkor sozlamalar: *Eng yaxshi sifat* · *Muvozanatli* · *Kichik fayl*",
+    "**Maqsadli profillar** — *Eng yaxshi tasvir* (AV1 · VP9) yoki *Aqlli TV* (MP4 · H.264), qayta kodlashsiz Avto, MP4, MKV yoki WebM sifatida saqlanadi. HDR — *Avto* (faqat ekraningiz uni ko'rsata olsa), *SDR* yoki *HDR*",
   feat_privacy_h3: "Maxfiylik va nazorat",
   feat_privacy_1:
     "100% mahalliy qayta ishlash — yuklamalar YouTube'dan to'g'ridan-to'g'ri diskingizga boradi",
@@ -166,6 +168,14 @@ export const uz = {
   feat_workflow_14: "**Yuklamalar nimaga e'tibor kerakligini aytadi** — Arroxy havolani o'qiy olmasa, uning qatori sababini aytadi va yechimni taklif qiladi: Qayta urinish, kukilarni yoqish yoki Explore'da kirish. Kukilar o'chiq bo'lsa, **Explore orqali kirish** tizimga kirganingizdan keyin buni siz uchun qayta urinadi. Yuklash limitingizdan uzun pleylist o'z qatorida kutadi, siz hammasini, birinchilarini yoki ko'rib chiqishni tanlaysiz. Yuklamalar bo'limi sizni kutayotgan qatorlarni sanaydi",
   feat_workflow_15:
     "**Videoning faqat bir qismini yuklab oling** — Format ekranida boshi va oxirini yoki bobni tanlang, Arroxy faqat shu oraliqni saqlaydi, fayl nomida video ID dan keyin oraliq ko'rsatiladi. Kesimlar eng yaqin keyframega tushadi; buning o'rniga qayta kodlash uchun aniq kesishni yoqing",
+  feat_workflow_16:
+    "**Tugallangan yuklamalarni avtomatik olib tashlash** — ixtiyoriy: tugallangan yuklama 5 soniyadan keyin ro'yxatdan chiqadi. Fayllari diskda qoladi, muvaffaqiyatsiz yuklamalar esa ro'yxatda qoladi",
+  feat_workflow_17:
+    "**Yuklamalarda Hajm va Yo‘q** — saralash mumkin bo'lgan **Hajm** ustuni har bir yuklama qancha joy egallashini ko'rsatadi, **Yo‘q** esa Arroxy'dan tashqarida ko'chirilgan yoki o'chirilgan fayllarni belgilaydi",
+  feat_workflow_18:
+    "**Aurora yoki Minimalistik, qorong'i yoki yorug'** — harakatlanuvchi osmon ustidagi shisha panellar yoki sokin yaxlit sirtlar; pastki qatordan almashtiring. Grafik tezlatgichsiz kompyuterlar avtomatik ravishda Minimalistik rejimni oladi",
+  feat_workflow_19:
+    "**Mac menyu paneli** — macOS'da menyu panelidan Sozlamalarni (`Cmd+,`) oching, yuklab olish tezligi chegarasini belgilang, uslub va mavzuni almashtiring, jurnallarni oching yoki diagnostika faylini saqlang",
   feat_post_h3: "Subtitrlar va keyingi qayta ishlash",
   feat_post_1:
     "**Subtitrlar** SRT, VTT yoki ASS formatida — qo'lda yoki avtomatik yaratilgan, istalgan mavjud tilda",
