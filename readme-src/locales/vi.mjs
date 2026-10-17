@@ -124,6 +124,8 @@ export const vi = {
   feat_explore_1:
     "**Tab Explore** — duyệt YouTube ngay trong Arroxy và tải những gì bạn tìm thấy mà không cần sao chép liên kết. **Tải xuống · *hồ sơ của bạn*** đưa video, danh sách phát hoặc kênh bạn đang xem vào hàng đợi; mũi tên bên cạnh để đổi hồ sơ, còn cây đũa phép mở trình tải từng bước để chọn định dạng, phụ đề, v.v.",
   feat_explore_6: "**Nhấp chuột phải để tải** — nhấp chuột phải vào bất kỳ liên kết video, danh sách phát hoặc kênh nào trong Explore để tải bằng hồ sơ của bạn, chọn hồ sơ khác trong **Tải xuống với**, mở trình tải từng bước hoặc sao chép liên kết. Không cần mở từng video trước",
+  feat_explore_7:
+    "**Bố cục thu gọn** — một cú nhấp trên thanh công cụ của Explore chuyển các tab của Arroxy vào đó và cho trang thêm không gian",
   feat_explore_2:
     "**Thanh địa chỉ** — gõ để tìm kiếm trên YouTube hoặc dán một liên kết YouTube. Explore chỉ duyệt YouTube nên liên kết từ trang khác sẽ không mở ở đó, nhưng bạn có thể tải nó chỉ với một cú nhấp",
   feat_explore_3:
@@ -139,7 +141,7 @@ export const vi = {
   feat_quality_3:
     "**Âm thanh** — xuất chỉ âm thanh thành MP3, M4A/AAC, Opus hoặc WAV. Trong tải xuống tương tác, chọn các bản âm thanh surround/Dolby gốc của nguồn (AC-3, E-AC-3, 5.1, DRC) khi có sẵn, hoặc đặt mặc định toàn cục **Ưu tiên surround / Dolby**",
   feat_quality_4:
-    "Cài đặt nhanh: *Chất lượng tốt nhất* · *Cân bằng* · *File nhỏ*",
+    "**Hồ sơ theo mục tiêu** — *Hình ảnh đẹp nhất* (AV1 · VP9) hoặc *TV thông minh* (MP4 · H.264), lưu dưới dạng Tự động, MP4, MKV hoặc WebM mà không mã hóa lại. HDR là *Tự động* (chỉ khi màn hình của bạn hiển thị được), *SDR* hoặc *HDR*",
   feat_privacy_h3: "Quyền riêng tư & kiểm soát",
   feat_privacy_1:
     "Xử lý 100% cục bộ — tải xuống trực tiếp từ YouTube đến ổ đĩa của bạn",
@@ -176,6 +178,14 @@ export const vi = {
     "**Tải xuống cho bạn biết điều gì cần bạn xử lý** — nếu Arroxy không đọc được một liên kết, dòng của nó nêu lý do và đề xuất cách khắc phục: Thử lại, bật cookie hoặc đăng nhập trong Explore. Khi cookie tắt, **Đăng nhập bằng Explore** sẽ thử lại giúp bạn sau khi bạn đã đăng nhập. Danh sách phát dài hơn giới hạn tải sẽ chờ trên dòng của nó để bạn chọn toàn bộ, vài video đầu, hoặc xem lại. Tab Tải xuống đếm số dòng đang chờ bạn",
   feat_workflow_15:
     "**Chỉ tải một đoạn của video** — chọn điểm bắt đầu và kết thúc, hoặc một chương, trên màn hình Format và Arroxy chỉ lưu đoạn đó, tên tệp ghi khoảng thời gian sau ID video. Điểm cắt rơi vào keyframe gần nhất; bật cắt chính xác để mã hóa lại thay vào đó",
+  feat_workflow_16:
+    "**Tự động gỡ các mục tải xuống đã xong** — tùy chọn: mục tải xuống đã xong sẽ rời khỏi danh sách sau 5 giây. Tệp của nó vẫn còn trên ổ đĩa, còn các mục tải xuống thất bại vẫn nằm trong danh sách",
+  feat_workflow_17:
+    "**Kích thước và Thiếu trong Tải xuống** — cột **Kích thước** có thể sắp xếp cho biết mỗi mục chiếm bao nhiêu dung lượng, còn **Thiếu** đánh dấu các tệp bị di chuyển hoặc xóa bên ngoài Arroxy",
+  feat_workflow_18:
+    "**Aurora hoặc Tối giản, tối hoặc sáng** — các bảng kính trên bầu trời chuyển động, hoặc các bề mặt đặc yên tĩnh; chuyển đổi từ chân trang. Máy tính không có tăng tốc đồ họa sẽ tự động dùng Tối giản",
+  feat_workflow_19:
+    "**Thanh menu Mac** — trên macOS, mở Cài đặt (`Cmd+,`), đặt giới hạn tốc độ tải, đổi kiểu và giao diện, rồi mở nhật ký hoặc lưu tệp chẩn đoán từ thanh menu",
   feat_post_h3: "Phụ đề & hậu xử lý",
   feat_post_1:
     "**Phụ đề** dạng SRT, VTT hoặc ASS — thủ công hoặc tự tạo, trong bất kỳ ngôn ngữ nào có sẵn",

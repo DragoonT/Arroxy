@@ -90,6 +90,7 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 
 - **Explore-Tab** — durchstöbere YouTube direkt in Arroxy und lade herunter, was du findest, ohne Links zu kopieren. **Download · *dein Profil*** stellt das Video, die Playlist oder den Kanal, den du gerade ansiehst, in die Warteschlange; mit dem Pfeil daneben wechselst du das Profil, und der Zauberstab öffnet den Schritt-für-Schritt-Download für Formate, Untertitel und mehr
 - **Per Rechtsklick herunterladen** — klicke in Explore mit der rechten Maustaste auf einen Video-, Playlist- oder Kanal-Link, um ihn mit deinem Profil herunterzuladen, unter **Download mit** ein anderes Profil zu wählen, den Schritt-für-Schritt-Download zu öffnen oder den Link zu kopieren. Du musst nicht erst jedes Video öffnen
+- **Kompaktes Layout** — ein Klick in der Symbolleiste von Explore verschiebt die Tabs von Arroxy dorthin und gibt der Seite mehr Platz
 - **Adressleiste** — tippe, um YouTube zu durchsuchen, oder füge einen YouTube-Link ein. Explore durchstöbert nur YouTube, daher wird ein Link von einer anderen Seite dort nicht geöffnet, lässt sich aber mit einem Klick herunterladen
 - **Downloads, die ein Konto brauchen** — melde dich einmal in Explore an, und Arroxy kann private und Mitglieder-Videos laden, die dein Konto ansehen darf, altersbeschränkte Videos, wenn das Konto altersverifiziert ist, sowie deine Listen „Später ansehen“ und „Gefällt mir“. Arroxy lädt weiterhin abgemeldet und nutzt deine Explore-Anmeldung nur, wenn ein Download auf eine Weise scheitert, die ein Konto beheben kann. Wenn YouTube verlangt zu bestätigen, dass du kein Bot bist, probiert Arroxy ebenfalls deine Explore-Anmeldung
 - **Nutze ein Zweitkonto** — der erste Bildschirm von Explore erklärt, warum: Das Herunterladen mit einem Konto birgt ein gewisses Risiko, dass dieses Konto eingeschränkt wird. Melde dich in den Einstellungen von Explore ab, wann immer du die Anmeldung vergessen lassen willst
@@ -100,7 +101,7 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 - Bis zu **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR
 - **Audio** — Audio-only als MP3, M4A/AAC, Opus oder WAV exportieren. In interaktiven Downloads die nativen Surround-/Dolby-Spuren der Quelle (AC-3, E-AC-3, 5.1, DRC) auswählen, sofern verfügbar, oder einen globalen Standard **Surround / Dolby bevorzugen** setzen
-- Schnell-Presets: *Beste Qualität* · *Ausgewogen* · *Kleine Datei*
+- **Profile mit Ziel** — *Bestes Bild* (AV1 · VP9) oder *Smart-TV* (MP4 · H.264), gespeichert als Auto, MP4, MKV oder WebM ohne Neukodierung. HDR ist *Auto* (nur wenn dein Bildschirm es anzeigen kann), *SDR* oder *HDR*
 
 ### Datenschutz & Kontrolle
 
@@ -125,6 +126,10 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 - **Quick Download läuft im Hintergrund** — der Link erscheint sofort in Downloads und wird dort vorbereitet, ein Hinweis mit **Ansehen** bestätigt es, und das URL-Feld leert sich für den nächsten Link. Starte beliebig viele, während frühere noch vorbereitet werden
 - **Downloads zeigt, was dich braucht** — wenn Arroxy einen Link nicht lesen kann, nennt seine Zeile den Grund und bietet die Lösung an: Erneut versuchen, Cookies einschalten oder in Explore anmelden. Bei ausgeschalteten Cookies versucht **Mit Explore anmelden** es für dich erneut, sobald du angemeldet bist. Eine Playlist, die länger als dein Ladelimit ist, wartet in ihrer Zeile darauf, dass du alles, die ersten Videos oder eine Prüfung wählst. Der Downloads-Tab zählt die Zeilen, die auf dich warten
 - **Nur einen Teil eines Videos herunterladen** — wähle auf dem Format-Bildschirm Start und Ende oder ein Kapitel, und Arroxy speichert nur diesen Bereich, benannt mit dem Bereich nach der Video-ID. Schnitte landen am nächstgelegenen Keyframe; aktiviere stattdessen den exakten Schnitt, um neu zu kodieren
+- **Fertige Downloads automatisch entfernen** — optional: Ein fertiger Download verschwindet 5 Sekunden später aus der Liste. Seine Dateien bleiben auf der Festplatte, und fehlgeschlagene Downloads bleiben gelistet
+- **Größe und Fehlt in Downloads** — eine sortierbare Spalte **Größe** zeigt, wie viel Platz jeder Download belegt, und **Fehlt** markiert Dateien, die außerhalb von Arroxy verschoben oder gelöscht wurden
+- **Aurora oder Minimal, dunkel oder hell** — Glasflächen über einem bewegten Himmel oder ruhige, einfarbige Flächen; wechsle in der Fußzeile. Computer ohne Grafikbeschleunigung bekommen automatisch Minimal
+- **Mac-Menüleiste** — öffne unter macOS die Einstellungen (`Cmd+,`), lege das Download-Geschwindigkeitslimit fest, wechsle Stil und Farbschema und öffne Protokolle oder speichere eine Diagnosedatei direkt in der Menüleiste
 
 ### Untertitel & Nachbearbeitung
 

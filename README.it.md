@@ -90,6 +90,7 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 
 - **Scheda Explore** — naviga su YouTube dentro Arroxy e scarica ciò che trovi senza copiare i link. **Scarica · *il tuo profilo*** mette in coda il video, la playlist o il canale che stai guardando; la freccia accanto cambia profilo e la bacchetta apre il download passo passo per scegliere formati, sottotitoli e altro
 - **Clic destro per scaricare** — fai clic destro su qualsiasi link di video, playlist o canale in Explore per scaricarlo con il tuo profilo, scegliere un altro profilo da **Scarica con**, aprire il download passo passo o copiare il link. Non serve aprire prima ogni video
+- **Layout compatto** — un clic nella barra degli strumenti di Explore sposta le schede di Arroxy al suo interno e dà più spazio alla pagina
 - **Barra degli indirizzi** — scrivi per cercare su YouTube o incolla un link di YouTube. Explore naviga solo su YouTube, quindi un link di un altro sito non viene aperto lì, ma puoi scaricarlo con un clic
 - **Download che richiedono un account** — accedi una volta in Explore e Arroxy potrà scaricare i video privati e riservati ai membri che il tuo account può vedere, i video con limiti di età se l'età dell'account è verificata, e le tue liste Guarda più tardi e Piaciuti. Arroxy continua a scaricare senza accesso e usa il tuo accesso a Explore solo quando un download fallisce in un modo che un account può risolvere. Quando YouTube chiede di confermare che non sei un bot, Arroxy prova anche il tuo accesso a Explore
 - **Usa un account secondario** — la prima schermata di Explore ne spiega il motivo: scaricare con un account comporta un certo rischio che quell'account venga limitato. Esci da Explore dalle Impostazioni quando vuoi cancellare l'accesso
@@ -100,7 +101,7 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 - Fino a **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p e 360p
 - **Frame rate elevato** mantenuto invariato — 60 fps, 120 fps, HDR
 - **Audio** — esporta solo l'audio in MP3, M4A/AAC, Opus o WAV. Nei download interattivi puoi scegliere, se disponibili, le tracce surround/Dolby native della sorgente (AC-3, E-AC-3, 5.1, DRC), oppure impostare **Preferisci surround / Dolby** come predefinito globale
-- Preset rapidi: *Qualità migliore* · *Bilanciato* · *File piccolo*
+- **Profili con un obiettivo** — *Migliore immagine* (AV1 · VP9) o *Smart TV* (MP4 · H.264), salvati come Automatico, MP4, MKV o WebM senza ricodifica. L'HDR è *Automatico* (solo quando il tuo schermo può mostrarlo), *SDR* o *HDR*
 
 ### Privacy e controllo
 
@@ -125,6 +126,10 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 - **Il Download rapido funziona in background** — il link compare subito in Download e viene preparato lì, una nota con **Visualizza** lo conferma e il campo URL si svuota per il link successivo. Avviane quanti vuoi mentre i precedenti si preparano
 - **Download ti mostra cosa richiede il tuo intervento** — se Arroxy non riesce a leggere un link, la sua riga ne spiega il motivo e propone la soluzione: Riprova, attivare i cookie o accedere in Explore. Con i cookie disattivati, **Accedi con Explore** riprova per te una volta effettuato l'accesso. Una playlist più lunga del tuo limite di caricamento attende sulla sua riga che tu scelga tutta, i primi video o una revisione. La scheda Download conta le righe che aspettano te
 - **Scarica solo una parte di un video** — scegli un inizio e una fine, o un capitolo, nella schermata Formato e Arroxy salva solo quell'intervallo, nominato con l'intervallo dopo l'id del video. I tagli cadono sul keyframe più vicino; attiva il taglio preciso per ricodificare invece
+- **Rimuovi automaticamente i download completati** — facoltativo: un download completato esce dall'elenco dopo 5 secondi. I suoi file restano sul disco e i download falliti restano nell'elenco
+- **Dimensione e Mancante in Download** — una colonna **Dimensione** ordinabile mostra quanto spazio occupa ogni download, e **Mancante** segnala i file spostati o eliminati fuori da Arroxy
+- **Aurora o Minimale, scuro o chiaro** — pannelli di vetro su un cielo in movimento, oppure superfici piene e sobrie; cambia dal piè di pagina. I computer senza accelerazione grafica ricevono automaticamente Minimale
+- **Barra dei menu del Mac** — su macOS, apri le Impostazioni (`Cmd+,`), imposta il limite di velocità di download, cambia stile e tema, e apri i log o salva un file di diagnostica dalla barra dei menu
 
 ### Sottotitoli e post-elaborazione
 

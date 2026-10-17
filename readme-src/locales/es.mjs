@@ -123,6 +123,7 @@ export const es = {
   feat_explore_h3: "Explore: navega por YouTube dentro de Arroxy",
   feat_explore_1: "**Pestaña Explore** — navega por YouTube dentro de Arroxy y descarga lo que encuentres sin copiar enlaces. **Descargar · *tu perfil*** pone en cola el vídeo, la playlist o el canal que estás viendo; la flecha de al lado cambia de perfil, y la varita abre la descarga paso a paso para elegir formatos, subtítulos y más",
   feat_explore_6: "**Clic derecho para descargar** — haz clic derecho en cualquier enlace de vídeo, playlist o canal en Explore para descargarlo con tu perfil, elegir otro perfil en **Descargar con**, abrir la descarga paso a paso o copiar el enlace. No hace falta abrir cada vídeo antes",
+  feat_explore_7: "**Diseño compacto** — un clic en la barra de herramientas de Explore lleva allí las pestañas de Arroxy y da más espacio a la página",
   feat_explore_2: "**Barra de direcciones** — escribe para buscar en YouTube o pega un enlace de YouTube. Explore solo navega por YouTube, así que un enlace de otro sitio no se abre ahí, pero puedes descargarlo con un clic",
   feat_explore_3: "**Descargas que necesitan una cuenta** — inicia sesión una vez en Explore y Arroxy podrá descargar vídeos privados y solo para miembros que tu cuenta pueda ver, vídeos con restricción de edad si la cuenta tiene la edad verificada, y tus listas Ver más tarde y Me gusta. Arroxy sigue descargando sin sesión y solo usa tu inicio de sesión de Explore cuando una descarga falla de una forma que una cuenta puede arreglar. Cuando YouTube te pide confirmar que no eres un bot, Arroxy también prueba tu inicio de sesión de Explore",
   feat_explore_4: "**Usa una cuenta secundaria** — la primera pantalla de Explore explica por qué: descargar con una cuenta conlleva cierto riesgo de que esa cuenta sea restringida. Cierra sesión en Explore desde Configuración cuando quieras olvidar el inicio de sesión",
@@ -134,7 +135,7 @@ export const es = {
   feat_quality_3:
     "**Audio** — exporta solo audio como MP3, M4A/AAC, Opus o WAV. En las descargas interactivas, elige las pistas nativas surround/Dolby de la fuente (AC-3, E-AC-3, 5.1, DRC) cuando estén disponibles, o configura un valor global **Preferir surround / Dolby**",
   feat_quality_4:
-    "Presets rápidos: *Mejor calidad* · *Equilibrado* · *Archivo pequeño*",
+    "**Perfiles con un objetivo** — *Mejor imagen* (AV1 · VP9) o *TV inteligente* (MP4 · H.264), guardados como Auto, MP4, MKV o WebM sin recodificar. HDR es *Auto* (solo cuando tu pantalla puede mostrarlo), *SDR* o *HDR*",
   feat_privacy_h3: "Privacidad y control",
   feat_privacy_1:
     "Procesamiento 100% local — las descargas van directamente de YouTube a tu disco",
@@ -168,6 +169,14 @@ export const es = {
   feat_workflow_14: "**Descargas te avisa de lo que necesita tu atención** — si Arroxy no puede leer un enlace, su fila explica por qué y ofrece la solución: Reintentar, activar las cookies o iniciar sesión en Explore. Con las cookies desactivadas, **Iniciar sesión con Explore** lo reintenta por ti en cuanto hayas iniciado sesión. Una playlist más larga que tu límite de carga espera en su fila a que elijas toda, los primeros vídeos o una revisión. La pestaña Descargas cuenta las filas que esperan por ti",
   feat_workflow_15:
     "**Descarga solo una parte de un vídeo**: elige un inicio y un fin, o un capítulo, en la pantalla Formato y Arroxy guarda solo ese intervalo, con el intervalo en el nombre después del id del vídeo. Los cortes caen en el fotograma clave más cercano; activa el corte exacto para recodificar en su lugar",
+  feat_workflow_16:
+    "**Quitar descargas terminadas** — opcional: una descarga terminada sale de la lista 5 segundos después. Sus archivos siguen en el disco, y las descargas fallidas se quedan en la lista",
+  feat_workflow_17:
+    "**Tamaño y Falta en Descargas** — una columna ordenable **Tamaño** muestra cuánto espacio ocupa cada descarga, y **Falta** señala los archivos movidos o borrados fuera de Arroxy",
+  feat_workflow_18:
+    "**Aurora o Minimalista, oscuro o claro** — paneles de cristal sobre un cielo en movimiento, o superficies sólidas y tranquilas; cambia desde el pie de página. Los equipos sin aceleración gráfica reciben Minimalista automáticamente",
+  feat_workflow_19:
+    "**Barra de menús del Mac** — en macOS, abre Ajustes (`Cmd+,`), fija el límite de velocidad de descarga, cambia el estilo y el tema, y abre los registros o guarda un archivo de diagnóstico desde la barra de menús",
   feat_post_h3: "Subtítulos y posprocesamiento",
   feat_post_1:
     "**Subtítulos** en SRT, VTT o ASS — manuales o generados automáticamente, en cualquier idioma disponible",

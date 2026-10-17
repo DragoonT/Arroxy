@@ -121,6 +121,8 @@ export const sw = {
   feat_explore_h3: "Explore: vinjari YouTube ndani ya Arroxy",
   feat_explore_1: "**Kichupo cha Explore** — vinjari YouTube ndani ya Arroxy na upakue unachopata bila kunakili viungo. **Pakua · *wasifu wako*** huweka kwenye foleni video, playlist, au channel unayotazama; mshale ulio kando hubadilisha wasifu, na kijiti cha uchawi hufungua upakuaji wa hatua kwa hatua wa kuchagua fomati, manukuu, na zaidi",
   feat_explore_6: "**Bofya kulia ili kupakua** — bofya kulia kiungo chochote cha video, playlist au channel katika Explore ili kukipakua kwa wasifu wako, kuchagua wasifu mwingine kutoka **Pakua kwa**, kufungua upakuaji wa hatua kwa hatua, au kunakili kiungo. Hakuna haja ya kufungua kila video kwanza",
+  feat_explore_7:
+    "**Mpangilio mshikamano** — kubofya mara moja kwenye upau wa zana wa Explore huhamishia vichupo vya Arroxy ndani yake na kuipa ukurasa nafasi zaidi",
   feat_explore_2: "**Upau wa anwani** — andika kutafuta YouTube au bandika kiungo cha YouTube. Explore hutumika kuvinjari YouTube pekee, kwa hiyo kiungo cha tovuti nyingine hakifunguliwi hapo, lakini unaweza kukipakua kwa kubofya mara moja",
   feat_explore_3: "**Upakuaji unaohitaji akaunti** — ingia mara moja katika Explore na Arroxy inaweza kupakua video za faragha na za wanachama pekee ambazo akaunti yako inaweza kutazama, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Arroxy bado hupakua bila kuingia na hutumia kuingia kwako kwa Explore tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha. YouTube inapokuomba uthibitishe kuwa wewe si roboti, Arroxy pia hujaribu kuingia kwako kwa Explore",
   feat_explore_4: "**Tumia akaunti ya pili** — skrini ya kwanza ya Explore inaeleza sababu: kupakua kwa akaunti kuna hatari fulani ya akaunti hiyo kuwekewa vikwazo. Toka kwenye Explore kupitia Mipangilio wakati wowote unapotaka kusahau kuingia",
@@ -131,7 +133,8 @@ export const sw = {
     "**Kiwango cha juu cha fremu** kimehifadhiwa kama kilivyo — fps 60, fps 120, HDR",
   feat_quality_3:
     "**Sauti** — hamisha sauti pekee kama MP3, M4A/AAC, Opus au WAV. Katika upakuaji wa mwingiliano, chagua nyimbo asili za surround/Dolby za chanzo (AC-3, E-AC-3, 5.1, DRC) zinapopatikana, au weka chaguo-msingi la jumla **Pendelea surround / Dolby**",
-  feat_quality_4: "Maandiko ya haraka: *Ubora bora* · *Usawa* · *Faili ndogo*",
+  feat_quality_4:
+    "**Wasifu wenye lengo** — *Picha bora* (AV1 · VP9) au *Runinga janja* (MP4 · H.264), huhifadhiwa kama Otomatiki, MP4, MKV, au WebM bila kusimba upya. HDR ni *Otomatiki* (tu skrini yako inapoweza kuionyesha), *SDR*, au *HDR*",
   feat_privacy_h3: "Faragha na udhibiti",
   feat_privacy_1:
     "Usindikaji wa mahali hapo 100% — maudhui yanashuka moja kwa moja kutoka YouTube hadi kwenye diski yako",
@@ -165,6 +168,14 @@ export const sw = {
   feat_workflow_14: "**Vipakuliwa hukuambia kinachokuhitaji** — ikiwa Arroxy haiwezi kusoma kiungo, safu yake inaeleza sababu na kutoa suluhisho: Jaribu tena, washa vidakuzi, au ingia katika Explore. Vidakuzi vikiwa vimezimwa, **Ingia kwa Explore** hujaribu tena kwa ajili yako ukishaingia. Playlist ndefu kuliko kikomo chako cha kupakia husubiri kwenye safu yake ili uchague yote, za kwanza, au ukaguzi. Kichupo cha Vipakuliwa kinahesabu safu zinazokusubiri",
   feat_workflow_15:
     "**Pakua sehemu tu ya video** — chagua mwanzo na mwisho, au sura, kwenye skrini ya Umbizo na Arroxy huhifadhi kipindi hicho tu, kikiwa na jina lenye kipindi baada ya kitambulisho cha video. Ukataji hutua kwenye fremu kuu iliyo karibu zaidi; washa ukataji kamili ili kusimba upya badala yake",
+  feat_workflow_16:
+    "**Ondoa kiotomatiki vipakuzi vilivyokamilika** — hiari: upakuaji uliokamilika huondoka kwenye orodha baada ya sekunde 5. Faili zake hubaki kwenye diski, na upakuaji ulioshindwa hubaki kwenye orodha",
+  feat_workflow_17:
+    "**Ukubwa na Haipo katika Vipakuliwa** — safu ya **Ukubwa** inayoweza kupangwa inaonyesha kila upakuaji unatumia nafasi kiasi gani, na **Haipo** huashiria faili zilizohamishwa au kufutwa nje ya Arroxy",
+  feat_workflow_18:
+    "**Aurora au Rahisi, giza au mwanga** — paneli za kioo juu ya anga linalosogea, au nyuso tulivu thabiti; badilisha kutoka kijachini. Kompyuta zisizo na kasi ya michoro hupata Rahisi kiotomatiki",
+  feat_workflow_19:
+    "**Upau wa menyu wa Mac** — kwenye macOS, fungua Mipangilio (`Cmd+,`), weka kikomo cha kasi ya kupakua, badilisha mtindo na mandhari, na fungua kumbukumbu au hifadhi faili la uchunguzi kutoka kwenye upau wa menyu",
   feat_post_h3: "Manukuu na usindikaji wa baada ya kupakua",
   feat_post_1:
     "**Manukuu** katika SRT, VTT, au ASS — ya mkono au yaliyozalishwa kiotomatiki, katika lugha yoyote inayopatikana",

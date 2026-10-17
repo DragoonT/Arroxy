@@ -123,6 +123,8 @@ export const en = {
     "**Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more",
   feat_explore_6:
     "**Right-click to download** — right-click any video, playlist, or channel link in Explore to download it with your profile, pick another profile from **Download with**, open the step-by-step download, or copy the link. No need to open each video first",
+  feat_explore_7:
+    "**Compact layout** — one click in Explore's toolbar moves Arroxy's tabs into it and gives the page more room",
   feat_explore_2:
     "**Address bar** — type to search YouTube or paste a YouTube link. Explore only browses YouTube, so a link from another site isn't opened there, but you can download it with one click",
   feat_explore_3:
@@ -136,7 +138,8 @@ export const en = {
   feat_quality_2: "**High frame rate** preserved as-is — 60 fps, 120 fps, HDR",
   feat_quality_3:
     "**Audio** — export audio-only as MP3, M4A/AAC, Opus, or WAV. In interactive downloads, pick the source's native surround/Dolby tracks (AC-3, E-AC-3, 5.1, DRC) when available, or set a global **Prefer surround / Dolby** default",
-  feat_quality_4: "Quick presets: *Best quality* · *Balanced* · *Small file*",
+  feat_quality_4:
+    "**Profiles with a goal** — *Best picture* (AV1 · VP9) or *Smart TV* (MP4 · H.264), saved as Auto, MP4, MKV, or WebM without re-encoding. HDR is *Auto* (only when your screen can show it), *SDR*, or *HDR*",
   feat_privacy_h3: "Privacy & control",
   feat_privacy_1:
     "100% local processing — downloads go straight from YouTube to your disk",
@@ -173,6 +176,14 @@ export const en = {
     "**Downloads tells you what needs you** — if Arroxy can't read a link, its row says why and offers the fix: Retry, turn on cookies, or sign in in Explore. With cookies off, **Sign in with Explore** retries it for you once you're signed in. A playlist longer than your load limit waits on its row for you to pick all of it, the first ones, or a review. The Downloads tab counts the rows waiting for you",
   feat_workflow_15:
     "**Download just part of a video** — pick a start and end, or a chapter, on the Format screen and Arroxy saves only that range, named with the range after the video id. Cuts land on the nearest keyframe; turn on exact cut to re-encode instead",
+  feat_workflow_16:
+    "**Remove finished downloads** — optional: a finished download leaves the list 5 seconds later. Its files stay on disk, and failed downloads stay listed",
+  feat_workflow_17:
+    "**Size and Missing in Downloads** — a sortable **Size** column shows how much space each download takes, and **Missing** flags files moved or deleted outside Arroxy",
+  feat_workflow_18:
+    "**Aurora or Minimal, dark or light** — glass panels over a moving sky, or quiet solid surfaces; switch from the footer. Computers without graphics acceleration get Minimal automatically",
+  feat_workflow_19:
+    "**Mac menu bar** — on macOS, open Settings (`Cmd+,`), set the download speed limit, switch style and theme, and open logs or save a diagnostics file from the menu bar",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",

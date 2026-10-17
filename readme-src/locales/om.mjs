@@ -123,6 +123,7 @@ export const om = {
   feat_explore_h3: "Explore: YouTube Arroxy keessatti ilaali",
   feat_explore_1: "**Tabii Explore** — YouTube Arroxy keessatti ilaaluudhaan waan argatte hidhaa waraabuu malee buufadhu. **Buusi · *piroofaayilii kee*** viidiyoo, playlist, ykn channel ati ilaaltu tarree keessa galcha; xiyyi isa cinaa piroofaayilii jijjiira, ulee falfalaa immoo buufannaa tarkaanfii-tarkaanfiidhaan formaata, barruu jalaa fi kkf filachuuf bana",
   feat_explore_6: "**Buusuuf mirgaan cuqaasi** — Explore keessatti hidhaa viidiyoo, playlist ykn channel kamiyyuu mirgaan cuqaasiitii piroofaayilii keetiin buusi, **Profaayiliin buusi** irraa piroofaayilii biraa filadhu, buufata tarkaanfii tarkaanfiin bani, ykn hidhaa garagalchi. Tokkoon tokkoon viidiyoo dursa banuun hin barbaachisu",
+  feat_explore_7: "**Qindaa'ina gabaabaa** — Explore keessatti baarii meeshaalee irratti tuqaa tokkoon sabbata Arroxy achitti geessee fuula sanaaf bakka dabalataa kenna",
   feat_explore_2: "**Bar teessoo** — YouTube barbaaduuf barreessi ykn hidhaa YouTube maxxansi. Explore YouTube qofa ilaala; kanaaf hidhaan marsariitii biraa achi hin banamu, garuu tuqaa tokkoon buufachuu ni dandeessa",
   feat_explore_3: "**Buufannaa akkaawuntii barbaadu** — Explore keessatti altokko seeni, Arroxyn viidiyoowwan dhuunfaa fi miseensoota qofaaf kan akkaawuntiin kee ilaaluu danda'u, viidiyoowwan umurii daangeffaman yoo umurii akkaawuntii mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte buufachuu danda'a. Arroxy ammas utuu hin seenin buufata; yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa seensa Explore kee fayyadama. YouTube bot akka hin taane akka mirkaneessitu yoo gaafate, Arroxy seensa Explore kee illee ni yaala",
   feat_explore_4: "**Akkaawuntii lammaffaa fayyadami** — fuula jalqabaa Explore sababa ibsa: akkaawuntiidhaan buufachuun balaa akkaawuntiin sun daangeffamuu tokko of keessaa qaba. Seensa irraanfachuu yeroo barbaadde Qindoomina keessaa Explore irraa bahi",
@@ -134,7 +135,7 @@ export const om = {
   feat_quality_3:
     "**Sagalee** — sagalee qofa gara MP3, M4A/AAC, Opus yookaan WAV export godhi. Buufataalee wal-qunnamtii keessatti, yoo jiran, sirna sagalee surround/Dolby maddaa (AC-3, E-AC-3, 5.1, DRC) filadhu, yookaan durtii waliigalaa **Surround / Dolby filadhu** kaa'i",
   feat_quality_4:
-    "Preset saffisoo: *Qulqullina gaarii* · *Walirraanfattee* · *Faayila xiqqaa*",
+    "**Piroofaayilii kaayyoo qabu** — *Suuraa isa caalu* (AV1 · VP9) ykn *TV smart* (MP4 · H.264), Ofumaa, MP4, MKV, ykn WebM ta'ee deebi'ee koodii gochuu malee olkaa'ama. HDR *Ofumaa* (ispiriin kee yoo agarsiisuu dandeessu qofa), *SDR*, ykn *HDR* dha",
   feat_privacy_h3: "Icciitii & to'annaa",
   feat_privacy_1:
     "100% naannoo keessatti hojeta — buufannoon kallattiin YouTube irraa disiki kee dhaqa",
@@ -168,6 +169,14 @@ export const om = {
   feat_workflow_14: "**Buufata maal akka si barbaaduu sitti hima** — Arroxy hidhaa dubbisuu yoo hin dandeenye, sarara isaa sababa ibsee furmaata dhiyeessa: Irra deebi'i, kuukkii bani, ykn Explore keessatti seeni. Kuukkiin yeroo cufamu, **Explore'n seeni** erga seentee booda siif irra deebi'a. Playlist daangaa fe'uu kee caalu sarara isaa irratti eegaa jira, hunda, kan jalqabaa ykn ilaalcha akka filattu. Tabiin Buufata sarara si eegaa jiru lakkaa'a",
   feat_workflow_15:
     "**Kutaa viidiyoo tokko qofa buufadhu** — much'aa Foormaatii irratti jalqaba fi xumura, ykn boqonnaa filadhu, Arroxy ardii kana qofa olkaa'a; maqaan isaas id viidiyoo booda ardii kanaan moggaafama. Muruun keyframe isa dhiyoo irratti kufa; muruu sirrii banuun immoo deebisee koodii godha",
+  feat_workflow_16:
+    "**Buufata xumuraman ofumaan haqi** — filannoo: buufanni xumurame sekondii 5 booda tarreeffama keessaa ba'a. Faayiloonni isaa kuufama irra turu, buufanni kufe immoo tarreeffama keessa ni jiru",
+  feat_workflow_17:
+    "**Bal'ina fi Hin jiru Buufata keessatti** — gabatee **Bal'ina** tartiibaan qindeessuun buufanni tokkoon tokkoon bakka hammam fudhatu agarsiisa, **Hin jiru** immoo faayiloota Arroxy alaa sochoo'an ykn haqaman mallattoo godha",
+  feat_workflow_18:
+    "**Aurora ykn Salphaa, dukkana ykn ifa** — paanaala galaasaa samii socho'u irra jiru, ykn gar-fuula cimaa callisaa; gadi-fuula irraa jijjiiri. Kompiitaroonni saffisiisaa giraafiksii hin qabne ofumaan Salphaa argatu",
+  feat_workflow_19:
+    "**Baarii menu Mac** — macOS irratti, baarii menu irraa Qindaa'inoota (`Cmd+,`) bani, daangaa saffisa buufannaa kaa'i, taatee fi tiimii jijjiiri, galmee bani ykn faayilii qorannoo olkaa'i",
   feat_post_h3: "Subtitle & seensuu boodaa",
   feat_post_1:
     "**Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti",
