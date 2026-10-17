@@ -1,5 +1,5 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {updateSettingsSchema} from '@shared/schemas.js'
+import {updateSettingsSchema, type UiTheme} from '@shared/schemas.js'
 import {ok} from '@shared/result.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
@@ -21,10 +21,12 @@ interface SettingsHandlerDeps {
 	exploreView: Pick<ExploreViewHost, 'destroy' | 'applyProxySetting' | 'applyAdBlockSetting'>
 	// The native menu mirrors the style, theme, and speed limit; macOS only, so absent elsewhere.
 	onMenuStateChanged?: () => void
+	// Keeps Chromium's colour scheme (and so the Explore page) in step with the app theme.
+	onThemeChanged?: (theme: UiTheme) => void
 }
 
 export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
-	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged} = deps
+	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged, onThemeChanged} = deps
 
 	handleRaw(IPC_CHANNELS.settingsGet, async () => {
 		try {
@@ -60,6 +62,9 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		if (data.common?.exploreAdBlock !== undefined) {
 			// Not awaited: the blocker's status reaches the toolbar through the view state.
 			void exploreView.applyAdBlockSetting()
+		}
+		if (data.common?.uiTheme !== undefined) {
+			onThemeChanged?.(data.common.uiTheme)
 		}
 		if (data.common?.uiStyle !== undefined || data.common?.uiTheme !== undefined || data.common?.limitRate !== undefined) {
 			onMenuStateChanged?.()

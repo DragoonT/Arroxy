@@ -14,6 +14,20 @@ export function followsSystemTheme(uiTheme: UiTheme | undefined): boolean {
 	return uiTheme === undefined || uiTheme === 'system'
 }
 
+interface ThemeSourceHolder {
+	themeSource: 'system' | 'light' | 'dark'
+}
+
+/**
+ * Pins Chromium's colour scheme to Arroxy's own theme choice. The renderer
+ * resolves the theme with a CSS class, which no other web contents can see, so
+ * without this the Explore view's page reads `prefers-color-scheme` from the OS
+ * and can disagree with the app around it.
+ */
+export function applyNativeThemeSource(nativeTheme: ThemeSourceHolder, uiTheme: UiTheme | undefined): void {
+	nativeTheme.themeSource = uiTheme ?? 'system'
+}
+
 interface ThemeTargetWindow {
 	isDestroyed(): boolean
 	setBackgroundColor(color: string): void

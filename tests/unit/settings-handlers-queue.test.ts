@@ -53,3 +53,24 @@ describe('settings update reaches the queue', () => {
 		expect(queueService.setAutoRemoveCompleted).not.toHaveBeenCalled()
 	})
 })
+
+describe('settings update reaches the native theme', () => {
+	const onThemeChanged = vi.fn()
+
+	beforeEach(() => {
+		handlers.clear()
+		vi.clearAllMocks()
+		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, uiTheme: 'dark'}, playlist: {}, profiles: {}})}
+		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: {destroy: vi.fn()} as never, onThemeChanged})
+	})
+
+	it('applies the saved theme when the patch changes it', async () => {
+		await update({common: {uiTheme: 'dark'}})
+		expect(onThemeChanged).toHaveBeenCalledWith('dark')
+	})
+
+	it('leaves the native theme alone when the patch does not touch it', async () => {
+		await update({common: {clipboardWatchEnabled: false}})
+		expect(onThemeChanged).not.toHaveBeenCalled()
+	})
+})
