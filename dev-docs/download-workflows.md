@@ -146,25 +146,10 @@ the field added to the caller request first. `section-download.md`'s note
 that the bridge "already supports `downloadSections`, no argv plumbing
 needed" is true only for the managed planner.
 
-## Proposed direction (not decided)
+## Decided direction
 
-Draft from the 2026-10-17 design discussion. Treat as a proposal until it has
-a spec.
-
-- **Profile as the starting point in single mode.** Replace the preset strip
-  with the profile picker; every step starts pre-filled from the chosen
-  profile. After the probe, land on a review screen listing Format,
-  Subtitles, SponsorBlock, Extras, Save to and File name, each row opening
-  its existing step as an editor. The common case becomes URL → Download.
-  Editing marks the settings as changed from the profile and offers
-  "Save as profile". **Open decision:** this reverses the original profiles
-  spec's choice to keep presets separate (retired 2026-10-17; read it with
-  `git show 34e8dd68:dev-docs/custom-quick-presets-spec.md`).
-- **Clip (part of video) on the video card**, single mode only, not part of
-  a profile: whole video or a start/end range, chapter shortcuts, a
-  `?t=` start prefilled from the URL, approximate cuts by default with an
-  exact-cut option, and a range suffix in the filename. Constraints and
-  research: `section-download.md`.
-- **Playlist alignment:** the playlistPresets step is the batch twin of the
-  preset strip; the same profile-first treatment would remove a second
-  vocabulary.
+Decided 2026-10-17; the spec is [interactive-download.md](interactive-download.md).
+Single-video Interactive Download becomes two screens, Format and Review,
+pre-selected from the active download profile; presets are retired; "part
+of video" is added on the Format screen. Playlist and bulk modes keep their
+steps for now; moving `playlistPresets` to profiles is a follow-up.
