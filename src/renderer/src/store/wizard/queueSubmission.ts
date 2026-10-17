@@ -33,6 +33,8 @@ import {resolvePlaylistDir} from './playlistDir.js'
 import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
 import {sortPlaylistEntries} from './playlistSort.js'
 import {playlistTitleFallback} from './playlistTitle.js'
+import {wizardVideoPart} from './videoPart.js'
+import {scaleBytesToPart, videoPartSuffix} from '@shared/videoPart.js'
 import {resolveAssignedProfile} from './playlistProfileAssignments.js'
 
 export interface PlaylistManifestPayload {
@@ -61,13 +63,16 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	// from an earlier kind never leaks into an audio or subtitles job.
 	const selectedVideoFormatId = wizardMediaKind === 'video' ? state.selectedVideoFormatId : ''
 	const effectiveAudio: AudioSelection = wizardMediaKind === 'subtitles' ? {kind: 'none'} : audioSelection
+	const videoPart = wizardVideoPart(state)
 	const template = state.wizardFilenameTemplate
 	const templateMeta = singleTemplateMeta(state)
 	// A nesting template renders its directories below the subfolder root; a flat
 	// one leaves the root as-is. The job then carries the filename segment alone,
 	// with the tokens yt-dlp cannot know already bound.
 	const outputDir = templateOutputDir(effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName), template, templateMeta)
-	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, outputDir)
+	// The range goes after the `[id]`, so playlist sync never takes a part for
+	// the whole video; it is bound with the name, not typed into the template.
+	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, outputDir, videoPart ? videoPartSuffix(videoPart) : undefined)
 
 	const audioFormats = wizardFormats.filter(f => f.isAudioOnly)
 	const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only')
@@ -79,7 +84,8 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const nativeAudioId = effectiveAudio.kind === 'native' ? effectiveAudio.formatId : null
 	const selectedIds = [selectedVideoFormatId, nativeAudioId].filter(Boolean) as string[]
 	const selectedSizes = selectedIds.map(id => wizardFormats.find(f => f.formatId === id)?.filesize)
-	const expectedBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined
+	const wholeBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined
+	const expectedBytes = scaleBytesToPart(wholeBytes, videoPart, state.wizardDuration)
 
 	const subtitleLanguages = state.wizardSubtitleLanguages
 	// Untouched subtitles keep the profile's source (an auto-only profile must
@@ -115,6 +121,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		audioConvert,
 		subtitleOnly: wizardMediaKind === 'subtitles',
 		expectedBytes,
+		...(videoPart ? {videoPart} : {}),
 		filenameTemplate,
 		subtitles,
 		sponsorBlockMode: overrides.sponsorBlockMode,

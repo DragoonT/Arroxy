@@ -117,6 +117,7 @@
 - {{feat_workflow_11}}
 - {{feat_workflow_13}}
 - {{feat_workflow_14}}
+- {{feat_workflow_15}}
 
 ### {{feat_post_h3}}
 
@@ -370,7 +371,6 @@ sha256sum Arroxy-linux-x64.AppImage
 | {{plan_r3_name}} | {{plan_r3_desc}} |
 | {{plan_r4_name}} | {{plan_r4_desc}} |
 | {{plan_r5_name}} | {{plan_r5_desc}} |
-| {{plan_r7_name}} | {{plan_r7_desc}} |
 | {{plan_r9_name}} | {{plan_r9_desc}} |
 
 {{plan_cta}}

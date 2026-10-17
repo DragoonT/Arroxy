@@ -166,6 +166,8 @@ export const tr = {
     "**Oynatma listesinde öğe başına profil** — bir oynatma listesindeki her videoya, tüm liste için tek bir ayar yerine kendi indirme profilini atayın; böylece tek geçişte bazılarını tam kalitede arşivleyip kalanını MP3 olarak alabilirsiniz",
   feat_workflow_13: "**Hızlı İndirme arka planda çalışır** — bağlantı hemen İndirmeler'de görünür ve orada hazırlanır, **Görüntüle** içeren bir not bunu doğrular ve URL alanı bir sonraki bağlantı için temizlenir. Öncekiler hazırlanırken istediğin kadar başlat",
   feat_workflow_14: "**İndirmeler sana neye ihtiyaç olduğunu söyler** — Arroxy bir bağlantıyı okuyamazsa satırı nedenini söyler ve çözümü sunar: Tekrar dene, çerezleri aç veya Explore'da giriş yap. Çerezler kapalıyken **Explore ile giriş yap**, giriş yaptıktan sonra bunu senin için yeniden dener. Yükleme sınırından uzun bir oynatma listesi satırında bekler; tamamını, ilk birkaç videoyu veya bir incelemeyi seçmeni bekler. İndirmeler sekmesi sende bekleyen satırları sayar",
+  feat_workflow_15:
+    "**Videonun yalnızca bir kısmını indir** — Biçim ekranında bir başlangıç ve bitiş ya da bir bölüm seç, Arroxy yalnızca o aralığı kaydeder; dosya adında video kimliğinden sonra aralık yer alır. Kesimler en yakın anahtar kareye denk gelir; bunun yerine yeniden kodlamak için tam kesimi aç",
   feat_post_h3: "Altyazılar ve son işleme",
   feat_post_1:
     "**Altyazılar** SRT, VTT veya ASS olarak — manuel ya da otomatik oluşturulmuş, mevcut herhangi bir dilde",
@@ -375,8 +377,6 @@ export const tr = {
     "Kuyruk çekmecesini, kuyruktaki öğelerin hedef klasörlerini değiştirme dahil daha kapsamlı bir yöneticisine dönüştür",
   plan_r5_name: "**Zamanlanmış indirmeler**",
   plan_r5_desc: "Bir kuyruğu belirli saatte başlat (gece çalıştırmaları)",
-  plan_r7_name: "**Klip kırpma**",
-  plan_r7_desc: "Yalnızca başlangıç/bitiş zamanıyla belirli bir segmenti indir",
   plan_r9_name: "**AUR paketi**",
   plan_r9_desc: "Arch Linux ve Omarchy'ye `yay -S arroxy-bin` ile kurulum",
   plan_cta:

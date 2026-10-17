@@ -175,6 +175,43 @@ describe('planWorkflow — media', () => {
 		expect(plan.args).not.toContain('--remux-video')
 		expect(plan.args.join(' ')).not.toMatch(/--merge-output-format mp4/)
 	})
+
+	it('plans a time-range section download through ffmpeg', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatId: '137+140'}, downloadSections: ['*220-435']})
+
+		expect(adjacent(plan.args, '--download-sections', '*220-435')).toBe(true)
+		expect(plan.args).not.toContain('--force-keyframes-at-cuts')
+		expect(plan.facts.dependencies.required.map(dependency => dependency.name)).toContain('ffmpeg')
+		expect(plan.facts.sideEffects).toContain('cut media to the requested sections')
+	})
+
+	it('repeats --download-sections per range and forces keyframes for an exact cut', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, downloadSections: ['*0-10', '*20-inf'], forceKeyframesAtCuts: true})
+
+		expect(adjacent(plan.args, '--download-sections', '*0-10')).toBe(true)
+		expect(adjacent(plan.args, '--download-sections', '*20-inf')).toBe(true)
+		expect(plan.args).toContain('--force-keyframes-at-cuts')
+		expect(plan.facts.risks.join(' ')).toMatch(/re-encod/i)
+	})
+
+	it('turns chapters off explicitly, since yt-dlp embeds them with metadata otherwise', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, embed: {chapters: false, metadata: true}})
+		expect(plan.args).toContain('--no-embed-chapters')
+		expect(plan.args).not.toContain('--embed-chapters')
+	})
+
+	it('leaves chapters to yt-dlp when SponsorBlock marks segments as chapters, or when unspecified', () => {
+		const marked = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, embed: {chapters: false}, sponsorBlock: {mode: 'mark', categories: ['sponsor']}})
+		expect(marked.args).not.toContain('--no-embed-chapters')
+		expect(planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}}).args).not.toContain('--no-embed-chapters')
+	})
+
+	it('ignores forceKeyframesAtCuts without sections', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, downloadSections: [], forceKeyframesAtCuts: true})
+
+		expect(plan.args).not.toContain('--download-sections')
+		expect(plan.args).not.toContain('--force-keyframes-at-cuts')
+	})
 })
 
 describe('planWorkflow — subtitles', () => {
