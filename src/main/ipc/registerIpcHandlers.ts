@@ -1,4 +1,4 @@
-import {app, type BrowserWindow} from 'electron'
+import {app, nativeTheme, type BrowserWindow} from 'electron'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import {currentRuntimeFacts, describeSessionContext} from '@main/utils/sessionContext.js'
 import type {GraphicsPolicy} from '@shared/types.js'
@@ -17,6 +17,7 @@ import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import {QueueEventBridge} from '@main/services/QueueEventBridge.js'
 import {ProbeEventBridge} from '@main/services/ProbeEventBridge.js'
 import {WarmupService} from '@main/services/WarmupService.js'
+import {applyNativeThemeSource} from '@main/windowPresentation.js'
 import {registerAppHandlers} from './appHandlers.js'
 import {registerWindowHandlers} from './windowHandlers.js'
 import {registerDownloadHandlers} from './downloadHandlers.js'
@@ -58,7 +59,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged: refreshAppMenu})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged: refreshAppMenu, onThemeChanged: theme => applyNativeThemeSource(nativeTheme, theme)})
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)

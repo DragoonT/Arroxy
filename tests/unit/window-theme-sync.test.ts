@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vite-plus/test'
-import {BOOT_SPLASH_DARK_BACKGROUND_COLOR, BOOT_SPLASH_LIGHT_BACKGROUND_COLOR, followsSystemTheme, watchSystemThemeBackground} from '../../src/main/windowPresentation.js'
+import {applyNativeThemeSource, BOOT_SPLASH_DARK_BACKGROUND_COLOR, BOOT_SPLASH_LIGHT_BACKGROUND_COLOR, followsSystemTheme, watchSystemThemeBackground} from '../../src/main/windowPresentation.js'
 
 function fakeNativeTheme(initialDark: boolean) {
 	const listeners = new Set<() => void>()
@@ -128,5 +128,31 @@ describe('watchSystemThemeBackground', () => {
 		expect(nativeTheme.listenerCount).toBe(0)
 		nativeTheme.emitUpdated(true)
 		expect(win.setBackgroundColor).not.toHaveBeenCalled()
+	})
+})
+
+describe('applyNativeThemeSource', () => {
+	// Arroxy resolves its own theme with a CSS class, so Chromium's
+	// prefers-color-scheme (what the Explore view's page reads) only follows
+	// Arroxy if the native theme source is pinned to the same choice.
+	it('pins the native theme to a user-chosen theme', () => {
+		const nativeTheme = {themeSource: 'system' as 'system' | 'light' | 'dark'}
+
+		applyNativeThemeSource(nativeTheme, 'light')
+		expect(nativeTheme.themeSource).toBe('light')
+
+		applyNativeThemeSource(nativeTheme, 'dark')
+		expect(nativeTheme.themeSource).toBe('dark')
+	})
+
+	it('hands control back to the OS for the system theme and for a fresh install', () => {
+		const nativeTheme = {themeSource: 'dark' as 'system' | 'light' | 'dark'}
+
+		applyNativeThemeSource(nativeTheme, 'system')
+		expect(nativeTheme.themeSource).toBe('system')
+
+		nativeTheme.themeSource = 'dark'
+		applyNativeThemeSource(nativeTheme, undefined)
+		expect(nativeTheme.themeSource).toBe('system')
 	})
 })

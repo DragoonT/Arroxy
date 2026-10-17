@@ -51,7 +51,7 @@ import {reportDownloadSmokeConfigError, runDownloadSmokeMode} from '@main/downlo
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
 import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
-import {resolveMainWindowBackgroundColor, watchSystemThemeBackground} from '@main/windowPresentation.js'
+import {applyNativeThemeSource, resolveMainWindowBackgroundColor, watchSystemThemeBackground} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
 import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
 import {watchInitialGpuInfoUpdate} from '@main/gpuInfoReadiness.js'
@@ -375,6 +375,8 @@ if (hasSingleInstanceLock) {
 			setInterval(() => void heartbeat.maybeSend(), HEARTBEAT_CHECK_INTERVAL_MS).unref()
 		}
 
+		// Before the window exists, so the first paint and the Explore view agree with the saved theme.
+		applyNativeThemeSource(nativeTheme, initialSettings.common.uiTheme)
 		const mainWindow = createMainWindow(resolveMainWindowBackgroundColor(initialSettings.common.uiTheme, nativeTheme.shouldUseDarkColors))
 
 		// Linux resolves the desktop colour scheme through xdg-desktop-portal over
