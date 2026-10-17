@@ -1,5 +1,5 @@
-import type {PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, VideoProbeResult} from '@shared/types.js'
-import type {YtDlpErrorKind} from '@shared/schemas.js'
+import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, VideoProbeResult} from '@shared/types.js'
+import type {AudioTrackQuality, YtDlpErrorKind} from '@shared/schemas.js'
 
 interface ScenarioLike {
 	id: string
@@ -104,6 +104,54 @@ const NORMAL_VIDEO_FORMATS = [
 	{formatId: '139', label: 'm4a · AAC · 48 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 48, filesize: 1_900_000, audioCodec: 'mp4a.40.5', isVideoOnly: false, isAudioOnly: true}
 ] as const
 
+// A full-range ladder for the format-step screenshots: SDR and HDR10 side by side
+// at the top resolutions, SDR only below, so both range columns have content.
+const SHOWCASE_VIDEO_FORMATS: readonly FormatOption[] = [
+	{formatId: '313', label: '2160p | webm | VP9', ext: 'webm', resolution: '2160p', fps: 30, filesize: 2_400_000_000, videoCodec: 'vp09.00.51.08', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '701', label: '2160p | mp4 | AV1 | HDR10', ext: 'mp4', resolution: '2160p', fps: 30, dynamicRange: 'HDR10', filesize: 1_100_000_000, videoCodec: 'av01.0.12M.10', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '271', label: '1440p | webm | VP9', ext: 'webm', resolution: '1440p', fps: 30, filesize: 950_000_000, videoCodec: 'vp09.00.40.08', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '700', label: '1440p | mp4 | AV1 | HDR10', ext: 'mp4', resolution: '1440p', fps: 30, dynamicRange: 'HDR10', filesize: 668_500_000, videoCodec: 'av01.0.12M.10', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '137', label: '1080p | mp4 | H.264', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, videoCodec: 'avc1.640028', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '699', label: '1080p | mp4 | AV1 | HDR10', ext: 'mp4', resolution: '1080p', fps: 30, dynamicRange: 'HDR10', filesize: 235_900_000, videoCodec: 'av01.0.09M.10', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '247', label: '720p | webm | VP9', ext: 'webm', resolution: '720p', fps: 30, filesize: 180_000_000, videoCodec: 'vp09.00.31.08', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '698', label: '720p | mp4 | AV1 | HDR10', ext: 'mp4', resolution: '720p', fps: 30, dynamicRange: 'HDR10', filesize: 120_000_000, videoCodec: 'av01.0.08M.10', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '135', label: '480p | mp4 | H.264', ext: 'mp4', resolution: '480p', fps: 30, filesize: 110_000_000, videoCodec: 'avc1.4d401e', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '134', label: '360p | mp4 | H.264', ext: 'mp4', resolution: '360p', fps: 30, filesize: 65_000_000, videoCodec: 'avc1.4d401e', isVideoOnly: true, isAudioOnly: false}
+]
+
+// Dolby 5.1 next to the usual stereo streams.
+const SHOWCASE_SURROUND_AUDIO_FORMATS: readonly FormatOption[] = [
+	{formatId: '328', label: 'm4a · ec-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', audioChannels: 6, audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
+	{formatId: '380', label: 'm4a · ac-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ac-3', audioChannels: 6, audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
+	{formatId: '140-drc', label: 'm4a · AAC · DRC · 129 kbps · 16.6 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', isDrc: true, audioTrackQuality: 'medium', filesize: 16_600_000, isVideoOnly: false, isAudioOnly: true},
+	{formatId: '140', label: 'm4a · AAC · 129 kbps · 16.6 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', audioTrackQuality: 'medium', filesize: 16_600_000, isVideoOnly: false, isAudioOnly: true},
+	{formatId: '251', label: 'webm · Opus · 122 kbps · 15.6 MB', ext: 'webm', resolution: 'audio only', abr: 122, audioCodec: 'opus', audioTrackQuality: 'medium', filesize: 15_600_000, isVideoOnly: false, isAudioOnly: true}
+]
+
+interface SpokenTrack {
+	id: string
+	code: string
+	label: string
+}
+
+// The dubbed languages after the original, in the order a YouTube video lists them.
+const SHOWCASE_DUBS: readonly SpokenTrack[] = [
+	{id: '2', code: 'es', label: 'Spanish (Latin America)'},
+	{id: '3', code: 'fr', label: 'French'},
+	{id: '4', code: 'de', label: 'German'},
+	{id: '5', code: 'ja', label: 'Japanese'},
+	{id: '6', code: 'pt', label: 'Portuguese (Brazil)'},
+	{id: '7', code: 'hi', label: 'Hindi'}
+]
+
+function spokenTrackFormats(track: SpokenTrack): FormatOption[] {
+	const common = {resolution: 'audio only', audioLanguage: track.code, audioTrackLabel: track.label, isVideoOnly: false, isAudioOnly: true} as const
+	return [
+		{...common, formatId: `140-${track.id}`, label: `${track.label} · m4a · AAC · 130 kbps · 1.4 MB`, ext: 'm4a', abr: 130, audioCodec: 'mp4a.40.2', audioTrackQuality: 'medium' satisfies AudioTrackQuality, filesize: 1_400_000},
+		{...common, formatId: `249-${track.id}`, label: `${track.label} · webm · Opus · 69 kbps · 760.6 KB`, ext: 'webm', abr: 69, audioCodec: 'opus', audioTrackQuality: 'low' satisfies AudioTrackQuality, filesize: 778_000}
+	]
+}
+
 export function normalVideoProbe(options: {webpageUrl?: string; degraded?: VideoProbeResult['degraded']} = {}): VideoProbeResult {
 	return {
 		kind: 'video',
@@ -133,7 +181,7 @@ function partVideoProbe(): VideoProbeResult {
 		{title: '', startSeconds: 1240, endSeconds: 1415},
 		{title: 'Questions', startSeconds: 1415, endSeconds: 1502}
 	]
-	return {...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-part'}), duration: 1502, title: 'Mock Talk - Cutting video without re-encoding', chapters}
+	return {...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-part'}), duration: 1502, title: 'Mock Talk - Cutting video without re-encoding', chapters, formats: [...SHOWCASE_VIDEO_FORMATS, ...SHOWCASE_SURROUND_AUDIO_FORMATS]}
 }
 
 function audioOnlyProbe(): ProbeResult {
@@ -162,8 +210,7 @@ function audioMultilingualProbe(): ProbeResult {
 		...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-audio-multilingual'}),
 		title: 'Mock Video - Multilingual Audio Tracks',
 		formats: [
-			{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
-			{formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, isVideoOnly: true, isAudioOnly: false},
+			...SHOWCASE_VIDEO_FORMATS,
 			{
 				formatId: '140-1',
 				label: 'English original (default) · m4a · AAC · 130 kbps · 1.4 MB',
@@ -197,7 +244,6 @@ function audioMultilingualProbe(): ProbeResult {
 				isVideoOnly: false,
 				isAudioOnly: true
 			},
-			{formatId: '140-0', label: 'Klingon · m4a · AAC · 130 kbps · 1.4 MB', ext: 'm4a', resolution: 'audio only', abr: 130, audioCodec: 'mp4a.40.2', audioLanguage: 'tlh', audioTrackLabel: 'Klingon', audioTrackQuality: 'medium', filesize: 1_400_000, isVideoOnly: false, isAudioOnly: true},
 			{
 				formatId: '251-1',
 				label: 'English original (default) · webm · Opus · 122 kbps · 1.3 MB',
@@ -214,24 +260,13 @@ function audioMultilingualProbe(): ProbeResult {
 				isVideoOnly: false,
 				isAudioOnly: true
 			},
-			{formatId: '249-0', label: 'Klingon · webm · Opus · 69 kbps · 760.6 KB', ext: 'webm', resolution: 'audio only', abr: 69, audioCodec: 'opus', audioLanguage: 'tlh', audioTrackLabel: 'Klingon', audioTrackQuality: 'low', filesize: 778_000, isVideoOnly: false, isAudioOnly: true}
+			...SHOWCASE_DUBS.flatMap(spokenTrackFormats)
 		]
 	}
 }
 
 function audioSurroundProbe(): ProbeResult {
-	return {
-		...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-audio-surround'}),
-		title: 'Mock Video - Surround Audio Available',
-		formats: [
-			{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
-			{formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, isVideoOnly: true, isAudioOnly: false},
-			{formatId: '380', label: 'm4a · ac-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ac-3', audioChannels: 6, audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
-			{formatId: '328', label: 'm4a · ec-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', audioChannels: 6, audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
-			{formatId: '140', label: 'm4a · AAC · DRC · 129 kbps · 16.6 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', isDrc: true, audioTrackQuality: 'medium', filesize: 16_600_000, isVideoOnly: false, isAudioOnly: true},
-			{formatId: '251', label: 'webm · Opus · 122 kbps · 15.6 MB', ext: 'webm', resolution: 'audio only', abr: 122, audioCodec: 'opus', audioTrackQuality: 'medium', filesize: 15_600_000, isVideoOnly: false, isAudioOnly: true}
-		]
-	}
+	return {...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-audio-surround'}), title: 'Mock Video - Surround Audio Available', formats: [...SHOWCASE_VIDEO_FORMATS, ...SHOWCASE_SURROUND_AUDIO_FORMATS]}
 }
 
 function audioStereoProbe(): ProbeResult {
