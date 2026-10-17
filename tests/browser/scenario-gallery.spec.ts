@@ -125,9 +125,9 @@ test('audio track quality scenarios render quality bars, languages and channel l
 	await expect(page.getByTestId('audio-language')).toContainText('English original (default)')
 	await expect(page.getByText(/^\d+ languages$/)).toBeVisible()
 	await expect(chipWith('medium')).toHaveAttribute('aria-label', /Medium quality/)
-	await expect(page.getByRole('radio', {name: /^Klingon/})).toHaveCount(0)
+	await expect(page.getByRole('radio', {name: /^Spanish/})).toHaveCount(0)
 	await page.getByTestId('audio-language').click()
-	await page.getByRole('option', {name: 'Klingon'}).click()
+	await page.getByRole('option', {name: 'Spanish (Latin America)'}).click()
 	await expect(page.getByTestId('audio-quality-low').first()).toBeVisible()
 	await expect(page.getByRole('radio', {name: /^English/})).toHaveCount(0)
 

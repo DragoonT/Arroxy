@@ -121,7 +121,7 @@ describe('browser mock scenarios', () => {
 			throw new Error('expected video probe fixtures')
 		}
 
-		expect(multilingual.probeResult.formats).toEqual(expect.arrayContaining([expect.objectContaining({audioTrackLabel: 'English original (default)', audioTrackQuality: 'medium'}), expect.objectContaining({audioTrackLabel: 'Klingon', audioTrackQuality: 'low'})]))
+		expect(multilingual.probeResult.formats).toEqual(expect.arrayContaining([expect.objectContaining({audioTrackLabel: 'English original (default)', audioTrackQuality: 'medium'}), expect.objectContaining({audioTrackLabel: 'Spanish (Latin America)', audioTrackQuality: 'low'})]))
 		expect(surround.probeResult.formats).toEqual(expect.arrayContaining([expect.objectContaining({audioCodec: 'ac-3', audioTrackQuality: 'high'}), expect.objectContaining({audioCodec: 'ec-3', audioTrackQuality: 'high'}), expect.objectContaining({audioTrackQuality: 'medium'})]))
 		expect(stereo.probeResult.formats).toEqual(expect.arrayContaining([expect.objectContaining({audioTrackQuality: 'medium'}), expect.objectContaining({audioTrackQuality: 'low'})]))
 		expect(stereo.probeResult.formats.some(format => format.isAudioOnly && format.audioTrackLabel !== undefined)).toBe(false)

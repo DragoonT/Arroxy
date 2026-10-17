@@ -41,8 +41,27 @@ const SHOTS: readonly Shot[] = [
 			await page.locator('[data-testid^="profile-row-"]').nth(1).click()
 		}
 	},
-	{name: 'Multi-language audio', file: 'Multi-lang-audio-support-screenshot.png', query: 'scenario=probe-audio-multilingual', ready: '[data-slot="radio-group"] [data-checked]'},
-	{name: 'Surround audio', file: 'Dolby-audio-support-screenshot.png', query: 'scenario=probe-audio-surround', ready: '[data-slot="radio-group"] [data-checked]'},
+	{
+		name: 'Multi-language audio',
+		file: 'Multi-lang-audio-support-screenshot.png',
+		query: 'scenario=probe-audio-multilingual',
+		height: 840,
+		ready: '[role="option"]',
+		prepare: async page => {
+			// The open language list is the feature: it shows how many tracks the video carries.
+			await page.getByTestId('audio-language').click()
+		}
+	},
+	{
+		name: 'Surround audio',
+		file: 'Dolby-audio-support-screenshot.png',
+		query: 'scenario=probe-audio-surround',
+		height: 840,
+		ready: '[data-slot="radio-group"] [data-checked]:has-text("E-AC-3")',
+		prepare: async page => {
+			await page.getByRole('radio', {name: /E-AC-3/}).click()
+		}
+	},
 	{
 		name: 'Bulk URLs',
 		file: 'Bulk-urls-mode-screenshot.png',
@@ -54,7 +73,7 @@ const SHOTS: readonly Shot[] = [
 		}
 	},
 	{name: 'Profile editor', file: 'Profile-editor-screenshot.png', query: 'scenario=profiles-editor', width: 1100, height: 1000, ready: '[data-testid="profiles-editor-dialog"]', prepare: page => page.getByRole('button', {name: 'Advanced'}).click()},
-	{name: 'Part of video', file: 'Part-of-video-screenshot.png', query: 'scenario=single-part', height: 1000, ready: '[data-testid="video-part-panel"]'},
+	{name: 'Part of video', file: 'Part-of-video-screenshot.png', query: 'scenario=single-part', height: 1100, ready: '[data-testid="video-part-panel"]'},
 	{name: 'Explore', file: 'Explore-screenshot.png', query: 'scenario=explore-notice', ready: '[data-testid="explore-notice"]'},
 	{name: 'Explore browsing', file: 'Explore-browsing-screenshot.png', query: 'scenario=explore-browsing', ready: '[data-testid="explore-mock-page"] img'},
 	{name: 'Downloads attention', file: 'Downloads-attention-screenshot.png', query: 'scenario=queue-attention', height: 980, ready: '[data-testid="queue-attention-qa-capped"]', prepare: page => openTab(page, 'Downloads')},
@@ -62,7 +81,7 @@ const SHOTS: readonly Shot[] = [
 ]
 
 // Chrome that belongs to the workbench or to first-run moments, not to the feature being shown.
-const HIDE = ['[data-testid="scenario-gallery"]', '[data-testid="queue-tab-first-run-cue"]', '[data-testid="feedback-nudge"]', '[data-testid="style-hint"]']
+const HIDE = ['[data-testid="scenario-gallery"]', '[data-testid="queue-tab-first-run-cue"]', '[data-testid="feedback-nudge"]', '[data-testid="style-hint"]', '[data-testid="format-profile-callout"]', '[data-testid="video-part-callout"]', '[data-testid="explore-link-callout"]']
 
 async function openTab(page: Page, name: string): Promise<void> {
 	await page
