@@ -366,6 +366,8 @@
 		"formats": {
 			"kind": {"label": "Ne indirilsin", "video": "Video", "audio": "Ses", "subtitles": "Yalnızca altyazılar"},
 			"profile": {
+				"calloutTitle": "Biçimler profilinle başlar",
+				"calloutBody": "Etkin profilin akışları senin için önceden seçer. Profilleri menüden değiştir ya da bu indirmeden çıkmadan bir profili ayarlamak için kalemi kullan.",
 				"preselected": "Şuradan önceden seçildi:",
 				"tag": "Profil",
 				"closestTag": "Profile en yakın",

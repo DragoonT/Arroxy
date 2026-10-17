@@ -353,6 +353,8 @@
 		"formats": {
 			"kind": {"label": "O que baixar", "video": "Vídeo", "audio": "Áudio", "subtitles": "Somente legendas"},
 			"profile": {
+				"calloutTitle": "Os formatos partem do seu perfil",
+				"calloutBody": "O seu perfil ativo pré-seleciona os streams por si. Troque de perfil no menu ou use o lápis para ajustar um sem sair deste download.",
 				"preselected": "Pré-selecionado de",
 				"tag": "Perfil",
 				"closestTag": "Mais próximo do perfil",

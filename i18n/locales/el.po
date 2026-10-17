@@ -2237,6 +2237,14 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "Χωρίς ήχο"
 
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Το ενεργό προφίλ σου προεπιλέγει τις ροές για σένα. Άλλαξε προφίλ από το μενού ή χρησιμοποίησε το μολύβι για να ρυθμίσεις ένα χωρίς να φύγεις από αυτή τη λήψη."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Οι μορφές ξεκινούν από το προφίλ σου"
+
 msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "Πλησιέστερο στο προφίλ"

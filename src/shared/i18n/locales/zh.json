@@ -331,6 +331,8 @@
 		"formats": {
 			"kind": {"label": "下载内容", "video": "视频", "audio": "音频", "subtitles": "仅字幕"},
 			"profile": {
+				"calloutTitle": "格式从你的配置文件开始",
+				"calloutBody": "活动配置文件会为你预先选好流。可从菜单切换配置文件，或用铅笔图标在不离开本次下载的情况下调整配置文件。",
 				"preselected": "预选自",
 				"tag": "配置",
 				"closestTag": "最接近配置",

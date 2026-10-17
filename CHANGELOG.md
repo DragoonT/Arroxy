@@ -8,6 +8,14 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## Unreleased
+
+## Highlights
+
+- **One-time callouts point out features you might miss.** On the Format screen, a callout explains that your profile pre-selects the formats and that its menu and pencil tune it without leaving the download; another points out **Part**. In Explore, one points out the right-click menu on video, playlist and channel links. Each goes away once you close it or use the feature, and never comes back.
+
+---
+
 ## 0.6.0
 
 ## Highlights

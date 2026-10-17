@@ -369,6 +369,8 @@
 		"formats": {
 			"kind": {"label": "Que télécharger", "video": "Vidéo", "audio": "Audio", "subtitles": "Sous-titres uniquement"},
 			"profile": {
+				"calloutTitle": "Les formats partent de votre profil",
+				"calloutBody": "Votre profil actif présélectionne les flux pour vous. Changez de profil depuis le menu, ou utilisez le crayon pour en ajuster un sans quitter ce téléchargement.",
 				"preselected": "Présélectionné d’après",
 				"tag": "Profil",
 				"closestTag": "Le plus proche du profil",

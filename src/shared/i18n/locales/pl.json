@@ -361,6 +361,8 @@
 		"formats": {
 			"kind": {"label": "Co pobrać", "video": "Wideo", "audio": "Dźwięk", "subtitles": "Tylko napisy"},
 			"profile": {
+				"calloutTitle": "Formaty zaczynają od Twojego profilu",
+				"calloutBody": "Aktywny profil wstępnie wybiera strumienie za Ciebie. Zmień profil w menu albo użyj ołówka, by dostroić jeden z nich bez opuszczania tego pobierania.",
 				"preselected": "Wstępnie wybrano z",
 				"tag": "Profil",
 				"closestTag": "Najbliższy profilowi",

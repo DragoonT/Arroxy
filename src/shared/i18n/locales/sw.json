@@ -356,6 +356,8 @@
 		"formats": {
 			"kind": {"label": "Cha kupakua", "video": "Video", "audio": "Sauti", "subtitles": "Manukuu peke yake"},
 			"profile": {
+				"calloutTitle": "Miundo huanza na wasifu wako",
+				"calloutBody": "Wasifu wako unaotumika huchagua mitiririko kwa ajili yako. Badilisha wasifu kutoka kwenye menyu, au tumia penseli kurekebisha mmoja bila kuondoka kwenye upakuaji huu.",
 				"preselected": "Imechaguliwa awali kutoka",
 				"tag": "Wasifu",
 				"closestTag": "Karibu zaidi na wasifu",

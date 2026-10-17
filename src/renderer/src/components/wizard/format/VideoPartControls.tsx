@@ -61,10 +61,13 @@ export function VideoPartSwitch(): ReactNode {
 
 // One-time callout under the video card: new users would otherwise take the card
 // for a plain summary and never notice a part can be downloaded. Choosing Part
-// counts as having seen it.
+// counts as having seen it. The profile callout goes first, so the step shows
+// one at a time.
 export function VideoPartCallout(): ReactNode {
 	const {t} = useTranslation()
-	const {pending, available, dismiss} = useAppStore(useShallow(state => ({pending: state.settings !== null && state.settings.common?.videoPartCalloutDismissed !== true, available: partUnavailableReason(state) === null && state.wizardPart === null, dismiss: state.dismissVideoPartCallout})))
+	const {pending, available, dismiss} = useAppStore(
+		useShallow(state => ({pending: state.settings !== null && state.settings.common?.videoPartCalloutDismissed !== true, available: partUnavailableReason(state) === null && state.wizardPart === null && state.settings?.common?.formatProfileCalloutDismissed === true, dismiss: state.dismissVideoPartCallout}))
+	)
 	if (!pending || !available) return null
 	return (
 		<Alert variant="info" data-testid="video-part-callout">

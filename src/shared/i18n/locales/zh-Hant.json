@@ -339,6 +339,8 @@
 		"formats": {
 			"kind": {"label": "下載內容", "video": "影片", "audio": "音訊", "subtitles": "僅字幕"},
 			"profile": {
+				"calloutTitle": "格式從你的設定檔開始",
+				"calloutBody": "目前設定檔會為你預先選好串流。可從選單切換設定檔，或用鉛筆圖示在不離開這次下載的情況下調整設定檔。",
 				"preselected": "預先選取自",
 				"tag": "設定檔",
 				"closestTag": "最接近設定檔",

@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {FormatProfileCallout} from '@renderer/components/wizard/format/FormatProfileCallout.js'
 import {WizardProfileLine} from '@renderer/components/wizard/format/WizardProfileLine.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
@@ -20,6 +21,11 @@ function builtin(id: string) {
 	return profile
 }
 
+function seedSettings(common: Record<string, unknown>) {
+	const base = defaultAppSettings('/downloads')
+	return {...base, common: {...base.common, ...common}}
+}
+
 const saveDownloadProfile = vi.fn()
 const chooseWizardProfile = vi.fn()
 
@@ -27,7 +33,7 @@ beforeEach(() => {
 	saveDownloadProfile.mockReset().mockResolvedValue(undefined)
 	chooseWizardProfile.mockReset()
 	useAppStore.setState({
-		settings: defaultAppSettings('/downloads'),
+		settings: seedSettings({formatProfileCalloutDismissed: true}),
 		wizardMode: 'single',
 		wizardFormats: FORMATS,
 		wizardSubtitles: {},
@@ -88,5 +94,56 @@ describe('WizardProfileLine', () => {
 
 		fireEvent.click(screen.getByTestId('wizard-profile-option-balanced'))
 		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'balanced'})
+	})
+})
+
+describe('One-time profile callout on the Format step', () => {
+	const update = vi.fn((patch: {common?: Record<string, unknown>}) => Promise.resolve({ok: true as const, data: seedSettings(patch.common ?? {})}))
+
+	beforeEach(() => {
+		update.mockClear()
+		window.appApi = {settings: {update}} as unknown as typeof window.appApi
+		useAppStore.setState({settings: seedSettings({})})
+	})
+
+	function renderLine(): void {
+		render(
+			<>
+				<FormatProfileCallout />
+				<WizardProfileLine />
+			</>
+		)
+	}
+
+	it('explains that the profile picks the formats, until closed', async () => {
+		renderLine()
+		expect(screen.getByTestId('format-profile-callout')).toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('format-profile-callout-dismiss'))
+
+		await waitFor(() => expect(update).toHaveBeenCalledWith({common: {formatProfileCalloutDismissed: true}}))
+		expect(screen.queryByTestId('format-profile-callout')).toBeNull()
+	})
+
+	it('never shows once dismissed', () => {
+		useAppStore.setState({settings: seedSettings({formatProfileCalloutDismissed: true})})
+		renderLine()
+		expect(screen.queryByTestId('format-profile-callout')).toBeNull()
+	})
+
+	it('counts opening the profile menu as having seen it', async () => {
+		renderLine()
+		fireEvent.click(screen.getByTestId('wizard-profile-trigger'))
+
+		await waitFor(() => expect(update).toHaveBeenCalledWith({common: {formatProfileCalloutDismissed: true}}))
+		expect(screen.queryByTestId('format-profile-callout')).toBeNull()
+	})
+
+	it('counts the pencil as having seen it', async () => {
+		renderLine()
+		fireEvent.click(screen.getByTestId('wizard-profile-edit'))
+
+		await waitFor(() => expect(update).toHaveBeenCalledWith({common: {formatProfileCalloutDismissed: true}}))
+		expect(screen.queryByTestId('format-profile-callout')).toBeNull()
 	})
 })

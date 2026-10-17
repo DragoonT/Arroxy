@@ -181,6 +181,7 @@ export interface CommonSettings {
 	styleHintDismissed?: boolean
 	videoPartCalloutDismissed?: boolean
 	exploreLinkCalloutDismissed?: boolean
+	formatProfileCalloutDismissed?: boolean
 }
 
 export interface BinaryOverrides {

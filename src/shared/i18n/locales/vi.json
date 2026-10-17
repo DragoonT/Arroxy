@@ -353,6 +353,8 @@
 		"formats": {
 			"kind": {"label": "Tải gì", "video": "Video", "audio": "Âm thanh", "subtitles": "Chỉ phụ đề"},
 			"profile": {
+				"calloutTitle": "Định dạng bắt đầu từ hồ sơ của bạn",
+				"calloutBody": "Hồ sơ đang dùng sẽ chọn sẵn các luồng cho bạn. Đổi hồ sơ từ menu, hoặc dùng biểu tượng bút chì để chỉnh một hồ sơ mà không rời khỏi lần tải này.",
 				"preselected": "Chọn sẵn từ",
 				"tag": "Hồ sơ",
 				"closestTag": "Gần nhất với hồ sơ",
