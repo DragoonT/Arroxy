@@ -1,6 +1,8 @@
 # Source priority: how a profile picks streams
 
-**Status: decided, not built.** A download profile picks one video and one
+**Status: built on `feat/source-priority`, not merged.** The three delivery
+steps below landed together; the English copy is approved and all 30
+non-English locales are translated. A download profile picks one video and one
 audio stream out of everything a video offers by ranking them in a fixed
 order of rules. Today that order is spread over two labels and a global
 setting, and nobody can see it. This spec makes the order one owned
@@ -181,9 +183,9 @@ pinned test-first against yt-dlp, not guessed here.
 
 ```ts
 media:
-  | {kind: 'video-audio'; goal: 'best-picture' | 'smart-tv'; tier: PlaylistVideoTier; fileType: 'auto' | 'mp4' | 'mkv' | 'webm'; audio: {nativePreference: {kind: 'default'} | {kind: 'custom'; value: NativeAudioPreference}}}
-  | {kind: 'video-only'; goal: ...; tier: ...; fileType: ...}
-  | {kind: 'audio-only'; audio: {format: ...; bitrateKbps?: ...}}
+  | {kind: 'video-audio'; goal: 'best-picture' | 'smart-tv'; tier: PlaylistVideoTier; fileType: 'auto' | 'mp4' | 'mkv' | 'webm'; audio: {native: {kind: 'default'} | {kind: 'custom'; preference: NativeAudioPreference}}}
+  | {kind: 'video-only'; goal; tier; fileType}
+  | {kind: 'audio-only'; audio: {format; bitrateKbps?}}
   | {kind: 'subtitles-only'}
 ```
 
@@ -192,12 +194,17 @@ the goal and the file type (Selection order). Field names are settled in
 PR 2; the domain terms (selection order, profile goal, file type, remux) are
 in `GLOSSARY.md`.
 
-Stored profiles: custom profiles and built-in overrides already on disk use
-`codec` and `tiers`. The profile schema maps them once at parse time
-(`codec: 'mp4'` → `goal: 'smart-tv'`, `best` → `best-picture`, `tiers[0]` →
-`tier`, `fileType: 'auto'`, native audio `default`), the same way
-`filename` and `enabled` use `.default` today, so an upgrade never drops a
-user's profiles. No other compatibility layer.
+Stored profiles: custom profiles, built-in overrides and queued jobs already
+on disk use `codec` and `tiers`. The media schema maps them once at parse
+time (a `z.preprocess`): `codec: 'mp4'` → `goal: 'smart-tv'`, `best` →
+`best-picture`, `tiers[0]` → `tier`, native audio `default`. A `best` profile
+whose audio was `m4a` becomes Best picture saved as **MP4**, the only way a
+profile can still ask for AAC. A Smart TV profile with native audio now takes
+AAC like the built-ins always did. No other compatibility layer.
+
+The three Smart TV built-ins keep their old download folders ("Smart TV MP4
+Full HD 1080p", ...) although their names are shorter, so files already
+downloaded stay where playlist sync looks for them.
 
 ## UI
 
@@ -235,7 +242,7 @@ This spec adds two controls and one word, nothing else.
 
 - **Why this one.** A `HelpTip` on the existing Profile badge lists the
   ranks that decided the profile's pick ("1920x1080 · your limit, 60 fps ·
-  highest offered, HDR · ranked above SDR, AV1 · ranked above VP9, Stereo
+  highest offered, SDR · before HDR, AV1 · ranked above VP9, Stereo
   Opus · from Settings"). No panel, no permanent text. It explains the
   profile's pick, never the user's.
 - **Codec in the video meta.** `mp4 · AV1 · 60fps · HDR10 · 235.9 MB`.
@@ -263,15 +270,49 @@ This spec adds two controls and one word, nothing else.
   .mp4 file". In the screenshot this spec was checked against, the mp4
   video merges with webm audio into an .mkv. Saves as removes that guess.
 
-## Open question: HDR
+## HDR: Auto, a setting, and old installs keep HDR
 
-Best picture follows yt-dlp's default sort, which ranks HDR above SDR. On
-the 4K HDR test video the profile picks a 1080p mp4 HDR10 stream (AV1 on YouTube). Many players show
-HDR washed out on an SDR display, and an average user can't tell why. The
-"Why this one" tip makes it visible, but the default may still be wrong
-for most people. Options: keep yt-dlp's order; rank SDR first unless the
-profile asks for HDR (an Advanced switch); or follow the display's HDR
-capability. Decide before PR 2, separately from this spec.
+Best picture used to follow yt-dlp's default sort, which ranks HDR above SDR
+at the same height and frame rate. yt-dlp has no smart rule here: it reads the
+format's dynamic range label and ranks DV, HDR12, HDR10+, HDR10, HLG, SDR in
+that order (Dolby Vision is held back by `hdr:12`). It knows nothing about the
+screen, and HDR looks washed out on one that isn't HDR, so the order is now a
+setting with a profile override, like native audio:
+
+- **Settings, "HDR video":** Auto (default for new installs), SDR, HDR. Auto
+  picks HDR first only when the screen the app is on shows HDR, otherwise SDR
+  first. The check is the `dynamic-range: high` media query, per window, so it
+  follows the monitor the window sits on (true on the built-in XDR display of
+  the test Mac). A window that cannot answer reads as SDR.
+- **Profile, Advanced, "HDR video":** Use app setting (Auto, SDR or HDR), SDR,
+  HDR. Only a profile's own choice is stored; absent means the app setting.
+- **Order:** resolution, frame rate, then the HDR choice, then codec. A height
+  only offered as HDR is still taken, so the choice never costs resolution.
+  SDR first is the yt-dlp sort field `hdr:sdr`, written after `res` and `fps`
+  because a field named in `-S` outranks every default; HDR first is yt-dlp's
+  own order, so no field is written. Checked against yt-dlp on a synthetic
+  format list.
+- **Resolved when a job is built,** in the renderer, so Auto follows the screen
+  at that moment. A headless smoke run has no screen and reads Auto as SDR.
+- **Existing installs:** a settings file saved before the setting existed gets
+  explicit HDR when it is first read, so nothing they download changes. They
+  can switch to Auto or SDR in Settings. A first launch starts on Auto.
+- **The tip** names the reason: "this screen shows HDR" or "this screen isn't
+  HDR" under Auto; "looks right on any screen" or "richer colour on HDR
+  screens" for an explicit choice.
+- **Limits:** Auto reads the screen the download happens on, not where the file
+  will be watched, and the same link can give a different file on another
+  monitor.
+
+## MP4 playback, measured
+
+A Mac with AV1 hardware (M5 Pro, macOS 27) opened MP4 files built the way the
+app builds them (streams copied, nothing re-encoded). QuickTime's player stack
+could not decode **VP9** video in an MP4 (audio played, video "Cannot Decode"),
+while H.264, **AV1** and **Opus** played. Chromium, mpv and ffmpeg played all of
+them. So the Format summary and Review warn on VP9 ("won't play video in
+QuickTime") and AV1 ("needs a recent Mac"), and not on Opus. Not tested: Safari
+itself, Windows players, TVs, editors, Macs without AV1 hardware.
 
 ## Out of scope
 

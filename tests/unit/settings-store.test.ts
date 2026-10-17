@@ -404,6 +404,138 @@ describe('settings and recent stores', () => {
 		expect(reloaded.profiles.overrides[0]?.filename).toEqual({kind: 'default'})
 	})
 
+	it('reads profiles saved with a codec and a tiers list into goal, tier and file type', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-goal-migrate-'))
+		const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const legacy = (id: string, media: unknown) => ({...base, id, name: id, media, createdAt: NOW, updatedAt: NOW})
+		const custom = [
+			legacy('old-smart-tv', {kind: 'video-audio', codec: 'mp4', tiers: ['720'], audio: {format: 'm4a'}}),
+			legacy('old-native', {kind: 'video-audio', codec: 'best', tiers: ['1440'], audio: {format: 'best'}}),
+			legacy('old-native-aac', {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'm4a'}}),
+			legacy('old-video-only', {kind: 'video-only', codec: 'mp4', tiers: ['480']}),
+			legacy('old-audio', {kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}})
+		]
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'custom', id: 'old-smart-tv'}, custom, overrides: [legacy('balanced', {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}})]}}), 'utf-8')
+
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+		const media = Object.fromEntries(settings.profiles.custom.map(profile => [profile.id, profile.media]))
+
+		expect(settings.profiles.custom).toHaveLength(5)
+		expect(settings.profiles.active).toEqual({kind: 'custom', id: 'old-smart-tv'})
+		expect(media['old-smart-tv']).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
+		expect(media['old-native']).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1440', fileType: 'auto', audio: {native: {kind: 'default'}}})
+		expect(media['old-native-aac']).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
+		expect(media['old-video-only']).toEqual({kind: 'video-only', goal: 'smart-tv', tier: '480', fileType: 'auto'})
+		expect(media['old-audio']).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}})
+		expect(settings.profiles.overrides[0]?.media).toMatchObject({goal: 'best-picture', tier: '720'})
+	})
+
+	describe('HDR preference for installs that already have settings', () => {
+		const savedWithoutIt = (extra: Record<string, unknown> = {}) => {
+			const {hdrPreference: _drop, ...common} = baseDefaults.common
+			return JSON.stringify({...baseDefaults, common: {...common, ...extra}})
+		}
+
+		it('a fresh install starts on Auto', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-fresh-'))
+
+			const store = new SettingsStore(userData, baseDefaults)
+
+			expect(store.getSync().common.hdrPreference).toBe('auto')
+		})
+
+		it('an install saved before the setting existed keeps HDR first, so no download changes', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-existing-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), savedWithoutIt(), 'utf-8')
+
+			const store = new SettingsStore(userData, baseDefaults)
+
+			expect(store.getSync().common.hdrPreference).toBe('hdr')
+			expect(JSON.parse(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')).common.hdrPreference).toBe('hdr')
+		})
+
+		it('a user who turned it off is not flipped back on the next launch', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-off-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), savedWithoutIt(), 'utf-8')
+			const first = new SettingsStore(userData, baseDefaults)
+			await first.update({common: {hdrPreference: 'sdr'}})
+
+			const second = new SettingsStore(userData, baseDefaults)
+
+			expect(second.getSync().common.hdrPreference).toBe('sdr')
+		})
+
+		it('keeps a saved choice as it is', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-saved-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), savedWithoutIt({hdrPreference: 'sdr'}), 'utf-8')
+
+			expect(new SettingsStore(userData, baseDefaults).getSync().common.hdrPreference).toBe('sdr')
+		})
+	})
+
+	describe('backup before profiles are converted', () => {
+		const legacyMedia = {kind: 'video-audio', codec: 'mp4', tiers: ['720'], audio: {format: 'm4a'}}
+		const BACKUP = 'settings.before-selection-order.json'
+
+		async function writeSettings(userData: string, media: unknown): Promise<string> {
+			const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+			const text = JSON.stringify({...baseDefaults, profiles: {active: {kind: 'custom', id: 'mine'}, custom: [{...base, id: 'mine', name: 'Mine', media, createdAt: NOW, updatedAt: NOW}], overrides: []}})
+			await fs.writeFile(path.join(userData, 'settings.json'), text, 'utf-8')
+			return text
+		}
+
+		it('keeps the settings file as it was before rewriting old-shape profiles', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-'))
+			const original = await writeSettings(userData, legacyMedia)
+
+			const store = new SettingsStore(userData, baseDefaults)
+
+			expect(store.getSync().profiles.custom[0]?.media).toMatchObject({goal: 'smart-tv', tier: '720'})
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe(original)
+			expect(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')).not.toContain('"codec"')
+		})
+
+		it('backs up the original bytes, not the file with defaults merged in', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-bytes-'))
+			const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+			const original = JSON.stringify({profiles: {active: {kind: 'custom', id: 'mine'}, custom: [{...base, id: 'mine', name: 'Mine', media: legacyMedia, createdAt: NOW, updatedAt: NOW}], overrides: []}})
+			await fs.writeFile(path.join(userData, 'settings.json'), original, 'utf-8')
+
+			new SettingsStore(userData, baseDefaults)
+
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe(original)
+		})
+
+		it('never overwrites an earlier backup', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-keep-'))
+			await fs.writeFile(path.join(userData, BACKUP), 'first backup', 'utf-8')
+			await writeSettings(userData, legacyMedia)
+
+			new SettingsStore(userData, baseDefaults)
+
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe('first backup')
+		})
+
+		it('makes no backup when every profile is already in the new shape', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-none-'))
+			await writeSettings(userData, {kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
+
+			new SettingsStore(userData, baseDefaults)
+
+			await expect(fs.access(path.join(userData, BACKUP))).rejects.toThrow()
+		})
+
+		it('makes a second backup of nothing: a store opened again after the conversion leaves the first one alone', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-twice-'))
+			const original = await writeSettings(userData, legacyMedia)
+			new SettingsStore(userData, baseDefaults)
+
+			new SettingsStore(userData, baseDefaults)
+
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe(original)
+		})
+	})
+
 	// One unparseable profile must not cost the user every other profile they
 	// built. Whole-object validation would reset the entire bucket, including
 	// the active selection, with nothing on disk or in the log to explain it.

@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import Store from 'electron-store'
 import log from 'electron-log/main.js'
 import type {ZodError} from 'zod'
@@ -23,6 +25,7 @@ const COMMON_FLAT_KEYS = [
 	'cookiesBrowser',
 	'proxyUrl',
 	'nativeAudioPreference',
+	'hdrPreference',
 	'limitRate',
 	'playlistProbeLimit',
 	'networkPacingPreset',
@@ -257,6 +260,44 @@ function normalizePersistedProfiles(source: unknown): DownloadProfilesPrefs {
 	return {active, custom, overrides, enabledOverrides}
 }
 
+// Profiles saved before goals and file types carry `codec` and `tiers` in their
+// media. Loading reads them into the new shape, and the next save writes that
+// shape, which an older app version cannot read (it drops such profiles).
+function hasLegacyProfileMedia(raw: Record<string, unknown>): boolean {
+	const profiles = asRecord(raw.profiles)
+	return [profiles?.custom, profiles?.overrides].some(bucket => Array.isArray(bucket) && bucket.some(item => asRecord(asRecord(item)?.media)?.codec !== undefined))
+}
+
+const PRE_SELECTION_ORDER_BACKUP = 'settings.before-selection-order.json'
+
+interface PriorSettings {
+	// The file's exact bytes, kept so a backup is the file as it was.
+	text: string
+	data: Record<string, unknown>
+}
+
+// The settings file as an earlier version left it, or null on a first launch
+// (or a file that cannot be read). Read before the store opens, because the
+// store writes its defaults into the file at construction and would hide which
+// keys were really saved.
+function readPriorSettings(userDataPath: string): PriorSettings | null {
+	try {
+		const text = fs.readFileSync(path.join(userDataPath, 'settings.json'), 'utf-8')
+		const data = asRecord(JSON.parse(text))
+		return data ? {text, data} : null
+	} catch {
+		return null
+	}
+}
+
+// SDR is the default for new installs, but an install that already had settings
+// was getting HDR-first picks from yt-dlp's own order: it keeps them, so no
+// download changes. Settings can turn it off.
+function savedBeforeHdrPreference(prior: PriorSettings | null): boolean {
+	if (!prior) return false
+	return asRecord(prior.data.common)?.hdrPreference === undefined && prior.data.hdrPreference === undefined
+}
+
 export class SettingsStore {
 	// electron-store exposes unvalidated JSON. Keep its generic honest and parse
 	// the payload before storing or returning the trusted AppSettings value.
@@ -265,13 +306,33 @@ export class SettingsStore {
 	private settings: AppSettings
 
 	constructor(userDataPath: string, defaults: AppSettings) {
+		const priorSettings = readPriorSettings(userDataPath)
 		this.store = new Store<Record<string, unknown>>({name: 'settings', cwd: userDataPath, defaults: rawSettings(defaults), clearInvalidConfig: true})
 		this.defaults = defaults
 		const loaded = parsePersistedSettings(this.store.store, this.defaults)
-		this.settings = loaded.settings
+		this.settings = savedBeforeHdrPreference(priorSettings) ? {...loaded.settings, common: {...loaded.settings.common, hdrPreference: 'hdr'}} : loaded.settings
 		for (const section of loaded.invalidSections) logger.warn('Invalid persisted settings section; using defaults', {section})
-		if (loaded.shouldPersist) this.persist()
+		if (loaded.shouldPersist || this.settings !== loaded.settings) {
+			this.backUpLegacyProfiles(userDataPath, priorSettings)
+			this.persist()
+		}
 		this.logProfileSummary()
+	}
+
+	// Once, before profiles saved in the old shape are rewritten: keep the file
+	// as it was, so going back to an older build loses nothing. Never blocks
+	// startup, and never overwrites an earlier backup.
+	private backUpLegacyProfiles(userDataPath: string, prior: PriorSettings | null): void {
+		if (!prior || !hasLegacyProfileMedia(prior.data)) return
+		const backupPath = path.join(userDataPath, PRE_SELECTION_ORDER_BACKUP)
+		try {
+			// `wx` fails if a backup already exists, so an earlier one is never overwritten.
+			fs.writeFileSync(backupPath, prior.text, {encoding: 'utf-8', flag: 'wx'})
+			logger.info('Backed up settings before converting profiles', {file: PRE_SELECTION_ORDER_BACKUP})
+		} catch (error) {
+			if (error instanceof Error && 'code' in error && error.code === 'EEXIST') return
+			logger.warn('Could not back up settings before converting profiles', {error: error instanceof Error ? error.message : String(error)})
+		}
 	}
 
 	private persist(): void {

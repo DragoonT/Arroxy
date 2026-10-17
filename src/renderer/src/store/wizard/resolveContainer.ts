@@ -1,5 +1,7 @@
-import type {AudioSelection, SubtitleMode, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import {fileTypeFits, mp4Caveat, type Mp4Caveat} from '@shared/fileTypeFit.js'
 import type {FormatOption} from '@shared/types.js'
+import type {AppState} from '../types.js'
 
 /**
  * Resolves the expected output file container extension from wizard format selection.
@@ -10,11 +12,13 @@ import type {FormatOption} from '@shared/types.js'
  * - audio convert → target format ('mp3', 'm4a', 'opus', 'wav')
  * - audio-only native → format's own ext (often 'webm' for YouTube opus)
  * - video + subtitle embed → mkv (forced by --merge-output-format mkv)
+ * - video + a chosen file type → that type (WebM only when the streams fit,
+ *   else the MKV fallback the remux rule names)
  * - video + same-container audio → that container, except a WebM merge that
  *   embeds a thumbnail, which yt-dlp switches to mkv to hold the cover art
  * - video + mixed-container audio → mkv (yt-dlp default merge)
  */
-export function resolveOutputContainer(selectedVideoFormatId: string, audioSelection: AudioSelection, subtitleMode: SubtitleMode, wizardFormats: FormatOption[], mediaKind: WizardMediaKind, embedThumbnail = false): string {
+export function resolveOutputContainer(selectedVideoFormatId: string, audioSelection: AudioSelection, subtitleMode: SubtitleMode, wizardFormats: FormatOption[], mediaKind: WizardMediaKind, embedThumbnail = false, fileType: VideoFileType = 'auto'): string {
 	if (mediaKind === 'subtitles') return 'subtitle-only'
 
 	if (audioSelection.kind === 'convert-lossless') return 'wav'
@@ -38,9 +42,21 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 	const audioExt = audioFmt?.ext
 
 	if (!videoExt) return 'unknown'
+	if (fileType === 'webm') return fileTypeFits('webm', videoFmt, audioFmt ?? undefined) ? 'webm' : 'mkv'
+	if (fileType !== 'auto') return fileType
 
 	if (videoExt === 'webm' && !audioExt) return 'webm'
 	if (videoExt === 'webm' && audioExt === 'webm') return embedThumbnail ? 'mkv' : 'webm'
 	if (videoExt === 'mp4' && (!audioExt || audioExt === 'm4a' || audioExt === 'mp4')) return 'mp4'
 	return 'mkv'
+}
+
+// The video codec that makes an MP4 risky to play in QuickTime (VP9 or AV1),
+// when this download ends as an MP4; null otherwise, and always null when
+// embedded subtitles turn the file into an MKV.
+export function mp4CaveatCodec(state: Pick<AppState, 'wizardMediaKind' | 'selectedVideoFormatId' | 'audioSelection' | 'wizardSubtitleMode' | 'wizardFormats' | 'wizardEmbedThumbnail' | 'wizardFileType'>): Mp4Caveat | null {
+	if (state.wizardMediaKind !== 'video' || state.selectedVideoFormatId === '') return null
+	const container = resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, state.wizardMediaKind, state.wizardEmbedThumbnail, state.wizardFileType)
+	if (container !== 'mp4') return null
+	return mp4Caveat(state.wizardFormats.find(f => f.formatId === state.selectedVideoFormatId))
 }

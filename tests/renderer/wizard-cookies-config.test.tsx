@@ -214,6 +214,20 @@ describe('advanced network settings', () => {
 		})
 	})
 
+	it('saves the global HDR video preference, Auto by default', async () => {
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		expect(screen.getByTestId('hdr-preference-auto')).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.getByTestId('hdr-preference')).toHaveTextContent('Auto')
+		expect(screen.getByTestId('hdr-preference')).toHaveTextContent('SDR')
+		fireEvent.click(screen.getByTestId('hdr-preference-hdr'))
+
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hdrPreference: 'hdr'}})
+		})
+	})
+
 	it('lists every style and saves the one picked', async () => {
 		render(<StepUrlInput />)
 		openSettingsTab()
