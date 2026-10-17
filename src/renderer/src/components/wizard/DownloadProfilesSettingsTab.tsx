@@ -123,6 +123,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 		setDownloadConnections,
 		setConcurrentDownloads,
 		setAutoRetryAttempts,
+		setAutoRemoveCompleted,
 		setNativeAudioPreference,
 		setHdrPreference,
 		setFilenameTemplate,
@@ -342,6 +343,15 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 						schema={autoRetryAttemptsSchema}
 						onCommit={value => void setAutoRetryAttempts(value)}
 						testId="auto-retry-input"
+					/>
+
+					<SettingSwitch
+						id="profiles-settings-auto-remove-completed"
+						label={t('wizard.url.autoRemoveCompleted.label')}
+						description={t('wizard.url.autoRemoveCompleted.description')}
+						checked={common?.autoRemoveCompleted ?? false}
+						onCheckedChange={checked => void setAutoRemoveCompleted(checked)}
+						testId="auto-remove-completed-switch"
 					/>
 
 					<NumericSettingRow
