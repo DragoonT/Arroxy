@@ -257,7 +257,7 @@ Subtitles are a soft second phase (ADR 0002): phase 1 downloads media with `--no
 Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Both are cut from `main`, the only long-lived branch.
 
 - **When the user says "release X":** run `bun run check`, add the `## X` section to `CHANGELOG.md`, commit `release: X` with the `package.json` bump, then run `bun run release:beta` or `bun run release:stable` yourself. Don't hand the script back to the user.
-- **Tags must be annotated** (the wrapper enforces it): `git push --follow-tags` silently skips lightweight tags and the pipeline never fires.
+- **Tags must be annotated and pushed alone** (the wrapper does both): `git push --follow-tags` silently skips lightweight tags, and also pushes any stale local tags; GitHub fires no tag events when one push carries more than three tags, so the pipeline never starts.
 - **`CHANGELOG.md` is the release-notes source.** Never edit GitHub release notes in the web UI or with `gh release edit`; `publish-release` overwrites them. Fix the changelog and re-run that job.
 
 Checklist, beta-then-stable sequence and manual fallback: [`dev-docs/release-runbook.md`](dev-docs/release-runbook.md). Job graph, secrets, Winget, external repos and shipped assets: [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md). Keep third-party actions that receive a token pinned to a full commit SHA, and never rotate the Flatpak signing key casually ([`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md)).
