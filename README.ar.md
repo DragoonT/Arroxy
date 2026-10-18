@@ -463,9 +463,9 @@ Arroxy مبني لغرض واحد: الصق رابطاً، احصل على مل�
 
 ## <a id="support"></a>💖 ادعم Arroxy
 
-Arroxy مجاني ومرخّص بموجب MIT — بلا إعلانات، بلا تتبّع، وبلا نسخة مدفوعة. إذا كان يوفّر وقتك، يمكنك دعم تطويره عبر Bitcoin أو Tron: العناوين موجودة في [DONATE.md](DONATE.md)، وهو المصدر الرسمي الوحيد لها. لن يرسل إليك Arroxy عنواناً عبر البريد الإلكتروني أو الرسائل المباشرة أبداً. منح المستودع نجمة والإبلاغ عن الأخطاء وتحسين الترجمات تساعد بالقدر نفسه.
+Arroxy مجاني ومرخّص بموجب MIT — بلا إعلانات، بلا تتبّع، وبلا نسخة مدفوعة. إذا كان يوفّر وقتك، يمكنك دعم تطويره عبر Bitcoin أو Tron أو Ethereum: العناوين موجودة في [DONATE.md](DONATE.md)، وهو المصدر الرسمي الوحيد لها. لن يرسل إليك Arroxy عنواناً عبر البريد الإلكتروني أو الرسائل المباشرة أبداً. منح المستودع نجمة والإبلاغ عن الأخطاء وتحسين الترجمات تساعد بالقدر نفسه.
 
-<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 
 ---
 
