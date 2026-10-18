@@ -8,6 +8,15 @@ export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 // earlier releases keep working.
 export const WEBSITE_URL = 'https://orionus.dev/arroxy/'
 
+// Donation addresses. DONATE.md is the canonical source and
+// scripts/check-donation-addresses.mjs pins them in CI: a changed character
+// silently redirects real money, so edit all three together or not at all.
+export const DONATION_ADDRESSES = [
+	{id: 'btc', label: 'Bitcoin', network: 'Bitcoin mainnet', address: 'bc1qe9yt5tfxam76duht6zu4nlurhhrpt0u5gfxglu'},
+	{id: 'usdt-trc20', label: 'USDT', network: 'Tron (TRC-20)', address: 'TCigPD799TZmGuvZx5p1DcifGDL4ML7XKA'},
+	{id: 'eth', label: 'Ethereum', network: 'Ethereum mainnet', address: '0x3bDD7Cbf171AF6600c35Fb75Ce4f06B28b094387'}
+] as const
+
 // The cask lives in Arroxy's own tap, not in Homebrew's official one. The fully
 // qualified name lets `brew install` tap it on the fly; the short name `arroxy`
 // only resolves once the tap is already added.

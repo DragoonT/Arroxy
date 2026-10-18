@@ -863,6 +863,16 @@
 		"footerLabel": "Paylaş",
 		"shareAction": "Arroxy’yi paylaş"
 	},
+	"donate": {
+		"title": "Arroxy'yi destekle",
+		"description": "Arroxy ücretsiz ve açık kaynaklıdır; reklam ve ücretli plan yoktur. Bağışlar isteğe bağlıdır ve yol haritası üzerinde etki sağlamaz.",
+		"footerTooltip": "Arroxy'yi destekle",
+		"footerLabel": "Bağış yap",
+		"copyAddress": "Adresi kopyala",
+		"copied": "Kopyalandı!",
+		"qrAlt": "{{coin}} bağış adresi QR kodu",
+		"warning": "Kripto ödemeleri geri alınamaz. Yalnızca gösterilen ağ üzerinden gönderin ve adresin tamamını karşılaştırın."
+	},
 	"filenameTemplate": {
 		"label": "Dosya adı şablonu",
 		"description": "İndirilen dosyaların nasıl adlandırılacağını seç. Eklemek için bir simgeye tıkla. İndirmeleri klasörlere ayırmak için / kullan.",

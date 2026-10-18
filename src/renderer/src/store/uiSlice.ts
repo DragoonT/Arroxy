@@ -11,6 +11,7 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
 		uiStyle: DEFAULTS.uiStyle,
 		backdropFailed: false,
 		aboutDialogOpen: false,
+		donateDialogOpen: false,
 		exploreAddressHint: null,
 		exploreBrowsing: false,
 
@@ -40,6 +41,7 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
 		setBackdropFailed: failed => set({backdropFailed: failed}),
 
 		setAboutDialogOpen: open => set({aboutDialogOpen: open}),
+		setDonateDialogOpen: open => set({donateDialogOpen: open}),
 
 		setExploreAddressHint: hint => set({exploreAddressHint: hint}),
 

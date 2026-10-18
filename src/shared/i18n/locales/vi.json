@@ -825,6 +825,16 @@
 		"footerLabel": "Chia sẻ",
 		"shareAction": "Chia sẻ Arroxy"
 	},
+	"donate": {
+		"title": "Ủng hộ Arroxy",
+		"description": "Arroxy miễn phí và mã nguồn mở, không quảng cáo, không gói trả phí. Quyên góp là tùy chọn và không mang lại ảnh hưởng đến lộ trình phát triển.",
+		"footerTooltip": "Ủng hộ Arroxy",
+		"footerLabel": "Ủng hộ",
+		"copyAddress": "Sao chép địa chỉ",
+		"copied": "Đã sao chép!",
+		"qrAlt": "Mã QR địa chỉ quyên góp {{coin}}",
+		"warning": "Thanh toán bằng tiền mã hóa không thể hoàn lại. Chỉ gửi qua mạng được hiển thị và so sánh toàn bộ địa chỉ."
+	},
 	"filenameTemplate": {
 		"label": "Mẫu tên tệp",
 		"description": "Chọn cách đặt tên tệp đã tải. Nhấp vào một token để chèn. Dùng / để sắp xếp tệp tải về vào các thư mục.",

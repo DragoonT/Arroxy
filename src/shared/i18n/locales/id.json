@@ -845,6 +845,16 @@
 		"footerLabel": "Membagikan",
 		"shareAction": "Bagikan Arroxy"
 	},
+	"donate": {
+		"title": "Dukung Arroxy",
+		"description": "Arroxy gratis dan open source, tanpa iklan maupun paket berbayar. Donasi bersifat opsional dan tidak memberi pengaruh pada roadmap.",
+		"footerTooltip": "Dukung Arroxy",
+		"footerLabel": "Donasi",
+		"copyAddress": "Salin alamat",
+		"copied": "Disalin!",
+		"qrAlt": "Kode QR alamat donasi {{coin}}",
+		"warning": "Pembayaran kripto tidak dapat dibatalkan. Kirim hanya melalui jaringan yang ditampilkan dan bandingkan seluruh alamat."
+	},
 	"filenameTemplate": {
 		"label": "Templat nama berkas",
 		"description": "Pilih cara penamaan berkas yang diunduh. Klik token untuk menyisipkannya. Gunakan / untuk memilah unduhan ke dalam folder.",

@@ -789,6 +789,16 @@
 		"footerLabel": "分享",
 		"shareAction": "分享 Arroxy"
 	},
+	"donate": {
+		"title": "支持 Arroxy",
+		"description": "Arroxy 免費開源，沒有廣告，也沒有付費方案。捐贈完全自願，不會換取對產品路線圖的任何影響。",
+		"footerTooltip": "支持 Arroxy",
+		"footerLabel": "捐贈",
+		"copyAddress": "複製地址",
+		"copied": "已複製！",
+		"qrAlt": "{{coin}} 捐贈地址 QR 碼",
+		"warning": "加密貨幣轉帳無法撤銷。請僅透過所示網路傳送，並核對完整地址。"
+	},
 	"filenameTemplate": {
 		"label": "檔名範本",
 		"description": "選擇下載檔案的命名方式。按一下權杖即可插入。使用 / 將下載內容分類到資料夾。",

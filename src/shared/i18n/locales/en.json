@@ -841,6 +841,16 @@
 		"footerLabel": "Share",
 		"shareAction": "Share Arroxy"
 	},
+	"donate": {
+		"title": "Support Arroxy",
+		"description": "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap.",
+		"footerTooltip": "Support Arroxy",
+		"footerLabel": "Donate",
+		"copyAddress": "Copy address",
+		"copied": "Copied!",
+		"qrAlt": "{{coin}} donation address QR code",
+		"warning": "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+	},
 	"filenameTemplate": {
 		"label": "Filename template",
 		"description": "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders.",

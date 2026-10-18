@@ -161,6 +161,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "Fe'adhu"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Garagalfame!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Teessoo waraabi"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy bilisaa fi eeyyama banaa (open-source) dha; beeksisni yookaan karoorri kaffaltiis hin qabu. Arjiin fedhii irratti hundaa'a; karoora misoomaa irrattis dhiibbaa hin qabu."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Arjii"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Arroxy deeggaraa"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "Koodii QR teessoo arjii {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Arroxy deeggaraa"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Kaffaltiin kiriptoo deebi'uu hin danda'u. Neetworkii agarsiifame qofa irratti ergi, teessoo guutuu wal bira qabii ilaali."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Viidiyoon kun umuriin-daangeffamee seensa malee buufachuu hin danda'u."

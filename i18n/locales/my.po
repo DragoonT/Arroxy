@@ -156,6 +156,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "ပြန်ဖွင့်မည်"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "ကူးယူပြီး!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "လိပ်စာကူးရန်"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy သည် အခမဲ့နှင့် open-source ဖြစ်ပြီး ကြော်ငြာမရှိ၊ ငွေပေးသုံးရသော အစီအစဉ်လည်း မရှိပါ။ လှူဒါန်းမှုမှာ ရွေးချယ်ခွင့်ဖြစ်ပြီး roadmap ကို လွှမ်းမိုးခွင့် မပေးပါ။"
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "လှူဒါန်းရန်"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Arroxy ကို ထောက်ပံ့ပါ"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "{{coin}} လှူဒါန်းရန် လိပ်စာ QR ကုဒ်"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Arroxy ကို ထောက်ပံ့ပါ"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Crypto ငွေပေးချေမှုများကို ပြန်ရုပ်သိမ်း၍ မရပါ။ ပြထားသော ကွန်ရက်ဖြင့်သာ ပို့ပြီး လိပ်စာတစ်ခုလုံးကို နှိုင်းယှဉ်စစ်ဆေးပါ။"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "ဤဗီဒီယိုသည် အသက်အကန့်အသတ်ရှိပြီး login ဝင်ထားသော account မပါဘဲ ဒေါင်းလုဒ်မဆင်းနိုင်ပါ။"

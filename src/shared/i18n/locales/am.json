@@ -820,6 +820,16 @@
 		"footerLabel": "አጋራ",
 		"shareAction": "Arroxy አጋራ"
 	},
+	"donate": {
+		"title": "Arroxyን ይደግፉ",
+		"description": "Arroxy ነፃ እና ክፍት ምንጭ ነው፤ ምንም ማስታወቂያ ወይም የክፍያ ዕቅድ የለውም። ልገሳ በፈቃድ ነው፤ በፍኖተ ካርታው ላይ ምንም ተጽዕኖ አይሰጥም።",
+		"footerTooltip": "Arroxyን ይደግፉ",
+		"footerLabel": "ይለግሱ",
+		"copyAddress": "አድራሻውን ቅዳ",
+		"copied": "ተቀድቷል!",
+		"qrAlt": "የ{{coin}} መለገሻ አድራሻ QR ኮድ",
+		"warning": "የክሪፕቶ ክፍያዎች ሊመለሱ አይችሉም። በታየው አውታረ መረብ ብቻ ይላኩ እና አድራሻውን ሙሉ በሙሉ ያመሳስሉ።"
+	},
 	"filenameTemplate": {
 		"label": "የፋይል ስም አብነት",
 		"description": "የወረዱ ፋይሎች እንዴት እንደሚሰየሙ ይምረጡ። ለማስገባት ቶክን ይጫኑ። ውርዶችን በአቃፊዎች ለመደርደር / ይጠቀሙ።",

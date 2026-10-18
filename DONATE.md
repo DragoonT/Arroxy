@@ -42,6 +42,20 @@ bc1qe9yt5tfxam76duht6zu4nlurhhrpt0u5gfxglu
 Send only BTC on the Bitcoin network — "BTC" on BEP-20, or wrapped BTC on
 Ethereum, will not arrive.
 
+## Ethereum
+
+<img src="build/donate-eth.png" alt="QR code for the Arroxy Ethereum donation address" width="180" align="right" />
+
+Network: **Ethereum mainnet**. The same address also accepts ERC-20 tokens
+such as USDT and USDC.
+
+```
+0x3bDD7Cbf171AF6600c35Fb75Ce4f06B28b094387
+```
+
+Send on **Ethereum mainnet** only. The address is valid on other EVM chains, but
+funds sent there are not monitored.
+
 ---
 
 ## Before you send
@@ -50,7 +64,7 @@ Crypto payments are irreversible. This file is the only official source for thes
 addresses: check anything you find elsewhere against it, and compare the whole
 string rather than the first and last few characters.
 
-Both addresses and their QR images are pinned in
+The addresses and their QR images are pinned in
 [`scripts/check-donation-addresses.mjs`](scripts/check-donation-addresses.mjs),
 which fails CI if either changes.
 

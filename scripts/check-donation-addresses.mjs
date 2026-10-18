@@ -7,11 +7,11 @@
 import {createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 
-const ADDRESSES = {'Bitcoin (native SegWit)': 'bc1qe9yt5tfxam76duht6zu4nlurhhrpt0u5gfxglu', 'Tron (TRX / TRC-20)': 'TCigPD799TZmGuvZx5p1DcifGDL4ML7XKA'}
+const ADDRESSES = {'Bitcoin (native SegWit)': 'bc1qe9yt5tfxam76duht6zu4nlurhhrpt0u5gfxglu', 'Tron (TRX / TRC-20)': 'TCigPD799TZmGuvZx5p1DcifGDL4ML7XKA', 'Ethereum (mainnet)': '0x3bDD7Cbf171AF6600c35Fb75Ce4f06B28b094387'}
 
 // QR images are pinned by hash: a swapped PNG shows up in a diff only as
 // "binary file changed", so it is the one case review cannot catch.
-const QR = {'build/donate-btc.png': '83b25219cf307316e363b011a0a0500a807b28733501dd7a2da76b994c09c7e7', 'build/donate-tron.png': '26e6475c2c09e07426a9d3efa0a8e1e0c8880017f772aaaf98c4f68c6cfac651'}
+const QR = {'build/donate-btc.png': '83b25219cf307316e363b011a0a0500a807b28733501dd7a2da76b994c09c7e7', 'build/donate-tron.png': '26e6475c2c09e07426a9d3efa0a8e1e0c8880017f772aaaf98c4f68c6cfac651', 'build/donate-eth.png': 'bfa68b443050391b1451602bd5a6b9857c8b78a3c8fed2034142a751418a98f4'}
 
 const donate = readFileSync('DONATE.md', 'utf8')
 const errors = []
@@ -39,4 +39,4 @@ if (errors.length) {
 	process.exit(1)
 }
 
-console.log('  ✓ donation addresses  2 addresses + 2 QR images pinned')
+console.log('  ✓ donation addresses  3 addresses + 3 QR images pinned')
