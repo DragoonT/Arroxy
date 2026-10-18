@@ -204,7 +204,6 @@ export const en = {
     "**Audio-only and subtitles** work across every supported site, not just YouTube",
   feat_sites_4:
     "If a site changes, yt-dlp ships fixes weekly and Arroxy auto-updates the binary on launch",
-  shots_h3: "Screenshots",
   shot1_cap:
     "<b>Quick Download home</b><br/>Paste a URL and pull it instantly with your active profile",
   shot2_cap:

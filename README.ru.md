@@ -49,9 +49,6 @@
 
 ## <a id="features"></a>✨ Возможности
 
-<details>
-<summary><strong>📸 Скриншоты</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Просматривайте YouTube прямо в Arroxy и скачивайте текущую страницу с активным профилем</sub></td>
@@ -88,8 +85,6 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Параллельная очередь загрузок</b><br/>Несколько загрузок одновременно с живым прогрессом</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: просмотр YouTube прямо в Arroxy</strong></summary>

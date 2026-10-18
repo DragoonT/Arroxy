@@ -47,9 +47,6 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 ## <a id="features"></a>✨ Tính năng
 
-<details>
-<summary><strong>📸 Ảnh chụp màn hình</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Duyệt YouTube ngay trong Arroxy và tải trang bạn đang xem bằng hồ sơ đang dùng</sub></td>
@@ -86,8 +83,6 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Hàng đợi tải song song</b><br/>Nhiều lượt tải cùng lúc với tiến trình trực tiếp</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: duyệt YouTube ngay trong Arroxy</strong></summary>

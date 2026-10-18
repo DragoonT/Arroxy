@@ -47,9 +47,6 @@
 
 ## <a id="features"></a>✨ Χαρακτηριστικά
 
-<details>
-<summary><strong>📸 Στιγμιότυπα οθόνης</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Περιηγηθείτε στο YouTube μέσα στο Arroxy και κατεβάστε τη σελίδα που βλέπετε με το ενεργό προφίλ σας</sub></td>
@@ -86,8 +83,6 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Παράλληλη ουρά λήψεων</b><br/>Πολλές λήψεις ταυτόχρονα με ζωντανή πρόοδο</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: περιήγηση στο YouTube μέσα στο Arroxy</strong></summary>

@@ -47,9 +47,6 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 ## <a id="features"></a>✨ လုပ်ဆောင်ချက်များ
 
-<details>
-<summary><strong>📸 စခရင်ရှော့များ</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး ကြည့်နေသော စာမျက်နှာကို လက်ရှိပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်လုပ်ပါ</sub></td>
@@ -86,8 +83,6 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>ပြိုင်တူ ဒေါင်းလုဒ်တန်းစီ</b><br/>တိုက်ရိုက်တိုးတက်မှုဖြင့် တစ်ပြိုင်နက် ဒေါင်းလုဒ်များစွာ</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပါ</strong></summary>

@@ -49,9 +49,6 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 
 ## <a id="features"></a>✨ 기능
 
-<details>
-<summary><strong>📸 스크린샷</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy 안에서 YouTube를 둘러보고, 보고 있는 페이지를 활성 프로필로 다운로드</sub></td>
@@ -88,8 +85,6 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>병렬 다운로드 대기열</b><br/>실시간 진행률과 함께 여러 다운로드를 동시에 실행</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: Arroxy 안에서 YouTube 탐색</strong></summary>

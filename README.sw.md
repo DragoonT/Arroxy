@@ -47,9 +47,6 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 ## <a id="features"></a>✨ Vipengele
 
-<details>
-<summary><strong>📸 Picha za skrini</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Vinjari YouTube ndani ya Arroxy na upakue ukurasa ulioko kwa wasifu wako unaotumika</sub></td>
@@ -86,8 +83,6 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Foleni ya upakuaji sambamba</b><br/>Upakuaji kadhaa kwa wakati mmoja na maendeleo ya moja kwa moja</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: vinjari YouTube ndani ya Arroxy</strong></summary>

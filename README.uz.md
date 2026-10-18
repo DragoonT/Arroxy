@@ -47,9 +47,6 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 ## <a id="features"></a>✨ Xususiyatlar
 
-<details>
-<summary><strong>📸 Skrinshotlar</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>YouTube'ni Arroxy ichida ko'ring va turgan sahifangizni faol profilingiz bilan yuklab oling</sub></td>
@@ -86,8 +83,6 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallel yuklash navbati</b><br/>Bir vaqtning o'zida bir nechta yuklash, jonli jarayon bilan</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: YouTube'ni Arroxy ichida ko'rib chiqing</strong></summary>

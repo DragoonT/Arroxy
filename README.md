@@ -47,9 +47,6 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 ## <a id="features"></a>✨ Features
 
-<details>
-<summary><strong>📸 Screenshots</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Browse YouTube inside Arroxy and download the page you're on with your active profile</sub></td>
@@ -86,8 +83,6 @@ If Arroxy saves you time, a ⭐ helps others find it.
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallel download queue</b><br/>Several downloads at once with live progress</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: browse YouTube inside Arroxy</strong></summary>

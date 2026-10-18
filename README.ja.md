@@ -49,9 +49,6 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 
 ## <a id="features"></a>✨ 機能
 
-<details>
-<summary><strong>📸 スクリーンショット</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy の中で YouTube を閲覧し、表示中のページをアクティブなプロファイルでダウンロード</sub></td>
@@ -88,8 +85,6 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>並列ダウンロードキュー</b><br/>複数のダウンロードを同時に、進捗をリアルタイム表示</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore：Arroxy の中で YouTube を閲覧</strong></summary>

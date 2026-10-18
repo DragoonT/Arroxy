@@ -83,7 +83,6 @@ export const id = {
   "feat_sites_2": "**2000+ situs lainnya** melalui yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, dan masih banyak lagi",
   "feat_sites_3": "**Khusus audio dan subtitel** berfungsi di semua situs yang didukung, tidak hanya YouTube",
   "feat_sites_4": "Jika situs berubah, yt-dlp mengirimkan perbaikan setiap minggu dan Arroxy memperbarui biner secara otomatis saat peluncuran",
-  "shots_h3": "Tangkapan layar",
   "shot1_cap": "<b>Beranda Unduhan Cepat</b><br/>Tempel URL dan unduh langsung dengan profil aktif Anda",
   "shot2_cap": "<b>Profil unduhan yang dapat digunakan kembali</b><br/>Simpan preset format, kualitas, dan output — gunakan kembali untuk setiap unduhan",
   "shot3_cap": "<b>Trek audio multi-bahasa</b><br/>Pilih bahasa audio yang tepat yang dikirimkan video",

@@ -49,9 +49,6 @@
 
 ## <a id="features"></a>✨ قابلیت‌ها
 
-<details>
-<summary><strong>📸 تصاویر صفحه</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>YouTube را داخل Arroxy مرور کنید و صفحهٔ فعلی را با نمایهٔ فعالتان دانلود کنید</sub></td>
@@ -88,8 +85,6 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>صف دانلود موازی</b><br/>چند دانلود هم‌زمان با پیشرفت زنده</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: مرور YouTube داخل Arroxy</strong></summary>

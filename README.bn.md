@@ -47,9 +47,6 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 ## <a id="features"></a>✨ বৈশিষ্ট্যসমূহ
 
-<details>
-<summary><strong>📸 স্ক্রিনশট</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন এবং সক্রিয় প্রোফাইল দিয়ে বর্তমান পেজটি ডাউনলোড করুন</sub></td>
@@ -86,8 +83,6 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>সমান্তরাল ডাউনলোড সারি</b><br/>লাইভ অগ্রগতিসহ একসাথে একাধিক ডাউনলোড</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন</strong></summary>
