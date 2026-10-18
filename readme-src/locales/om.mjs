@@ -118,8 +118,25 @@ export const om = {
   why_r5: "Daangaa fayyadama hin qabu",
   why_r6: "App desktop platformoota hundaaf",
   why_r7: "Subtitle + SponsorBlock",
+  why_r8: "Biraawzara YouTube app keessatti ijaarame (ilaali, seeni, buusi)",
+  why_r9: "Viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman kuukkii utuu hin baasin",
+  why_table_note:
+    "⚠️ = gartokkeen, ykn sadarkaa kafaltii qofa irratti. 4K Video Downloader keessatti seensi app keessaa viidiyoowwan dhuunfaaf amala kafaltiiti; GUI yt-dlp bilisaa baay'een faayila kuukkii qofa fudhatu ykn kuukkii biraawzara weebii keetii dubbisu.",
   why_summary:
-    "Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argadhu. Gurgurtaa dabalaataa hin jiru, odeeffannoo walitti qabuu hin jiru.",
+    "Arroxy waan tokko qofaaf ijaarame: faayila naannoo qulqulluu, URL maxxansitees ykn viidiyoo Explore keessatti argattees. Gurgurtaa dabalataa hin jiru, odeeffannoo walitti qabuu hin jiru.",
+  why_explore_h3: "Waan wraapperiin yt-dlp salphaan hin dandeenye: tabii Explore",
+  why_explore_intro:
+    "Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. Arroxy'n yt-dlp ni fayyadama, garuu **Explore** illee qaba, biraawzara YouTube app keessatti ijaarame. Explore daangaa YouTube kan saanduqni URL darbuu hin dandeenye ni darba:",
+  why_explore_1:
+    "**Viidiyoowwan akkaawuntii barbaadan, kuukkii utuu hin baasin** — viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman (akkaawuntii umuriin isaa mirkanaa'e irratti), akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee. Wraapperiin salphaan cookies.txt baasuu barbaada ykn kuukkii biraawzara weebii keetii dubbisuu qaba, kunis amma Windows irratti Chrome'n ni dhorka. Arroxy keessatti Explore keessatti altokko seenta, kan hafe isatu hojjeta",
+  why_explore_2:
+    "**\"Bot akka hin taane mirkaneessuuf seeni\"** — YouTube yeroo kana gaafatu, Arroxy kufuu mannaa seensa Explore keetiin buufannaa irra deebi'ee yaala",
+  why_explore_3:
+    "**Tokenii buufannaa YouTube** — biraawzarri Arroxy keessatti ijaarame tokenii YouTube buufannaa dura eegu ni argata. Isa malee, YouTube formaata xiqqaa fi qulqullina waan ati gaafatte gadi aanu kennuu danda'a",
+  why_explore_4:
+    "**Hidhaa garagalchuun hin barbaachisu** — Explore keessatti viidiyoo, playlist, ykn channel barbaadiitii tuqaa tokkoon buusi, ykn fuula irratti hidhaa kamiyyuu mirgaan cuqaasi",
+  why_explore_5:
+    "**Yeroo ilaaltu beeksisni ni dhorkama** — Explore fuula mataa isaa irratti beeksisaa fi hordoftoota ni dhorka",
   feat_explore_h3: "Explore: YouTube Arroxy keessatti ilaali",
   feat_explore_1: "**Tabii Explore** — YouTube Arroxy keessatti ilaaluudhaan waan argatte hidhaa waraabuu malee buufadhu. **Buusi · *piroofaayilii kee*** viidiyoo, playlist, ykn channel ati ilaaltu tarree keessa galcha; xiyyi isa cinaa piroofaayilii jijjiira, ulee falfalaa immoo buufannaa tarkaanfii-tarkaanfiidhaan formaata, barruu jalaa fi kkf filachuuf bana",
   feat_explore_6: "**Buusuuf mirgaan cuqaasi** — Explore keessatti hidhaa viidiyoo, playlist ykn channel kamiyyuu mirgaan cuqaasiitii piroofaayilii keetiin buusi, **Profaayiliin buusi** irraa piroofaayilii biraa filadhu, buufata tarkaanfii tarkaanfiin bani, ykn hidhaa garagalchi. Tokkoon tokkoon viidiyoo dursa banuun hin barbaachisu",
@@ -350,6 +367,9 @@ export const om = {
   faq_q1: "Dhuguma bilisaa dha?",
   faq_a1:
     "Eeyyee — hayyama MIT, sadarkaa kafaltii hin jiru, amaloota dhorkamuun hin jiru.",
+  faq_q11: "Arroxy GUI yt-dlp biroo irraa akkamitti adda ta'a?",
+  faq_a11:
+    "GUI yt-dlp bilisaa baay'een wraapperoota hidhaa qofa fudhatanii dha. Arroxy **Explore** dabala, biraawzara YouTube app keessatti ijaarame: hidhaa utuu hin garagalchin ilaaltee buufatta, viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee buufachuuf achitti altokko seenta, kuukkii utuu hin baasin. Arroxy seensa kana yeroo YouTube bot akka hin taane akka mirkaneessitu si gaafatu fayyadama, biraawzarri isaa inni ijaarames tokenii buufannaa YouTube ni argata, kanaaf buufannaan gara formaata xiqqaatti hin deebi'u. [Maaliif Arroxy](#why) ilaali.",
   faq_q2: "Qulqullina viidiyoo maal buusuu danda'a?",
   faq_a2:
     "YouTube tajaajiluu danda'u: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, sagalee qofas. 60 fps, 120 fps, fi HDR streams akka jiru eegamu.",

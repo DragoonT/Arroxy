@@ -3,7 +3,7 @@
 
 # {{title}}
 
-**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **{{read_in_label}}** {{LANG_NAV}}
 
@@ -21,7 +21,9 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. Its Explore tab is a built-in YouTube browser: download the video, playlist, or channel you're on or right-click any link, and sign in there to download private, members-only, and age-restricted videos your account can watch. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+>
+> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: {{LAST_UPDATED}}._
 
@@ -345,16 +347,30 @@ sha256sum Arroxy-linux-x64.AppImage
 
 {{why_intro}}
 
-|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| {{why_r1}} |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| {{why_r2}} |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| {{why_r3}} |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| {{why_r5}} |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| {{why_r6}} |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
-| {{why_r7}} |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| {{why_r8}} |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| {{why_r9}} |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| {{why_r1}} |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| {{why_r2}} |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| {{why_r3}} |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
+| {{why_r5}} |   ✅   |           ✅            |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| {{why_r6}} |   ✅   |           ⚠️            |         ✅          |     ✅      |            N/A             |         ❌         |
+| {{why_r7}} |   ✅   |           ⚠️            |         ⚠️          |     ❌      |             ❌             |         ❌         |
+
+{{why_table_note}}
 
 {{why_summary}}
+
+### <a id="why-explore"></a>🧭 {{why_explore_h3}}
+
+{{why_explore_intro}}
+
+- {{why_explore_1}}
+- {{why_explore_2}}
+- {{why_explore_3}}
+- {{why_explore_4}}
+- {{why_explore_5}}
 
 ---
 
@@ -374,6 +390,13 @@ sha256sum Arroxy-linux-x64.AppImage
 <summary><strong>{{faq_q1}}</strong></summary>
 
 {{faq_a1}}
+
+</details>
+
+<details>
+<summary><strong>{{faq_q11}}</strong></summary>
+
+{{faq_a11}}
 
 </details>
 

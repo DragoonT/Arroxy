@@ -118,8 +118,27 @@ export const pt = {
   why_r5: "Sem limites de uso",
   why_r6: "App de desktop multiplataforma",
   why_r7: "Legendas + SponsorBlock",
+  why_r8: "Navegador do YouTube integrado (navegar, entrar, baixar)",
+  why_r9:
+    "Vídeos privados, exclusivos para membros e com restrição de idade sem exportar cookies",
+  why_table_note:
+    "⚠️ = em parte, ou só em um plano pago. No 4K Video Downloader, o login dentro do app para vídeos privados é um recurso pago; a maioria das GUIs gratuitas do yt-dlp só aceita um arquivo de cookies ou lê os cookies do seu navegador.",
   why_summary:
-    "O Arroxy foi feito para uma coisa só: você cola uma URL e recebe um arquivo local limpo. Sem vendas empurradas, sem coleta de dados.",
+    "O Arroxy foi feito para uma coisa só: um arquivo local limpo, seja colando uma URL ou encontrando o vídeo no Explore. Sem vendas empurradas, sem coleta de dados.",
+  why_explore_h3:
+    "O que um simples wrapper do yt-dlp não consegue fazer: a aba Explore",
+  why_explore_intro:
+    "A maioria dos baixadores gratuitos do YouTube é só um campo de URL em cima do yt-dlp. O Arroxy também usa o yt-dlp, mas tem ainda o **Explore**, um navegador do YouTube integrado ao app. O Explore supera limites do YouTube que um campo de URL não consegue:",
+  why_explore_1:
+    "**Vídeos que exigem uma conta, sem exportar cookies** — vídeos privados, exclusivos para membros e com restrição de idade (em uma conta com idade verificada), além das suas listas Assistir mais tarde e Curtidos. Um simples wrapper precisa de um cookies.txt exportado ou tem que ler os cookies do seu navegador, o que o Chrome no Windows agora bloqueia. No Arroxy você entra uma vez no Explore e ele cuida do resto",
+  why_explore_2:
+    "**\"Faça login para confirmar que você não é um robô\"** — quando o YouTube pede isso, o Arroxy tenta o download de novo com o seu login do Explore em vez de falhar",
+  why_explore_3:
+    "**O token de download do YouTube** — o navegador integrado do Arroxy obtém o token que o YouTube espera antes de um download. Sem ele, o YouTube pode oferecer menos formatos e uma qualidade menor do que a pedida",
+  why_explore_4:
+    "**Sem copiar links** — encontre um vídeo, uma playlist ou um canal no Explore e baixe com um clique, ou clique com o botão direito em qualquer link da página",
+  why_explore_5:
+    "**Anúncios bloqueados enquanto você navega** — o Explore bloqueia anúncios e rastreadores nas próprias páginas",
   feat_explore_h3: "Explore: navegue pelo YouTube dentro do Arroxy",
   feat_explore_1: "**Aba Explore** — navegue pelo YouTube dentro do Arroxy e baixe o que encontrar sem copiar links. **Baixar · *seu perfil*** coloca na fila o vídeo, a playlist ou o canal que você está vendo; a seta ao lado troca de perfil, e a varinha abre o download passo a passo para escolher formatos, legendas e mais",
   feat_explore_6: "**Clique direito para baixar** — clique com o botão direito em qualquer link de vídeo, playlist ou canal no Explore para baixá-lo com seu perfil, escolher outro perfil em **Baixar com**, abrir o download passo a passo ou copiar o link. Não é preciso abrir cada vídeo antes",
@@ -348,6 +367,9 @@ export const pt = {
   faq_q1: "É realmente gratuito?",
   faq_a1:
     "Sim — licença MIT, sem plano premium, sem recursos bloqueados.",
+  faq_q11: "Qual a diferença entre o Arroxy e outras GUIs do yt-dlp?",
+  faq_a11:
+    "A maioria das GUIs gratuitas do yt-dlp são wrappers que só aceitam um link. O Arroxy adiciona o **Explore**, um navegador do YouTube integrado ao app: você navega e baixa sem copiar links, e entra ali uma vez para baixar vídeos privados, exclusivos para membros e com restrição de idade e as suas listas Assistir mais tarde e Curtidos, sem exportar cookies. O Arroxy usa esse login quando o YouTube pede para confirmar que você não é um robô, e o navegador integrado obtém o token de download do YouTube para que os downloads não caiam para menos formatos. Veja [Por que o Arroxy](#why).",
   faq_q2: "Que qualidades de vídeo eu posso baixar?",
   faq_a2:
     "Tudo o que o YouTube oferecer: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, além de apenas áudio. Streams em 60 fps, 120 fps e HDR são preservados como estão.",

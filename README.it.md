@@ -3,7 +3,7 @@
 
 # Arroxy — downloader gratuito e open source per YouTube (+ 2000 siti) con browser YouTube integrato su Windows, macOS e Linux
 
-**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Leggi in:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · **Italiano** · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -21,7 +21,9 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. Its Explore tab is a built-in YouTube browser: download the video, playlist, or channel you're on or right-click any link, and sign in there to download private, members-only, and age-restricted videos your account can watch. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+>
+> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-18._
 
@@ -349,16 +351,30 @@ Vuoi una scansione antimalware esterna? Carica il file su [VirusTotal](https://w
 
 Confronto diretto con le alternative più comuni:
 
-|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Gratuito, senza piano premium |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Open source |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Elaborazione solo locale |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Nessun limite di utilizzo |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| App desktop multipiattaforma |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
-| Sottotitoli + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Browser YouTube integrato (naviga, accedi, scarica) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| Video privati, riservati ai membri e con limiti di età senza esportare cookie |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Gratuito, senza piano premium |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Open source |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Elaborazione solo locale |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
+| Nessun limite di utilizzo |   ✅   |           ✅            |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| App desktop multipiattaforma |   ✅   |           ⚠️            |         ✅          |     ✅      |            N/A             |         ❌         |
+| Sottotitoli + SponsorBlock |   ✅   |           ⚠️            |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy è pensato per una sola cosa: incolla un URL e ottieni un file locale pulito. Nessun upselling o raccolta di dati.
+⚠️ = in parte, o solo in un piano a pagamento. In 4K Video Downloader l'accesso dall'app per i video privati è una funzione a pagamento; la maggior parte delle GUI gratuite di yt-dlp accetta solo un file di cookie o legge i cookie del tuo browser web.
+
+Arroxy è pensato per una sola cosa: un file locale pulito, sia che incolli un URL sia che trovi il video in Explore. Nessun upselling o raccolta di dati.
+
+### <a id="why-explore"></a>🧭 Cosa non sa fare un semplice wrapper di yt-dlp: la scheda Explore
+
+La maggior parte dei downloader gratuiti per YouTube è una casella per l'URL sopra yt-dlp. Anche Arroxy usa yt-dlp, ma ha in più **Explore**, un browser YouTube integrato nell'app. Explore supera limiti di YouTube che una casella per l'URL non può superare:
+
+- **Video che richiedono un account, senza esportare cookie** — video privati, riservati ai membri e con limiti di età (con un account con età verificata), oltre alle tue liste Guarda più tardi e Piaciuti. Un semplice wrapper ha bisogno di un cookies.txt esportato o deve leggere i cookie del tuo browser web, cosa che Chrome su Windows ora blocca. In Arroxy accedi una volta in Explore e al resto pensa lui
+- **"Accedi per confermare che non sei un bot"** — quando YouTube lo chiede, Arroxy riprova il download con il tuo accesso a Explore invece di fallire
+- **Il token di download di YouTube** — il browser integrato di Arroxy ottiene il token che YouTube si aspetta prima di un download. Senza di esso, YouTube può fornire meno formati e una qualità inferiore a quella richiesta
+- **Niente link da copiare** — trova un video, una playlist o un canale in Explore e scaricalo con un clic, oppure fai clic destro su qualsiasi link della pagina
+- **Annunci bloccati mentre navighi** — Explore blocca annunci e tracker nelle proprie pagine
 
 ---
 
@@ -378,6 +394,13 @@ Explore mantiene un proprio accesso, separato dal tuo browser, e Arroxy non legg
 <summary><strong>È davvero gratuito?</strong></summary>
 
 Sì: licenza MIT, nessun piano premium e nessuna funzione bloccata.
+
+</details>
+
+<details>
+<summary><strong>In cosa Arroxy è diverso dalle altre GUI di yt-dlp?</strong></summary>
+
+La maggior parte delle GUI gratuite di yt-dlp sono wrapper che accettano solo un link. Arroxy aggiunge **Explore**, un browser YouTube integrato nell'app: navighi e scarichi senza copiare link, e accedi lì una volta per scaricare video privati, riservati ai membri e con limiti di età e le tue liste Guarda più tardi e Piaciuti, senza esportare cookie. Arroxy usa quell'accesso quando YouTube ti chiede di confermare che non sei un bot, e il suo browser integrato ottiene il token di download di YouTube, così i download non ripiegano su meno formati. Vedi [Perché Arroxy](#why).
 
 </details>
 

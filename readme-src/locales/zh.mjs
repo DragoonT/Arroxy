@@ -117,8 +117,23 @@ export const zh = {
   why_r5: "无使用上限",
   why_r6: "跨平台桌面应用",
   why_r7: "字幕 + SponsorBlock",
+  why_r8: "内置 YouTube 浏览器（浏览、登录、下载）",
+  why_r9: "无需导出 Cookie 即可下载私享、会员专属和年龄限制视频",
+  why_table_note:
+    "⚠️ = 部分支持，或仅限付费版。4K Video Downloader 用于私享视频的应用内登录是付费功能；大多数免费的 yt-dlp 图形界面只接受 Cookie 文件，或读取你网页浏览器中的 Cookie。",
   why_summary:
-    "Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无追加销售、无数据收集。",
+    "Arroxy 只做一件事：无论你是粘贴链接，还是在 Explore 中找到视频，都能得到干净的本地文件。无追加销售、无数据收集。",
+  why_explore_h3: "普通 yt-dlp 套壳做不到的事：Explore 标签页",
+  why_explore_intro:
+    "大多数免费的 YouTube 下载器只是在 yt-dlp 之上加了一个链接输入框。Arroxy 同样使用 yt-dlp，但它还有 **Explore**，一个内置在应用中的 YouTube 浏览器。Explore 能绕过仅靠链接输入框无法应对的 YouTube 限制：",
+  why_explore_1:
+    "**需要账号的视频，无需导出 Cookie** — 私享、会员专属和年龄限制视频（需已通过年龄验证的账号），以及你的“稍后观看”和“赞过的视频”列表。普通套壳工具需要你导出 cookies.txt，或读取你网页浏览器中的 Cookie，而 Windows 上的 Chrome 现在会阻止这种读取。在 Arroxy 中，你只需在 Explore 中登录一次，其余的交给它处理",
+  why_explore_2:
+    "**“登录以确认你不是机器人”** — YouTube 提出这一要求时，Arroxy 会用你在 Explore 中的登录重试下载，而不是直接失败",
+  why_explore_3:
+    "**YouTube 的下载令牌** — Arroxy 的内置浏览器会在下载前获取 YouTube 所要求的令牌。没有它，YouTube 可能只提供更少的格式，画质也会低于你的要求",
+  why_explore_4: "**无需复制链接** — 在 Explore 中找到视频、播放列表或频道，一键即可下载，也可以右键点击页面上的任意链接",
+  why_explore_5: "**浏览时拦截广告** — Explore 会拦截自身页面上的广告和跟踪器",
   feat_explore_h3: "Explore：在 Arroxy 内浏览 YouTube",
   feat_explore_1:
     "**Explore 标签页** — 在 Arroxy 内浏览 YouTube，无需复制链接即可下载你找到的内容。**下载 · *你的配置*** 会把你正在查看的视频、播放列表或频道加入队列；旁边的箭头可切换配置，魔杖则打开分步下载，用来选择格式、字幕等",
@@ -338,6 +353,9 @@ export const zh = {
     "Explore 有自己独立的登录，与你的浏览器分开，Arroxy 不会读取或填写登录表单 — 你是在 Google 自己的页面上输入。下载在未登录状态下进行；只有当下载因账号可解决的原因失败时，Arroxy 才会重新读取该登录，把它放进仅供本次下载使用的临时文件，并在之后删除该文件。在设置中退出 Explore 即可清除登录。",
   faq_q1: "真的免费吗？",
   faq_a1: "是的 — MIT 许可证，无付费版，无功能门槛。",
+  faq_q11: "Arroxy 与其他 yt-dlp 图形界面有何不同？",
+  faq_a11:
+    "大多数免费的 yt-dlp 图形界面只是接收链接的套壳工具。Arroxy 增加了 **Explore**，一个内置在应用中的 YouTube 浏览器：你可以边浏览边下载，无需复制链接；只需在其中登录一次，就能下载私享、会员专属和年龄限制视频，以及你的“稍后观看”和“赞过的视频”列表，无需导出 Cookie。当 YouTube 要求你确认自己不是机器人时，Arroxy 会使用这一登录；它的内置浏览器还会获取 YouTube 的下载令牌，让下载不会退回到更少的格式。参见[为什么选 Arroxy](#why)。",
   faq_q2: "能下载哪些视频画质？",
   faq_a2:
     "YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p，以及纯音频。60 fps、120 fps 和 HDR 流原样保留。",

@@ -3,7 +3,7 @@
 
 # Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari cha YouTube Ndani, kwa Windows, macOS na Linux
 
-**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Soma kwa:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Kiswahili** · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -21,7 +21,9 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. Its Explore tab is a built-in YouTube browser: download the video, playlist, or channel you're on or right-click any link, and sign in there to download private, members-only, and age-restricted videos your account can watch. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+>
+> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-18._
 
@@ -347,16 +349,30 @@ Unataka ukaguzi wa programu hasidi wa mtu wa tatu? Pakia faili kwenye [VirusTota
 
 Ulinganisho wa pamoja na mbadala za kawaida zaidi:
 
-|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Bure, hakuna ngazi ya malipo |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Chanzo wazi |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Usindikaji wa mahali hapo tu |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Hakuna vikwazo vya matumizi |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Programu ya mezani inayofanya kazi kwenye mifumo yote |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
-| Manukuu + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Kivinjari cha YouTube kilichojengewa ndani (vinjari, ingia, pakua) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| Video za faragha, za wanachama pekee na zenye kikomo cha umri bila kuhamisha vidakuzi |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Bure, hakuna ngazi ya malipo |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Chanzo wazi |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Usindikaji wa mahali hapo tu |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
+| Hakuna vikwazo vya matumizi |   ✅   |           ✅            |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Programu ya mezani inayofanya kazi kwenye mifumo yote |   ✅   |           ⚠️            |         ✅          |     ✅      |            N/A             |         ❌         |
+| Manukuu + SponsorBlock |   ✅   |           ⚠️            |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Hakuna mauzo ya ziada, hakuna ukusanyaji wa data.
+⚠️ = kwa sehemu, au kwenye kiwango cha kulipia pekee. Kuingia ndani ya programu kwa video za faragha katika 4K Video Downloader ni kipengele cha kulipia; GUI nyingi za bure za yt-dlp hukubali faili ya vidakuzi pekee au husoma vidakuzi vya kivinjari chako cha wavuti.
+
+Arroxy imejengwa kwa jambo moja: faili safi la mahali hapo, iwe unabandika URL au unapata video katika Explore. Hakuna mauzo ya ziada, hakuna ukusanyaji wa data.
+
+### <a id="why-explore"></a>🧭 Kile ambacho kifuniko cha kawaida cha yt-dlp hakiwezi: kichupo cha Explore
+
+Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arroxy pia hutumia yt-dlp, lakini ina **Explore** pia, kivinjari cha YouTube kilichojengwa ndani ya programu. Explore hupita vikwazo vya YouTube ambavyo kisanduku cha URL hakiwezi kupita:
+
+- **Video zinazohitaji akaunti, bila kuhamisha vidakuzi** — video za faragha, za wanachama pekee, na zenye kikomo cha umri (kwenye akaunti iliyothibitishwa umri), pamoja na orodha zako za Tazama Baadaye na Zilizopendwa. Kifuniko cha kawaida kinahitaji faili ya cookies.txt iliyohamishwa au lazima kisome vidakuzi vya kivinjari chako cha wavuti, jambo ambalo Chrome kwenye Windows sasa huzuia. Katika Arroxy unaingia mara moja katika Explore na inashughulikia mengine yote
+- **"Ingia ili uthibitishe kuwa wewe si roboti"** — YouTube inapouliza hivi, Arroxy hujaribu upakuaji tena kwa kuingia kwako kwa Explore badala ya kushindwa
+- **Tokeni ya upakuaji ya YouTube** — kivinjari kilichojengewa ndani cha Arroxy hupata tokeni ambayo YouTube inatarajia kabla ya upakuaji. Bila tokeni hiyo, YouTube inaweza kutoa fomati chache na ubora wa chini kuliko ulioomba
+- **Hakuna kunakili viungo** — tafuta video, playlist, au channel katika Explore na uipakue kwa kubofya mara moja, au bofya kulia kiungo chochote kwenye ukurasa
+- **Matangazo huzuiwa unapovinjari** — Explore huzuia matangazo na vifuatiliaji kwenye kurasa zake yenyewe
 
 ---
 
@@ -376,6 +392,13 @@ Explore ina njia yake ya kuingia, tofauti na kivinjari chako, na Arroxy haisomi 
 <summary><strong>Je, ni bure kweli kweli?</strong></summary>
 
 Ndiyo — leseni ya MIT, hakuna ngazi ya malipo, hakuna kizuizi cha vipengele.
+
+</details>
+
+<details>
+<summary><strong>Arroxy ina tofauti gani na GUI nyingine za yt-dlp?</strong></summary>
+
+GUI nyingi za bure za yt-dlp ni vifuniko vinavyopokea kiungo tu. Arroxy inaongeza **Explore**, kivinjari cha YouTube kilichojengwa ndani ya programu: unavinjari na kupakua bila kunakili viungo, na unaingia humo mara moja ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Arroxy hutumia kuingia huko YouTube inapokuomba uthibitishe kuwa wewe si roboti, na kivinjari chake kilichojengewa ndani hupata tokeni ya upakuaji ya YouTube ili upakuaji usirudi kwenye fomati chache. Angalia [Kwa Nini Arroxy](#why).
 
 </details>
 

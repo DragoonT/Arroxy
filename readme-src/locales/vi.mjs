@@ -118,8 +118,27 @@ export const vi = {
   why_r5: "Không giới hạn sử dụng",
   why_r6: "Ứng dụng máy tính để bàn đa nền tảng",
   why_r7: "Phụ đề + SponsorBlock",
+  why_r8: "Trình duyệt YouTube tích hợp (duyệt, đăng nhập, tải xuống)",
+  why_r9:
+    "Video riêng tư, dành cho thành viên và giới hạn độ tuổi mà không cần xuất cookie",
+  why_table_note:
+    "⚠️ = một phần, hoặc chỉ có ở gói trả phí. Đăng nhập trong ứng dụng để tải video riêng tư của 4K Video Downloader là tính năng trả phí; hầu hết các GUI yt-dlp miễn phí chỉ nhận file cookie hoặc đọc cookie từ trình duyệt web của bạn.",
   why_summary:
-    "Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận file cục bộ sạch. không upsell, không thu thập dữ liệu.",
+    "Arroxy được xây dựng cho một mục đích duy nhất: một file cục bộ sạch, dù bạn dán URL hay tìm thấy video trong Explore. Không upsell, không thu thập dữ liệu.",
+  why_explore_h3:
+    "Điều mà một trình bao yt-dlp đơn thuần không làm được: tab Explore",
+  why_explore_intro:
+    "Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL đặt trên yt-dlp. Arroxy cũng dùng yt-dlp, nhưng còn có **Explore**, một trình duyệt YouTube tích hợp sẵn trong ứng dụng. Explore vượt qua những giới hạn của YouTube mà một ô nhập URL không làm được:",
+  why_explore_1:
+    "**Video cần tài khoản, không cần xuất cookie** — video riêng tư, video dành cho thành viên và video giới hạn độ tuổi (với tài khoản đã xác minh tuổi), cùng danh sách Xem sau và Video đã thích của bạn. Một trình bao đơn thuần cần bạn xuất cookies.txt hoặc phải đọc cookie từ trình duyệt web của bạn, điều mà Chrome trên Windows hiện đã chặn. Với Arroxy, bạn chỉ cần đăng nhập một lần trong Explore và nó lo phần còn lại",
+  why_explore_2:
+    "**\"Đăng nhập để xác nhận bạn không phải là bot\"** — khi YouTube yêu cầu điều này, Arroxy thử tải lại bằng đăng nhập Explore của bạn thay vì báo thất bại",
+  why_explore_3:
+    "**Token tải xuống của YouTube** — trình duyệt tích hợp của Arroxy lấy token mà YouTube cần trước mỗi lượt tải. Thiếu nó, YouTube có thể cung cấp ít định dạng hơn và chất lượng thấp hơn mức bạn yêu cầu",
+  why_explore_4:
+    "**Không cần sao chép liên kết** — tìm video, danh sách phát hoặc kênh trong Explore rồi tải chỉ với một cú nhấp, hoặc nhấp chuột phải vào bất kỳ liên kết nào trên trang",
+  why_explore_5:
+    "**Chặn quảng cáo khi duyệt** — Explore chặn quảng cáo và trình theo dõi trên các trang của chính nó",
   feat_explore_h3: "Explore: duyệt YouTube ngay trong Arroxy",
   feat_explore_1:
     "**Tab Explore** — duyệt YouTube ngay trong Arroxy và tải những gì bạn tìm thấy mà không cần sao chép liên kết. **Tải xuống · *hồ sơ của bạn*** đưa video, danh sách phát hoặc kênh bạn đang xem vào hàng đợi; mũi tên bên cạnh để đổi hồ sơ, còn cây đũa phép mở trình tải từng bước để chọn định dạng, phụ đề, v.v.",
@@ -363,6 +382,9 @@ export const vi = {
     "Explore giữ đăng nhập riêng, tách biệt với trình duyệt của bạn, và Arroxy không bao giờ đọc hay điền biểu mẫu đăng nhập — bạn nhập trực tiếp vào trang của Google. Các lượt tải chạy khi chưa đăng nhập; chỉ khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục, Arroxy mới đọc lại thông tin đăng nhập, lưu vào một tệp tạm cho lượt tải đó và xóa tệp sau đó. Đăng xuất khỏi Explore trong Cài đặt sẽ xóa thông tin này.",
   faq_q1: "Thực sự miễn phí không?",
   faq_a1: "Có — giấy phép MIT, không có gói cao cấp, không khóa tính năng.",
+  faq_q11: "Arroxy khác gì so với các GUI yt-dlp khác?",
+  faq_a11:
+    "Hầu hết các GUI yt-dlp miễn phí chỉ là trình bao nhận liên kết. Arroxy bổ sung **Explore**, một trình duyệt YouTube tích hợp sẵn trong ứng dụng: bạn vừa duyệt vừa tải mà không cần sao chép liên kết, và chỉ cần đăng nhập ở đó một lần để tải video riêng tư, video dành cho thành viên, video giới hạn độ tuổi cùng danh sách Xem sau và Video đã thích của bạn, không cần xuất cookie. Arroxy dùng đăng nhập đó khi YouTube yêu cầu bạn xác nhận mình không phải robot, và trình duyệt tích hợp của nó lấy token tải xuống của YouTube để các lượt tải không bị giảm xuống còn ít định dạng hơn. Xem [Tại sao chọn Arroxy](#why).",
   faq_q2: "Tôi có thể tải xuống chất lượng video nào?",
   faq_a2:
     "Bất kỳ thứ gì YouTube cung cấp: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, cùng với chỉ âm thanh. Các luồng 60 fps, 120 fps và HDR được giữ nguyên.",

@@ -118,8 +118,27 @@ export const tr = {
   why_r5: "Kullanım sınırı yok",
   why_r6: "Platformlar arası masaüstü uygulaması",
   why_r7: "Altyazılar + SponsorBlock",
+  why_r8: "Yerleşik YouTube tarayıcısı (göz at, giriş yap, indir)",
+  why_r9:
+    "Çerez dışa aktarmadan özel, üyelere özel ve yaş kısıtlamalı videolar",
+  why_table_note:
+    "⚠️ = kısmen veya yalnızca ücretli sürümde. 4K Video Downloader'da özel videolar için uygulama içi giriş ücretli bir özelliktir; ücretsiz yt-dlp arayüzlerinin çoğu yalnızca bir çerez dosyası kabul eder ya da web tarayıcının çerezlerini okur.",
   why_summary:
-    "Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosya al. Ek satış yok, veri toplama yok.",
+    "Arroxy tek bir şey için yapılmıştır: ister URL yapıştır ister videoyu Explore'da bul, sonunda temiz bir yerel dosya. Ek satış yok, veri toplama yok.",
+  why_explore_h3:
+    "Sıradan bir yt-dlp sarmalayıcısının yapamadığı: Explore sekmesi",
+  why_explore_intro:
+    "Ücretsiz YouTube indiricilerinin çoğu, yt-dlp'nin üstüne konmuş bir URL kutusundan ibarettir. Arroxy de yt-dlp kullanır, ama bir de **Explore**'u vardır: uygulamaya yerleşik bir YouTube tarayıcısı. Explore, bir URL kutusunun aşamadığı YouTube sınırlarını aşar:",
+  why_explore_1:
+    "**Çerez dışa aktarmadan hesap gerektiren videolar** — özel, üyelere özel ve yaş kısıtlamalı videolar (yaşı doğrulanmış bir hesapta), ayrıca Daha Sonra İzle ve Beğenilenler listelerin. Sıradan bir sarmalayıcı, dışa aktarılmış bir cookies.txt ister ya da web tarayıcının çerezlerini okumak zorundadır; Windows'taki Chrome ise artık bunu engelliyor. Arroxy'de Explore'da bir kez giriş yaparsın, gerisini o halleder",
+  why_explore_2:
+    "**“Robot olmadığını doğrulamak için giriş yap”** — YouTube bunu istediğinde Arroxy başarısız olmak yerine indirmeyi Explore girişinle yeniden dener",
+  why_explore_3:
+    "**YouTube'un indirme token'ı** — Arroxy'nin yerleşik tarayıcısı, YouTube'un bir indirmeden önce beklediği token'ı alır. Bu olmadan YouTube istediğinden daha az biçim ve daha düşük kalite sunabilir",
+  why_explore_4:
+    "**Bağlantı kopyalamak yok** — Explore'da bir video, oynatma listesi veya kanal bul ve tek tıkla indir ya da sayfadaki herhangi bir bağlantıya sağ tıkla",
+  why_explore_5:
+    "**Gezinirken reklamlar engellenir** — Explore kendi sayfalarındaki reklamları ve izleyicileri engeller",
   feat_explore_h3: "Explore: YouTube'a Arroxy içinden göz at",
   feat_explore_1: "**Explore sekmesi** — YouTube'a Arroxy içinden göz at ve bulduklarını bağlantı kopyalamadan indir. **İndir · *profilin*** baktığın videoyu, oynatma listesini veya kanalı kuyruğa ekler; yanındaki ok profil değiştirir, sihirli değnek ise biçim, altyazı ve daha fazlasını seçebileceğin adım adım indirmeyi açar",
   feat_explore_6: "**Sağ tıklayarak indir** — Explore'da herhangi bir video, oynatma listesi veya kanal bağlantısına sağ tıklayıp profilinle indir, **Profille indir** menüsünden başka bir profil seç, adım adım indirmeyi aç ya da bağlantıyı kopyala. Her videoyu önce açman gerekmez",
@@ -348,6 +367,9 @@ export const tr = {
   privacy_p3: "Explore, tarayıcından ayrı kendi girişini tutar ve Arroxy giriş formunu asla okumaz ya da doldurmaz — Google'ın kendi sayfasına yazarsın. İndirmeler oturum açmadan çalışır; yalnızca biri hesabın düzeltebileceği bir şekilde başarısız olduğunda Arroxy girişi o an okur, o indirme için geçici bir dosyada tutar ve dosyayı sonra siler. Ayarlar'dan Explore'dan çıkış yapmak girişi unutturur.",
   faq_q1: "Gerçekten ücretsiz mi?",
   faq_a1: "Evet — MIT lisanslı, premium katman yok, özellik kilidi yok.",
+  faq_q11: "Arroxy'yi diğer yt-dlp arayüzlerinden ayıran ne?",
+  faq_a11:
+    "Ücretsiz yt-dlp arayüzlerinin çoğu yalnızca bağlantı alan sarmalayıcılardır. Arroxy buna **Explore**'u ekler: uygulamaya yerleşik bir YouTube tarayıcısı. Bağlantı kopyalamadan göz atıp indirirsin; orada bir kez giriş yaparak özel, üyelere özel ve yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini çerez dışa aktarmadan indirebilirsin. YouTube robot olmadığını doğrulamanı istediğinde Arroxy bu girişi kullanır; yerleşik tarayıcısı da YouTube'un indirme token'ını alır, böylece indirmeler daha az biçime düşmez. Bkz. [Neden Arroxy](#why).",
   faq_q2: "Hangi video kalitelerini indirebilirim?",
   faq_a2:
     "YouTube ne sunuyorsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızca ses. 60 fps, 120 fps ve HDR akışlar olduğu gibi korunur.",
