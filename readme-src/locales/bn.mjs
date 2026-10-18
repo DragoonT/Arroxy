@@ -85,7 +85,7 @@ bun run dist:win     # supported host-এ Windows targets প্যাকেজ 
 export const bn = {
   icon_alt: "Arroxy মাসকট",
   title:
-    "Arroxy — Windows, macOS ও Linux-এর জন্য বিনামূল্যে ওপেন-সোর্স YouTube (+ ২০০০ সাইট) ডাউনলোডার",
+    "Arroxy — Windows, macOS ও Linux-এর জন্য বিল্ট-ইন YouTube ব্রাউজারসহ বিনামূল্যে ওপেন-সোর্স YouTube (+ ২০০০ সাইট) ডাউনলোডার",
   read_in_label: "পড়ুন:",
   badge_release_alt: "রিলিজ",
   badge_build_alt: "বিল্ড",
@@ -97,7 +97,7 @@ export const bn = {
   discord_badge_encoded:
     "Discord%20%E0%A6%95%E0%A6%AE%E0%A6%BF%E0%A6%89%E0%A6%A8%E0%A6%BF%E0%A6%9F%E0%A6%BF%E0%A6%A4%E0%A7%87%20%E0%A6%AF%E0%A7%8B%E0%A6%97%20%E0%A6%A6%E0%A6%BF%E0%A6%A8",
   hero_desc:
-    "**YouTube ও ২০০০+ সমর্থিত সাইট** থেকে ভিডিও, Shorts, সংগীত, চ্যানেল, পডকাস্ট বা অডিও ট্র্যাক ডাউনলোড করুন — 60 fps-এ 4K HDR পর্যন্ত, অথবা MP3 / AAC / Opus হিসেবে। Windows, macOS ও Linux-এ লোকালি চলে। **কোনো বিজ্ঞাপন নেই, কোনো ব্লোট নেই, কোনো আপসেল নেই।**",
+    "**YouTube ও ২০০০+ সমর্থিত সাইট** থেকে ভিডিও, Shorts, সংগীত, চ্যানেল, পডকাস্ট বা অডিও ট্র্যাক ডাউনলোড করুন — 60 fps-এ 4K HDR পর্যন্ত, MP3 / AAC / Opus হিসেবে, অথবা শুধু যে অংশটুকু দরকার। Explore ট্যাবে **Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন** এবং যে ভিডিও, প্লেলিস্ট বা চ্যানেল দেখছেন তা ডাউনলোড করুন; আপনার অ্যাকাউন্টে দেখা যায় এমন প্রাইভেট, শুধু-সদস্যদের ও বয়স-সীমাবদ্ধ ভিডিও ডাউনলোড করতে সেখানে সাইন ইন করুন। Windows, macOS ও Linux-এ লোকালি চলে। **কোনো বিজ্ঞাপন নেই, কোনো ব্লোট নেই, কোনো আপসেল নেই।**",
   cta_latest: "↓ সর্বশেষ রিলিজ ডাউনলোড করুন",
   cta_website: "ওয়েবসাইট",
   star_cta:

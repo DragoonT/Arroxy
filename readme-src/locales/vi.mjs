@@ -85,7 +85,7 @@ bun run dist:win     # đóng gói mục tiêu Windows trên host được hỗ 
 export const vi = {
   icon_alt: "Linh vật Arroxy",
   title:
-    "Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở cho Windows, macOS & Linux",
+    "Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở, có trình duyệt YouTube tích hợp, cho Windows, macOS & Linux",
   read_in_label: "Đọc bằng:",
   badge_release_alt: "Phiên bản",
   badge_build_alt: "Build",
@@ -97,7 +97,7 @@ export const vi = {
   discord_badge_encoded:
     "Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord",
   hero_desc:
-    "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 4K HDR ở 60 fps, hoặc dưới dạng MP3 / AAC / Opus. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
+    "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 4K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
   cta_latest: "↓ Tải phiên bản mới nhất",
   cta_website: "Trang web",
   star_cta:

@@ -85,7 +85,7 @@ bun run dist:win     # 対応ホストで Windows ターゲットをパッケー
 export const ja = {
   icon_alt: "Arroxy マスコット",
   title:
-    "Arroxy — Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー",
+    "Arroxy — YouTube ブラウザー内蔵、Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー",
   read_in_label: "言語：",
   badge_release_alt: "リリース",
   badge_build_alt: "ビルド",
@@ -97,7 +97,7 @@ export const ja = {
   discord_badge_encoded:
     "Discord%20%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AB%E5%8F%82%E5%8A%A0",
   hero_desc:
-    "**YouTube と 2000 以上の対応サイト**から動画・Shorts・音楽・チャンネル・ポッドキャスト・音声トラックをダウンロード — 最大 4K HDR 60fps、または MP3 / AAC / Opus として。Windows、macOS、Linux でローカル動作。**広告なし、余計なものなし、アップセルなし。**",
+    "**YouTube と 2000 以上の対応サイト**から動画・Shorts・音楽・チャンネル・ポッドキャスト・音声トラックをダウンロード — 最大 4K HDR 60fps、MP3 / AAC / Opus として、または必要な部分だけ。Explore タブで **Arroxy の中で YouTube を閲覧**し、表示中の動画・プレイリスト・チャンネルをダウンロード。そこでサインインすれば、アカウントで視聴できる非公開動画、メンバー限定動画、年齢制限付き動画もダウンロードできます。Windows、macOS、Linux でローカル動作。**広告なし、余計なものなし、アップセルなし。**",
   cta_latest: "↓ 最新リリースをダウンロード",
   cta_website: "ウェブサイト",
   star_cta:

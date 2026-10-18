@@ -87,7 +87,7 @@ const DISCORD = "ចូលរួមសហគមន៍ Discord";
 export const km = {
   icon_alt: "តួអង្គ Arroxy",
   title:
-    "Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព័រ 2000) ឥតគិតថ្លៃ និងកូដចំហ សម្រាប់ Windows, macOS និង Linux",
+    "Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព័រ 2000) ឥតគិតថ្លៃ និងកូដចំហ មានកម្មវិធីរុករក YouTube ភ្ជាប់មកជាមួយ សម្រាប់ Windows, macOS និង Linux",
   read_in_label: "អានជា៖",
   badge_release_alt: "ការចេញផ្សាយ",
   badge_build_alt: "Build",
@@ -98,7 +98,7 @@ export const km = {
   discord_badge_text: DISCORD,
   discord_badge_encoded: encodeURIComponent(DISCORD),
   hero_desc:
-    "ទាញយកវីដេអូ Shorts តន្ត្រី ប៉ុស្តិ៍ ផតខាស ឬបទសំឡេងពី **YouTube និងគេហទំព័រជាង 2000 ដែលគាំទ្រ** — រហូតដល់ 4K HDR នៅ 60 fps ឬជា MP3 / AAC / Opus។ ដំណើរការក្នុងម៉ាស៊ីនលើ Windows, macOS និង Linux។ **គ្មានពាណិជ្ជកម្ម គ្មានកម្មវិធីរំខាន គ្មានការលក់បន្ថែម។**",
+    "ទាញយកវីដេអូ Shorts តន្ត្រី ប៉ុស្តិ៍ ផតខាស ឬបទសំឡេងពី **YouTube និងគេហទំព័រជាង 2000 ដែលគាំទ្រ** — រហូតដល់ 4K HDR នៅ 60 fps ជា MP3 / AAC / Opus ឬតែផ្នែកដែលអ្នកត្រូវការ។ **រុករក YouTube នៅក្នុង Arroxy** តាមផ្ទាំង Explore ហើយទាញយកវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ដែលអ្នកកំពុងមើល; ចូលគណនីនៅទីនោះ ដើម្បីទាញយកវីដេអូឯកជន សម្រាប់តែសមាជិក និងកំណត់អាយុ ដែលគណនីរបស់អ្នកអាចមើលបាន។ ដំណើរការក្នុងម៉ាស៊ីនលើ Windows, macOS និង Linux។ **គ្មានពាណិជ្ជកម្ម គ្មានកម្មវិធីរំខាន គ្មានការលក់បន្ថែម។**",
   cta_latest: "↓ ដំឡើងកំណែចុងក្រោយ",
   cta_website: "គេហទំព័រ",
   star_cta: "ប្រសិនបើ Arroxy ជួយសន្សំពេលវេលារបស់អ្នក ⭐ មួយជួយឱ្យអ្នកដទៃរកឃើញវា។",

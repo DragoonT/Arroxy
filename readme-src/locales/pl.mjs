@@ -84,7 +84,7 @@ bun run dist:win     # pakiety Windows na obsługiwanym hoście
 
 export const pl = {
   icon_alt: "Maskotka Arroxy",
-  title: "Arroxy — bezpłatny downloader YouTube (+ 2000 serwisów) o otwartym kodzie na Windows, macOS i Linux",
+  title: "Arroxy — bezpłatny downloader YouTube (+ 2000 serwisów) o otwartym kodzie z wbudowaną przeglądarką YouTube na Windows, macOS i Linux",
   read_in_label: "Przeczytaj w języku:",
   badge_release_alt: "Wydanie",
   badge_build_alt: "Kompilacja",
@@ -94,7 +94,7 @@ export const pl = {
   badge_website_alt: "Witryna",
   discord_badge_text: "Dołącz do społeczności Discord",
   discord_badge_encoded: "Do%C5%82%C4%85cz%20do%20spo%C5%82eczno%C5%9Bci%20Discord",
-  hero_desc: "Pobieraj filmy, Shorts, muzykę, kanały, podcasty i ścieżki dźwiękowe z **YouTube oraz ponad 2000 obsługiwanych serwisów** — nawet w 4K HDR przy 60 kl./s albo jako MP3 / AAC / Opus. Działa lokalnie na Windows, macOS i Linux. **Bez reklam, zbędnych dodatków i płatnych zachęt.**",
+  hero_desc: "Pobieraj filmy, Shorts, muzykę, kanały, podcasty i ścieżki dźwiękowe z **YouTube oraz ponad 2000 obsługiwanych serwisów** — nawet w 4K HDR przy 60 kl./s, jako MP3 / AAC / Opus albo tylko potrzebny fragment. **Przeglądaj YouTube w Arroxy** na karcie Explore i pobieraj oglądany film, playlistę lub kanał; zaloguj się tam, aby pobierać filmy prywatne, tylko dla członków i z ograniczeniem wieku, które może oglądać Twoje konto. Działa lokalnie na Windows, macOS i Linux. **Bez reklam, zbędnych dodatków i płatnych zachęt.**",
   cta_latest: "↓ Zainstaluj najnowsze wydanie",
   cta_website: "Witryna",
   star_cta: "Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.",

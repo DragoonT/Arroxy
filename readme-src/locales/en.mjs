@@ -85,7 +85,7 @@ bun run dist:win     # package Windows targets when run on a supported host
 export const en = {
   icon_alt: "Arroxy mascot",
   title:
-    "Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader for Windows, macOS & Linux",
+    "Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader with a Built-in YouTube Browser, for Windows, macOS & Linux",
   read_in_label: "Read in:",
   badge_release_alt: "Release",
   badge_build_alt: "Build",
@@ -96,7 +96,7 @@ export const en = {
   discord_badge_text: "Join the Discord Community",
   discord_badge_encoded: "Join%20the%20Discord%20Community",
   hero_desc:
-    "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 4K HDR at 60 fps, or as MP3 / AAC / Opus. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
+    "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 4K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
   cta_latest: "↓ Install Latest Release",
   cta_website: "Website",
   star_cta: "If Arroxy saves you time, a ⭐ helps others find it.",

@@ -85,7 +85,7 @@ bun run dist:win     # supported host တွင် Windows targets package ထ�
 export const my = {
   icon_alt: "Arroxy မုဒ်ကော့",
   title:
-    "Arroxy — Windows, macOS နှင့် Linux အတွက် အခမဲ့ Open-Source YouTube (+ ၂၀၀၀ ဆိုဒ်) Downloader",
+    "Arroxy — Windows, macOS နှင့် Linux အတွက် built-in YouTube browser ပါသော အခမဲ့ Open-Source YouTube (+ ၂၀၀၀ ဆိုဒ်) Downloader",
   read_in_label: "ဘာသာဖြင့် ဖတ်ရှုရန်:",
   badge_release_alt: "Release",
   badge_build_alt: "Build",
@@ -97,7 +97,7 @@ export const my = {
   discord_badge_encoded:
     "Discord%20%E1%80%A1%E1%80%9E%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%A1%E1%80%9D%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%90%E1%80%BD%E1%80%84%E1%80%BA%20%E1%80%95%E1%80%AB%E1%80%9D%E1%80%84%E1%80%BA%E1%80%95%E1%80%AB",
   hero_desc:
-    "**YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ သီချင်းများ၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 4K HDR အထိ၊ သို့မဟုတ် MP3 / AAC / Opus အဖြစ်။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**",
+    "**YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ သီချင်းများ၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 4K HDR အထိ၊ MP3 / AAC / Opus အဖြစ်၊ သို့မဟုတ် လိုအပ်သည့်အပိုင်းကိုသာ။ Explore tab တွင် **Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး** သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်ပါ၊ သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private၊ member-only နှင့် အသက်ကန့်သတ်ထားသော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ထိုနေရာတွင် sign in လုပ်ပါ။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**",
   cta_latest: "↓ နောက်ဆုံး Release ကို ဒေါင်းလုဒ်ဆွဲပါ",
   cta_website: "ဝဘ်ဆိုက်",
   star_cta:

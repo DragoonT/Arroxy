@@ -85,7 +85,7 @@ bun run dist:win     # πακετάρισμα Windows targets σε υποστη�
 export const el = {
   icon_alt: "Μασκότ Arroxy",
   title:
-    "Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 ιστοτόπους) για Windows, macOS & Linux",
+    "Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 ιστοτόπους) με ενσωματωμένο πρόγραμμα περιήγησης YouTube για Windows, macOS & Linux",
   read_in_label: "Διαβάστε στα:",
   badge_release_alt: "Έκδοση",
   badge_build_alt: "Build",
@@ -97,7 +97,7 @@ export const el = {
   discord_badge_encoded:
     "%CE%95%CE%B3%CE%B3%CF%81%CE%B1%CF%86%CE%B5%CE%AF%CF%84%CE%B5%20%CF%83%CF%84%CE%B7%CE%BD%20%CE%BA%CE%BF%CE%B9%CE%BD%CF%8C%CF%84%CE%B7%CF%84%CE%B1%20Discord",
   hero_desc:
-    "Κατεβάστε βίντεο, Shorts, μουσική, κανάλια, podcasts ή ηχητικά κομμάτια από το **YouTube και 2000+ υποστηριζόμενους ιστοτόπους** — έως 4K HDR στα 60 fps, ή ως MP3 / AAC / Opus. Εκτελείται τοπικά σε Windows, macOS και Linux. **Χωρίς διαφημίσεις, χωρίς bloat, χωρίς upsells.**",
+    "Κατεβάστε βίντεο, Shorts, μουσική, κανάλια, podcasts ή ηχητικά κομμάτια από το **YouTube και 2000+ υποστηριζόμενους ιστοτόπους** — έως 4K HDR στα 60 fps, ως MP3 / AAC / Opus ή μόνο το κομμάτι που χρειάζεστε. **Περιηγηθείτε στο YouTube μέσα στο Arroxy** στην καρτέλα Explore και κατεβάστε το βίντεο, την playlist ή το κανάλι που βλέπετε· συνδεθείτε εκεί για να κατεβάζετε ιδιωτικά βίντεο, βίντεο μόνο για μέλη και βίντεο με περιορισμό ηλικίας που βλέπει ο λογαριασμός σας. Εκτελείται τοπικά σε Windows, macOS και Linux. **Χωρίς διαφημίσεις, χωρίς bloat, χωρίς upsells.**",
   cta_latest: "↓ Λήψη Τελευταίας Έκδοσης",
   cta_website: "Ιστότοπος",
   star_cta:

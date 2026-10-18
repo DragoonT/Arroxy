@@ -85,7 +85,7 @@ bun run dist:win     # funga malengo ya Windows kwenye host inayotumika
 export const sw = {
   icon_alt: "Nembo ya Arroxy",
   title:
-    "Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) kwa Windows, macOS na Linux",
+    "Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari cha YouTube Ndani, kwa Windows, macOS na Linux",
   read_in_label: "Soma kwa:",
   badge_release_alt: "Toleo",
   badge_build_alt: "Ujenzi",
@@ -96,7 +96,7 @@ export const sw = {
   discord_badge_text: "Jiunge na jumuiya ya Discord",
   discord_badge_encoded: "Jiunge%20na%20jumuiya%20ya%20Discord",
   hero_desc:
-    "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 4K HDR kwa fps 60, au kama MP3 / AAC / Opus. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
+    "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 4K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",
   cta_website: "Tovuti",
   star_cta: "Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.",

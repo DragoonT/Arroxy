@@ -85,7 +85,7 @@ bun run dist:win     # په supported host کې د Windows targets پیکیج ک
 export const ps = {
   icon_alt: "د Arroxy ماسکوټ",
   title:
-    "Arroxy — د Windows، macOS او Linux لپاره وړیا خلاصه سرچینه YouTube (+ ۲۰۰۰ سایټونه) ډاونلوډر",
+    "Arroxy — د Windows، macOS او Linux لپاره وړیا خلاصه سرچینه YouTube (+ ۲۰۰۰ سایټونه) ډاونلوډر، د جوړ شوي YouTube براوزر سره",
   read_in_label: "پدې ژبه ولولئ:",
   badge_release_alt: "خپرونه",
   badge_build_alt: "جوړونه",
@@ -97,7 +97,7 @@ export const ps = {
   discord_badge_encoded:
     "%D8%AF%20Discord%20%D9%BC%D9%88%D9%84%D9%86%DB%90%20%D8%B3%D8%B1%D9%87%20%DB%8C%D9%88%DA%81%D8%A7%DB%8C%20%D8%B4%D8%A6",
   hero_desc:
-    "له **YouTube او ۲۰۰۰+ ملاتړ شویو سایټونو** نه ویډیوګانې، Shorts، موسیقي، چینلونه، پوډکاسټونه، یا اوډیو ټریکونه ډاونلوډ کړئ — تر 4K HDR پورې د 60 fps سره، یا د MP3 / AAC / Opus په توګه. د Windows، macOS، او Linux پر سیستم ځایي چلیږي. **هیڅ اعلانات، هیڅ بلوټ، هیڅ اضافي پلورنه نه ده.**",
+    "له **YouTube او ۲۰۰۰+ ملاتړ شویو سایټونو** نه ویډیوګانې، Shorts، موسیقي، چینلونه، پوډکاسټونه، یا اوډیو ټریکونه ډاونلوډ کړئ — تر 4K HDR پورې د 60 fps سره، د MP3 / AAC / Opus په توګه، یا یوازې هغه برخه چې ورته اړتیا لرئ. په Explore ټب کې **په Arroxy کې YouTube وګورئ** او هغه ویډیو، playlist یا چینل ډاونلوډ کړئ چې تاسو یې ګورئ؛ هلته sign in وکړئ ترڅو هغه شخصي، یوازې د غړو او د عمر محدودیت لرونکې ویډیوګانې ډاونلوډ کړئ چې ستاسو اکاونټ یې لیدلی شي. د Windows، macOS، او Linux پر سیستم ځایي چلیږي. **هیڅ اعلانات، هیڅ بلوټ، هیڅ اضافي پلورنه نه ده.**",
   cta_latest: "↓ وروستۍ خپرونه ډاونلوډ کړئ",
   cta_website: "ویب پاڼه",
   star_cta: "که Arroxy ستاسو وخت خوندي کوي، یو ⭐ نورو سره مرسته کوي چې ومومي.",

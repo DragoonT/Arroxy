@@ -85,7 +85,7 @@ bun run dist:win     # supported host ላይ Windows targets package ማድረ�
 export const am = {
   icon_alt: "የ Arroxy መሸፈኛ",
   title:
-    "Arroxy — ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux",
+    "Arroxy — አብሮ የተሰራ YouTube አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux",
   read_in_label: "አንብብ በ:",
   badge_release_alt: "ስሪት",
   badge_build_alt: "ግንባታ",
@@ -97,7 +97,7 @@ export const am = {
   discord_badge_encoded:
     "%E1%8B%A8Discord%20%E1%88%9B%E1%88%85%E1%89%A0%E1%88%A8%E1%88%B0%E1%89%A5%E1%8A%95%20%E1%8B%AD%E1%89%80%E1%88%8B%E1%89%80%E1%88%89",
   hero_desc:
-    "ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 4K HDR በ60 fps፣ ወይም MP3 / AAC / Opus። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**",
+    "ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 4K HDR በ60 fps፣ እንደ MP3 / AAC / Opus፣ ወይም የሚፈልጉትን ክፍል ብቻ። በExplore ትር **YouTubeን በArroxy ውስጥ ያስሱ** እና እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel ያውርዱ፤ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ለማውረድ እዚያ ይግቡ። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**",
   cta_latest: "↓ የቅርብ ጊዜ ስሪት አውርድ",
   cta_website: "ድር ጣቢያ",
   star_cta: "Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረዳል።",
