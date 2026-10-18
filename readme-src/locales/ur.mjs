@@ -85,7 +85,7 @@ bun run dist:win     # supported host پر Windows targets پیکج کریں
 export const ur = {
   icon_alt: "Arroxy ماسکٹ",
   title:
-    "Arroxy — Windows، macOS اور Linux کے لیے مفت اوپن سورس YouTube (+ 2000 سائٹس) ڈاؤن لوڈر",
+    "Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن YouTube براؤزر کے ساتھ مفت اوپن سورس YouTube (+ 2000 سائٹس) ڈاؤن لوڈر",
   read_in_label: "زبان:",
   badge_release_alt: "ریلیز",
   badge_build_alt: "بلڈ",
@@ -97,7 +97,7 @@ export const ur = {
   discord_badge_encoded:
     "Discord%20%DA%A9%D9%85%DB%8C%D9%88%D9%86%D9%B9%DB%8C%20%D9%85%DB%8C%DA%BA%20%D8%B4%D8%A7%D9%85%D9%84%20%DB%81%D9%88%DA%BA",
   hero_desc:
-    "**YouTube اور 2000+ معاون سائٹس** سے ویڈیوز، Shorts، موسیقی، چینلز، پوڈکاسٹ یا آڈیو ٹریک ڈاؤن لوڈ کریں — 60 fps پر 4K HDR تک، یا MP3 / AAC / Opus کے طور پر۔ Windows، macOS اور Linux پر مقامی طور پر چلتا ہے۔ **کوئی اشتہارات نہیں، کوئی بلوٹ نہیں، کوئی اپ سیلز نہیں۔**",
+    "**YouTube اور 2000+ معاون سائٹس** سے ویڈیوز، Shorts، موسیقی، چینلز، پوڈکاسٹ یا آڈیو ٹریک ڈاؤن لوڈ کریں — 60 fps پر 4K HDR تک، MP3 / AAC / Opus کے طور پر، یا صرف وہ حصہ جو آپ کو چاہیے۔ Explore ٹیب میں **Arroxy کے اندر YouTube براؤز کریں** اور جو ویڈیو، پلے لسٹ یا چینل آپ دیکھ رہے ہیں اسے ڈاؤن لوڈ کریں؛ وہاں سائن ان کر کے وہ نجی، صرف ممبران والے اور عمر کی پابندی والے ویڈیوز ڈاؤن لوڈ کریں جو آپ کا اکاؤنٹ دیکھ سکتا ہے۔ Windows، macOS اور Linux پر مقامی طور پر چلتا ہے۔ **کوئی اشتہارات نہیں، کوئی بلوٹ نہیں، کوئی اپ سیلز نہیں۔**",
   cta_latest: "↓ تازہ ترین ریلیز ڈاؤن لوڈ کریں",
   cta_website: "ویب سائٹ",
   star_cta:

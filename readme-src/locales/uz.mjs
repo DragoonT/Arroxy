@@ -85,7 +85,7 @@ bun run dist:win     # supported host'da Windows targets paketlash
 export const uz = {
   icon_alt: "Arroxy maskoti",
   title:
-    "Arroxy — Windows, macOS va Linux uchun Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi",
+    "Arroxy — Windows, macOS va Linux uchun o'rnatilgan YouTube brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi",
   read_in_label: "O'qing:",
   badge_release_alt: "Reliz",
   badge_build_alt: "Qurish",
@@ -96,7 +96,7 @@ export const uz = {
   discord_badge_text: "Discord hamjamiyatiga qo'shiling",
   discord_badge_encoded: "Discord%20hamjamiyatiga%20qo%27shiling",
   hero_desc:
-    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 4K HDR gacha yoki MP3 / AAC / Opus sifatida. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
+    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 4K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube'ni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
   cta_website: "Veb-sayt",
   star_cta:

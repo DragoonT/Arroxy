@@ -3,7 +3,7 @@
 
 # {{title}}
 
-**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **{{read_in_label}}** {{LANG_NAV}}
 
@@ -15,13 +15,13 @@
 
 [![{{discord_badge_text}}](https://img.shields.io/badge/{{discord_badge_encoded}}-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
+<img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" width="720" />
 
 {{star_cta}}
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. Its Explore tab is a built-in YouTube browser: download the video, playlist, or channel you're on or right-click any link, and sign in there to download private, members-only, and age-restricted videos your account can watch. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: {{LAST_UPDATED}}._
 

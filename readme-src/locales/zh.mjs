@@ -85,7 +85,7 @@ bun run dist:win     # 在受支持的主机上打包 Windows 目标
 export const zh = {
   icon_alt: "Arroxy 吉祥物",
   title:
-    "Arroxy — 免费开源 YouTube（+ 2000 个网站）下载器，支持 Windows、macOS 和 Linux",
+    "Arroxy — 内置 YouTube 浏览器的免费开源 YouTube（+ 2000 个网站）下载器，支持 Windows、macOS 和 Linux",
   read_in_label: "阅读语言：",
   badge_release_alt: "发布",
   badge_build_alt: "构建",
@@ -96,7 +96,7 @@ export const zh = {
   discord_badge_text: "加入 Discord 社群",
   discord_badge_encoded: "%E5%8A%A0%E5%85%A5%20Discord%20%E7%A4%BE%E7%BE%A4",
   hero_desc:
-    "从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 4K HDR 60 fps，或导出为 MP3 / AAC / Opus。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**",
+    "从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 4K HDR 60 fps，可导出为 MP3 / AAC / Opus，也可以只下载你需要的片段。在 Explore 标签页中**在 Arroxy 内浏览 YouTube**，下载你正在查看的视频、播放列表或频道；在那里登录后，还能下载你的账号可观看的私享、会员专属和年龄限制视频。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**",
   cta_latest: "↓ 下载最新版本",
   cta_website: "官网",
   star_cta: "如果 Arroxy 帮你节省了时间，点个 ⭐ 让更多人发现它。",

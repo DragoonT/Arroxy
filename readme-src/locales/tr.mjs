@@ -85,7 +85,7 @@ bun run dist:win     # desteklenen bir host üzerinde Windows hedeflerini paketl
 export const tr = {
   icon_alt: "Arroxy maskotu",
   title:
-    "Arroxy — Windows, macOS ve Linux için Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici",
+    "Arroxy — Windows, macOS ve Linux için Dahili YouTube Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici",
   read_in_label: "Şu dilde oku:",
   badge_release_alt: "Sürüm",
   badge_build_alt: "Derleme",
@@ -96,7 +96,7 @@ export const tr = {
   discord_badge_text: "Discord Topluluğuna Katıl",
   discord_badge_encoded: "Discord%20Toplulu%C4%9Funa%20Kat%C4%B1l",
   hero_desc:
-    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 4K HDR'a kadar ya da MP3 / AAC / Opus olarak. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
+    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 4K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
   cta_latest: "↓ En son sürümü kur",
   cta_website: "Web sitesi",
   star_cta:

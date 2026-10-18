@@ -1,6 +1,6 @@
 export const id = {
   "icon_alt": "Maskot Arroxy",
-  "title": "Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis untuk Windows, macOS & Linux",
+  "title": "Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban YouTube Bawaan untuk Windows, macOS & Linux",
   "read_in_label": "Baca di:",
   "badge_release_alt": "Rilis",
   "badge_build_alt": "Build",
@@ -9,7 +9,7 @@ export const id = {
   "badge_i18n_alt": "Bahasa",
   "badge_website_alt": "Situs web",
   "discord_badge_text": "Bergabunglah dengan Komunitas Discord",
-  "hero_desc": "Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 4K HDR pada 60 fps, atau sebagai MP3 / AAC / Opus. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**",
+  "hero_desc": "Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 4K HDR pada 60 fps, sebagai MP3 / AAC / Opus, atau hanya bagian yang Anda perlukan. **Jelajahi YouTube di dalam Arroxy** lewat tab Explore dan unduh video, daftar putar, atau saluran yang sedang Anda buka; masuk di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia yang bisa ditonton akun Anda. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**",
   "cta_latest": "↓ Instal Rilis Terbaru",
   "cta_website": "Situs web",
   "star_cta": "Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.",

@@ -85,7 +85,7 @@ bun run dist:win     # empaqueta objetivos Windows en un host compatible
 export const es = {
   icon_alt: "Mascota de Arroxy",
   title:
-    "Arroxy — Descargador gratuito de YouTube (+ 2000 sitios) de código abierto para Windows, macOS y Linux",
+    "Arroxy — Descargador gratuito de YouTube (+ 2000 sitios) de código abierto con navegador de YouTube integrado para Windows, macOS y Linux",
   read_in_label: "Leer en:",
   badge_release_alt: "Versión",
   badge_build_alt: "Compilación",
@@ -96,7 +96,7 @@ export const es = {
   discord_badge_text: "Únete a la comunidad de Discord",
   discord_badge_encoded: "%C3%9Anete%20a%20la%20comunidad%20de%20Discord",
   hero_desc:
-    "Descarga videos, Shorts, música, canales, podcasts o pistas de audio de **YouTube y más de 2000 sitios compatibles** — hasta 4K HDR a 60 fps, o como MP3 / AAC / Opus. Se ejecuta localmente en Windows, macOS y Linux. **Sin anuncios, sin bloatware, sin ventas adicionales.**",
+    "Descarga videos, Shorts, música, canales, podcasts o pistas de audio de **YouTube y más de 2000 sitios compatibles** — hasta 4K HDR a 60 fps, como MP3 / AAC / Opus, o solo la parte que necesites. **Navega por YouTube dentro de Arroxy** en la pestaña Explore y descarga el video, la playlist o el canal que estás viendo; inicia sesión ahí para descargar videos privados, solo para miembros y con restricción de edad que tu cuenta pueda ver. Se ejecuta localmente en Windows, macOS y Linux. **Sin anuncios, sin bloatware, sin ventas adicionales.**",
   cta_latest: "↓ Descargar la última versión",
   cta_website: "Sitio web",
   star_cta:

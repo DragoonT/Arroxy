@@ -85,7 +85,7 @@ bun run dist:win     # supported host irratti Windows targets package godhi
 export const om = {
   icon_alt: "Arroxy mascot",
   title:
-    "Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa Windows, macOS & Linux",
+    "Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa YouTube Keessaa Qabu, Windows, macOS & Linux",
   read_in_label: "Afaan:",
   badge_release_alt: "Baasii",
   badge_build_alt: "Ijaarsaa",
@@ -96,7 +96,7 @@ export const om = {
   discord_badge_text: "Hawaasa Discord itti makami",
   discord_badge_encoded: "Hawaasa%20Discord%20itti%20makami",
   hero_desc:
-    "Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 4K HDR 60 fps, ykn MP3 / AAC / Opus. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**",
+    "Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 4K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**",
   cta_latest: "↓ Baasii Haaraa Buusi",
   cta_website: "Marsariitii",
   star_cta:

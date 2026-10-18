@@ -1,27 +1,27 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Maskot Arroxy" width="180" />
 
-# Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis untuk Windows, macOS & Linux
+# Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban YouTube Bawaan untuk Windows, macOS & Linux
 
-**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Baca di:** [Afaan Oromoo](README.om.md) · **Bahasa Indonesia** · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
 [![Rilis](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Situs web](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Lisensi](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Bahasa](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 4K HDR pada 60 fps, atau sebagai MP3 / AAC / Opus. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**
+Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 4K HDR pada 60 fps, sebagai MP3 / AAC / Opus, atau hanya bagian yang Anda perlukan. **Jelajahi YouTube di dalam Arroxy** lewat tab Explore dan unduh video, daftar putar, atau saluran yang sedang Anda buka; masuk di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia yang bisa ditonton akun Anda. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**
 
 [**↓ Instal Rilis Terbaru**](#install) &nbsp;·&nbsp; [**Situs web**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows peluncuran pertama](#windows-first-launch) · [macOS peluncuran pertama](#macos-first-launch) · [Linux peluncuran pertama](#linux-first-launch)
 
 [![Bergabunglah dengan Komunitas Discord](https://img.shields.io/badge/Bergabunglah%20dengan%20Komunitas%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
+<img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" width="720" />
 
 Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. Its Explore tab is a built-in YouTube browser: download the video, playlist, or channel you're on or right-click any link, and sign in there to download private, members-only, and age-restricted videos your account can watch. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-18._
 

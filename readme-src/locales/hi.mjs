@@ -85,7 +85,7 @@ bun run dist:win     # supported host पर Windows targets पैकेज क
 export const hi = {
   icon_alt: "Arroxy मस्कट",
   title:
-    "Arroxy — Windows, macOS और Linux के लिए मुफ़्त ओपन-सोर्स YouTube (+ 2000 साइट) डाउनलोडर",
+    "Arroxy — Windows, macOS और Linux के लिए बिल्ट-इन YouTube ब्राउज़र वाला मुफ़्त ओपन-सोर्स YouTube (+ 2000 साइट) डाउनलोडर",
   read_in_label: "भाषा:",
   badge_release_alt: "रिलीज़",
   badge_build_alt: "बिल्ड",
@@ -97,7 +97,7 @@ export const hi = {
   discord_badge_encoded:
     "Discord%20%E0%A4%B8%E0%A4%AE%E0%A5%81%E0%A4%A6%E0%A4%BE%E0%A4%AF%20%E0%A4%B8%E0%A5%87%20%E0%A4%9C%E0%A5%81%E0%A4%A1%E0%A4%BC%E0%A5%87%E0%A4%82",
   hero_desc:
-    "**YouTube और 2000+ समर्थित साइटों** से वीडियो, Shorts, संगीत, चैनल, पॉडकास्ट या ऑडियो ट्रैक डाउनलोड करें — 60 fps पर 4K HDR तक, या MP3 / AAC / Opus के रूप में। Windows, macOS और Linux पर लोकल रन होता है। **कोई विज्ञापन नहीं, कोई ब्लोट नहीं, कोई अपसेल नहीं।**",
+    "**YouTube और 2000+ समर्थित साइटों** से वीडियो, Shorts, संगीत, चैनल, पॉडकास्ट या ऑडियो ट्रैक डाउनलोड करें — 60 fps पर 4K HDR तक, MP3 / AAC / Opus के रूप में, या सिर्फ़ उतना हिस्सा जितना आपको चाहिए। Explore टैब में **Arroxy के अंदर ही YouTube ब्राउज़ करें** और जो वीडियो, प्लेलिस्ट या चैनल आप देख रहे हैं उसे डाउनलोड करें; आपका अकाउंट जिन प्राइवेट, केवल-सदस्यों वाले और आयु-प्रतिबंधित वीडियो को देख सकता है, उन्हें डाउनलोड करने के लिए वहीं साइन इन करें। Windows, macOS और Linux पर लोकल रन होता है। **कोई विज्ञापन नहीं, कोई ब्लोट नहीं, कोई अपसेल नहीं।**",
   cta_latest: "↓ नवीनतम रिलीज़ डाउनलोड करें",
   cta_website: "वेबसाइट",
   star_cta:

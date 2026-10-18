@@ -1,27 +1,27 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy 마스코트" width="180" />
 
-# Arroxy — Windows, macOS, Linux용 무료 오픈 소스 YouTube(+ 2000개 사이트) 다운로더
+# Arroxy — YouTube 브라우저가 내장된 Windows, macOS, Linux용 무료 오픈 소스 YouTube(+ 2000개 사이트) 다운로더
 
-**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **다른 언어로 읽기:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · **한국어** · [繁體中文](README.zh-Hant.md)
 
 [![릴리스](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![빌드](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![웹사이트](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![라이선스](https://img.shields.io/badge/license-MIT-green) ![플랫폼](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![언어](https://img.shields.io/badge/i18n-31_languages-blue)
 
-**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 음악, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 4K HDR까지, 또는 MP3 / AAC / Opus로 저장할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
+**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 음악, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 4K HDR까지, MP3 / AAC / Opus로, 또는 필요한 부분만 저장할 수 있습니다. Explore 탭에서 **Arroxy 안에서 YouTube를 둘러보고** 보고 있는 동영상, 재생목록 또는 채널을 다운로드하세요. 그곳에서 로그인하면 계정으로 볼 수 있는 비공개, 멤버 전용, 연령 제한 동영상도 다운로드할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
 
 [**↓ 최신 릴리스 설치**](#install) &nbsp;·&nbsp; [**웹사이트**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows 최초 실행](#windows-first-launch) · [macOS 최초 실행](#macos-first-launch) · [Linux 최초 실행](#linux-first-launch)
 
 [![Discord 커뮤니티 참여](https://img.shields.io/badge/Discord%20%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0%20%EC%B0%B8%EC%97%AC-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
+<img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" width="720" />
 
 Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 있게 해 주세요.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. Its Explore tab is a built-in YouTube browser: download the video, playlist, or channel you're on or right-click any link, and sign in there to download private, members-only, and age-restricted videos your account can watch. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-18._
 
