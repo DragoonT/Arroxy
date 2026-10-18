@@ -166,6 +166,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "Поново учитај"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Копирано!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Копирај адресу"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy је бесплатан и отвореног кода, без реклама и плаћеног пакета. Донације су опционе и не дају утицај на план развоја."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Донирај"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Подржи Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "QR код адресе за донације {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Подржи Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Крипто уплате су неповратне. Шаљи само преко приказане мреже и упореди целу адресу."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Овај видео је ограничен по старости и не може се преузети без пријављеног налога."

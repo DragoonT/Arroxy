@@ -832,6 +832,16 @@
 		"footerLabel": "共有",
 		"shareAction": "Arroxy を共有"
 	},
+	"donate": {
+		"title": "Arroxy を支援",
+		"description": "Arroxy は無料のオープンソースで、広告も有料プランもありません。寄付は任意で、ロードマップへの影響力は得られません。",
+		"footerTooltip": "Arroxy を支援",
+		"footerLabel": "寄付",
+		"copyAddress": "アドレスをコピー",
+		"copied": "コピーしました！",
+		"qrAlt": "{{coin}} 寄付アドレスの QR コード",
+		"warning": "暗号資産の送金は取り消せません。表示されたネットワークでのみ送金し、アドレス全体を照合してください。"
+	},
 	"filenameTemplate": {
 		"label": "ファイル名テンプレート",
 		"description": "ダウンロードしたファイルの名前の付け方を選びます。トークンをクリックすると挿入されます。/ を使うとフォルダーに振り分けられます。",

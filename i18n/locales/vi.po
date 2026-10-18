@@ -156,6 +156,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "Tải lại"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Đã sao chép!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Sao chép địa chỉ"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy miễn phí và mã nguồn mở, không quảng cáo, không gói trả phí. Quyên góp là tùy chọn và không mang lại ảnh hưởng đến lộ trình phát triển."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Ủng hộ"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Ủng hộ Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "Mã QR địa chỉ quyên góp {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Ủng hộ Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Thanh toán bằng tiền mã hóa không thể hoàn lại. Chỉ gửi qua mạng được hiển thị và so sánh toàn bộ địa chỉ."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Video này bị giới hạn độ tuổi và không thể tải xuống nếu không có tài khoản đã đăng nhập."

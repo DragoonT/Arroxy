@@ -161,6 +161,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "Pakia upya"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Imenakiliwa!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Nakili anwani"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy ni bure na chanzo huria, bila matangazo wala mpango wa kulipia. Michango ni ya hiari na haitoi ushawishi wowote kwenye ramani ya maendeleo."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Changia"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Saidia Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "Msimbo wa QR wa anwani ya mchango ya {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Saidia Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Malipo ya kripto hayawezi kurudishwa. Tuma kwa mtandao ulioonyeshwa pekee na linganisha anwani nzima."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia."

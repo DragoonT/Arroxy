@@ -892,6 +892,16 @@
 		"footerLabel": "Ulashish",
 		"shareAction": "Arroxy ulashish"
 	},
+	"donate": {
+		"title": "Arroxy ni qo'llab-quvvatlang",
+		"description": "Arroxy bepul va ochiq manbali, reklamasiz va pullik tarifsiz. Xayriya ixtiyoriy bo'lib, yo'l xaritasiga hech qanday ta'sir bermaydi.",
+		"footerTooltip": "Arroxy ni qo'llab-quvvatlang",
+		"footerLabel": "Xayriya",
+		"copyAddress": "Manzilni nusxalash",
+		"copied": "Nusxalandi!",
+		"qrAlt": "{{coin}} xayriya manzili QR kodi",
+		"warning": "Kripto to'lovlarni qaytarib bo'lmaydi. Faqat ko'rsatilgan tarmoq orqali yuboring va manzilni to'liq solishtiring."
+	},
 	"filenameTemplate": {
 		"label": "Fayl nomi shabloni",
 		"description": "Yuklab olingan fayllar qanday nomlanishini tanlang. Qo'shish uchun tokenni bosing. Yuklamalarni papkalarga ajratish uchun / dan foydalaning.",

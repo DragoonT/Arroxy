@@ -433,6 +433,7 @@ export interface UiSlice {
 	// a style that needs it renders as the base style until restart.
 	backdropFailed: boolean
 	aboutDialogOpen: boolean
+	donateDialogOpen: boolean
 	exploreAddressHint: ExploreAddressHint | null
 	// The Explore browser is on screen (its tab is active, past the first-run notice).
 	exploreBrowsing: boolean
@@ -442,6 +443,7 @@ export interface UiSlice {
 	setUiStyle: (style: UiStyle) => void
 	setBackdropFailed: (failed: boolean) => void
 	setAboutDialogOpen: (open: boolean) => void
+	setDonateDialogOpen: (open: boolean) => void
 	setExploreAddressHint: (hint: ExploreAddressHint | null) => void
 	setExploreBrowsing: (browsing: boolean) => void
 }

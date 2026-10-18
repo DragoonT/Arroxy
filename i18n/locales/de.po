@@ -161,6 +161,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "Neu laden"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Kopiert!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Adresse kopieren"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy ist kostenlos und Open Source, ohne Werbung und ohne Bezahlstufe. Spenden sind freiwillig und verschaffen keinen Einfluss auf die Roadmap."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Spenden"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Arroxy unterstützen"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "QR-Code der {{coin}}-Spendenadresse"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Arroxy unterstützen"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Krypto-Zahlungen sind unumkehrbar. Sende nur über das angezeigte Netzwerk und vergleiche die gesamte Adresse."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden."

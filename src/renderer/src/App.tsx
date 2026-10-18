@@ -1,6 +1,6 @@
 import {lazy, Suspense, useEffect, useLayoutEffect, useState, type ComponentType, type Dispatch, type ReactNode, type SetStateAction} from 'react'
 import log from 'electron-log/renderer.js'
-import {Info, MessageCircle, Share2} from 'lucide-react'
+import {Heart, Info, MessageCircle, Share2} from 'lucide-react'
 import IconDiscord from '~icons/simple-icons/discord'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
@@ -21,6 +21,7 @@ import {ThemeToggle} from './components/system/ThemeToggle.js'
 import {StyleToggle} from './components/system/StyleToggle.js'
 import {LanguagePicker} from './components/system/LanguagePicker.js'
 import {AboutDialog} from './components/system/AboutDialog.js'
+import {DonateDialog} from './components/system/DonateDialog.js'
 import {FeedbackDialog} from './components/system/FeedbackDialog.js'
 import {useUpdateChannel} from './components/system/useUpdateChannel.js'
 import {WhatsNewDialog} from './components/system/WhatsNewDialog.js'
@@ -216,7 +217,7 @@ function BackdropStage({colorScheme, onUnavailable}: {colorScheme: BackdropColor
 
 function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean; styleHintReady: boolean; onFeedback: () => void}): ReactNode {
 	const {t} = useTranslation()
-	const {uiZoom, setUiZoom, setAboutDialogOpen, openShareDialog} = useAppStore(useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog})))
+	const {uiZoom, setUiZoom, setAboutDialogOpen, setDonateDialogOpen, openShareDialog} = useAppStore(useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, setAboutDialogOpen: state.setAboutDialogOpen, setDonateDialogOpen: state.setDonateDialogOpen, openShareDialog: state.openShareDialog})))
 	// While browsing in Explore's compact layout the footer drops its labels and slims down.
 	const compactChrome = useAppStore(selectCompactChrome)
 	const footerLabelClass = compactChrome ? 'sr-only' : FOOTER_COMPACT_LABEL_CLASS
@@ -254,6 +255,14 @@ function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean;
 						<Share2 data-icon="inline-start" aria-hidden />
 						<span className={footerLabelClass} data-testid="btn-share-label">
 							{t('share.footerLabel')}
+						</span>
+					</Button>
+				</Hint>
+				<Hint label={t('donate.footerTooltip')}>
+					<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => setDonateDialogOpen(true)} data-testid="btn-donate">
+						<Heart data-icon="inline-start" aria-hidden />
+						<span className={footerLabelClass} data-testid="btn-donate-label">
+							{t('donate.footerLabel')}
 						</span>
 					</Button>
 				</Hint>
@@ -347,6 +356,7 @@ export function App(): ReactNode {
 
 				{showStartupSplash && <WarmupSplash initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} onCancel={cancelWarmup} />}
 				<AboutDialog />
+				<DonateDialog />
 				{shareDialogOpen ? (
 					<Suspense fallback={null}>
 						<ShareDialog />

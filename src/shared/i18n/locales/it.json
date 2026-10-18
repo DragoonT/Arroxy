@@ -906,6 +906,16 @@
 		"footerLabel": "Condividi",
 		"shareAction": "Condividi Arroxy"
 	},
+	"donate": {
+		"title": "Sostieni Arroxy",
+		"description": "Arroxy è gratuito e open source, senza pubblicità né livello a pagamento. Le donazioni sono facoltative e non danno alcuna influenza sulla roadmap.",
+		"footerTooltip": "Sostieni Arroxy",
+		"footerLabel": "Dona",
+		"copyAddress": "Copia indirizzo",
+		"copied": "Copiato!",
+		"qrAlt": "Codice QR dell'indirizzo di donazione {{coin}}",
+		"warning": "I pagamenti in criptovalute sono irreversibili. Invia solo sulla rete indicata e confronta l'indirizzo per intero."
+	},
 	"filenameTemplate": {
 		"label": "Modello del nome file",
 		"description": "Scegli come denominare i file scaricati. Fai clic su un token per inserirlo. Usa / per ordinare i download in cartelle.",

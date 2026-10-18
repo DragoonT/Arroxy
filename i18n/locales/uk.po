@@ -171,6 +171,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "Перезавантажити"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Скопійовано!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Копіювати адресу"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy безкоштовний і з відкритим кодом, без реклами та платних тарифів. Пожертви добровільні й не дають впливу на дорожню карту."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Донат"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Підтримати Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "QR-код адреси для пожертв {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Підтримати Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Криптоплатежі незворотні. Надсилайте лише в зазначеній мережі та звіряйте адресу повністю."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Це відео має віковий ценз — без авторизації завантажити неможливо."

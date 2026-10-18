@@ -867,6 +867,16 @@
 		"footerLabel": "Shiriki",
 		"shareAction": "Shiriki Arroxy"
 	},
+	"donate": {
+		"title": "Saidia Arroxy",
+		"description": "Arroxy ni bure na chanzo huria, bila matangazo wala mpango wa kulipia. Michango ni ya hiari na haitoi ushawishi wowote kwenye ramani ya maendeleo.",
+		"footerTooltip": "Saidia Arroxy",
+		"footerLabel": "Changia",
+		"copyAddress": "Nakili anwani",
+		"copied": "Imenakiliwa!",
+		"qrAlt": "Msimbo wa QR wa anwani ya mchango ya {{coin}}",
+		"warning": "Malipo ya kripto hayawezi kurudishwa. Tuma kwa mtandao ulioonyeshwa pekee na linganisha anwani nzima."
+	},
 	"filenameTemplate": {
 		"label": "Kiolezo cha jina la faili",
 		"description": "Chagua jinsi faili zilizopakuliwa zinavyopewa majina. Bofya tokeni ili kuiingiza. Tumia / kupanga vipakuliwa katika folda.",

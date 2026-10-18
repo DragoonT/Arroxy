@@ -161,6 +161,38 @@ msgctxt "dialogs.rendererCrashed.reload"
 msgid "Reload"
 msgstr "Ανανέωση"
 
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Αντιγράφηκε!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Αντιγραφή διεύθυνσης"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Το Arroxy είναι δωρεάν και ανοιχτού κώδικα, χωρίς διαφημίσεις ή επί πληρωμή πακέτο. Οι δωρεές είναι προαιρετικές και δεν δίνουν επιρροή στον οδικό χάρτη."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Δωρεά"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Υποστηρίξτε το Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "Κωδικός QR της διεύθυνσης δωρεάς {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Υποστηρίξτε το Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Οι πληρωμές κρυπτονομισμάτων είναι μη αναστρέψιμες. Στείλτε μόνο μέσω του δικτύου που εμφανίζεται και συγκρίνετε ολόκληρη τη διεύθυνση."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Αυτό το βίντεο έχει περιορισμό ηλικίας και δεν μπορεί να ληφθεί χωρίς συνδεδεμένο λογαριασμό."

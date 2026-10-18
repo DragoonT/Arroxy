@@ -887,6 +887,16 @@
 		"footerLabel": "Qoodi",
 		"shareAction": "Arroxy qoodi"
 	},
+	"donate": {
+		"title": "Arroxy deeggaraa",
+		"description": "Arroxy bilisaa fi eeyyama banaa (open-source) dha; beeksisni yookaan karoorri kaffaltiis hin qabu. Arjiin fedhii irratti hundaa'a; karoora misoomaa irrattis dhiibbaa hin qabu.",
+		"footerTooltip": "Arroxy deeggaraa",
+		"footerLabel": "Arjii",
+		"copyAddress": "Teessoo waraabi",
+		"copied": "Garagalfame!",
+		"qrAlt": "Koodii QR teessoo arjii {{coin}}",
+		"warning": "Kaffaltiin kiriptoo deebi'uu hin danda'u. Neetworkii agarsiifame qofa irratti ergi, teessoo guutuu wal bira qabii ilaali."
+	},
 	"filenameTemplate": {
 		"label": "Bocquu maqaa faayilii",
 		"description": "Faayiloonni buufaman akkamitti akka maqaa argatan filadhu. Galchuuf tokenii tokko cuqaasi. Buufamaawwan gara galmeewwaniitti qooduuf / fayyadami.",
