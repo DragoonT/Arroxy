@@ -8,6 +8,17 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.6.2
+
+A small release that makes sure every install hears about new versions.
+
+## Fixes
+
+- **Every install now hears about new releases.** The Linux tar.gz install never checked for updates before; it now shows the update banner and sends you to the new release on GitHub. The AppImage keeps **Install & Restart**.
+- Arroxy no longer starts a second update check while an update is still downloading.
+
+---
+
 ## 0.6.1
 
 A follow-up to 0.6.0 that keeps Aurora from freezing slow computers and makes assigning profiles in a playlist easier.
