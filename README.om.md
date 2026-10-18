@@ -3,7 +3,7 @@
 
 # Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa YouTube Keessaa Qabu, Windows, macOS & Linux
 
-**4K · 60fps · HDR · Dolby audio · Built-in YouTube browser · Members-only & age-restricted · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Afaan:** **Afaan Oromoo** · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -21,7 +21,9 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. Its Explore tab is a built-in YouTube browser: download the video, playlist, or channel you're on or right-click any link, and sign in there to download private, members-only, and age-restricted videos your account can watch. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+>
+> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-18._
 
@@ -347,16 +349,30 @@ Sakattaa malwaare miilaafi baasii barbaaddaa? Faayila [VirusTotal](https://www.v
 
 Waltajjii maayyii walitti bira qabuu filannoolee beekamoo wajjin:
 
-|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Bilisaa, sadarkaa kafaltii hin qabu |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Madda banaa |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Naannoo keessatti qofa hojeta |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Daangaa fayyadama hin qabu |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| App desktop platformoota hundaaf |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
-| Subtitle + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Biraawzara YouTube app keessatti ijaarame (ilaali, seeni, buusi) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| Viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman kuukkii utuu hin baasin |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Bilisaa, sadarkaa kafaltii hin qabu |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Madda banaa |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Naannoo keessatti qofa hojeta |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
+| Daangaa fayyadama hin qabu |   ✅   |           ✅            |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| App desktop platformoota hundaaf |   ✅   |           ⚠️            |         ✅          |     ✅      |            N/A             |         ❌         |
+| Subtitle + SponsorBlock |   ✅   |           ⚠️            |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argadhu. Gurgurtaa dabalaataa hin jiru, odeeffannoo walitti qabuu hin jiru.
+⚠️ = gartokkeen, ykn sadarkaa kafaltii qofa irratti. 4K Video Downloader keessatti seensi app keessaa viidiyoowwan dhuunfaaf amala kafaltiiti; GUI yt-dlp bilisaa baay'een faayila kuukkii qofa fudhatu ykn kuukkii biraawzara weebii keetii dubbisu.
+
+Arroxy waan tokko qofaaf ijaarame: faayila naannoo qulqulluu, URL maxxansitees ykn viidiyoo Explore keessatti argattees. Gurgurtaa dabalataa hin jiru, odeeffannoo walitti qabuu hin jiru.
+
+### <a id="why-explore"></a>🧭 Waan wraapperiin yt-dlp salphaan hin dandeenye: tabii Explore
+
+Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. Arroxy'n yt-dlp ni fayyadama, garuu **Explore** illee qaba, biraawzara YouTube app keessatti ijaarame. Explore daangaa YouTube kan saanduqni URL darbuu hin dandeenye ni darba:
+
+- **Viidiyoowwan akkaawuntii barbaadan, kuukkii utuu hin baasin** — viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman (akkaawuntii umuriin isaa mirkanaa'e irratti), akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee. Wraapperiin salphaan cookies.txt baasuu barbaada ykn kuukkii biraawzara weebii keetii dubbisuu qaba, kunis amma Windows irratti Chrome'n ni dhorka. Arroxy keessatti Explore keessatti altokko seenta, kan hafe isatu hojjeta
+- **"Bot akka hin taane mirkaneessuuf seeni"** — YouTube yeroo kana gaafatu, Arroxy kufuu mannaa seensa Explore keetiin buufannaa irra deebi'ee yaala
+- **Tokenii buufannaa YouTube** — biraawzarri Arroxy keessatti ijaarame tokenii YouTube buufannaa dura eegu ni argata. Isa malee, YouTube formaata xiqqaa fi qulqullina waan ati gaafatte gadi aanu kennuu danda'a
+- **Hidhaa garagalchuun hin barbaachisu** — Explore keessatti viidiyoo, playlist, ykn channel barbaadiitii tuqaa tokkoon buusi, ykn fuula irratti hidhaa kamiyyuu mirgaan cuqaasi
+- **Yeroo ilaaltu beeksisni ni dhorkama** — Explore fuula mataa isaa irratti beeksisaa fi hordoftoota ni dhorka
 
 ---
 
@@ -376,6 +392,13 @@ Explore seensa mataa isaa qaba, biraawzara keetii addaa, Arroxyn unka seensaa go
 <summary><strong>Dhuguma bilisaa dha?</strong></summary>
 
 Eeyyee — hayyama MIT, sadarkaa kafaltii hin jiru, amaloota dhorkamuun hin jiru.
+
+</details>
+
+<details>
+<summary><strong>Arroxy GUI yt-dlp biroo irraa akkamitti adda ta'a?</strong></summary>
+
+GUI yt-dlp bilisaa baay'een wraapperoota hidhaa qofa fudhatanii dha. Arroxy **Explore** dabala, biraawzara YouTube app keessatti ijaarame: hidhaa utuu hin garagalchin ilaaltee buufatta, viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee buufachuuf achitti altokko seenta, kuukkii utuu hin baasin. Arroxy seensa kana yeroo YouTube bot akka hin taane akka mirkaneessitu si gaafatu fayyadama, biraawzarri isaa inni ijaarames tokenii buufannaa YouTube ni argata, kanaaf buufannaan gara formaata xiqqaatti hin deebi'u. [Maaliif Arroxy](#why) ilaali.
 
 </details>
 

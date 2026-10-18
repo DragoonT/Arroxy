@@ -117,8 +117,27 @@ export const uz = {
   why_r5: "Foydalanish chegaralari yo'q",
   why_r6: "Platformalararo desktop ilovasi",
   why_r7: "Subtitrlar + SponsorBlock",
+  why_r8:
+    "O'rnatilgan YouTube brauzeri (ko'rib chiqish, tizimga kirish, yuklab olish)",
+  why_r9:
+    "Kukilarni eksport qilmasdan yopiq, faqat a'zolar uchun va yosh chegarali videolar",
+  why_table_note:
+    "⚠️ = qisman yoki faqat pullik tarifda. 4K Video Downloader'da yopiq videolar uchun ilova ichida tizimga kirish pullik funksiya; ko'pchilik bepul yt-dlp GUI'lari faqat kuki faylini qabul qiladi yoki veb-brauzeringizdagi kukilarni o'qiydi.",
   why_summary:
-    "Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl oling. Qo'shimcha takliflar yo'q, ma'lumot to'plash yo'q.",
+    "Arroxy bir narsa uchun yaratilgan: URL'ni joylaysizmi yoki videoni Explore'da topasizmi — natijada toza mahalliy fayl. Qo'shimcha takliflar yo'q, ma'lumot to'plash yo'q.",
+  why_explore_h3: "Oddiy yt-dlp qobig'i qila olmaydigan narsa: Explore bo'limi",
+  why_explore_intro:
+    "Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Arroxy ham yt-dlp'dan foydalanadi, lekin unda **Explore** ham bor — ilovaga o'rnatilgan YouTube brauzeri. Explore URL maydoni yengib o'ta olmaydigan YouTube cheklovlarini chetlab o'tadi:",
+  why_explore_1:
+    "**Hisob talab qiladigan videolar, kukilarni eksport qilmasdan** — yopiq, faqat a'zolar uchun va yosh chegarali videolar (yoshi tasdiqlangan hisobda), shuningdek “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz. Oddiy qobiqqa eksport qilingan cookies.txt kerak yoki u veb-brauzeringizdagi kukilarni o'qishi shart, Windows'dagi Chrome esa endi buni bloklaydi. Arroxy'da Explore'da bir marta tizimga kirasiz, qolganini u o'zi bajaradi",
+  why_explore_2:
+    "**“Robot emasligingizni tasdiqlash uchun tizimga kiring”** — YouTube buni so'raganda Arroxy xato bilan to'xtamaydi, balki Explore orqali kirishingiz bilan yuklab olishni qayta urinadi",
+  why_explore_3:
+    "**YouTube yuklab olish tokeni** — Arroxy'ning o'rnatilgan brauzeri YouTube yuklab olishdan oldin kutadigan tokenni oladi. Usiz YouTube siz so'raganingizdan kamroq format va pastroq sifat berishi mumkin",
+  why_explore_4:
+    "**Havola nusxalash shart emas** — Explore'da video, pleylist yoki kanalni toping va bir bosishda yuklab oling yoki sahifadagi istalgan havolani o'ng tugma bilan bosing",
+  why_explore_5:
+    "**Ko'rib chiqayotganda reklamalar bloklanadi** — Explore o'z sahifalarida reklama va kuzatuvchilarni bloklaydi",
   feat_explore_h3: "Explore: YouTube'ni Arroxy ichida ko'rib chiqing",
   feat_explore_1: "**Explore bo'limi** — YouTube'ni Arroxy ichida ko'rib chiqing va topganingizni havola nusxalamasdan yuklab oling. **Yuklab olish · *profilingiz*** siz ko'rayotgan video, pleylist yoki kanalni navbatga qo'yadi; yonidagi o'q profilni almashtiradi, sehrli tayoqcha esa format, subtitr va boshqalarni tanlash uchun bosqichma-bosqich yuklab olishni ochadi",
   feat_explore_6: "**O'ng tugma bilan yuklab olish** — Explore'dagi istalgan video, pleylist yoki kanal havolasini o'ng tugma bilan bosib, uni profilingiz bilan yuklab oling, **Profil bilan yuklab olish** orqali boshqa profilni tanlang, bosqichma-bosqich yuklab olishni oching yoki havolani nusxalang. Har bir videoni avval ochish shart emas",
@@ -349,6 +368,9 @@ export const uz = {
   faq_q1: "Bu haqiqatan ham bepulmi?",
   faq_a1:
     "Ha — MIT litsenziyalangan, premium daraja yo'q, xususiyat cheklash yo'q.",
+  faq_q11: "Arroxy boshqa yt-dlp GUI'laridan nimasi bilan farq qiladi?",
+  faq_a11:
+    "Ko'pchilik bepul yt-dlp GUI'lari faqat havola qabul qiladigan qobiqlardir. Arroxy bunga **Explore**'ni qo'shadi — ilovaga o'rnatilgan YouTube brauzeri: havola nusxalamasdan ko'rib chiqasiz va yuklab olasiz, u yerda bir marta tizimga kirib, yopiq, faqat a'zolar uchun va yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni kukilarni eksport qilmasdan yuklab olasiz. YouTube robot emasligingizni tasdiqlashni so'raganda Arroxy shu kirishdan foydalanadi, o'rnatilgan brauzeri esa YouTube yuklab olish tokenini oladi, shuning uchun yuklab olishlar kamroq formatlarga tushib qolmaydi. [Nima uchun Arroxy](#why) bo'limiga qarang.",
   faq_q2: "Qanday video sifatlarini yuklab olishim mumkin?",
   faq_a2:
     "YouTube uzatadigan har qanday narsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p va faqat audio. 60 fps, 120 fps va HDR oqimlari o'zgarmagan holda saqlanadi.",

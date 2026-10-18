@@ -116,8 +116,27 @@ export const sw = {
   why_r5: "Hakuna vikwazo vya matumizi",
   why_r6: "Programu ya mezani inayofanya kazi kwenye mifumo yote",
   why_r7: "Manukuu + SponsorBlock",
+  why_r8: "Kivinjari cha YouTube kilichojengewa ndani (vinjari, ingia, pakua)",
+  why_r9:
+    "Video za faragha, za wanachama pekee na zenye kikomo cha umri bila kuhamisha vidakuzi",
+  why_table_note:
+    "⚠️ = kwa sehemu, au kwenye kiwango cha kulipia pekee. Kuingia ndani ya programu kwa video za faragha katika 4K Video Downloader ni kipengele cha kulipia; GUI nyingi za bure za yt-dlp hukubali faili ya vidakuzi pekee au husoma vidakuzi vya kivinjari chako cha wavuti.",
   why_summary:
-    "Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Hakuna mauzo ya ziada, hakuna ukusanyaji wa data.",
+    "Arroxy imejengwa kwa jambo moja: faili safi la mahali hapo, iwe unabandika URL au unapata video katika Explore. Hakuna mauzo ya ziada, hakuna ukusanyaji wa data.",
+  why_explore_h3:
+    "Kile ambacho kifuniko cha kawaida cha yt-dlp hakiwezi: kichupo cha Explore",
+  why_explore_intro:
+    "Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arroxy pia hutumia yt-dlp, lakini ina **Explore** pia, kivinjari cha YouTube kilichojengwa ndani ya programu. Explore hupita vikwazo vya YouTube ambavyo kisanduku cha URL hakiwezi kupita:",
+  why_explore_1:
+    "**Video zinazohitaji akaunti, bila kuhamisha vidakuzi** — video za faragha, za wanachama pekee, na zenye kikomo cha umri (kwenye akaunti iliyothibitishwa umri), pamoja na orodha zako za Tazama Baadaye na Zilizopendwa. Kifuniko cha kawaida kinahitaji faili ya cookies.txt iliyohamishwa au lazima kisome vidakuzi vya kivinjari chako cha wavuti, jambo ambalo Chrome kwenye Windows sasa huzuia. Katika Arroxy unaingia mara moja katika Explore na inashughulikia mengine yote",
+  why_explore_2:
+    "**\"Ingia ili uthibitishe kuwa wewe si roboti\"** — YouTube inapouliza hivi, Arroxy hujaribu upakuaji tena kwa kuingia kwako kwa Explore badala ya kushindwa",
+  why_explore_3:
+    "**Tokeni ya upakuaji ya YouTube** — kivinjari kilichojengewa ndani cha Arroxy hupata tokeni ambayo YouTube inatarajia kabla ya upakuaji. Bila tokeni hiyo, YouTube inaweza kutoa fomati chache na ubora wa chini kuliko ulioomba",
+  why_explore_4:
+    "**Hakuna kunakili viungo** — tafuta video, playlist, au channel katika Explore na uipakue kwa kubofya mara moja, au bofya kulia kiungo chochote kwenye ukurasa",
+  why_explore_5:
+    "**Matangazo huzuiwa unapovinjari** — Explore huzuia matangazo na vifuatiliaji kwenye kurasa zake yenyewe",
   feat_explore_h3: "Explore: vinjari YouTube ndani ya Arroxy",
   feat_explore_1: "**Kichupo cha Explore** — vinjari YouTube ndani ya Arroxy na upakue unachopata bila kunakili viungo. **Pakua · *wasifu wako*** huweka kwenye foleni video, playlist, au channel unayotazama; mshale ulio kando hubadilisha wasifu, na kijiti cha uchawi hufungua upakuaji wa hatua kwa hatua wa kuchagua fomati, manukuu, na zaidi",
   feat_explore_6: "**Bofya kulia ili kupakua** — bofya kulia kiungo chochote cha video, playlist au channel katika Explore ili kukipakua kwa wasifu wako, kuchagua wasifu mwingine kutoka **Pakua kwa**, kufungua upakuaji wa hatua kwa hatua, au kunakili kiungo. Hakuna haja ya kufungua kila video kwanza",
@@ -349,6 +368,9 @@ export const sw = {
   faq_q1: "Je, ni bure kweli kweli?",
   faq_a1:
     "Ndiyo — leseni ya MIT, hakuna ngazi ya malipo, hakuna kizuizi cha vipengele.",
+  faq_q11: "Arroxy ina tofauti gani na GUI nyingine za yt-dlp?",
+  faq_a11:
+    "GUI nyingi za bure za yt-dlp ni vifuniko vinavyopokea kiungo tu. Arroxy inaongeza **Explore**, kivinjari cha YouTube kilichojengwa ndani ya programu: unavinjari na kupakua bila kunakili viungo, na unaingia humo mara moja ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Arroxy hutumia kuingia huko YouTube inapokuomba uthibitishe kuwa wewe si roboti, na kivinjari chake kilichojengewa ndani hupata tokeni ya upakuaji ya YouTube ili upakuaji usirudi kwenye fomati chache. Angalia [Kwa Nini Arroxy](#why).",
   faq_q2: "Ninaweza kupakua ubora gani wa video?",
   faq_a2:
     "Chochote YouTube kinatoa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja na sauti pekee. Mtiririko wa fps 60, fps 120, na HDR huhifadhiwa kama ulivyo.",

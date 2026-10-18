@@ -116,8 +116,25 @@ export const en = {
   why_r5: "No usage caps",
   why_r6: "Cross-platform desktop app",
   why_r7: "Subtitles + SponsorBlock",
+  why_r8: "Built-in YouTube browser (browse, sign in, download)",
+  why_r9: "Private, members-only & age-restricted videos without exporting cookies",
+  why_table_note:
+    "⚠️ = partly, or only on a paid tier. 4K Video Downloader's in-app sign-in for private videos is a paid feature; most free yt-dlp GUIs only accept a cookies file or read your web browser's cookies.",
   why_summary:
-    "Arroxy is built for one thing: paste a URL, get a clean local file. No upsells, no data collection.",
+    "Arroxy is built for one thing: a clean local file, whether you paste a URL or find the video in Explore. No upsells, no data collection.",
+  why_explore_h3: "What a plain yt-dlp wrapper can't do: the Explore tab",
+  why_explore_intro:
+    "Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp too, but it also has **Explore**, a YouTube browser built into the app. Explore gets past YouTube limits that a URL box can't:",
+  why_explore_1:
+    "**Videos that need an account, without exporting cookies** — private, members-only, and age-restricted videos (on an age-verified account), plus your Watch Later and Liked lists. A plain wrapper needs a cookies.txt export or must read your web browser's cookies, which Chrome on Windows now blocks. In Arroxy you sign in once in Explore and it does the rest",
+  why_explore_2:
+    "**\"Sign in to confirm you're not a bot\"** — when YouTube asks this, Arroxy tries the download again with your Explore sign-in instead of failing",
+  why_explore_3:
+    "**YouTube's download token** — Arroxy's built-in browser gets the token YouTube expects before a download. Without it, YouTube can serve fewer formats and lower quality than you asked for",
+  why_explore_4:
+    "**No copying links** — find a video, playlist, or channel in Explore and download it with one click, or right-click any link on the page",
+  why_explore_5:
+    "**Ads blocked while you browse** — Explore blocks ads and trackers on its own pages",
   feat_explore_h3: "Explore: browse YouTube inside Arroxy",
   feat_explore_1:
     "**Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more",
@@ -364,6 +381,9 @@ export const en = {
     "Explore keeps its own sign-in, separate from your browser, and Arroxy never reads or fills in the sign-in form — you type into Google's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets it.",
   faq_q1: "Is it really free?",
   faq_a1: "Yes — MIT licensed, no premium tier, no feature gating.",
+  faq_q11: "How is Arroxy different from other yt-dlp GUIs?",
+  faq_a11:
+    "Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a YouTube browser built into the app: you browse and download without copying links, and you sign in there once to download private, members-only, and age-restricted videos and your Watch Later and Liked lists, with no cookie export. Arroxy uses that sign-in when YouTube asks you to confirm you're not a bot, and its built-in browser gets YouTube's download token so downloads don't fall back to fewer formats. See [Why Arroxy](#why).",
   faq_q2: "What video qualities can I download?",
   faq_a2:
     "Anything YouTube serves: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio-only. 60 fps, 120 fps, and HDR streams are preserved as-is.",
