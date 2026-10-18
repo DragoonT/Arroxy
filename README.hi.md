@@ -465,9 +465,9 @@ yt-dlp लॉन्च पर अपने आप अपडेट हो जा�
 
 ## <a id="support"></a>💖 Arroxy का समर्थन करें
 
-Arroxy मुफ़्त और MIT-लाइसेंस्ड है — कोई विज्ञापन नहीं, कोई टेलीमेट्री नहीं, कोई पेड संस्करण नहीं। अगर यह आपका समय बचाता है, तो आप Bitcoin या Tron से इसके विकास में सहयोग कर सकते हैं: पते [DONATE.md](DONATE.md) में हैं, जो उनका एकमात्र आधिकारिक स्रोत है। Arroxy आपको कभी ईमेल या डायरेक्ट मैसेज से पता नहीं भेजेगा। रिपॉज़िटरी को स्टार देना, बग रिपोर्ट करना और अनुवाद सुधारना भी उतनी ही मदद करता है।
+Arroxy मुफ़्त और MIT-लाइसेंस्ड है — कोई विज्ञापन नहीं, कोई टेलीमेट्री नहीं, कोई पेड संस्करण नहीं। अगर यह आपका समय बचाता है, तो आप Bitcoin, Tron या Ethereum से इसके विकास में सहयोग कर सकते हैं: पते [DONATE.md](DONATE.md) में हैं, जो उनका एकमात्र आधिकारिक स्रोत है। Arroxy आपको कभी ईमेल या डायरेक्ट मैसेज से पता नहीं भेजेगा। रिपॉज़िटरी को स्टार देना, बग रिपोर्ट करना और अनुवाद सुधारना भी उतनी ही मदद करता है।
 
-<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 
 ---
 
