@@ -47,9 +47,6 @@
 
 ## <a id="features"></a>✨ ځانګړتیاوې
 
-<details>
-<summary><strong>📸 د سکرین انځورونه</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>په Arroxy کې YouTube وګورئ او اوسنۍ پاڼه د خپل فعال پروفایل سره ډاونلوډ کړئ</sub></td>
@@ -86,8 +83,6 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>موازي د ښکته کولو کتار</b><br/>د ژوندۍ پرمختیا سره په یوه وخت کې څو ښکته کول</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: په Arroxy کې YouTube وګورئ</strong></summary>

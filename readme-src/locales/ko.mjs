@@ -176,7 +176,6 @@ export const ko = {
   feat_sites_2: "yt-dlp를 통한 **2000개 이상의 기타 사이트** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org 등",
   feat_sites_3: "**오디오 전용 및 자막**은 YouTube뿐 아니라 지원되는 모든 사이트에서 작동",
   feat_sites_4: "사이트가 변경되면 yt-dlp가 매주 수정 사항을 제공하고 Arroxy가 시작할 때 바이너리를 자동 업데이트",
-  shots_h3: "스크린샷",
   shot1_cap: "<b>빠른 다운로드 홈</b><br/>URL을 붙여 넣고 활성 프로필로 즉시 다운로드",
   shot2_cap: "<b>재사용 가능한 다운로드 프로필</b><br/>형식, 화질, 출력 프리셋을 저장해 다운로드마다 재사용",
   shot3_cap: "<b>다국어 오디오 트랙</b><br/>동영상에 포함된 정확한 오디오 언어 선택",

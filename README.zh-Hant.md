@@ -49,9 +49,6 @@
 
 ## <a id="features"></a>✨ 功能
 
-<details>
-<summary><strong>📸 螢幕截圖</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>在 Arroxy 內瀏覽 YouTube，用目前設定下載你正在看的頁面</sub></td>
@@ -88,8 +85,6 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>並行下載佇列</b><br/>多個下載同時進行，即時顯示進度</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore：在 Arroxy 內瀏覽 YouTube</strong></summary>

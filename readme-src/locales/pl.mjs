@@ -168,7 +168,6 @@ export const pl = {
   feat_sites_2: "**Ponad 2000 innych serwisów** dzięki yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org i wiele innych",
   feat_sites_3: "**Sam dźwięk i napisy** działają we wszystkich obsługiwanych serwisach, nie tylko w YouTube",
   feat_sites_4: "Gdy serwis się zmieni, yt-dlp co tydzień dostarcza poprawki, a Arroxy automatycznie aktualizuje plik wykonywalny przy starcie",
-  shots_h3: "Zrzuty ekranu",
   shot1_cap: "<b>Ekran Szybkiego pobierania</b><br/>Wklej URL i od razu pobierz go aktywnym profilem",
   shot2_cap: "<b>Profile pobierania wielokrotnego użytku</b><br/>Zapisz format, jakość i folder docelowy, a potem używaj ich ponownie",
   shot3_cap: "<b>Wielojęzyczne ścieżki dźwiękowe</b><br/>Wybierz dokładny język dźwięku dostępny w filmie",

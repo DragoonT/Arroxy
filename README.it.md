@@ -49,9 +49,6 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 
 ## <a id="features"></a>✨ Funzionalità
 
-<details>
-<summary><strong>📸 Schermate</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Naviga su YouTube dentro Arroxy e scarica la pagina in cui ti trovi con il profilo attivo</sub></td>
@@ -88,8 +85,6 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Coda di download paralleli</b><br/>Più download contemporanei con avanzamento in tempo reale</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: naviga su YouTube dentro Arroxy</strong></summary>

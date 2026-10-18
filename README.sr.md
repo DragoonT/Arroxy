@@ -47,9 +47,6 @@
 
 ## <a id="features"></a>✨ Функционалности
 
-<details>
-<summary><strong>📸 Снимци екрана</strong></summary>
-
 <table align="center" width="100%">
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Прегледајте YouTube унутар Arroxy-ја и преузмите страницу на којој сте са активним профилом</sub></td>
@@ -86,8 +83,6 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Паралелни ред преузимања</b><br/>Више преузимања истовремено уз праћење уживо</sub></td>
   </tr>
 </table>
-
-</details>
 
 <details open>
 <summary><strong>🧭 Explore: прегледајте YouTube унутар Arroxy-ја</strong></summary>

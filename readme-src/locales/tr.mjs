@@ -197,7 +197,6 @@ export const tr = {
     "**Yalnızca ses ve altyazılar** yalnızca YouTube'da değil, desteklenen her sitede çalışır",
   feat_sites_4:
     "Bir site değişirse yt-dlp haftalık düzeltmeler yayınlar ve Arroxy açılışta ikili dosyayı otomatik günceller",
-  shots_h3: "Ekran görüntüleri",
   shot1_cap:
     "<b>Hızlı İndirme ana ekranı</b><br/>Bir URL yapıştır ve etkin profilinle anında çek",
   shot2_cap:
