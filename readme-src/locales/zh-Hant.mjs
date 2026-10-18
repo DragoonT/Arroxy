@@ -198,6 +198,7 @@ export const zhHant = {
   feat_sites_3: "**僅音訊和字幕**在所有支援的網站上均可使用，不限於 YouTube",
   feat_sites_4:
     "若某個網站發生變化，yt-dlp 每週釋出修復，Arroxy 在啟動時自動更新二進位檔",
+  shots_h3: "螢幕截圖",
   shot1_cap: "<b>快速下載首頁</b><br/>貼上網址，用目前設定一鍵下載",
   shot2_cap:
     "<b>可重複使用的下載設定</b><br/>將格式、畫質和輸出儲存為預設——每次下載重複使用",

@@ -206,6 +206,7 @@ export const vi = {
     "**Chỉ âm thanh và phụ đề** hoạt động trên mọi trang được hỗ trợ, không chỉ YouTube",
   feat_sites_4:
     "Nếu một trang thay đổi, yt-dlp phát hành bản sửa lỗi hàng tuần và Arroxy tự động cập nhật nhị phân khi khởi động",
+  shots_h3: "Ảnh chụp màn hình",
   shot1_cap:
     "<b>Trang Tải nhanh</b><br/>Dán URL và tải ngay với hồ sơ đang dùng",
   shot2_cap:

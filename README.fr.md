@@ -23,7 +23,7 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 > 🌐 Traduction assistée par IA. Le [README en anglais](README.md) fait foi. Tu vois une erreur ? [Les PRs sont les bienvenues](../../pulls).
 
@@ -31,23 +31,26 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 
 ## Sommaire
 
-- [Fonctionnalités](#features)
-- [Installation et premier lancement](#install)
+- [✨ Fonctionnalités](#features)
+- [📥 Installation et premier lancement](#install)
   - [Premier lancement sur Windows](#windows-first-launch)
   - [Premier lancement sur macOS](#macos-first-launch)
   - [Pourquoi tu peux voir un avertissement](#why-warning)
   - [Premier lancement sur Linux](#linux-first-launch)
   - [Vérifier ton téléchargement (SHA256)](#verify)
-- [Pourquoi Arroxy](#why)
-- [Confidentialité](#privacy)
-- [Questions fréquentes](#faq)
-- [Feuille de route](#roadmap)
-- [Soutenir Arroxy](#support)
-- [Construit avec](#tech)
+- [⚖️ Pourquoi Arroxy](#why)
+- [🔒 Confidentialité](#privacy)
+- [❓ Questions fréquentes](#faq)
+- [🗺️ Feuille de route](#roadmap)
+- [💖 Soutenir Arroxy](#support)
+- [🛠️ Construit avec](#tech)
 
 ---
 
-## <a id="features"></a>Fonctionnalités
+## <a id="features"></a>✨ Fonctionnalités
+
+<details>
+<summary><strong>📸 Captures d'écran</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -86,7 +89,10 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
   </tr>
 </table>
 
-### Explore : parcours YouTube dans Arroxy
+</details>
+
+<details open>
+<summary><strong>🧭 Explore : parcours YouTube dans Arroxy</strong></summary>
 
 - **Onglet Explore** — parcours YouTube dans Arroxy et télécharge ce que tu trouves sans copier de liens. **Télécharger · *ton profil*** met en file la vidéo, la playlist ou la chaîne que tu regardes ; la flèche à côté change de profil, et la baguette ouvre le téléchargement pas à pas pour choisir les formats, les sous-titres, etc.
 - **Clic droit pour télécharger** — fais un clic droit sur n'importe quel lien de vidéo, de playlist ou de chaîne dans Explore pour le télécharger avec ton profil, choisir un autre profil dans **Télécharger avec**, ouvrir le téléchargement pas à pas ou copier le lien. Inutile d'ouvrir chaque vidéo d'abord
@@ -96,20 +102,29 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 - **Utilise un compte secondaire** — le premier écran d'Explore explique pourquoi : télécharger avec un compte comporte un certain risque que ce compte soit restreint. Déconnecte-toi d'Explore depuis les Paramètres quand tu veux oublier la connexion
 - **Bloqueur de publicités** — Explore bloque les publicités et les traqueurs sur ses propres pages ; les téléchargements ne sont pas touchés. Activé par défaut, un clic sur le bouclier dans la barre d'outils d'Explore le désactive, et il n'agit jamais sur les pages de connexion de Google. YouTube peut résister aux bloqueurs de publicités pour les comptes connectés
 
-### Qualité & formats
+</details>
+
+<details>
+<summary><strong>🎞️ Qualité & formats</strong></summary>
 
 - Jusqu'à **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Haut framerate** préservé tel quel — 60 fps, 120 fps, HDR
 - **Audio** — exporte l'audio seul en MP3, M4A/AAC, Opus ou WAV. Dans les téléchargements interactifs, choisis les pistes natives surround/Dolby de la source (AC-3, E-AC-3, 5.1, DRC) quand elles sont disponibles, ou définis une valeur par défaut globale **Préférer le surround / Dolby**
 - **Des profils avec un objectif** — *Meilleure image* (AV1 · VP9) ou *TV connectée* (MP4 · H.264), enregistrés en Auto, MP4, MKV ou WebM sans réencodage. Le HDR est *Auto* (seulement si ton écran peut l'afficher), *SDR* ou *HDR*
 
-### Confidentialité & contrôle
+</details>
+
+<details>
+<summary><strong>🛡️ Confidentialité & contrôle</strong></summary>
 
 - Traitement 100 % local — les téléchargements vont directement de YouTube à ton disque
 - Pas de connexion, pas de cookies, pas de compte Google lié
 - Fichiers enregistrés directement dans le dossier que tu choisis
 
-### Flux de travail
+</details>
+
+<details>
+<summary><strong>⚡ Flux de travail</strong></summary>
 
 - **Raccourci de téléchargement global** — copie un lien dans n'importe quelle app et appuie sur `Ctrl+Shift+D` (`Cmd+Shift+D` sur macOS) ; Arroxy le met en file d'attente avec ton profil actif sans ouvrir la fenêtre, et une notification le confirme. Actif par défaut, réassignable
 - **Modes de démarrage flexibles** — choisis un téléchargement unique guidé, un sélecteur de playlist/chaîne, un collage d’URL en lot, Quick Download avec tes valeurs par défaut enregistrées, ou parcours et télécharge depuis Explore
@@ -131,7 +146,10 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 - **Aurora ou Minimaliste, sombre ou clair** — des panneaux de verre sur un ciel en mouvement, ou des surfaces pleines et discrètes ; bascule depuis le pied de page. Les ordinateurs sans accélération graphique passent automatiquement en Minimaliste
 - **Barre des menus du Mac** — sous macOS, ouvre les Réglages (`Cmd+,`), règle la limite de vitesse de téléchargement, change le style et le thème, et ouvre les journaux ou enregistre un fichier de diagnostic depuis la barre des menus
 
-### Sous-titres & post-traitement
+</details>
+
+<details>
+<summary><strong>📝 Sous-titres & post-traitement</strong></summary>
 
 - **Sous-titres** en SRT, VTT ou ASS — manuels ou auto-générés, dans toute langue disponible
 - Enregistre à côté de la vidéo, intègre dans un `.mkv`, ou organise dans un sous-dossier `Subtitles/`
@@ -139,16 +157,21 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 - **SponsorBlock** — passe ou marque les sponsors, intros, outros, autopromos en chapitres
 - **Métadonnées intégrées** — titre, date de mise en ligne, chaîne, description, miniature et marqueurs de chapitres écrits dans le fichier
 
-### YouTube + 2000 sites
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + 2000 sites</strong></summary>
 
 - **YouTube, en entier** — Vidéos, Shorts, Chaînes, Playlists, YouTube Music et Podcasts traités comme des sources de premier rang
 - **2000+ autres sites** via yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org et bien plus encore
 - **L'audio seul et les sous-titres** fonctionnent sur chaque site supporté, pas seulement YouTube
 - Si un site change, yt-dlp publie des correctifs chaque semaine et Arroxy met à jour le binaire automatiquement au lancement
 
+</details>
+
 ---
 
-## <a id="install"></a>Installation et premier lancement
+## <a id="install"></a>📥 Installation et premier lancement
 
 **Windows**
 
@@ -187,7 +210,8 @@ Les versions sont uniquement x86_64. Pas de `curl` ? Remplacez `curl -fsSL` par 
 
 [**Récupère la dernière version →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Premier lancement sur Windows
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Premier lancement sur Windows</strong></summary>
 
 Au premier lancement, tu peux voir **"Windows protected your PC"** ou **"Unknown publisher."** Cela s'applique à la fois à `Arroxy-win-x64-Setup.exe` et à `Arroxy-win-x64-Portable.exe`. Arroxy est gratuit et open source, et les builds Windows ne sont pas signés avec un certificat payant, c'est pourquoi SmartScreen les signale. Cela ne signifie **pas** automatiquement qu'Arroxy est dangereux. Pour continuer :
 
@@ -207,7 +231,10 @@ L'heuristique de Defender signale parfois les installeurs NSIS non signés et le
 
 Vous préférez Scoop ? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>Premier lancement sur macOS
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 Premier lancement sur macOS</strong></summary>
 
 Arroxy n'est pas encore signé pour macOS, donc Gatekeeper peut afficher le message inquiétant *"Arroxy.app is damaged and can't be opened"* après l'installation depuis le DMG. Ce message signifie que macOS a mis en quarantaine une app non signée ; il ne veut pas dire que les fichiers de l'app sont réellement endommagés. Sur les versions actuelles de macOS, la méthode fiable est Terminal :
 
@@ -229,7 +256,10 @@ La première commande retire l'attribut de quarantaine de ta copie installée d'
 
 > Les builds macOS sont produits via CI sur des runners Apple Silicon et Intel. Si tu rencontres des problèmes, merci d'[ouvrir un issue](../../issues) — les retours des utilisateurs macOS orientent activement le cycle de test macOS.
 
-### <a id="why-warning"></a>Pourquoi tu peux voir un avertissement
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ Pourquoi tu peux voir un avertissement</strong></summary>
 
 Arroxy est open source et sous licence MIT. Les builds Windows et macOS **ne sont pas signés numériquement** — les certificats Apple Developer ID et Windows EV coûtent chacun plusieurs centaines de dollars par an, que paye un projet indépendant de sa poche. Sans ces signatures, Windows SmartScreen et macOS Gatekeeper t'avertiront au premier lancement. Ces avertissements signifient *ton OS ne reconnaît pas l'éditeur* — ils ne signifient pas qu'Arroxy est un malware.
 
@@ -239,7 +269,10 @@ Trois façons de vérifier Arroxy toi-même, par ordre de rigueur croissante :
 - **Vérifie le SHA256.** Compare ton fichier avec le [`SHA256SUMS`](../../releases/latest) publié — voir [Vérifier ton téléchargement](#verify) ci-dessous.
 - **Lance un scan tiers.** Envoie le fichier sur [VirusTotal](https://www.virustotal.com).
 
-### <a id="linux-first-launch"></a>Premier lancement sur Linux
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Premier lancement sur Linux</strong></summary>
 
 Les AppImages s'exécutent directement — pas d'installation. Tu dois juste marquer le fichier comme exécutable.
 
@@ -271,8 +304,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **Les téléchargements Linux sur la page des versions sont uniquement en x86_64.** Sur les machines ARM64 (Raspberry Pi, Asahi Linux) le Flatpak s'installe mais échoue au lancement avec `bwrap: execvp ldconfig: Exec format error`.
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>Vérifier ton téléchargement (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 Vérifier ton téléchargement (SHA256)</strong></summary>
 
 Chaque release publie un fichier `SHA256SUMS` accompagnant les binaires. Pour vérifier que ton téléchargement n'a pas été corrompu ou altéré en transit, hache ton fichier en local et compare la ligne dans `SHA256SUMS`. Ouvre la page de la dernière release → **Assets** → télécharge `SHA256SUMS`.
 
@@ -299,7 +334,7 @@ Tu veux un scan antimalware tiers ? Envoie le fichier sur [VirusTotal](https://w
 </details>
 
 <details>
-<summary><strong>Windows : Installeur vs Portable</strong></summary>
+<summary><strong>📦 Windows : Installeur vs Portable</strong></summary>
 
 |               | Installeur NSIS | `.exe` portable |
 | ------------- | :----------------------: | :---------------------: |
@@ -315,7 +350,7 @@ Tu veux un scan antimalware tiers ? Envoie le fichier sur [VirusTotal](https://w
 
 ---
 
-## <a id="why"></a>Pourquoi Arroxy
+## <a id="why"></a>⚖️ Pourquoi Arroxy
 
 Une comparaison côte à côte avec les alternatives les plus courantes :
 
@@ -332,7 +367,7 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 
 ---
 
-## <a id="privacy"></a>Confidentialité
+## <a id="privacy"></a>🔒 Confidentialité
 
 Les téléchargements sont récupérés directement via [yt-dlp](https://github.com/yt-dlp/yt-dlp) depuis YouTube vers le dossier que tu choisis — rien ne passe par un serveur tiers. L'historique de visionnage, l'historique de téléchargement, les URLs et le contenu des fichiers restent sur ton appareil.
 
@@ -342,41 +377,81 @@ Explore garde sa propre connexion, séparée de ton navigateur, et Arroxy ne lit
 
 ---
 
-## <a id="faq"></a>Questions fréquentes
+## <a id="faq"></a>❓ Questions fréquentes
 
-**C'est vraiment gratuit ?**
+<details>
+<summary><strong>C'est vraiment gratuit ?</strong></summary>
+
 Oui — licence MIT, pas de niveau premium, pas de fonctions verrouillées.
 
-**Quelles qualités de vidéo puis-je télécharger ?**
+</details>
+
+<details>
+<summary><strong>Quelles qualités de vidéo puis-je télécharger ?</strong></summary>
+
 Tout ce que YouTube propose : 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio seul. Les flux 60 fps, 120 fps et HDR sont préservés tels quels.
 
-**Puis-je extraire uniquement l'audio en MP3 ?**
+</details>
+
+<details>
+<summary><strong>Puis-je extraire uniquement l'audio en MP3 ?</strong></summary>
+
 Oui. Choisis *audio seul* dans le menu des formats puis MP3, M4A/AAC, Opus ou WAV.
 
-**Comment télécharger des vidéos qui demandent un compte YouTube ?**
+</details>
+
+<details>
+<summary><strong>Comment télécharger des vidéos qui demandent un compte YouTube ?</strong></summary>
+
 Connecte-toi une fois dans l'onglet Explore. Arroxy pourra alors télécharger les vidéos privées et réservées aux membres que ton compte peut voir, les vidéos soumises à une limite d'âge si l'âge du compte est vérifié, ainsi que tes listes À regarder plus tard et J'aime. Il n'utilise la connexion que lorsqu'un téléchargement échoue d'une manière qu'un compte peut corriger ; tout le reste se télécharge comme avant. C'est le choix **Connexion Explore**, listé en premier et marqué Recommandé dans les paramètres des cookies, et Arroxy le sélectionne pour toi la première fois que tu ouvres Explore. Le wiki de yt-dlp note que [l'automatisation avec un compte connecté peut signaler un compte Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), donc un compte secondaire est le choix le plus sûr.
 
-**Ça continuera de fonctionner si YouTube change quelque chose ?**
+</details>
+
+<details>
+<summary><strong>Ça continuera de fonctionner si YouTube change quelque chose ?</strong></summary>
+
 yt-dlp est mis à jour automatiquement au lancement, et Arroxy publie des correctifs rapidement quand YouTube change quelque chose. Quand YouTube demande de confirmer que tu n'es pas un robot, Arroxy essaie aussi ta connexion Explore si tu t'y es connecté, et les cookies d'un fichier ou de ton navigateur sont disponibles dans les paramètres des cookies.
 
-**Dans quelles langues Arroxy est-il disponible ?**
+</details>
+
+<details>
+<summary><strong>Dans quelles langues Arroxy est-il disponible ?</strong></summary>
+
 31 langues prêtes à l’emploi : Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy détecte automatiquement la langue de ton système d’exploitation au premier lancement, et tu peux changer à tout moment depuis le sélecteur de langue dans la barre d’outils. Les JSON de locale Runtime se trouvent dans src/shared/i18n/locales/, et les catalogues PO destinés aux traducteurs se trouvent dans i18n/locales/ — ouvre une PR sur GitHub pour contribuer.
 
-**Dois-je installer autre chose ?**
+</details>
+
+<details>
+<summary><strong>Dois-je installer autre chose ?</strong></summary>
+
 Non. yt-dlp est téléchargé automatiquement au premier lancement et mis en cache sur ta machine ; ffmpeg et ffprobe sont inclus dans l’app. Après ça, aucune configuration supplémentaire.
 
-**Puis-je télécharger des playlists ou des chaînes entières ?**
+</details>
+
+<details>
+<summary><strong>Puis-je télécharger des playlists ou des chaînes entières ?</strong></summary>
+
 Oui — les deux. Colle une URL de playlist ou de chaîne (p. ex. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ; choisis combien d’entrées analyser, puis mets toute la liste en file ou sélectionne des vidéos précises. Les filtres par date arrivent bientôt.
 
-**macOS dit "l'application est endommagée" — que faire ?**
+</details>
+
+<details>
+<summary><strong>macOS dit "l'application est endommagée" — que faire ?</strong></summary>
+
 C'est Gatekeeper de macOS qui bloque une app non signée, pas un vrai endommagement. Voir [macOS first launch](#macos-first-launch) pour les commandes Terminal qui retirent la quarantaine et lancent Arroxy.
 
-**Télécharger des vidéos YouTube est-il légal ?**
+</details>
+
+<details>
+<summary><strong>Télécharger des vidéos YouTube est-il légal ?</strong></summary>
+
 Pour un usage personnel et privé, c'est généralement accepté dans la plupart des juridictions. Tu es responsable de respecter les [Conditions d'Utilisation](https://www.youtube.com/t/terms) de YouTube et les lois sur le droit d'auteur de ton pays.
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>Feuille de route
+## <a id="roadmap"></a>🗺️ Feuille de route
 
 Toujours prévu — approximativement par ordre de priorité :
 
@@ -393,7 +468,7 @@ Tu as une fonctionnalité en tête ? [Ouvre une demande](../../issues) — les r
 
 ---
 
-## <a id="support"></a>Soutenir Arroxy
+## <a id="support"></a>💖 Soutenir Arroxy
 
 Arroxy est gratuit et sous licence MIT — pas de publicité, pas de télémétrie, pas de version payante. S'il te fait gagner du temps, tu peux soutenir le développement avec Bitcoin ou Tron : les adresses se trouvent dans [DONATE.md](DONATE.md), la seule source officielle. Arroxy ne t'enverra jamais d'adresse par e-mail ou par message privé. Mettre une étoile au dépôt, signaler des bugs et améliorer les traductions aident tout autant.
 
@@ -401,7 +476,7 @@ Arroxy est gratuit et sous licence MIT — pas de publicité, pas de télémétr
 
 ---
 
-## <a id="tech"></a>Construit avec
+## <a id="tech"></a>🛠️ Construit avec
 
 <details>
 <summary><strong>Stack</strong></summary>
@@ -494,9 +569,10 @@ bun run dist:win     # paquet Windows sur un hôte compatible
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -551,9 +627,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## Conditions d'utilisation
+## 📜 Conditions d'utilisation
 
 Arroxy est un outil destiné à un usage personnel et privé uniquement. Tu es seul responsable du fait que tes téléchargements respectent les [Conditions d'Utilisation](https://www.youtube.com/t/terms) de YouTube et les lois sur le droit d'auteur de ta juridiction. N'utilise pas Arroxy pour télécharger, reproduire ou distribuer du contenu sur lequel tu n'as pas de droits. Les développeurs ne sont pas responsables de tout usage abusif.
 

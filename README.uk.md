@@ -23,7 +23,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 > 🌐 Це переклад за допомогою ШІ. [README англійською](README.md) — основне джерело істини. Помітили помилку? [PR вітаються](../../pulls).
 
@@ -31,23 +31,26 @@
 
 ## Зміст
 
-- [Можливості](#features)
-- [Встановлення та перший запуск](#install)
+- [✨ Можливості](#features)
+- [📥 Встановлення та перший запуск](#install)
   - [Windows: перший запуск](#windows-first-launch)
   - [macOS: перший запуск](#macos-first-launch)
   - [Чому ви можете побачити попередження](#why-warning)
   - [Linux: перший запуск](#linux-first-launch)
   - [Перевірте своє завантаження (SHA256)](#verify)
-- [Чому Arroxy](#why)
-- [Конфіденційність](#privacy)
-- [Часті запитання](#faq)
-- [Дорожня карта](#roadmap)
-- [Підтримати Arroxy](#support)
-- [Технології](#tech)
+- [⚖️ Чому Arroxy](#why)
+- [🔒 Конфіденційність](#privacy)
+- [❓ Часті запитання](#faq)
+- [🗺️ Дорожня карта](#roadmap)
+- [💖 Підтримати Arroxy](#support)
+- [🛠️ Технології](#tech)
 
 ---
 
-## <a id="features"></a>Можливості
+## <a id="features"></a>✨ Можливості
+
+<details>
+<summary><strong>📸 Знімки екрана</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -86,7 +89,10 @@
   </tr>
 </table>
 
-### Explore: перегляд YouTube просто в Arroxy
+</details>
+
+<details open>
+<summary><strong>🧭 Explore: перегляд YouTube просто в Arroxy</strong></summary>
 
 - **Вкладка Explore** — переглядайте YouTube просто в Arroxy і завантажуйте знайдене без копіювання посилань. **Завантажити · *ваш профіль*** додає в чергу відео, плейлист або канал, який ви зараз дивитеся; стрілка поруч перемикає профілі, а чарівна паличка відкриває покрокове завантаження для вибору форматів, субтитрів тощо
 - **Завантаження правим кліком** — клацніть правою кнопкою на посилання на відео, плейлист або канал в Explore, щоб завантажити його з вашим профілем, вибрати інший профіль у меню **Завантажити з профілем**, відкрити покрокове завантаження або скопіювати посилання. Відкривати кожне відео не потрібно
@@ -96,20 +102,29 @@
 - **Користуйтеся другим акаунтом** — перший екран Explore пояснює чому: завантаження через акаунт несе певний ризик обмеження цього акаунта. Вийти з Explore можна в Налаштуваннях будь-коли, щоб забути вхід
 - **Блокувальник реклами** — Explore блокує рекламу й трекери на власних сторінках; на завантаження це не впливає. Увімкнено за замовчуванням, одним кліком по щиту на панелі інструментів Explore його можна вимкнути, і він ніколи не діє на сторінках входу Google. YouTube може опиратися блокувальникам реклами для акаунтів, у які виконано вхід
 
-### Якість і формати
+</details>
+
+<details>
+<summary><strong>🎞️ Якість і формати</strong></summary>
 
 - До **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Висока частота кадрів** збережена як є — 60 fps, 120 fps, HDR
 - **Аудіо** — експорт лише аудіо в MP3, M4A/AAC, Opus або WAV. В інтерактивних завантаженнях вибирайте нативні surround/Dolby доріжки джерела (AC-3, E-AC-3, 5.1, DRC), коли вони доступні, або задайте глобальне значення за замовчуванням **Надавати перевагу surround / Dolby**
 - **Профілі з метою** — *Найкраща картинка* (AV1 · VP9) або *Смарт-ТВ* (MP4 · H.264), що зберігаються як Авто, MP4, MKV або WebM без перекодування. HDR — це *Авто* (лише коли ваш екран може його показати), *SDR* або *HDR*
 
-### Конфіденційність і контроль
+</details>
+
+<details>
+<summary><strong>🛡️ Конфіденційність і контроль</strong></summary>
 
 - 100% локальна обробка — завантаження потрапляють прямо з YouTube на ваш диск
 - Без логіну, без кук, без прив'язки акаунта Google
 - Файли зберігаються прямо у вибрану вами теку
 
-### Робочий процес
+</details>
+
+<details>
+<summary><strong>⚡ Робочий процес</strong></summary>
 
 - **Глобальна гаряча клавіша завантаження** — скопіюйте посилання в будь-якому застосунку й натисніть `Ctrl+Shift+D` (`Cmd+Shift+D` на macOS); Arroxy додасть його до черги з вашим активним профілем, не відкриваючи вікно, а сповіщення це підтвердить. Увімкнено за замовчуванням, комбінацію можна змінити
 - **Гнучкі режими старту** — оберіть покрокове одиночне завантаження, вибір плейлиста/каналу, масове вставлення URL, Quick Download зі збереженими стандартами або перегляд і завантаження з Explore
@@ -131,7 +146,10 @@
 - **Aurora або Мінімалістичний, темна чи світла** — скляні панелі на тлі рухомого неба або спокійні суцільні поверхні; перемикайте внизу вікна. Комп’ютери без графічного прискорення автоматично отримують Мінімалістичний
 - **Рядок меню Mac** — у macOS відкривайте Налаштування (`Cmd+,`), задавайте обмеження швидкості завантаження, перемикайте стиль і тему, відкривайте журнали або зберігайте файл діагностики з рядка меню
 
-### Субтитри та постобробка
+</details>
+
+<details>
+<summary><strong>📝 Субтитри та постобробка</strong></summary>
 
 - **Субтитри** у SRT, VTT або ASS — ручні або авто-згенеровані, будь-якою доступною мовою
 - Зберігайте поруч із відео, вбудовуйте в `.mkv` або складайте в підпапку `Subtitles/`
@@ -139,16 +157,21 @@
 - **SponsorBlock** — пропускайте або позначайте розділами спонсорські вставки, вступи, кінцівки, самопіар
 - **Вбудовані метадані** — назва, дата завантаження, канал, опис, мініатюра та маркери розділів записуються у файл
 
-### YouTube + 2000 сайтів
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + 2000 сайтів</strong></summary>
 
 - **YouTube — у повному обсязі** — відео, Shorts, канали, плейлисти, YouTube Music і подкасти обробляються як першокласні джерела
 - **2000+ інших сайтів** через yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org та багато іншого
 - **Лише аудіо та субтитри** працюють на кожному підтримуваному сайті, а не лише на YouTube
 - Якщо сайт змінюється, yt-dlp щотижня випускає виправлення, а Arroxy оновлює бінарний файл при запуску
 
+</details>
+
 ---
 
-## <a id="install"></a>Встановлення та перший запуск
+## <a id="install"></a>📥 Встановлення та перший запуск
 
 **Windows**
 
@@ -187,7 +210,8 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 [**Завантажити останній реліз →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Windows: перший запуск
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Windows: перший запуск</strong></summary>
 
 При першому запуску ви можете побачити **«Windows protected your PC»** або **«Unknown publisher»**. Це стосується як `Arroxy-win-x64-Setup.exe`, так і `Arroxy-win-x64-Portable.exe`. Arroxy є безкоштовним і відкритим, а Windows-збірки не підписані платним сертифікатом — саме тому SmartScreen їх позначає. Це **не** означає автоматично, що Arroxy небезпечний. Щоб продовжити:
 
@@ -207,7 +231,10 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Віддаєте перевагу Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>macOS: перший запуск
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 macOS: перший запуск</strong></summary>
 
 Arroxy ще не підписаний кодом для macOS, тому після встановлення з DMG Gatekeeper може показати страшний діалог *"Arroxy.app is damaged and can't be opened"*. Це означає, що macOS помістила непідписаний застосунок у quarantine; файли застосунку насправді не пошкоджені. У сучасних версіях macOS надійне рішення — Terminal:
 
@@ -229,7 +256,10 @@ open /Applications/Arroxy.app
 
 > Збірки macOS виробляються через CI на Apple Silicon та Intel рушіях. Якщо виникнуть проблеми, будь ласка, [відкрийте issue](../../issues) — зворотний зв'язок від користувачів macOS активно впливає на цикл тестування macOS.
 
-### <a id="why-warning"></a>Чому ви можете побачити попередження
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ Чому ви можете побачити попередження</strong></summary>
 
 Arroxy — проєкт із відкритим кодом і ліцензією MIT. Збірки для Windows та macOS **не підписані кодом** — сертифікати Apple Developer ID та Windows EV для підпису коду коштують сотні доларів на рік, і незалежний проєкт сплачує їх із власної кишені. Без цих підписів Windows SmartScreen і macOS Gatekeeper попереджатимуть вас при першому запуску. Попередження означають *що ваша ОС не розпізнає видавця* — вони не означають, що Arroxy є шкідливим ПЗ.
 
@@ -239,7 +269,10 @@ Arroxy — проєкт із відкритим кодом і ліцензією
 - **Перевірте SHA256.** Порівняйте свій файл із опублікованим [`SHA256SUMS`](../../releases/latest) — дивіться [Перевірте своє завантаження](#verify) нижче.
 - **Запустіть стороннє сканування.** Завантажте файл на [VirusTotal](https://www.virustotal.com).
 
-### <a id="linux-first-launch"></a>Linux: перший запуск
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Linux: перший запуск</strong></summary>
 
 AppImage запускаються безпосередньо — без встановлення. Потрібно лише позначити файл як виконуваний.
 
@@ -271,8 +304,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **Завантаження для Linux на сторінці релізів лише x86_64.** На машинах ARM64 (Raspberry Pi, Asahi Linux) Flatpak встановиться, але не запуститься: `bwrap: execvp ldconfig: Exec format error`.
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>Перевірте своє завантаження (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 Перевірте своє завантаження (SHA256)</strong></summary>
 
 До кожного релізу публікується файл `SHA256SUMS` поруч із бінарними файлами. Щоб переконатися, що ваш файл не було пошкоджено або підмінено під час передачі, обчисліть хеш файлу локально та порівняйте його з рядком у `SHA256SUMS`. Відкрийте сторінку останнього релізу → **Assets** → завантажте `SHA256SUMS`.
 
@@ -299,7 +334,7 @@ sha256sum Arroxy-linux-x64.AppImage
 </details>
 
 <details>
-<summary><strong>Windows: Інсталятор vs Портативна версія</strong></summary>
+<summary><strong>📦 Windows: Інсталятор vs Портативна версія</strong></summary>
 
 |               | Інсталятор NSIS | Портативний `.exe` |
 | ------------- | :----------------------: | :---------------------: |
@@ -315,7 +350,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="why"></a>Чому Arroxy
+## <a id="why"></a>⚖️ Чому Arroxy
 
 Порівняння з найпоширенішими альтернативами:
 
@@ -332,7 +367,7 @@ Arroxy створений для однієї задачі: вставте URL �
 
 ---
 
-## <a id="privacy"></a>Конфіденційність
+## <a id="privacy"></a>🔒 Конфіденційність
 
 Завантаження виконуються безпосередньо через [yt-dlp](https://github.com/yt-dlp/yt-dlp) з YouTube у вибрану вами теку — нічого не маршрутизується через сторонні сервери. Історія перегляду, історія завантажень, URL та вміст файлів залишаються на вашому пристрої.
 
@@ -342,41 +377,81 @@ Explore має власний вхід, окремий від вашого бр�
 
 ---
 
-## <a id="faq"></a>Часті запитання
+## <a id="faq"></a>❓ Часті запитання
 
-**Це справді безкоштовно?**
+<details>
+<summary><strong>Це справді безкоштовно?</strong></summary>
+
 Так — ліцензія MIT, без преміум-рівня, без заблокованих функцій.
 
-**Які якості відео можна завантажувати?**
+</details>
+
+<details>
+<summary><strong>Які якості відео можна завантажувати?</strong></summary>
+
 Будь-які, що пропонує YouTube: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, а також лише аудіо. Потоки з частотою 60 fps, 120 fps та HDR зберігаються як є.
 
-**Чи можна витягти лише аудіо як MP3?**
+</details>
+
+<details>
+<summary><strong>Чи можна витягти лише аудіо як MP3?</strong></summary>
+
 Так. Обери *лише аудіо* в меню форматів, а потім MP3, M4A/AAC, Opus або WAV.
 
-**Як завантажувати відео, для яких потрібен акаунт YouTube?**
+</details>
+
+<details>
+<summary><strong>Як завантажувати відео, для яких потрібен акаунт YouTube?</strong></summary>
+
 Увійдіть один раз на вкладці Explore. Після цього Arroxy зможе завантажувати приватні відео та відео лише для учасників, які доступні вашому акаунту, відео з віковим обмеженням (якщо акаунт підтверджено за віком), а також ваші списки «Дивитися пізніше» та «Вподобані». Цей вхід використовується, лише коли завантаження зривається з причини, яку може вирішити акаунт; усе інше завантажується як і раніше. Це варіант **Вхід через Explore**: він стоїть першим і позначений «Рекомендовано» в налаштуваннях cookies, а Arroxy обирає його сам, коли ви вперше відкриваєте Explore. У вікі yt-dlp зазначено, що [автоматизація з входом в акаунт може позначити акаунт Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), тож безпечніше використовувати другий акаунт.
 
-**Чи продовжить він працювати, якщо YouTube щось зміниться?**
+</details>
+
+<details>
+<summary><strong>Чи продовжить він працювати, якщо YouTube щось зміниться?</strong></summary>
+
 yt-dlp автоматично оновлюється під час запуску, а Arroxy оперативно випускає виправлення, коли YouTube щось змінює. Коли YouTube просить підтвердити, що ви не бот, Arroxy також пробує ваш вхід в Explore, якщо ви там увійшли, а cookies з файлу чи браузера доступні в налаштуваннях cookies.
 
-**Якими мовами доступний Arroxy?**
+</details>
+
+<details>
+<summary><strong>Якими мовами доступний Arroxy?</strong></summary>
+
 31 мов доступні одразу: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy автоматично визначає мову операційної системи під час першого запуску, а перемкнути її можна будь-коли через вибір мови на панелі інструментів. Runtime locale JSON зберігається в src/shared/i18n/locales/, а PO-каталоги для перекладачів — в i18n/locales/ — відкрийте PR на GitHub, щоб долучитися.
 
-**Чи потрібно щось встановлювати додатково?**
+</details>
+
+<details>
+<summary><strong>Чи потрібно щось встановлювати додатково?</strong></summary>
+
 Ні. yt-dlp автоматично завантажується при першому запуску й кешується на вашій машині; ffmpeg і ffprobe постачаються разом із застосунком. Після цього жодних додаткових налаштувань не потрібно.
 
-**Чи можна завантажувати плейлисти або цілі канали?**
+</details>
+
+<details>
+<summary><strong>Чи можна завантажувати плейлисти або цілі канали?</strong></summary>
+
 Так — і те, й інше. Вставте URL playlist або channel (наприклад, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); виберіть, скільки entries сканувати, а потім додайте весь список у queue або виберіть окремі відео. Date-range filters з’являться незабаром.
 
-**macOS каже «застосунок пошкоджений» — що робити?**
+</details>
+
+<details>
+<summary><strong>macOS каже «застосунок пошкоджений» — що робити?</strong></summary>
+
 Це macOS Gatekeeper блокує непідписаний застосунок, а не реальне пошкодження. Команди Terminal для зняття quarantine і запуску Arroxy дивіться в [macOS first launch](#macos-first-launch).
 
-**Чи законно завантажувати відео YouTube?**
+</details>
+
+<details>
+<summary><strong>Чи законно завантажувати відео YouTube?</strong></summary>
+
 Для особистого, приватного використання це загалом прийнято в більшості юрисдикцій. Ви несете відповідальність за дотримання [Умов використання](https://www.youtube.com/t/terms) YouTube та місцевого авторського права.
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>Дорожня карта
+## <a id="roadmap"></a>🗺️ Дорожня карта
 
 Досі заплановано — приблизно за пріоритетом:
 
@@ -393,7 +468,7 @@ yt-dlp автоматично оновлюється під час запуск�
 
 ---
 
-## <a id="support"></a>Підтримати Arroxy
+## <a id="support"></a>💖 Підтримати Arroxy
 
 Arroxy безкоштовний і має ліцензію MIT — без реклами, без телеметрії, без платної версії. Якщо він заощаджує ваш час, ви можете підтримати розробку через Bitcoin або Tron: адреси наведені в [DONATE.md](DONATE.md) — єдиному офіційному джерелі для них. Arroxy ніколи не надішле вам адресу електронною поштою чи в особистому повідомленні. Зірка репозиторію, повідомлення про помилки та покращення перекладів допомагають не менше.
 
@@ -401,7 +476,7 @@ Arroxy безкоштовний і має ліцензію MIT — без рек
 
 ---
 
-## <a id="tech"></a>Технології
+## <a id="tech"></a>🛠️ Технології
 
 <details>
 <summary><strong>Stack</strong></summary>
@@ -494,9 +569,10 @@ bun run dist:win     # пакування Windows-цілей на підтрим
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -551,9 +627,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## Умови використання
+## 📜 Умови використання
 
 Arroxy — інструмент виключно для особистого, приватного використання. Ви одноосібно відповідаєте за те, щоб ваші завантаження відповідали [Умовам використання](https://www.youtube.com/t/terms) YouTube та авторському праву вашої юрисдикції. Не використовуйте Arroxy для завантаження, відтворення чи розповсюдження контенту, на який ви не маєте прав. Розробники не несуть відповідальності за зловживання.
 

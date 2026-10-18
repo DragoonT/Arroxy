@@ -270,7 +270,7 @@ describe('release asset names', () => {
 	it('documents evergreen direct download links in the README template', () => {
 		const template = read('readme-src/template.md')
 
-		expect(template).toContain('## <a id="install"></a>{{dl_h2}}')
+		expect(template).toContain('## <a id="install"></a>📥 {{dl_h2}}')
 		for (const asset of stableAssets) {
 			expect(template).toContain(`https://github.com/antonio-orionus/Arroxy/releases/latest/download/${asset}`)
 		}

@@ -23,7 +23,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../pulls).
 
@@ -31,23 +31,26 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 ## Isi
 
-- [Fitur](#features)
-- [Instalasi dan peluncuran pertama](#install)
+- [✨ Fitur](#features)
+- [📥 Instalasi dan peluncuran pertama](#install)
   - [Windows peluncuran pertama](#windows-first-launch)
   - [macOS peluncuran pertama](#macos-first-launch)
   - [Mengapa Anda mungkin melihat peringatan](#why-warning)
   - [Linux peluncuran pertama](#linux-first-launch)
   - [Verifikasi unduhan Anda (SHA256)](#verify)
-- [Mengapa Arroxy](#why)
-- [Privasi](#privacy)
-- [Pertanyaan Umum](#faq)
-- [Peta jalan](#roadmap)
-- [Dukung Arroxy](#support)
-- [Dibangun dengan](#tech)
+- [⚖️ Mengapa Arroxy](#why)
+- [🔒 Privasi](#privacy)
+- [❓ Pertanyaan Umum](#faq)
+- [🗺️ Peta jalan](#roadmap)
+- [💖 Dukung Arroxy](#support)
+- [🛠️ Dibangun dengan](#tech)
 
 ---
 
-## <a id="features"></a>Fitur
+## <a id="features"></a>✨ Fitur
+
+<details>
+<summary><strong>📸 Tangkapan layar</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -86,7 +89,10 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
   </tr>
 </table>
 
-### Explore: jelajahi YouTube di dalam Arroxy
+</details>
+
+<details open>
+<summary><strong>🧭 Explore: jelajahi YouTube di dalam Arroxy</strong></summary>
 
 - **Tab Explore** — jelajahi YouTube di dalam Arroxy dan unduh yang Anda temukan tanpa menyalin tautan. **Unduh · *profil Anda*** memasukkan video, daftar putar, atau saluran yang sedang Anda lihat ke antrean; panah di sebelahnya mengganti profil, dan tongkat sihir membuka unduhan langkah demi langkah untuk memilih format, subtitle, dan lainnya
 - **Klik kanan untuk mengunduh** — klik kanan tautan video, daftar putar, atau saluran mana pun di Explore untuk mengunduhnya dengan profil Anda, memilih profil lain dari **Unduh dengan**, membuka unduhan langkah demi langkah, atau menyalin tautan. Anda tidak perlu membuka setiap video terlebih dahulu
@@ -96,20 +102,29 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - **Gunakan akun sekunder** — layar pertama Explore menjelaskan alasannya: mengunduh dengan akun membawa risiko tertentu akun tersebut dibatasi. Keluar dari Explore lewat Pengaturan kapan pun Anda ingin melupakan login
 - **Pemblokir iklan** — Explore memblokir iklan dan pelacak di halamannya sendiri; unduhan tidak terpengaruh. Aktif secara bawaan, satu klik pada ikon perisai di bilah alat Explore menonaktifkannya, dan ia tidak pernah bekerja di halaman login Google. YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk
 
-### Kualitas & format
+</details>
+
+<details>
+<summary><strong>🎞️ Kualitas & format</strong></summary>
 
 - Hingga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Kecepatan frame tinggi** dipertahankan apa adanya — 60 fps, 120 fps, HDR
 - **Audio** — mengekspor audio saja sebagai MP3, M4A/AAC, Opus, atau WAV. Dalam download interaktif, pilih trek surround/Dolby asli sumber (AC-3, E-AC-3, 5.1, DRC) bila tersedia, atau atur global **Prefer surround / Dolby** default
 - **Profil dengan tujuan** — *Gambar terbaik* (AV1 · VP9) atau *TV Pintar* (MP4 · H.264), disimpan sebagai Otomatis, MP4, MKV, atau WebM tanpa encode ulang. HDR adalah *Otomatis* (hanya jika layar Anda bisa menampilkannya), *SDR*, atau *HDR*
 
-### Privasi & kontrol
+</details>
+
+<details>
+<summary><strong>🛡️ Privasi & kontrol</strong></summary>
 
 - 100% pemrosesan lokal — pengunduhan langsung dari YouTube ke disk Anda
 - **Sumber terbuka** — setiap baris dapat diaudit, berlisensi MIT
 - File disimpan langsung ke folder yang Anda pilih
 
-### Alur kerja
+</details>
+
+<details>
+<summary><strong>⚡ Alur kerja</strong></summary>
 
 - **Pintasan unduh global** — salin tautan di aplikasi mana pun lalu tekan `Ctrl+Shift+D` (`Cmd+Shift+D` di macOS); Arroxy memasukkannya ke antrean dengan profil aktif tanpa membuka jendela, dan notifikasi mengonfirmasinya. Aktif secara bawaan, bisa diubah
 - **Mode mulai yang fleksibel** — pilih unduhan tunggal yang dipandu, pemilih daftar putar/saluran, tempel URL massal, Unduh Cepat dengan default tersimpan, atau jelajahi dan unduh dari Explore
@@ -131,7 +146,10 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - **Aurora atau Minimalis, gelap atau terang** — panel kaca di atas langit yang bergerak, atau permukaan solid yang tenang; ganti dari footer. Komputer tanpa akselerasi grafis otomatis mendapat Minimalis
 - **Bilah menu Mac** — di macOS, buka Pengaturan (`Cmd+,`), atur batas kecepatan unduh, ganti gaya dan tema, serta buka log atau simpan file diagnostik dari bilah menu
 
-### Subtitle & pasca-pemrosesan
+</details>
+
+<details>
+<summary><strong>📝 Subtitle & pasca-pemrosesan</strong></summary>
 
 - **Subtitel** dalam SRT, VTT, atau ASS — dibuat secara manual atau otomatis, dalam bahasa apa pun yang tersedia
 - Simpan di samping video, sematkan ke `.mkv`, atau atur ke dalam subfolder `Subtitles/`
@@ -139,16 +157,21 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - **SponsorBlock** — lewati atau tandai bab sponsor, intro, outro, promo mandiri
 - **Metadata tersemat** — judul, tanggal pengunggahan, saluran, deskripsi, gambar mini, dan penanda bab yang ditulis ke dalam file
 
-### YouTube + 2000 situs
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + 2000 situs</strong></summary>
 
 - **YouTube, selengkapnya** — Video, Shorts, Saluran, Daftar Putar, Musik YouTube, dan Podcast ditangani sebagai sumber kelas satu
 - **2000+ situs lainnya** melalui yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, dan masih banyak lagi
 - **Khusus audio dan subtitel** berfungsi di semua situs yang didukung, tidak hanya YouTube
 - Jika situs berubah, yt-dlp mengirimkan perbaikan setiap minggu dan Arroxy memperbarui biner secara otomatis saat peluncuran
 
+</details>
+
 ---
 
-## <a id="install"></a>Instalasi dan peluncuran pertama
+## <a id="install"></a>📥 Instalasi dan peluncuran pertama
 
 **Windows**
 
@@ -187,7 +210,8 @@ Build hanya tersedia untuk x86_64. Tidak ada `curl`? Ganti `curl -fsSL` dengan `
 
 [**Semua aset rilis →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Windows peluncuran pertama
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Windows peluncuran pertama</strong></summary>
 
 Pada peluncuran pertama Anda mungkin melihat **"Windows melindungi PC Anda"** atau **"Penerbit tidak dikenal."** Ini berlaku untuk `Arroxy-win-x64-Setup.exe` dan `Arroxy-win-x64-Portable.exe`. Arroxy gratis dan bersumber terbuka, dan build Windows tidak ditandatangani kode dengan sertifikat berbayar, itulah sebabnya SmartScreen menandainya. Ini **tidak** secara otomatis berarti Arroxy tidak aman. Untuk melanjutkan:
 
@@ -207,7 +231,10 @@ Heuristik pembela terkadang menandai penginstal NSIS yang tidak ditandatangani d
 
 Lebih suka Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>macOS peluncuran pertama
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 macOS peluncuran pertama</strong></summary>
 
 Arroxy belum ditandatangani untuk macOS, jadi Gatekeeper dapat menampilkan dialog menakutkan *"Arroxy.app is damaged and can't be opened"* setelah Anda memasangnya dari DMG. Pesan itu berarti macOS mengarantina aplikasi yang tidak ditandatangani; bukan berarti file aplikasi benar-benar rusak. Pada macOS saat ini, perbaikan yang paling andal adalah Terminal:
 
@@ -229,7 +256,10 @@ Perintah pertama menghapus atribut karantina dari salinan Arroxy yang Anda insta
 
 > Build macOS diproduksi melalui CI pada runner Apple Silicon dan Intel. Jika Anda mengalami masalah, silakan [buka masalah](../../issues) — masukan dari pengguna macOS secara aktif membentuk siklus pengujian macOS.
 
-### <a id="why-warning"></a>Mengapa Anda mungkin melihat peringatan
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ Mengapa Anda mungkin melihat peringatan</strong></summary>
 
 Arroxy adalah sumber terbuka dan berlisensi MIT. Versi Windows dan macOS **tidak ditandatangani dengan kode** — ID Pengembang Apple dan sertifikat penandatanganan kode Windows EV masing-masing berharga ratusan dolar per tahun, yang dibayar langsung oleh proyek indie. Tanpa tanda tangan tersebut, Windows SmartScreen dan macOS Gatekeeper akan memperingatkan Anda pada peluncuran pertama. Peringatan tersebut berarti *OS Anda tidak mengenali penerbitnya* — bukan berarti Arroxy adalah malware.
 
@@ -239,7 +269,10 @@ Tiga cara untuk memverifikasi sendiri Arroxy, dengan semakin ketatnya:
 - **Periksa SHA256.** Cocokkan file Anda dengan [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) yang dipublikasikan — lihat [Verifikasi download Anda](#verify) di bawah.
 - **Jalankan pemindaian pihak ketiga.** Unggah file ke [VirusTotal](https://www.virustotal.com).
 
-### <a id="linux-first-launch"></a>Linux peluncuran pertama
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Linux peluncuran pertama</strong></summary>
 
 AppImages dijalankan secara langsung — tanpa instalasi. Anda hanya perlu menandai file tersebut sebagai file yang dapat dieksekusi.
 
@@ -271,8 +304,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **Unduhan Linux di halaman rilis hanya untuk x86_64.** Di mesin ARM64 (Raspberry Pi, Asahi Linux) Flatpak tetap terinstal tetapi gagal saat diluncurkan dengan `bwrap: execvp ldconfig: Exec format error`.
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>Verifikasi unduhan Anda (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 Verifikasi unduhan Anda (SHA256)</strong></summary>
 
 Setiap rilis menerbitkan file `SHA256SUMS` bersama biner. Untuk memastikan bahwa unduhan Anda tidak rusak atau diubah saat transit, hash file Anda secara lokal dan cocokkan baris di `SHA256SUMS`. Buka halaman rilis terbaru → **Aset** → unduh `SHA256SUMS`.
 
@@ -299,7 +334,7 @@ Ingin pemindaian malware pihak ketiga? Unggah file di [VirusTotal](https://www.v
 </details>
 
 <details>
-<summary><strong>Windows: Penginstal vs Portabel</strong></summary>
+<summary><strong>📦 Windows: Penginstal vs Portabel</strong></summary>
 
 |               | Pemasang NSIS | `.exe` portabel |
 | ------------- | :----------------------: | :---------------------: |
@@ -315,7 +350,7 @@ Ingin pemindaian malware pihak ketiga? Unggah file di [VirusTotal](https://www.v
 
 ---
 
-## <a id="why"></a>Mengapa Arroxy
+## <a id="why"></a>⚖️ Mengapa Arroxy
 
 Perbandingan berdampingan dengan alternatif yang paling umum:
 
@@ -332,7 +367,7 @@ Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Ti
 
 ---
 
-## <a id="privacy"></a>Privasi
+## <a id="privacy"></a>🔒 Privasi
 
 Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari YouTube ke folder yang Anda pilih — tidak ada yang dirutekan melalui server pihak ketiga. Riwayat tontonan, riwayat unduhan, URL, dan konten file tetap ada di perangkat Anda.
 
@@ -342,41 +377,81 @@ Explore menyimpan login-nya sendiri, terpisah dari browser Anda, dan Arroxy tida
 
 ---
 
-## <a id="faq"></a>Pertanyaan Umum
+## <a id="faq"></a>❓ Pertanyaan Umum
 
-**Apakah ini benar-benar gratis?**
+<details>
+<summary><strong>Apakah ini benar-benar gratis?</strong></summary>
+
 Ya — berlisensi MIT, tanpa tingkat premium, tanpa fitur gating.
 
-**Kualitas video apa yang dapat saya unduh?**
+</details>
+
+<details>
+<summary><strong>Kualitas video apa yang dapat saya unduh?</strong></summary>
+
 Apa pun yang disajikan YouTube: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio saja. Streaming 60 fps, 120 fps, dan HDR dipertahankan apa adanya.
 
-**Bisakah saya mengekstrak audionya saja sebagai MP3?**
+</details>
+
+<details>
+<summary><strong>Bisakah saya mengekstrak audionya saja sebagai MP3?</strong></summary>
+
 Ya. Pilih *audio saja* di menu format dan pilih MP3, M4A/AAC, Opus, atau WAV.
 
-**Bagaimana cara mengunduh video yang memerlukan akun YouTube?**
+</details>
+
+<details>
+<summary><strong>Bagaimana cara mengunduh video yang memerlukan akun YouTube?</strong></summary>
+
 Masuklah sekali di tab Explore. Arroxy kemudian dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Login itu hanya dipakai saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun; yang lain diunduh seperti biasa. Ini adalah pilihan **Login Explore**, tercantum pertama dan bertanda Disarankan di setelan cookie, dan Arroxy memilihnya untuk Anda saat pertama kali Anda membuka Explore. Wiki yt-dlp mencatat bahwa [otomatisasi dengan akun yang sudah masuk dapat menandai akun Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), jadi akun sekunder adalah pilihan yang lebih aman.
 
-**Apakah ini akan tetap berfungsi ketika YouTube mengubah sesuatu?**
+</details>
+
+<details>
+<summary><strong>Apakah ini akan tetap berfungsi ketika YouTube mengubah sesuatu?</strong></summary>
+
 yt-dlp diperbarui secara otomatis saat peluncuran, dan Arroxy segera mengirimkan perbaikan ketika YouTube mengubah sesuatu. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda jika Anda sudah masuk di sana, dan cookie dari file atau browser tersedia di setelan cookie.
 
-**Bahasa apa saja yang tersedia di Arroxy?**
+</details>
+
+<details>
+<summary><strong>Bahasa apa saja yang tersedia di Arroxy?</strong></summary>
+
 31 bahasa langsung tersedia: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy otomatis mendeteksi bahasa sistem operasi Anda saat pertama kali dijalankan, dan Anda dapat beralih kapan saja dari pemilih bahasa di toolbar. JSON locale runtime berada di src/shared/i18n/locales/, dan katalog PO untuk penerjemah berada di i18n/locales/ — buka PR di GitHub untuk berkontribusi.
 
-**Apakah saya perlu menginstal yang lain?**
+</details>
+
+<details>
+<summary><strong>Apakah saya perlu menginstal yang lain?</strong></summary>
+
 Tidak. yt-dlp diunduh secara otomatis pada peluncuran pertama dan disimpan dalam cache di mesin Anda; ffmpeg dan ffprobe dikirimkan bersama aplikasi. Setelah itu, tidak diperlukan pengaturan tambahan.
 
-**Bisakah saya mengunduh daftar putar atau seluruh saluran?**
+</details>
+
+<details>
+<summary><strong>Bisakah saya mengunduh daftar putar atau seluruh saluran?</strong></summary>
+
 Ya — keduanya. Tempelkan URL daftar putar atau URL saluran (misalnya `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); pilih berapa banyak entri yang akan dipindai, lalu antri seluruh daftar atau pilih video tertentu. Filter rentang tanggal akan segera hadir.
 
-**macOS mengatakan "aplikasi rusak" — apa yang harus saya lakukan?**
+</details>
+
+<details>
+<summary><strong>macOS mengatakan "aplikasi rusak" — apa yang harus saya lakukan?</strong></summary>
+
 Itu macOS Gatekeeper memblokir aplikasi yang tidak ditandatangani, bukan kerusakan sebenarnya. Lihat [macOS peluncuran pertama](#macos-first-launch) untuk perintah Terminal yang menghapus karantina dan meluncurkan Arroxy.
 
-**Apakah mengunduh video YouTube legal?**
+</details>
+
+<details>
+<summary><strong>Apakah mengunduh video YouTube legal?</strong></summary>
+
 Untuk penggunaan pribadi dan pribadi, ini diterima secara umum di sebagian besar yurisdiksi. Anda bertanggung jawab untuk mematuhi [Ketentuan Layanan](https://www.youtube.com/t/terms) YouTube dan undang-undang hak cipta setempat.
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>Peta jalan
+## <a id="roadmap"></a>🗺️ Peta jalan
 
 Masih direncanakan — kira-kira dalam urutan prioritas:
 
@@ -393,7 +468,7 @@ Punya ide fitur? [Buka permintaan](../../issues) — masukan komunitas membantu 
 
 ---
 
-## <a id="support"></a>Dukung Arroxy
+## <a id="support"></a>💖 Dukung Arroxy
 
 Arroxy gratis dan berlisensi MIT — tanpa iklan, tanpa telemetri, tanpa versi berbayar. Jika Arroxy menghemat waktu Anda, Anda bisa mendukung pengembangannya dengan Bitcoin atau Tron: alamatnya ada di [DONATE.md](DONATE.md), satu-satunya sumber resmi untuk alamat tersebut. Arroxy tidak akan pernah mengirimi Anda alamat lewat email atau pesan langsung. Memberi bintang pada repo, melaporkan bug, dan memperbaiki terjemahan sama besar bantuannya.
 
@@ -401,7 +476,7 @@ Arroxy gratis dan berlisensi MIT — tanpa iklan, tanpa telemetri, tanpa versi b
 
 ---
 
-## <a id="tech"></a>Dibangun dengan
+## <a id="tech"></a>🛠️ Dibangun dengan
 
 <details>
 <summary><strong>Stack</strong></summary>
@@ -494,9 +569,10 @@ bun run dist:win     # package Windows targets when run on a supported host
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -551,9 +627,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## Ketentuan penggunaan
+## 📜 Ketentuan penggunaan
 
 Arroxy adalah alat untuk penggunaan pribadi dan privat saja. Anda bertanggung jawab penuh untuk memastikan unduhan Anda mematuhi [Ketentuan Layanan](https://www.youtube.com/t/terms) YouTube dan undang-undang hak cipta di yurisdiksi Anda. Jangan gunakan Arroxy untuk mengunduh, mereproduksi, atau mendistribusikan konten yang tidak berhak Anda gunakan. Pengembang tidak bertanggung jawab atas penyalahgunaan apa pun.
 

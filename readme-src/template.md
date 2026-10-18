@@ -31,23 +31,26 @@
 
 ## {{toc_heading}}
 
-- [{{features_h2}}](#features)
-- [{{dl_h2}}](#install)
+- [✨ {{features_h2}}](#features)
+- [📥 {{dl_h2}}](#install)
   - [{{dl_win_first_h3}}](#windows-first-launch)
   - [{{dl_macos_first_h3}}](#macos-first-launch)
   - [{{dl_warning_h3}}](#why-warning)
   - [{{dl_linux_first_h3}}](#linux-first-launch)
   - [{{dl_verify_h3}}](#verify)
-- [{{why_h2}}](#why)
-- [{{privacy_h2}}](#privacy)
-- [{{faq_h2}}](#faq)
-- [{{roadmap_h2}}](#roadmap)
-- [{{support_h2}}](#support)
-- [{{tech_h2}}](#tech)
+- [⚖️ {{why_h2}}](#why)
+- [🔒 {{privacy_h2}}](#privacy)
+- [❓ {{faq_h2}}](#faq)
+- [🗺️ {{roadmap_h2}}](#roadmap)
+- [💖 {{support_h2}}](#support)
+- [🛠️ {{tech_h2}}](#tech)
 
 ---
 
-## <a id="features"></a>{{features_h2}}
+## <a id="features"></a>✨ {{features_h2}}
+
+<details>
+<summary><strong>📸 {{shots_h3}}</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -86,7 +89,10 @@
   </tr>
 </table>
 
-### {{feat_explore_h3}}
+</details>
+
+<details open>
+<summary><strong>🧭 {{feat_explore_h3}}</strong></summary>
 
 - {{feat_explore_1}}
 - {{feat_explore_6}}
@@ -96,20 +102,29 @@
 - {{feat_explore_4}}
 - {{feat_explore_5}}
 
-### {{feat_quality_h3}}
+</details>
+
+<details>
+<summary><strong>🎞️ {{feat_quality_h3}}</strong></summary>
 
 - {{feat_quality_1}}
 - {{feat_quality_2}}
 - {{feat_quality_3}}
 - {{feat_quality_4}}
 
-### {{feat_privacy_h3}}
+</details>
+
+<details>
+<summary><strong>🛡️ {{feat_privacy_h3}}</strong></summary>
 
 - {{feat_privacy_1}}
 - {{feat_privacy_2}}
 - {{feat_privacy_3}}
 
-### {{feat_workflow_h3}}
+</details>
+
+<details>
+<summary><strong>⚡ {{feat_workflow_h3}}</strong></summary>
 
 - {{feat_workflow_12}}
 - {{feat_workflow_1}}
@@ -131,7 +146,10 @@
 - {{feat_workflow_18}}
 - {{feat_workflow_19}}
 
-### {{feat_post_h3}}
+</details>
+
+<details>
+<summary><strong>📝 {{feat_post_h3}}</strong></summary>
 
 - {{feat_post_1}}
 - {{feat_post_2}}
@@ -139,16 +157,21 @@
 - {{feat_post_3}}
 - {{feat_post_4}}
 
-### {{feat_sites_h3}}
+</details>
+
+<details>
+<summary><strong>🌐 {{feat_sites_h3}}</strong></summary>
 
 - {{feat_sites_1}}
 - {{feat_sites_2}}
 - {{feat_sites_3}}
 - {{feat_sites_4}}
 
+</details>
+
 ---
 
-## <a id="install"></a>{{dl_h2}}
+## <a id="install"></a>📥 {{dl_h2}}
 
 **Windows**
 
@@ -187,7 +210,8 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 [**{{dl_grab}}**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>{{dl_win_first_h3}}
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 {{dl_win_first_h3}}</strong></summary>
 
 {{dl_win_smartscreen_intro}}
 
@@ -207,7 +231,10 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 {{dl_win_scoop}}
 
-### <a id="macos-first-launch"></a>{{dl_macos_first_h3}}
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 {{dl_macos_first_h3}}</strong></summary>
 
 {{dl_macos_intro}}
 
@@ -229,13 +256,19 @@ open /Applications/Arroxy.app
 
 > {{dl_macos_note}}
 
-### <a id="why-warning"></a>{{dl_warning_h3}}
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ {{dl_warning_h3}}</strong></summary>
 
 {{dl_warning_p1}}
 
 {{dl_warning_p2}}
 
-### <a id="linux-first-launch"></a>{{dl_linux_first_h3}}
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 {{dl_linux_first_h3}}</strong></summary>
 
 {{dl_linux_intro}}
 
@@ -267,8 +300,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 {{dl_linux_arch_note}}
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>{{dl_verify_h3}}</strong></summary>
+<summary><strong><a id="verify"></a>🔐 {{dl_verify_h3}}</strong></summary>
 
 {{dl_verify_intro}}
 
@@ -295,7 +330,7 @@ sha256sum Arroxy-linux-x64.AppImage
 </details>
 
 <details>
-<summary><strong>{{dl_win_h3}}</strong></summary>
+<summary><strong>📦 {{dl_win_h3}}</strong></summary>
 
 |               | {{dl_win_col_installer}} | {{dl_win_col_portable}} |
 | ------------- | :----------------------: | :---------------------: |
@@ -311,7 +346,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="why"></a>{{why_h2}}
+## <a id="why"></a>⚖️ {{why_h2}}
 
 {{why_intro}}
 
@@ -328,7 +363,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="privacy"></a>{{privacy_h2}}
+## <a id="privacy"></a>🔒 {{privacy_h2}}
 
 {{privacy_p1}}
 
@@ -338,41 +373,81 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="faq"></a>{{faq_h2}}
+## <a id="faq"></a>❓ {{faq_h2}}
 
-**{{faq_q1}}**
+<details>
+<summary><strong>{{faq_q1}}</strong></summary>
+
 {{faq_a1}}
 
-**{{faq_q2}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q2}}</strong></summary>
+
 {{faq_a2}}
 
-**{{faq_q3}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q3}}</strong></summary>
+
 {{faq_a3}}
 
-**{{faq_q4}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q4}}</strong></summary>
+
 {{faq_a4}}
 
-**{{faq_q5}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q5}}</strong></summary>
+
 {{faq_a5}}
 
-**{{faq_q6}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q6}}</strong></summary>
+
 {{faq_a6}}
 
-**{{faq_q7}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q7}}</strong></summary>
+
 {{faq_a7}}
 
-**{{faq_q8}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q8}}</strong></summary>
+
 {{faq_a8}}
 
-**{{faq_q9}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q9}}</strong></summary>
+
 {{faq_a9}}
 
-**{{faq_q10}}**
+</details>
+
+<details>
+<summary><strong>{{faq_q10}}</strong></summary>
+
 {{faq_a10}}
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>{{roadmap_h2}}
+## <a id="roadmap"></a>🗺️ {{roadmap_h2}}
 
 {{plan_intro}}
 
@@ -389,7 +464,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="support"></a>{{support_h2}}
+## <a id="support"></a>💖 {{support_h2}}
 
 {{support_note}}
 
@@ -397,15 +472,16 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="tech"></a>{{tech_h2}}
+## <a id="tech"></a>🛠️ {{tech_h2}}
 
 {{tech_content}}
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -460,9 +536,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## {{tos_h2}}
+## 📜 {{tos_h2}}
 
 {{tos_note}}
 

@@ -197,6 +197,7 @@ export const om = {
     "**Audio qofa fi subtitle** saayitii deeggara hunda irratti hojjeta, YouTube qofa irratti miti",
   feat_sites_4:
     "Saayitiin yoo jijjiirames, yt-dlp torban hunda sirreessa erga, Arroxy immoo binary-n yeroo eegaluu ofumaan haaromsa",
+  shots_h3: "Suuraa ibsaa",
   shot1_cap:
     "<b>Fuula Buufata saffisaa</b><br/>URL maxxansiitii profaayilii kee kan socho'aadhaan battalumatti buufadhu",
   shot2_cap:
