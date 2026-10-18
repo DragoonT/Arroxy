@@ -23,29 +23,32 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 ---
 
 ## Qabiyyee
 
-- [Amaloota](#features)
-- [Fe'iitii yeroo jalqabaa banuu](#install)
+- [✨ Amaloota](#features)
+- [📥 Fe'iitii yeroo jalqabaa banuu](#install)
   - [Windows yeroo jalqabaa eegaluu](#windows-first-launch)
   - [macOS yeroo jalqabaa eegaluu](#macos-first-launch)
   - [Maaliif akeekkachiisa arguu dandeessa](#why-warning)
   - [Linux yeroo jalqabaa eegaluu](#linux-first-launch)
   - [Buufannoo kee mirkaneessi (SHA256)](#verify)
-- [Maaliif Arroxy](#why)
-- [Icciitii](#privacy)
-- [Gaaffilee Deddeebii](#faq)
-- [Karoora](#roadmap)
-- [Arroxy Deggeri](#support)
-- [Waan itti Ijaare](#tech)
+- [⚖️ Maaliif Arroxy](#why)
+- [🔒 Icciitii](#privacy)
+- [❓ Gaaffilee Deddeebii](#faq)
+- [🗺️ Karoora](#roadmap)
+- [💖 Arroxy Deggeri](#support)
+- [🛠️ Waan itti Ijaare](#tech)
 
 ---
 
-## <a id="features"></a>Amaloota
+## <a id="features"></a>✨ Amaloota
+
+<details>
+<summary><strong>📸 Suuraa ibsaa</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -84,7 +87,10 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
   </tr>
 </table>
 
-### Explore: YouTube Arroxy keessatti ilaali
+</details>
+
+<details open>
+<summary><strong>🧭 Explore: YouTube Arroxy keessatti ilaali</strong></summary>
 
 - **Tabii Explore** — YouTube Arroxy keessatti ilaaluudhaan waan argatte hidhaa waraabuu malee buufadhu. **Buusi · *piroofaayilii kee*** viidiyoo, playlist, ykn channel ati ilaaltu tarree keessa galcha; xiyyi isa cinaa piroofaayilii jijjiira, ulee falfalaa immoo buufannaa tarkaanfii-tarkaanfiidhaan formaata, barruu jalaa fi kkf filachuuf bana
 - **Buusuuf mirgaan cuqaasi** — Explore keessatti hidhaa viidiyoo, playlist ykn channel kamiyyuu mirgaan cuqaasiitii piroofaayilii keetiin buusi, **Profaayiliin buusi** irraa piroofaayilii biraa filadhu, buufata tarkaanfii tarkaanfiin bani, ykn hidhaa garagalchi. Tokkoon tokkoon viidiyoo dursa banuun hin barbaachisu
@@ -94,20 +100,29 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 - **Akkaawuntii lammaffaa fayyadami** — fuula jalqabaa Explore sababa ibsa: akkaawuntiidhaan buufachuun balaa akkaawuntiin sun daangeffamuu tokko of keessaa qaba. Seensa irraanfachuu yeroo barbaadde Qindoomina keessaa Explore irraa bahi
 - **Dhorkaa beeksisaa** — Explore fuula mataa isaa irratti beeksisaa fi hordoftoota ni dhorka; buufannaan hin tuqamu. Durtiidhaan banaa, Explore kaaba meeshaa irratti gaachana tuquun ni cufa, fuulota seensa Google irrattis gonkumaa hin hojjetu. YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a
 
-### Qulqullina & formatoota
+</details>
+
+<details>
+<summary><strong>🎞️ Qulqullina & formatoota</strong></summary>
 
 - Hanga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Frame rate ol'aanaa** akka jiru eegama — 60 fps, 120 fps, HDR
 - **Sagalee** — sagalee qofa gara MP3, M4A/AAC, Opus yookaan WAV export godhi. Buufataalee wal-qunnamtii keessatti, yoo jiran, sirna sagalee surround/Dolby maddaa (AC-3, E-AC-3, 5.1, DRC) filadhu, yookaan durtii waliigalaa **Surround / Dolby filadhu** kaa'i
 - **Piroofaayilii kaayyoo qabu** — *Suuraa isa caalu* (AV1 · VP9) ykn *TV smart* (MP4 · H.264), Ofumaa, MP4, MKV, ykn WebM ta'ee deebi'ee koodii gochuu malee olkaa'ama. HDR *Ofumaa* (ispiriin kee yoo agarsiisuu dandeessu qofa), *SDR*, ykn *HDR* dha
 
-### Icciitii & to'annaa
+</details>
+
+<details>
+<summary><strong>🛡️ Icciitii & to'annaa</strong></summary>
 
 - 100% naannoo keessatti hojeta — buufannoon kallattiin YouTube irraa disiki kee dhaqa
 - Seensuu hin jiru, kuukkii hin jiru, akkaawuntii Google waliin hin hidhu
 - Faayiloonni kallattiin foldera filatteen seenu
 
-### Hojii hordoffii
+</details>
+
+<details>
+<summary><strong>⚡ Hojii hordoffii</strong></summary>
 
 - **Qabduu ariifachiisaa buufannaa waliigalaa** — appii kamiyyuu keessatti hidhaa waraabii `Ctrl+Shift+D` (macOS irratti `Cmd+Shift+D`) tuqi; Arroxy foddaa utuu hin banin piroofaayilii kee kan hojiirra jiruun tarree keessa galcha, beeksisnis ni mirkaneessa. Durtiidhaan banaa, irra deebi'anii qindeessuun ni danda'ama
 - **Haalawwan jalqabaa jijjiiramaa** — buusuu tokko qajeelfamaan, filannoo playlist/channel, URL hedduu maxxansuu, Quick Download filannoowwan duraan kuufamaniin, ykn Explore irraa ilaaluu fi buufachuu filadhu
@@ -129,7 +144,10 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 - **Aurora ykn Salphaa, dukkana ykn ifa** — paanaala galaasaa samii socho'u irra jiru, ykn gar-fuula cimaa callisaa; gadi-fuula irraa jijjiiri. Kompiitaroonni saffisiisaa giraafiksii hin qabne ofumaan Salphaa argatu
 - **Baarii menu Mac** — macOS irratti, baarii menu irraa Qindaa'inoota (`Cmd+,`) bani, daangaa saffisa buufannaa kaa'i, taatee fi tiimii jijjiiri, galmee bani ykn faayilii qorannoo olkaa'i
 
-### Subtitle & seensuu boodaa
+</details>
+
+<details>
+<summary><strong>📝 Subtitle & seensuu boodaa</strong></summary>
 
 - **Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti
 - Viidiyoo cinaa kuusi, `.mkv` keessatti maksi, ykn foldara `Subtitles/` keessatti qindeessi
@@ -137,16 +155,21 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 - **SponsorBlock** — beeksisa, seensa, xumura, of-daldala naanna'i ykn boqonnaa godhi
 - **Metadata makame** — mata-duree, guyyaa olkaa'uu, chaanaalii, ibsaa, suuraafi boqonnaa mallattoota faayila keessatti barreessa
 
-### YouTube + Saayitii 2000
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + Saayitii 2000</strong></summary>
 
 - **YouTube guutummaatti** — Viidiyoowwan, Shorts, Chaanaalota, Playlistoota, YouTube Music fi Podkaastota madda sadarkaa jalqabaa ta'aniin hojjetamu
 - **Saayitiiwwan 2000+ biroo** yt-dlp fayyadamuudhaan — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org fi kanneen biroo heddu
 - **Audio qofa fi subtitle** saayitii deeggara hunda irratti hojjeta, YouTube qofa irratti miti
 - Saayitiin yoo jijjiirames, yt-dlp torban hunda sirreessa erga, Arroxy immoo binary-n yeroo eegaluu ofumaan haaromsa
 
+</details>
+
 ---
 
-## <a id="install"></a>Fe'iitii yeroo jalqabaa banuu
+## <a id="install"></a>📥 Fe'iitii yeroo jalqabaa banuu
 
 **Windows**
 
@@ -185,7 +208,8 @@ Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.
 
 [**Baasii haaraa fudhachuu →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Windows yeroo jalqabaa eegaluu
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Windows yeroo jalqabaa eegaluu</strong></summary>
 
 Jalqaba banuu irratti **"Windows protected your PC"** ykn **"Unknown publisher"** arguu dandeessa. Kun `Arroxy-win-x64-Setup.exe` fi `Arroxy-win-x64-Portable.exe` lameeniifuu hojjeta. Arroxy bilisaa fi madda banaa dha, ijaarsonni Windows mallattoo kafaltii hin qabne waliin hin mallatteffamne, kanaafuu SmartScreen mallattoo isaanirratti kaa'a. Kun Arroxy nageenya hin qabu **jechuuf** of-hordofaan miti. Itti fufuuf:
 
@@ -205,7 +229,10 @@ Heuristics Defender sometimes flag unsigned NSIS installers fi Electron portable
 
 Scoop filattaa? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>macOS yeroo jalqabaa eegaluu
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 macOS yeroo jalqabaa eegaluu</strong></summary>
 
 Arroxy ammallee macOS'f mallattoo hin qabdu, kanaaf Gatekeeper erga DMG irraa feete booda diyalogii sodaachisaa *"Arroxy.app is damaged and can't be opened"* agarsiisuu danda'a. Ergaan kun macOS app mallattoo hin qabne quarantine keessa kaa'e jechuu dha; faayiliiwwan app dhugumaan miidhaman jechuu miti. macOS ammaa irratti furmaanni amanamaan Terminal dha:
 
@@ -227,7 +254,10 @@ Ajajni jalqabaa kopi Arroxy kan feete irraa amala quarantine haqa. Inni lammaffa
 
 > Ijaarsi macOS CI irratti Apple Silicon fi Intel runners irratti hojjetama. Rakkoo yoo qabaatte, maaloo [gaaffii bani](../../issues) — yaada fayyadamtootaa macOS irraa yeroo hedduu qabxii qormaata macOS murteessa.
 
-### <a id="why-warning"></a>Maaliif akeekkachiisa arguu dandeessa
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ Maaliif akeekkachiisa arguu dandeessa</strong></summary>
 
 Arroxy madda banaa fi hayyama MIT qaba. Ijaarsonni Windows fi macOS **mallattoo hin qaban** — ragaaleen Apple Developer ID fi Windows EV mallattoo koodii kafaltii waggaatti dhibba doolara baay'ee waan gaafataniif, pirojektiin self-funded baasii kana mataa isaarraa kafala. Mallattoo sana malee, Windows SmartScreen fi macOS Gatekeeper yeroo jalqabaatti si akeekachisuu. Akeekkachiisni kun *siistamni kee maxxantiisa hin beeku* jechuudha — Arroxy malwaare dha jechuuf miti.
 
@@ -237,7 +267,10 @@ Haala sadii Arroxy ofii keetiin mirkaneessuuf, kutaa cimina irraa cimina gaditti
 - **SHA256 mirkaneessi.** Faayila kee [`SHA256SUMS`](../../releases/latest) maxxanfame walitti bira qabbi — armaan gadii [Buufannoo kee mirkaneessi](#verify) ilaali.
 - **Sakattaa miilaafi baasii.** Faayila [VirusTotal](https://www.virustotal.com) irratti fe'i.
 
-### <a id="linux-first-launch"></a>Linux yeroo jalqabaa eegaluu
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Linux yeroo jalqabaa eegaluu</strong></summary>
 
 AppImages kallattiin oofuu — fayyadu hin barbaachisu. Faayila akka hojjetu galchuuf qofa mallattaa itti kaa'uun barbaachisa.
 
@@ -269,8 +302,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>Buufannoo kee mirkaneessi (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 Buufannoo kee mirkaneessi (SHA256)</strong></summary>
 
 Baasii hundi faayila `SHA256SUMS` binary waliin maxxansa. Buufannoon kee darbuu ykn dabsuu hin qabne mirkaneessuuf, faayila naannoo keessatti hash godhi fi sarara `SHA256SUMS` walitti bira qabbi. Fuula baasii haaraa bani → **Assets** → `SHA256SUMS` buusi.
 
@@ -297,7 +332,7 @@ Sakattaa malwaare miilaafi baasii barbaaddaa? Faayila [VirusTotal](https://www.v
 </details>
 
 <details>
-<summary><strong>Windows: Fayyadu vs Portable</strong></summary>
+<summary><strong>📦 Windows: Fayyadu vs Portable</strong></summary>
 
 |               | NSIS Fayyadu | Portable `.exe` |
 | ------------- | :----------------------: | :---------------------: |
@@ -313,7 +348,7 @@ Sakattaa malwaare miilaafi baasii barbaaddaa? Faayila [VirusTotal](https://www.v
 
 ---
 
-## <a id="why"></a>Maaliif Arroxy
+## <a id="why"></a>⚖️ Maaliif Arroxy
 
 Waltajjii maayyii walitti bira qabuu filannoolee beekamoo wajjin:
 
@@ -330,7 +365,7 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 
 ---
 
-## <a id="privacy"></a>Icciitii
+## <a id="privacy"></a>🔒 Icciitii
 
 Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.
 
@@ -340,41 +375,81 @@ Explore seensa mataa isaa qaba, biraawzara keetii addaa, Arroxyn unka seensaa go
 
 ---
 
-## <a id="faq"></a>Gaaffilee Deddeebii
+## <a id="faq"></a>❓ Gaaffilee Deddeebii
 
-**Dhuguma bilisaa dha?**
+<details>
+<summary><strong>Dhuguma bilisaa dha?</strong></summary>
+
 Eeyyee — hayyama MIT, sadarkaa kafaltii hin jiru, amaloota dhorkamuun hin jiru.
 
-**Qulqullina viidiyoo maal buusuu danda'a?**
+</details>
+
+<details>
+<summary><strong>Qulqullina viidiyoo maal buusuu danda'a?</strong></summary>
+
 YouTube tajaajiluu danda'u: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, sagalee qofas. 60 fps, 120 fps, fi HDR streams akka jiru eegamu.
 
-**Sagalee qofaa MP3 akka ta'uun baasuu danda'aa?**
+</details>
+
+<details>
+<summary><strong>Sagalee qofaa MP3 akka ta'uun baasuu danda'aa?</strong></summary>
+
 Eeyyee. Menu format keessaa *audio qofa* filadhu, booda MP3, M4A/AAC, Opus yookaan WAV filadhu.
 
-**Viidiyoowwan akkaawuntii YouTube barbaadan akkamitti buufadha?**
+</details>
+
+<details>
+<summary><strong>Viidiyoowwan akkaawuntii YouTube barbaadan akkamitti buufadha?</strong></summary>
+
 Tabii Explore keessatti altokko seeni. Yeroo sana Arroxyn viidiyoowwan dhuunfaa fi miseensoota qofaaf kan akkaawuntiin kee ilaaluu danda'u, viidiyoowwan umurii daangeffaman yoo umurii akkaawuntii mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte buufachuu danda'a. Seensa sana yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa fayyadama; kan hafe hundi akka duraan buufama. Kun filannoo **Seensa Explore** dha, qindoomina kuukkii keessatti jalqabaatti tarreeffamee Kan Gorfamu jedhamee mallatteeffame, Arroxyn immoo yeroo jalqabaaf Explore banattu siif filata. Wiki yt-dlp [automatic akkaawuntii seenaan irratti hundaa'e akkaawuntii Google mallatteessisuu danda'a](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) jedha; kanaaf akkaawuntiin lammaffaan filannoo nageenya caalu dha.
 
-**YouTube waan tokko jijjiirte itti fufaa hojeta?**
+</details>
+
+<details>
+<summary><strong>YouTube waan tokko jijjiirte itti fufaa hojeta?</strong></summary>
+
 yt-dlp yeroo eegaluu irratti ofumaan haaromfama, fi Arroxy yeroo YouTube waan tokko jijjiirtu ariitiidhaan sirreessa erga. YouTube bot akka hin taane akka mirkaneessitu yoo gaafate, Arroxy yoo Explore keessatti seentee jirta seensa Explore kee illee ni yaala, kuukkiin faayila ykn biraawzara irraa immoo qindoomina kuukkii keessatti ni argama.
 
-**Arroxy afaan meeqa keessatti argamu?**
+</details>
+
+<details>
+<summary><strong>Arroxy afaan meeqa keessatti argamu?</strong></summary>
+
 Afaanota 31 battalumatti ni argatta: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy yeroo jalqaba banamu afaan sirna hojii kee ofumaan adda baasa, akkasumas filataa afaanii toolbar keessa jiru irraa yeroo kamiyyuu jijjiiruu dandeessa. Runtime locale JSON src/shared/i18n/locales/ keessa jira, katalogiin PO hiiktotaaf ammoo i18n/locales/ keessa jira — gumaachuuf GitHub irratti PR bani.
 
-**Waan biraa fayyadu barbaachisaa?**
+</details>
+
+<details>
+<summary><strong>Waan biraa fayyadu barbaachisaa?</strong></summary>
+
 Lakki. yt-dlp jalqaba banuu irratti ofumaan buufamee meeshaa kee irratti kuufama; ffmpeg fi ffprobe app waliin dhufu. Sana booda qindaaʼinni dabalataa hin barbaachisu.
 
-**Playlist ykn chaanaalii guutuu buusuu danda'aa?**
+</details>
+
+<details>
+<summary><strong>Playlist ykn chaanaalii guutuu buusuu danda'aa?</strong></summary>
+
 Eeyyee — lamaan isaaniiyyuu. URL playlist ykn channel maxxansi (fkn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); galfata meeqa akka sakatta’u filadhu, ergasii tarree guutuu queue godhi ykn viidiyoo addaa filadhu. Filtraroonni guyyaa gara fuulduraatti dhufu.
 
-**macOS "app miidhaameera" jedha — maal godhaa?**
+</details>
+
+<details>
+<summary><strong>macOS "app miidhaameera" jedha — maal godhaa?</strong></summary>
+
 Sun macOS Gatekeeper app mallattoo hin qabne dhorku, miidhaa dhugaa miti. Ajajoota Terminal quarantine haquu fi Arroxy banuuf [macOS first launch](#macos-first-launch) ilaali.
 
-**Viidiyoo YouTube buusuu seeraa dha?**
+</details>
+
+<details>
+<summary><strong>Viidiyoo YouTube buusuu seeraa dha?</strong></summary>
+
 Fayyadama dhuunfaa, dhoksaa qofaaf yeroo hedduun mootummoota heddu keessatti fudhatama. [Dambii Tajaajilaaf](https://www.youtube.com/t/terms) YouTube fi seeraa mirga-qopheessaa naannoo keetti hordofuuf ati itti gaafatamtummaa qabda.
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>Karoora
+## <a id="roadmap"></a>🗺️ Karoora
 
 Amma iyyuu karoorfame — tilmaamaan tartiiba dursaatiin:
 
@@ -391,7 +466,7 @@ Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa
 
 ---
 
-## <a id="support"></a>Arroxy Deggeri
+## <a id="support"></a>💖 Arroxy Deggeri
 
 Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, telemetriin hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin ykn Tron'iin deggeruu dandeessa: teessoowwan [DONATE.md](DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.
 
@@ -399,7 +474,7 @@ Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, telemetriin hin j
 
 ---
 
-## <a id="tech"></a>Waan itti Ijaare
+## <a id="tech"></a>🛠️ Waan itti Ijaare
 
 <details>
 <summary><strong>Stack</strong></summary>
@@ -492,9 +567,10 @@ bun run dist:win     # supported host irratti Windows targets package godhi
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -549,9 +625,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## Hayyama fayyadamuu
+## 📜 Hayyama fayyadamuu
 
 Arroxy meeshaa fayyadama dhuunfaa, dhoksaa qofaaf. Buufannoonni kee Dambii Tajaajilaaf YouTube [Terms of Service](https://www.youtube.com/t/terms) fi seeraa mirga-qopheessaa naannoo keetii wajjin walsimuu mirkaneessuu qofaaf itti gaafatamaa taata. Arroxy fayyadamuudhaan mirgaa hin qabne qabiyyee buusuu, haaromsu, ykn raabsuu hin godhin. Guddiftoonni misooma dogoggoraa kamiifis itti gaafatamu hin qaban.
 

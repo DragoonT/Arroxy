@@ -197,6 +197,7 @@ export const pt = {
     "**Apenas áudio e legendas** funcionam em todos os sites compatíveis, não só no YouTube",
   feat_sites_4:
     "Se um site mudar, o yt-dlp lança correções toda semana e o Arroxy atualiza o binário automaticamente na inicialização",
+  shots_h3: "Capturas de ecrã",
   shot1_cap:
     "<b>Tela inicial do Quick Download</b><br/>Cole uma URL e baixe na hora com o seu perfil ativo",
   shot2_cap:

@@ -23,7 +23,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 > 🌐 Bu, yapay zeka destekli bir çeviridir. [İngilizce README](README.md) gerçek kaynak kabul edilir. Hata mı gördün? [PR'lar memnuniyetle karşılanır](../../pulls).
 
@@ -31,23 +31,26 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 
 ## İçindekiler
 
-- [Özellikler](#features)
-- [Kurulum ve ilk başlatma](#install)
+- [✨ Özellikler](#features)
+- [📥 Kurulum ve ilk başlatma](#install)
   - [Windows ilk başlatma](#windows-first-launch)
   - [macOS ilk başlatma](#macos-first-launch)
   - [Neden uyarı görebilirsin](#why-warning)
   - [Linux ilk başlatma](#linux-first-launch)
   - [İndirmeni doğrula (SHA256)](#verify)
-- [Neden Arroxy](#why)
-- [Gizlilik](#privacy)
-- [SSS](#faq)
-- [Yol haritası](#roadmap)
-- [Arroxy'yi destekle](#support)
-- [Kullanılan teknolojiler](#tech)
+- [⚖️ Neden Arroxy](#why)
+- [🔒 Gizlilik](#privacy)
+- [❓ SSS](#faq)
+- [🗺️ Yol haritası](#roadmap)
+- [💖 Arroxy'yi destekle](#support)
+- [🛠️ Kullanılan teknolojiler](#tech)
 
 ---
 
-## <a id="features"></a>Özellikler
+## <a id="features"></a>✨ Özellikler
+
+<details>
+<summary><strong>📸 Ekran görüntüleri</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -86,7 +89,10 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
   </tr>
 </table>
 
-### Explore: YouTube'a Arroxy içinden göz at
+</details>
+
+<details open>
+<summary><strong>🧭 Explore: YouTube'a Arroxy içinden göz at</strong></summary>
 
 - **Explore sekmesi** — YouTube'a Arroxy içinden göz at ve bulduklarını bağlantı kopyalamadan indir. **İndir · *profilin*** baktığın videoyu, oynatma listesini veya kanalı kuyruğa ekler; yanındaki ok profil değiştirir, sihirli değnek ise biçim, altyazı ve daha fazlasını seçebileceğin adım adım indirmeyi açar
 - **Sağ tıklayarak indir** — Explore'da herhangi bir video, oynatma listesi veya kanal bağlantısına sağ tıklayıp profilinle indir, **Profille indir** menüsünden başka bir profil seç, adım adım indirmeyi aç ya da bağlantıyı kopyala. Her videoyu önce açman gerekmez
@@ -96,20 +102,29 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 - **İkincil hesap kullan** — Explore'un ilk ekranı nedenini açıklar: bir hesapla indirmek, o hesabın kısıtlanması riskini bir ölçüde taşır. Girişi unutmak istediğinde Ayarlar'dan Explore'dan çıkış yap
 - **Reklam engelleyici** — Explore kendi sayfalarındaki reklamları ve izleyicileri engeller; indirmeler etkilenmez. Varsayılan olarak açık, Explore araç çubuğundaki kalkana tek tıklama onu kapatır ve Google'ın giriş sayfalarında asla devreye girmez. YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir
 
-### Kalite ve biçimler
+</details>
+
+<details>
+<summary><strong>🎞️ Kalite ve biçimler</strong></summary>
 
 - **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p'ye kadar
 - **Yüksek kare hızı** olduğu gibi korunur — 60 fps, 120 fps, HDR
 - **Ses** — yalnızca sesi MP3, M4A/AAC, Opus veya WAV olarak dışa aktar. Etkileşimli indirmelerde varsa kaynağın yerel surround/Dolby parçalarını (AC-3, E-AC-3, 5.1, DRC) seç veya genel **Surround / Dolby tercih et** varsayılanı ayarla
 - **Hedefli profiller** — *En iyi görüntü* (AV1 · VP9) veya *Akıllı TV* (MP4 · H.264); yeniden kodlamadan Otomatik, MP4, MKV veya WebM olarak kaydedilir. HDR ise *Otomatik* (yalnızca ekranın gösterebiliyorsa), *SDR* veya *HDR*
 
-### Gizlilik ve kontrol
+</details>
+
+<details>
+<summary><strong>🛡️ Gizlilik ve kontrol</strong></summary>
 
 - %100 yerel işleme — indirmeler doğrudan YouTube'dan diskine gider
 - **Açık kaynak** — her satır denetlenebilir, MIT lisanslı
 - Dosyalar doğrudan seçtiğin klasöre kaydedilir
 
-### İş akışı
+</details>
+
+<details>
+<summary><strong>⚡ İş akışı</strong></summary>
 
 - **Genel indirme kısayolu** — herhangi bir uygulamada bir bağlantı kopyala ve `Ctrl+Shift+D` (macOS'ta `Cmd+Shift+D`) tuşlarına bas; Arroxy pencereyi açmadan aktif profilinle kuyruğa ekler ve bir bildirim bunu doğrular. Varsayılan olarak açık, yeniden atanabilir
 - **Esnek başlangıç modları** — rehberli tek indirme, oynatma listesi/kanal seçici, toplu URL yapıştırma, kayıtlı varsayılanlarla Hızlı İndirme veya Explore'da gezip indirme seç
@@ -131,7 +146,10 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 - **Aurora veya Minimal, koyu veya açık** — hareketli bir gökyüzü üzerinde cam paneller ya da sakin düz yüzeyler; alt bilgi çubuğundan değiştir. Grafik hızlandırması olmayan bilgisayarlar otomatik olarak Minimal'i alır
 - **Mac menü çubuğu** — macOS'ta menü çubuğundan Ayarlar'ı (`Cmd+,`) aç, indirme hızı sınırını belirle, stil ve temayı değiştir, günlükleri aç ya da tanılama dosyasını kaydet
 
-### Altyazılar ve son işleme
+</details>
+
+<details>
+<summary><strong>📝 Altyazılar ve son işleme</strong></summary>
 
 - **Altyazılar** SRT, VTT veya ASS olarak — manuel ya da otomatik oluşturulmuş, mevcut herhangi bir dilde
 - Videonun yanına kaydet, `.mkv` içine göm veya `Subtitles/` alt klasöründe düzenle
@@ -139,16 +157,21 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 - **SponsorBlock** — sponsorları, intro'ları, outro'ları ve öz tanıtımları atla ya da bölüm olarak işaretle
 - **Gömülü meta veriler** — başlık, yükleme tarihi, kanal, açıklama, küçük resim ve bölüm işaretleri dosyaya yazılır
 
-### YouTube + 2000 site
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + 2000 site</strong></summary>
 
 - **YouTube, tam kapsamlı** — Videolar, Shorts, Kanallar, Oynatma Listeleri, YouTube Music ve Podcast'ler birinci sınıf kaynak olarak ele alınır
 - **yt-dlp aracılığıyla 2000+ diğer site** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org ve daha fazlası
 - **Yalnızca ses ve altyazılar** yalnızca YouTube'da değil, desteklenen her sitede çalışır
 - Bir site değişirse yt-dlp haftalık düzeltmeler yayınlar ve Arroxy açılışta ikili dosyayı otomatik günceller
 
+</details>
+
 ---
 
-## <a id="install"></a>Kurulum ve ilk başlatma
+## <a id="install"></a>📥 Kurulum ve ilk başlatma
 
 **Windows**
 
@@ -187,7 +210,8 @@ Sürümler yalnızca x86_64'tür. `curl` yok mu? `curl -fsSL` yerine `wget -qO-`
 
 [**Tüm sürüm dosyaları →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Windows ilk başlatma
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Windows ilk başlatma</strong></summary>
 
 İlk başlatmada **"Windows bilgisayarınızı korudu"** veya **"Bilinmeyen yayımcı"** görebilirsin. Bu hem `Arroxy-win-x64-Setup.exe` hem de `Arroxy-win-x64-Portable.exe` için geçerlidir. Arroxy ücretsiz ve açık kaynaklıdır; Windows derlemeleri ücretli bir sertifikayla kod imzalı değildir, SmartScreen bu yüzden işaretler. Bu, Arroxy’nin otomatik olarak güvensiz olduğu anlamına gelmez. Devam etmek için:
 
@@ -207,7 +231,10 @@ Defender sezgisel kuralları bazen imzasız NSIS kurucuları ve Electron taşın
 
 Scoop mu tercih edersiniz? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>macOS ilk başlatma
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 macOS ilk başlatma</strong></summary>
 
 Arroxy henüz macOS için kod imzalı değildir, bu yüzden Gatekeeper DMG'den kurduktan sonra korkutucu *"Arroxy.app is damaged and can't be opened"* penceresini gösterebilir. Bu mesaj macOS'un imzasız uygulamayı karantinaya aldığı anlamına gelir; uygulama dosyalarının gerçekten hasarlı olduğu anlamına gelmez. Güncel macOS'ta güvenilir çözüm Terminal'dir:
 
@@ -229,7 +256,10 @@ open /Applications/Arroxy.app
 
 > macOS derlemeleri Apple Silicon ve Intel CI runner'larında üretilir. Sorun yaşarsan lütfen [issue aç](../../issues) — macOS kullanıcılarından gelen geri bildirim macOS test döngüsünü doğrudan şekillendirir.
 
-### <a id="why-warning"></a>Neden uyarı görebilirsin
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ Neden uyarı görebilirsin</strong></summary>
 
 Arroxy açık kaynaklı ve MIT lisanslıdır. Windows ve macOS derlemeleri **kod imzalı değildir** — Apple Developer ID ve Windows EV kod imzalama sertifikalarının her biri yılda yüzlerce dolara mal olur; bağımsız bir proje bunu cebinden öder. Bu imzalar olmayınca Windows SmartScreen ve macOS Gatekeeper ilk başlatmada uyarır. Uyarılar *işletim sisteminin yayımcıyı tanımadığı* anlamına gelir — Arroxy'nin kötü amaçlı yazılım olduğu anlamına gelmez.
 
@@ -239,7 +269,10 @@ Arroxy'yi kendin doğrulamanın giderek daha sıkı üç yolu:
 - **SHA256 kontrol et.** Dosyanı yayımlanan [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) ile eşleştir — aşağıdaki [İndirmeni doğrula](#verify) bölümüne bak.
 - **Üçüncü taraf taraması yap.** Dosyayı [VirusTotal](https://www.virustotal.com) üzerine yükle.
 
-### <a id="linux-first-launch"></a>Linux ilk başlatma
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Linux ilk başlatma</strong></summary>
 
 AppImage'lar doğrudan çalışır — kurulum gerekmez. Sadece dosyayı yürütülebilir olarak işaretlemen gerekir.
 
@@ -271,8 +304,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **Sürüm sayfasındaki Linux indirmeleri yalnızca x86_64'tür.** ARM64 makinelerde (Raspberry Pi, Asahi Linux) Flatpak kurulur ama açılışta `bwrap: execvp ldconfig: Exec format error` hatasıyla başarısız olur.
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>İndirmeni doğrula (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 İndirmeni doğrula (SHA256)</strong></summary>
 
 Her sürüm ikili dosyaların yanında bir `SHA256SUMS` dosyası yayımlar. İndirmenin aktarım sırasında bozulmadığını veya değiştirilmediğini kontrol etmek için dosyanı yerel olarak hash'le ve `SHA256SUMS` içindeki satırla eşleştir. En son sürüm sayfasını aç → **Assets** → `SHA256SUMS` indir.
 
@@ -299,7 +334,7 @@ sha256sum Arroxy-linux-x64.AppImage
 </details>
 
 <details>
-<summary><strong>Windows: Kurucu mu Taşınabilir mi</strong></summary>
+<summary><strong>📦 Windows: Kurucu mu Taşınabilir mi</strong></summary>
 
 |               | NSIS Kurucu | Taşınabilir `.exe` |
 | ------------- | :----------------------: | :---------------------: |
@@ -315,7 +350,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="why"></a>Neden Arroxy
+## <a id="why"></a>⚖️ Neden Arroxy
 
 En yaygın alternatiflerle yan yana karşılaştırma:
 
@@ -332,7 +367,7 @@ Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosy
 
 ---
 
-## <a id="privacy"></a>Gizlilik
+## <a id="privacy"></a>🔒 Gizlilik
 
 İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.
 
@@ -342,41 +377,81 @@ Explore, tarayıcından ayrı kendi girişini tutar ve Arroxy giriş formunu asl
 
 ---
 
-## <a id="faq"></a>SSS
+## <a id="faq"></a>❓ SSS
 
-**Gerçekten ücretsiz mi?**
+<details>
+<summary><strong>Gerçekten ücretsiz mi?</strong></summary>
+
 Evet — MIT lisanslı, premium katman yok, özellik kilidi yok.
 
-**Hangi video kalitelerini indirebilirim?**
+</details>
+
+<details>
+<summary><strong>Hangi video kalitelerini indirebilirim?</strong></summary>
+
 YouTube ne sunuyorsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızca ses. 60 fps, 120 fps ve HDR akışlar olduğu gibi korunur.
 
-**Yalnızca sesi MP3 olarak çıkarabilir miyim?**
+</details>
+
+<details>
+<summary><strong>Yalnızca sesi MP3 olarak çıkarabilir miyim?</strong></summary>
+
 Evet. Biçim menüsünde *yalnızca ses* seç ve MP3, M4A/AAC, Opus veya WAV tercih et.
 
-**Hesap gerektiren YouTube videolarını nasıl indiririm?**
+</details>
+
+<details>
+<summary><strong>Hesap gerektiren YouTube videolarını nasıl indiririm?</strong></summary>
+
 Explore sekmesinde bir kez giriş yap. Arroxy bunun ardından hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Girişi yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır; geri kalan her şey eskisi gibi iner. Bu, çerez ayarlarında en başta listelenen ve Önerilen olarak işaretlenen **Explore girişi** seçeneğidir ve Explore'u ilk açtığında Arroxy bunu senin için seçer. yt-dlp wiki'si [oturum açılmış otomasyonun bir Google hesabını işaretleyebileceğini](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) belirtir, bu yüzden ikincil hesap daha güvenli bir seçimdir.
 
-**YouTube bir şey değiştirdiğinde çalışmaya devam eder mi?**
+</details>
+
+<details>
+<summary><strong>YouTube bir şey değiştirdiğinde çalışmaya devam eder mi?</strong></summary>
+
 yt-dlp açılışta otomatik güncellenir ve YouTube bir şey değiştirdiğinde Arroxy hızlıca düzeltme yayımlar. YouTube robot olmadığını doğrulamanı istediğinde, Explore'da giriş yaptıysan Arroxy Explore girişini de dener; bir dosyadaki veya tarayıcındaki çerezler de çerez ayarlarında kullanılabilir.
 
-**Arroxy hangi dillerde mevcut?**
+</details>
+
+<details>
+<summary><strong>Arroxy hangi dillerde mevcut?</strong></summary>
+
 Kutudan çıktığı gibi 31 dil: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy ilk açılışta işletim sisteminin dilini otomatik algılar ve araç çubuğundaki dil seçiciden istediğin zaman değiştirebilirsin. Çalışma zamanı locale JSON dosyaları src/shared/i18n/locales/ içinde, çevirmenlere yönelik PO katalogları i18n/locales/ içinde bulunur — katkı için GitHub'da PR aç.
 
-**Başka bir şey kurmam gerekir mi?**
+</details>
+
+<details>
+<summary><strong>Başka bir şey kurmam gerekir mi?</strong></summary>
+
 Hayır. yt-dlp ilk açılışta otomatik indirilir ve makinede önbelleğe alınır; ffmpeg ve ffprobe uygulamayla gelir. Bundan sonra ek kurulum gerekmez.
 
-**Oynatma listeleri veya tüm kanalları indirebilir miyim?**
+</details>
+
+<details>
+<summary><strong>Oynatma listeleri veya tüm kanalları indirebilir miyim?</strong></summary>
+
 Evet — ikisi de. Bir oynatma listesi URL'si veya kanal URL'si yapıştır (örn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); kaç kayıt taranacağını seç, sonra tüm listeyi kuyruğa al veya belirli videoları seç. Tarih aralığı filtreleri yakında geliyor.
 
-**macOS "uygulama hasarlı" diyor — ne yapmalıyım?**
+</details>
+
+<details>
+<summary><strong>macOS "uygulama hasarlı" diyor — ne yapmalıyım?</strong></summary>
+
 Bu, macOS Gatekeeper’ın imzasız uygulamayı engellemesidir; gerçek hasar değildir. Karantinayı kaldırıp Arroxy’yi başlatan Terminal komutları için [macOS ilk başlatma](#macos-first-launch) bölümüne bak.
 
-**YouTube videoları indirmek yasal mı?**
+</details>
+
+<details>
+<summary><strong>YouTube videoları indirmek yasal mı?</strong></summary>
+
 Kişisel, özel kullanım için çoğu yargı alanında genellikle kabul edilir. YouTube'un [Hizmet Şartları](https://www.youtube.com/t/terms) ve yerel telif hakkı yasalarına uymaktan sen sorumlusun.
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>Yol haritası
+## <a id="roadmap"></a>🗺️ Yol haritası
 
 Hâlâ planlananlar — yaklaşık öncelik sırasıyla:
 
@@ -393,7 +468,7 @@ Aklında bir özellik mi var? [İstek aç](../../issues) — topluluk girdisi ö
 
 ---
 
-## <a id="support"></a>Arroxy'yi destekle
+## <a id="support"></a>💖 Arroxy'yi destekle
 
 Arroxy ücretsizdir ve MIT lisanslıdır — reklam yok, telemetri yok, ücretli sürüm yok. Sana zaman kazandırıyorsa geliştirmeyi Bitcoin veya Tron ile destekleyebilirsin: adresler, tek resmi kaynak olan [DONATE.md](DONATE.md) dosyasında. Arroxy sana asla e-posta veya özel mesajla adres göndermez. Depoya yıldız vermek, hata bildirmek ve çevirileri iyileştirmek de en az o kadar yardımcı olur.
 
@@ -401,7 +476,7 @@ Arroxy ücretsizdir ve MIT lisanslıdır — reklam yok, telemetri yok, ücretli
 
 ---
 
-## <a id="tech"></a>Kullanılan teknolojiler
+## <a id="tech"></a>🛠️ Kullanılan teknolojiler
 
 <details>
 <summary><strong>Teknoloji yığını</strong></summary>
@@ -494,9 +569,10 @@ bun run dist:win     # desteklenen bir host üzerinde Windows hedeflerini paketl
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -551,9 +627,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## Kullanım şartları
+## 📜 Kullanım şartları
 
 Arroxy yalnızca kişisel, özel kullanım için bir araçtır. İndirmelerinin YouTube [Hizmet Şartları](https://www.youtube.com/t/terms) ve bulunduğun yargı alanındaki telif hakkı yasalarına uygun olduğundan yalnızca sen sorumlusun. Kullanma hakkına sahip olmadığın içerikleri indirmek, çoğaltmak veya dağıtmak için Arroxy'yi kullanma. Geliştiriciler kötüye kullanımdan sorumlu değildir.
 

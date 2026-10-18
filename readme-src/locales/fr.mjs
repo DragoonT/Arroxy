@@ -197,6 +197,7 @@ export const fr = {
     "**L'audio seul et les sous-titres** fonctionnent sur chaque site supporté, pas seulement YouTube",
   feat_sites_4:
     "Si un site change, yt-dlp publie des correctifs chaque semaine et Arroxy met à jour le binaire automatiquement au lancement",
+  shots_h3: "Captures d'écran",
   shot1_cap:
     "<b>Accueil Téléchargement rapide</b><br/>Collez une URL et lancez-la aussitôt avec votre profil actif",
   shot2_cap:

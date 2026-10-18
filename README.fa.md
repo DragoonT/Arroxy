@@ -23,7 +23,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 > 🌐 این ترجمه با کمک هوش مصنوعی تهیه شده است. [README انگلیسی](README.md) منبع معتبر است. خطایی پیدا کردید؟ [یک PR باز کنید](../../pulls).
 
@@ -31,23 +31,26 @@
 
 ## فهرست
 
-- [قابلیت‌ها](#features)
-- [نصب و نخستین اجرا](#install)
+- [✨ قابلیت‌ها](#features)
+- [📥 نصب و نخستین اجرا](#install)
   - [نخستین اجرا در Windows](#windows-first-launch)
   - [نخستین اجرا در macOS](#macos-first-launch)
   - [چرا ممکن است هشدار ببینید](#why-warning)
   - [نخستین اجرا در Linux](#linux-first-launch)
   - [بررسی دانلود (SHA256)](#verify)
-- [چرا Arroxy](#why)
-- [حریم خصوصی](#privacy)
-- [پرسش‌های متداول](#faq)
-- [نقشهٔ راه](#roadmap)
-- [پشتیبانی از Arroxy](#support)
-- [فناوری‌های به‌کاررفته](#tech)
+- [⚖️ چرا Arroxy](#why)
+- [🔒 حریم خصوصی](#privacy)
+- [❓ پرسش‌های متداول](#faq)
+- [🗺️ نقشهٔ راه](#roadmap)
+- [💖 پشتیبانی از Arroxy](#support)
+- [🛠️ فناوری‌های به‌کاررفته](#tech)
 
 ---
 
-## <a id="features"></a>قابلیت‌ها
+## <a id="features"></a>✨ قابلیت‌ها
+
+<details>
+<summary><strong>📸 تصاویر صفحه</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -86,7 +89,10 @@
   </tr>
 </table>
 
-### Explore: مرور YouTube داخل Arroxy
+</details>
+
+<details open>
+<summary><strong>🧭 Explore: مرور YouTube داخل Arroxy</strong></summary>
 
 - **زبانهٔ Explore** — YouTube را داخل Arroxy مرور کنید و هرچه پیدا کردید بدون کپی‌کردن پیوند دانلود کنید. **دانلود · *نمایهٔ شما*** ویدیو، فهرست پخش یا کانالی را که می‌بینید در صف می‌گذارد؛ پیکان کنارش نمایه را عوض می‌کند و چوب جادو دانلود مرحله‌به‌مرحله را برای انتخاب قالب‌ها، زیرنویس و موارد دیگر باز می‌کند
 - **دانلود با کلیک راست** — روی هر پیوند ویدیو، فهرست پخش یا کانال در Explore کلیک راست کنید تا آن را با نمایهٔ خود دانلود کنید، از **دانلود با** نمایهٔ دیگری انتخاب کنید، دانلود مرحله‌به‌مرحله را باز کنید یا پیوند را کپی کنید. لازم نیست اول هر ویدیو را باز کنید
@@ -96,20 +102,29 @@
 - **از حساب ثانویه استفاده کنید** — صفحهٔ اول Explore دلیلش را توضیح می‌دهد: دانلود با حساب کمی خطر محدود شدن آن حساب را دارد. هر زمان خواستید ورود را فراموش کند، از Explore در تنظیمات خارج شوید
 - **مسدودکنندهٔ تبلیغات** — Explore تبلیغات و ردیاب‌ها را در صفحه‌های خودش مسدود می‌کند؛ دانلودها تأثیری نمی‌گیرند. به‌طور پیش‌فرض روشن است، یک کلیک روی سپر در نوار ابزار Explore آن را خاموش می‌کند و هرگز روی صفحه‌های ورود Google عمل نمی‌کند. YouTube ممکن است برای حساب‌های واردشده در برابر مسدودکننده‌های تبلیغات مقاومت کند
 
-### کیفیت و قالب‌ها
+</details>
+
+<details>
+<summary><strong>🎞️ کیفیت و قالب‌ها</strong></summary>
 
 - تا **4K UHD (2160p)**، همچنین 1440p، 1080p، 720p، 480p و 360p
 - **نرخ فریم بالا** بدون تغییر حفظ می‌شود — 60 fps، 120 fps و HDR
 - **صدا** — فقط صدا را به MP3، M4A/AAC، Opus یا WAV تبدیل کنید. در دانلود تعاملی، اگر موجود باشد قطعهٔ فراگیر/Dolby اصلی منبع (AC-3، E-AC-3، 5.1، DRC) را انتخاب کنید یا گزینهٔ سراسری **اولویت با صدای فراگیر / Dolby** را تنظیم کنید
 - **نمایه‌هایی با هدف** — *بهترین تصویر* (AV1 · VP9) یا *تلویزیون هوشمند* (MP4 · H.264)، ذخیره‌شده به‌صورت خودکار، MP4، MKV یا WebM بدون کدگذاری دوباره. HDR می‌تواند *خودکار* (فقط وقتی صفحه‌نمایش شما بتواند نمایشش دهد)، *SDR* یا *HDR* باشد
 
-### حریم خصوصی و کنترل
+</details>
+
+<details>
+<summary><strong>🛡️ حریم خصوصی و کنترل</strong></summary>
 
 - پردازش ۱۰۰٪ محلی — دانلود مستقیماً از YouTube روی دیسک شما می‌رود
 - **متن‌باز** — همهٔ خطوط قابل بررسی، با مجوز MIT
 - فایل‌ها مستقیماً در پوشهٔ انتخابی شما ذخیره می‌شوند
 
-### روند کار
+</details>
+
+<details>
+<summary><strong>⚡ روند کار</strong></summary>
 
 - **میان‌بر سراسری دانلود** — در هر برنامه‌ای پیوندی را کپی کنید و `Ctrl+Shift+D` (در macOS، `Cmd+Shift+D`) را بزنید؛ Arroxy بدون بازکردن پنجره آن را با نمایهٔ فعال به صف می‌فرستد و یک اعلان تأیید می‌کند. به‌طور پیش‌فرض فعال و قابل تغییر است
 - **روش‌های شروع انعطاف‌پذیر** — دانلود تکی راهنما‌دار، انتخابگر فهرست پخش/کانال، چسباندن گروهی نشانی‌ها، دانلود سریع با پیش‌فرض‌های ذخیره‌شده، یا مرور و دانلود از Explore را انتخاب کنید
@@ -131,7 +146,10 @@
 - **آرورا یا مینیمال، تیره یا روشن** — پنل‌های شیشه‌ای روی آسمانی متحرک، یا سطوح ساده و آرام؛ از پایین پنجره عوض کنید. رایانه‌های بدون شتاب‌دهی گرافیکی به‌طور خودکار مینیمال می‌گیرند
 - **نوار منوی Mac** — در macOS تنظیمات (`Cmd+,`) را باز کنید، محدودیت سرعت دانلود را تعیین کنید، سبک و پوسته را عوض کنید و از نوار منو گزارش‌ها را باز کنید یا فایل عیب‌یابی را ذخیره کنید
 
-### زیرنویس و پس‌پردازش
+</details>
+
+<details>
+<summary><strong>📝 زیرنویس و پس‌پردازش</strong></summary>
 
 - **زیرنویس** در قالب SRT، VTT یا ASS — دستی یا خودکار و به هر زبان موجود
 - کنار ویدیو ذخیره کنید، در `.mkv` بگنجانید یا در زیرپوشهٔ `Subtitles/` مرتب کنید
@@ -139,16 +157,21 @@
 - **SponsorBlock** — بخش‌های تبلیغ، مقدمه، پایان و تبلیغ شخصی را رد کنید یا به‌صورت فصل علامت بزنید
 - **فرادادهٔ جاسازی‌شده** — عنوان، تاریخ بارگذاری، کانال، توضیح، تصویر بندانگشتی و نشانگر فصل در فایل نوشته می‌شوند
 
-### YouTube + ۲۰۰۰ سایت
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + ۲۰۰۰ سایت</strong></summary>
 
 - **پشتیبانی کامل YouTube** — ویدیوها، Shorts، کانال‌ها، فهرست‌های پخش، YouTube Music و پادکست‌ها منابع درجه‌یک هستند
 - **بیش از ۲۰۰۰ سایت دیگر** با yt-dlp — Vimeo، Twitch، Twitter/X، TikTok، SoundCloud، Bandcamp، Bilibili، BBC iPlayer، archive.org و بسیاری دیگر
 - **فقط صدا و زیرنویس** در همهٔ سایت‌های پشتیبانی‌شده کار می‌کند، نه فقط YouTube
 - اگر سایتی تغییر کند، yt-dlp هر هفته اصلاحیه می‌دهد و Arroxy فایل اجرایی را هنگام شروع خودکار به‌روز می‌کند
 
+</details>
+
 ---
 
-## <a id="install"></a>نصب و نخستین اجرا
+## <a id="install"></a>📥 نصب و نخستین اجرا
 
 **Windows**
 
@@ -187,7 +210,8 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 [**همهٔ فایل‌های انتشار ←**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>نخستین اجرا در Windows
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 نخستین اجرا در Windows</strong></summary>
 
 در نخستین اجرا ممکن است پیام **"Windows protected your PC"** یا **"Unknown publisher"** را ببینید. این موضوع برای هر دو فایل `Arroxy-win-x64-Setup.exe` و `Arroxy-win-x64-Portable.exe` صدق می‌کند. Arroxy رایگان و متن‌باز است، اما ساخت‌های Windows با گواهی پولی امضا نشده‌اند و SmartScreen به همین دلیل هشدار می‌دهد. این هشدار لزوماً به معنی ناامن‌بودن Arroxy **نیست**. برای ادامه:
 
@@ -207,7 +231,10 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Scoop را ترجیح می‌دهید؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>نخستین اجرا در macOS
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 نخستین اجرا در macOS</strong></summary>
 
 ساخت‌های macOS در Arroxy امضای ad-hoc دارند اما Apple آن‌ها را notarize نکرده است؛ بنابراین Gatekeeper نخستین اجرا را با پیام *"Arroxy.app" Not Opened — Apple could not verify "Arroxy.app" is free of malware* مسدود می‌کند. یعنی macOS نمی‌تواند برنامه را نزد Apple بررسی کند، نه اینکه فایل مشکلی دارد. نصب با Homebrew این پنجره را نشان نمی‌دهد. اگر DMG را نصب کرده‌اید، یک فرمان ترمینال کافی است:
 
@@ -229,7 +256,10 @@ open /Applications/Arroxy.app
 
 > ساخت‌های macOS در CI روی اجراکننده‌های Apple Silicon و Intel تولید می‌شوند. اگر مشکلی دیدید، [گزارش باز کنید](../../issues)؛ بازخورد کاربران macOS مستقیماً چرخهٔ آزمون را شکل می‌دهد.
 
-### <a id="why-warning"></a>چرا ممکن است هشدار ببینید
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ چرا ممکن است هشدار ببینید</strong></summary>
 
 Arroxy متن‌باز و دارای مجوز MIT است. ساخت‌های Windows و macOS **امضای کد ندارند**؛ گواهی‌های Apple Developer ID و امضای Windows EV هرکدام سالانه صدها دلار هزینه دارند که باید از جیب یک پروژهٔ مستقل پرداخت شود. بدون این امضاها، Windows SmartScreen و macOS Gatekeeper در نخستین اجرا هشدار می‌دهند. هشدار یعنی *سیستم‌عامل ناشر را نمی‌شناسد*، نه اینکه Arroxy بدافزار است.
 
@@ -239,7 +269,10 @@ Arroxy متن‌باز و دارای مجوز MIT است. ساخت‌های Wind
 - **SHA256 را بررسی کنید.** فایل را با [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) منتشرشده تطبیق دهید؛ بخش [بررسی دانلود](#verify) را ببینید.
 - **از اسکن بیرونی استفاده کنید.** فایل را در [VirusTotal](https://www.virustotal.com) بارگذاری کنید.
 
-### <a id="linux-first-launch"></a>نخستین اجرا در Linux
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 نخستین اجرا در Linux</strong></summary>
 
 AppImage بدون نصب مستقیماً اجرا می‌شود. فقط باید فایل را اجرایی کنید.
 
@@ -271,8 +304,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **دانلودهای Linux در صفحهٔ انتشار فقط برای x86_64 هستند.** روی دستگاه ARM64 (مانند Raspberry Pi و Asahi Linux)، Flatpak نصب می‌شود اما هنگام اجرا خطای `bwrap: execvp ldconfig: Exec format error` می‌دهد.
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>بررسی دانلود (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 بررسی دانلود (SHA256)</strong></summary>
 
 هر انتشار فایل `SHA256SUMS` را کنار فایل‌های اجرایی منتشر می‌کند. برای اطمینان از خراب یا دست‌کاری‌نشدن فایل در انتقال، hash را روی دستگاه محاسبه و با سطر متناظر در `SHA256SUMS` مقایسه کنید. صفحهٔ آخرین انتشار را باز کنید ← **Assets** ← `SHA256SUMS` را بگیرید.
 
@@ -299,7 +334,7 @@ sha256sum Arroxy-linux-x64.AppImage
 </details>
 
 <details>
-<summary><strong>Windows: نصاب یا نسخهٔ همراه</strong></summary>
+<summary><strong>📦 Windows: نصاب یا نسخهٔ همراه</strong></summary>
 
 |               | نصاب NSIS | `.exe` همراه |
 | ------------- | :----------------------: | :---------------------: |
@@ -315,7 +350,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="why"></a>چرا Arroxy
+## <a id="why"></a>⚖️ چرا Arroxy
 
 مقایسهٔ مستقیم با رایج‌ترین گزینه‌های جایگزین:
 
@@ -332,7 +367,7 @@ Arroxy برای یک کار ساخته شده است: نشانی را بچسبا
 
 ---
 
-## <a id="privacy"></a>حریم خصوصی
+## <a id="privacy"></a>🔒 حریم خصوصی
 
 دانلود با [yt-dlp](https://github.com/yt-dlp/yt-dlp) مستقیماً از YouTube به پوشهٔ انتخابی می‌رود و از سرور ثالث عبور نمی‌کند. سابقهٔ تماشا و دانلود، نشانی‌ها و محتوای فایل روی دستگاه شما می‌مانند.
 
@@ -342,41 +377,81 @@ Explore ورود جداگانهٔ خودش را نگه می‌دارد، مست�
 
 ---
 
-## <a id="faq"></a>پرسش‌های متداول
+## <a id="faq"></a>❓ پرسش‌های متداول
 
-**واقعاً رایگان است؟**
+<details>
+<summary><strong>واقعاً رایگان است؟</strong></summary>
+
 بله — مجوز MIT، بدون سطح پولی یا قابلیت قفل‌شده.
 
-**چه کیفیت‌هایی را می‌توانم دانلود کنم؟**
+</details>
+
+<details>
+<summary><strong>چه کیفیت‌هایی را می‌توانم دانلود کنم؟</strong></summary>
+
 هرچه YouTube ارائه دهد: 4K UHD (2160p)، 1440p، 1080p، 720p، 480p، 360p و فقط صدا. جریان‌های 60 fps، 120 fps و HDR بدون تغییر حفظ می‌شوند.
 
-**می‌توانم فقط صدا را به‌صورت MP3 بگیرم؟**
+</details>
+
+<details>
+<summary><strong>می‌توانم فقط صدا را به‌صورت MP3 بگیرم؟</strong></summary>
+
 بله. در منوی قالب *فقط صدا* را انتخاب کنید و MP3، M4A/AAC، Opus یا WAV را برگزینید.
 
-**ویدیوهایی را که حساب YouTube لازم دارند چطور دانلود کنم؟**
+</details>
+
+<details>
+<summary><strong>ویدیوهایی را که حساب YouTube لازم دارند چطور دانلود کنم؟</strong></summary>
+
 یک بار در زبانهٔ Explore وارد شوید. بعد از آن Arroxy می‌تواند ویدیوهای خصوصی و ویژهٔ اعضا را که حسابتان می‌تواند ببیند، ویدیوهای دارای محدودیت سنی (اگر سن حساب تأیید شده باشد) و فهرست‌های «تماشا در آینده» و «پسندیده‌ها» را دانلود کند. فقط وقتی از این ورود استفاده می‌کند که دانلودی به شکلی شکست بخورد که حساب بتواند رفعش کند؛ بقیهٔ چیزها مثل قبل دانلود می‌شوند. این گزینهٔ **ورود Explore** است که در تنظیمات کوکی اول فهرست آمده و «پیشنهادی» علامت خورده، و Arroxy اولین بار که Explore را باز می‌کنید خودش آن را انتخاب می‌کند. راهنمای yt-dlp یادآور می‌شود که [اتوماسیون با حساب واردشده ممکن است باعث علامت‌گذاری حساب Google شود](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)؛ پس حساب ثانویه انتخاب امن‌تری است.
 
-**وقتی YouTube چیزی را تغییر دهد باز هم کار می‌کند؟**
+</details>
+
+<details>
+<summary><strong>وقتی YouTube چیزی را تغییر دهد باز هم کار می‌کند؟</strong></summary>
+
 yt-dlp هنگام شروع خودکار به‌روز می‌شود و Arroxy پس از تغییرات YouTube سریع اصلاحیه می‌دهد. وقتی YouTube می‌خواهد تأیید کنید ربات نیستید، Arroxy در صورت ورود شما در Explore ورودتان را هم امتحان می‌کند و کوکی‌های فایل یا مرورگر در تنظیمات کوکی در دسترس‌اند.
 
-**Arroxy به چه زبان‌هایی در دسترس است؟**
+</details>
+
+<details>
+<summary><strong>Arroxy به چه زبان‌هایی در دسترس است؟</strong></summary>
+
 31 زبان آمادهٔ استفاده: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy در نخستین اجرا زبان سیستم‌عامل را خودکار تشخیص می‌دهد و هر زمان می‌توانید آن را از انتخابگر زبان نوار ابزار عوض کنید. JSONهای زبان زمان اجرا در src/shared/i18n/locales/ و کاتالوگ‌های PO مترجمان در i18n/locales/ هستند؛ برای مشارکت در GitHub یک PR باز کنید.
 
-**لازم است چیز دیگری نصب کنم؟**
+</details>
+
+<details>
+<summary><strong>لازم است چیز دیگری نصب کنم؟</strong></summary>
+
 خیر. yt-dlp در نخستین اجرا خودکار دانلود و روی دستگاه cache می‌شود؛ ffmpeg و ffprobe همراه برنامه هستند. پس از آن تنظیم اضافه‌ای لازم نیست.
 
-**می‌توانم فهرست پخش یا یک کانال کامل را دانلود کنم؟**
+</details>
+
+<details>
+<summary><strong>می‌توانم فهرست پخش یا یک کانال کامل را دانلود کنم؟</strong></summary>
+
 بله، هر دو. نشانی فهرست یا کانال را بچسبانید (مانند `youtube.com/@handle`، `/channel/UC…`، `/c/Name`، `/user/Old`)، تعداد موارد بررسی را انتخاب کنید و سپس کل فهرست یا ویدیوهای مشخص را به صف بفرستید. فیلتر بازهٔ تاریخ به‌زودی می‌آید.
 
-**macOS می‌گوید «برنامه آسیب‌دیده است»؛ چه کنم؟**
+</details>
+
+<details>
+<summary><strong>macOS می‌گوید «برنامه آسیب‌دیده است»؛ چه کنم؟</strong></summary>
+
 این Gatekeeper است که برنامهٔ بدون امضا را مسدود می‌کند، نه آسیب واقعی. فرمان‌های ترمینال برای پاک‌کردن قرنطینه و اجرای Arroxy را در [نخستین اجرا در macOS](#macos-first-launch) ببینید.
 
-**دانلود ویدیوهای YouTube قانونی است؟**
+</details>
+
+<details>
+<summary><strong>دانلود ویدیوهای YouTube قانونی است؟</strong></summary>
+
 برای استفادهٔ شخصی و خصوصی در بیشتر حوزه‌های قضایی عموماً پذیرفته می‌شود. مسئولیت رعایت [شرایط استفاده](https://www.youtube.com/t/terms) YouTube و قوانین حق نشر محل زندگی با شماست.
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>نقشهٔ راه
+## <a id="roadmap"></a>🗺️ نقشهٔ راه
 
 موارد برنامه‌ریزی‌شده، تقریباً به ترتیب اولویت:
 
@@ -393,7 +468,7 @@ yt-dlp هنگام شروع خودکار به‌روز می‌شود و Arroxy پ
 
 ---
 
-## <a id="support"></a>پشتیبانی از Arroxy
+## <a id="support"></a>💖 پشتیبانی از Arroxy
 
 Arroxy رایگان و دارای مجوز MIT است؛ بدون تبلیغ، بدون تله‌متری و بدون سطح پولی. اگر در وقتتان صرفه‌جویی می‌کند، می‌توانید با Bitcoin یا Tron از توسعه پشتیبانی کنید. نشانی‌ها در [DONATE.md](DONATE.md) هستند که تنها منبع رسمی است. Arroxy هرگز نشانی را با ایمیل یا پیام مستقیم نمی‌فرستد. ستاره‌دادن به مخزن، گزارش خطا و بهبود ترجمه‌ها نیز به همان اندازه کمک می‌کند.
 
@@ -401,7 +476,7 @@ Arroxy رایگان و دارای مجوز MIT است؛ بدون تبلیغ، ب
 
 ---
 
-## <a id="tech"></a>فناوری‌های به‌کاررفته
+## <a id="tech"></a>🛠️ فناوری‌های به‌کاررفته
 
 <details>
 <summary><strong>فناوری‌ها</strong></summary>
@@ -494,9 +569,10 @@ bun run dist:win     # ساخت هدف‌های Windows روی میزبان پش
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -551,9 +627,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## شرایط استفاده
+## 📜 شرایط استفاده
 
 Arroxy ابزاری فقط برای استفادهٔ شخصی و خصوصی است. مسئولیت اطمینان از سازگاری دانلودها با [شرایط استفاده](https://www.youtube.com/t/terms) YouTube و قوانین حق نشر حوزهٔ قضایی شما فقط بر عهدهٔ خودتان است. Arroxy را برای دانلود، تکثیر یا توزیع محتوایی که حق استفاده از آن را ندارید به کار نبرید. توسعه‌دهندگان مسئول سوءاستفاده نیستند.
 

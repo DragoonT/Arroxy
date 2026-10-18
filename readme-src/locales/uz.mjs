@@ -196,6 +196,7 @@ export const uz = {
     "**Faqat audio va subtitrlar** har qanday qo'llab-quvvatlanadigan saytda ishlaydi, nafaqat YouTube'da",
   feat_sites_4:
     "Sayt o'zgarsa, yt-dlp har hafta tuzatishlar chiqaradi va Arroxy ishga tushganda binarni avtomatik yangilaydi",
+  shots_h3: "Skrinshotlar",
   shot1_cap:
     "<b>Tezkor yuklab olish bosh sahifasi</b><br/>URL joylang va faol profilingiz bilan darhol yuklab oling",
   shot2_cap:

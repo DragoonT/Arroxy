@@ -23,7 +23,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../pulls)。
 
@@ -31,23 +31,26 @@
 
 ## 目錄
 
-- [功能](#features)
-- [安裝和首次啟動](#install)
+- [✨ 功能](#features)
+- [📥 安裝和首次啟動](#install)
   - [Windows 首次啟動](#windows-first-launch)
   - [macOS 首次啟動](#macos-first-launch)
   - [為什麼可能會看到警告](#why-warning)
   - [Linux 首次啟動](#linux-first-launch)
   - [驗證你的下載（SHA256）](#verify)
-- [為什麼選 Arroxy](#why)
-- [隱私](#privacy)
-- [常見問題](#faq)
-- [開發藍圖](#roadmap)
-- [支援 Arroxy](#support)
-- [技術堆疊](#tech)
+- [⚖️ 為什麼選 Arroxy](#why)
+- [🔒 隱私](#privacy)
+- [❓ 常見問題](#faq)
+- [🗺️ 開發藍圖](#roadmap)
+- [💖 支援 Arroxy](#support)
+- [🛠️ 技術堆疊](#tech)
 
 ---
 
-## <a id="features"></a>功能
+## <a id="features"></a>✨ 功能
+
+<details>
+<summary><strong>📸 螢幕截圖</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -86,7 +89,10 @@
   </tr>
 </table>
 
-### Explore：在 Arroxy 內瀏覽 YouTube
+</details>
+
+<details open>
+<summary><strong>🧭 Explore：在 Arroxy 內瀏覽 YouTube</strong></summary>
 
 - **Explore 分頁** — 在 Arroxy 內瀏覽 YouTube，不必複製連結就能下載你找到的內容。**下載 · *你的設定*** 會把你正在看的影片、播放清單或頻道加入佇列；旁邊的箭頭可切換設定，魔術棒則開啟逐步下載，讓你選擇格式、字幕等
 - **按右鍵下載** — 在 Explore 中對任何影片、播放清單或頻道連結按右鍵，即可用你的設定下載、從 **使用設定檔下載** 選擇其他設定、開啟逐步下載，或複製連結。不必先逐一開啟影片
@@ -96,20 +102,29 @@
 - **建議使用備用帳號** — Explore 的首屏會說明原因：使用帳號下載有一定風險，該帳號可能被限制。想清除登入時，隨時可在設定中登出 Explore
 - **廣告攔截** — Explore 會攔截自身頁面上的廣告和追蹤器，不影響下載。預設開啟，點一下 Explore 工具列上的盾牌即可關閉，且不會作用於 Google 的登入頁面。對已登入的帳號，YouTube 可能會抵制廣告攔截
 
-### 畫質與格式
+</details>
+
+<details>
+<summary><strong>🎞️ 畫質與格式</strong></summary>
 
 - 最高 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p
 - **高影格率**依原樣保留 — 60 fps、120 fps、HDR
 - **音訊** — 將僅音訊匯出為 MP3、M4A/AAC、Opus 或 WAV。在互動式下載中，可用時選擇來源的原生環繞聲/Dolby 音軌（AC-3、E-AC-3、5.1、DRC），或設定全域預設 **優先環繞聲 / Dolby**
 - **有目標的設定檔** — *最佳畫質*（AV1 · VP9）或 *智慧型電視*（MP4 · H.264），不重新編碼即可儲存為自動、MP4、MKV 或 WebM。HDR 可選 *自動*（僅在螢幕能顯示時）、*SDR* 或 *HDR*
 
-### 隱私與控制
+</details>
+
+<details>
+<summary><strong>🛡️ 隱私與控制</strong></summary>
 
 - 100% 本機處理 — 下載直接從 YouTube 到你的硬碟
 - 無登入、無 Cookie、無 Google 帳號繫結
 - 檔案直接儲存到你選擇的資料夾
 
-### 工作流程
+</details>
+
+<details>
+<summary><strong>⚡ 工作流程</strong></summary>
 
 - **全域下載快速鍵** — 在任意應用中複製連結後按 `Ctrl+Shift+D`（macOS 為 `Cmd+Shift+D`），Arroxy 會用目前設定直接加入佇列，無需開啟視窗，並以通知確認。預設開啟，可重新繫結
 - **靈活的開始模式** — 選擇引導式單個下載、播放清單/頻道選擇器、批次貼上 URL、使用已儲存預設值的 Quick Download，或在 Explore 中瀏覽並下載
@@ -131,7 +146,10 @@
 - **Aurora 或極簡，深色或淺色** — 在流動天空上的玻璃面板，或安靜的純色表面；可從頁尾切換。沒有圖形加速的電腦會自動使用極簡
 - **Mac 選單列** — 在 macOS 上，可從選單列開啟設定（`Cmd+,`）、設定下載速度限制、切換樣式與主題，並開啟記錄或儲存診斷檔案
 
-### 字幕與後處理
+</details>
+
+<details>
+<summary><strong>📝 字幕與後處理</strong></summary>
 
 - **字幕**以 SRT、VTT 或 ASS 格式下載 — 手動或自動生成，支援任意可用語言
 - 儲存到影片旁邊、嵌入 `.mkv`，或整理到 `Subtitles/` 子資料夾
@@ -139,16 +157,21 @@
 - **SponsorBlock** — 跳過或章節標記贊助商、片頭、片尾、自我推廣片段
 - **嵌入後設資料** — 標題、上傳日期、頻道、描述、封面圖和章節標記寫入檔案
 
-### YouTube + 2000 個網站
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + 2000 個網站</strong></summary>
 
 - **YouTube，全面支援** — 影片、Shorts、頻道、播放清單、YouTube Music 和Podcast作為一等來源處理
 - **透過 yt-dlp 支援 2000+ 個其他網站** — Vimeo、Twitch、Twitter/X、TikTok、SoundCloud、Bandcamp、Bilibili、BBC iPlayer、archive.org 等眾多網站
 - **僅音訊和字幕**在所有支援的網站上均可使用，不限於 YouTube
 - 若某個網站發生變化，yt-dlp 每週釋出修復，Arroxy 在啟動時自動更新二進位檔
 
+</details>
+
 ---
 
-## <a id="install"></a>安裝和首次啟動
+## <a id="install"></a>📥 安裝和首次啟動
 
 **Windows**
 
@@ -187,7 +210,8 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 [**取得最新版本 →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Windows 首次啟動
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Windows 首次啟動</strong></summary>
 
 首次啟動時，您可能會看到 **«Windows protected your PC»** 或 **«Unknown publisher»**。這適用於 `Arroxy-win-x64-Setup.exe` 和 `Arroxy-win-x64-Portable.exe`。Arroxy 是免費開源軟體，Windows 版本未使用付費憑證籤名，這正是 SmartScreen 將它們標示的原因。這**不**代表 Arroxy 自動就是不安全的。要繼續操作：
 
@@ -207,7 +231,10 @@ Defender 啟發式規則有時會將未簽名的 NSIS 安裝套件和 Electron �
 
 更喜歡 Scoop？ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>macOS 首次啟動
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 macOS 首次啟動</strong></summary>
 
 Arroxy 還沒有為 macOS 進行程式碼簽名，所以從 DMG 安裝後，Gatekeeper 可能會顯示嚇人的 *"Arroxy.app is damaged and can't be opened"* 對話方塊。這個提示表示 macOS 將未簽名應用放入了 quarantine；並不表示應用檔案真的損壞。目前 macOS 上可靠的修復方式是 Terminal：
 
@@ -229,7 +256,10 @@ open /Applications/Arroxy.app
 
 > macOS 建置透過 CI 在 Apple Silicon 和 Intel runner 上生成。如遇問題，請 [建立 issue](../../issues) — macOS 使用者意見回饋會直接影響 macOS 測試週期。
 
-### <a id="why-warning"></a>為什麼可能會看到警告
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ 為什麼可能會看到警告</strong></summary>
 
 Arroxy 是開源軟體，採用 MIT 授權條款。Windows 和 macOS 版本**未經程式碼簽名** — Apple Developer ID 和 Windows EV 程式碼簽名憑證每年各需數百美元，對於獨立專案來說完全自掏腰包。沒有這些簽名，Windows SmartScreen 和 macOS Gatekeeper 在首次啟動時會向你發出警告。這些警告的意思是*你的系統不認識該釋出者* — 並不意味著 Arroxy 是惡意軟體。
 
@@ -239,7 +269,10 @@ Arroxy 是開源軟體，採用 MIT 授權條款。Windows 和 macOS 版本**未
 - **驗證 SHA256。** 將你的檔案與釋出的 [`SHA256SUMS`](../../releases/latest) 對比 — 見下方[驗證你的下載](#verify)。
 - **執行第三方掃描。** 將檔案上傳至 [VirusTotal](https://www.virustotal.com)。
 
-### <a id="linux-first-launch"></a>Linux 首次啟動
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Linux 首次啟動</strong></summary>
 
 AppImage 直接執行 — 無需安裝。只需將檔案標記為可執行。
 
@@ -271,8 +304,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **釋出頁面上的 Linux 下載僅提供 x86_64。** 在 ARM64 裝置（樹莓派、Asahi Linux）上 Flatpak 可以安裝，但啟動時會失敗並報 `bwrap: execvp ldconfig: Exec format error`。
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>驗證你的下載（SHA256）</strong></summary>
+<summary><strong><a id="verify"></a>🔐 驗證你的下載（SHA256）</strong></summary>
 
 每次釋出都會在二進位檔旁邊附上 `SHA256SUMS` 檔案。為確認下載檔案在傳輸過程中未被損壞或篡改，請在本機對檔案進行雜湊計算，並與 `SHA256SUMS` 中對應的行進行比對。開啟最新發布頁 → **Assets** → 下載 `SHA256SUMS`。
 
@@ -299,7 +334,7 @@ sha256sum Arroxy-linux-x64.AppImage
 </details>
 
 <details>
-<summary><strong>Windows：安裝版 vs 可攜版</strong></summary>
+<summary><strong>📦 Windows：安裝版 vs 可攜版</strong></summary>
 
 |               | NSIS 安裝版 | 可攜版 `.exe` |
 | ------------- | :----------------------: | :---------------------: |
@@ -315,7 +350,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="why"></a>為什麼選 Arroxy
+## <a id="why"></a>⚖️ 為什麼選 Arroxy
 
 與最常見的替代方案逐項比較：
 
@@ -332,7 +367,7 @@ Arroxy 只做一件事：貼上連結，取得乾淨的本機檔案。無付費�
 
 ---
 
-## <a id="privacy"></a>隱私
+## <a id="privacy"></a>🔒 隱私
 
 下載透過 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接從 YouTube 取得到你選擇的資料夾 — 不經過任何第三方伺服器。觀看歷史、下載歷史、URL 和檔案內容均保留在你的裝置上。
 
@@ -342,41 +377,81 @@ Explore 有自己獨立的登入，與你的瀏覽器分開，Arroxy 不會讀�
 
 ---
 
-## <a id="faq"></a>常見問題
+## <a id="faq"></a>❓ 常見問題
 
-**真的免費嗎？**
+<details>
+<summary><strong>真的免費嗎？</strong></summary>
+
 是的 — MIT 授權條款，無付費版，無功能限制。
 
-**能下載哪些影片畫質？**
+</details>
+
+<details>
+<summary><strong>能下載哪些影片畫質？</strong></summary>
+
 YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p，以及純音訊。60 fps、120 fps 和 HDR 流依原樣保留。
 
-**能將音訊提取為 MP3 嗎？**
+</details>
+
+<details>
+<summary><strong>能將音訊提取為 MP3 嗎？</strong></summary>
+
 可以。在格式選單裡選擇*僅音訊*，然後選擇 MP3、M4A/AAC、Opus 或 WAV。
 
-**如何下載需要 YouTube 帳號的影片？**
+</details>
+
+<details>
+<summary><strong>如何下載需要 YouTube 帳號的影片？</strong></summary>
+
 在 Explore 分頁中登入一次。之後 Arroxy 就能下載你的帳號可觀看的私人與會員專屬影片、已通過年齡驗證帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。只有在下載因帳號可解決的原因失敗時才會使用該登入，其他下載與之前一樣。這就是 Cookie 設定中的 **Explore 登入** 選項，排在第一位並標有「建議」，首次開啟 Explore 時 Arroxy 會為你選取它。yt-dlp 的 wiki 指出[已登入狀態下的自動化可能會標記 Google 帳號](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用備用帳號是更安全的選擇。
 
-**YouTube 更新後還能繼續使用嗎？**
+</details>
+
+<details>
+<summary><strong>YouTube 更新後還能繼續使用嗎？</strong></summary>
+
 yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時釋出修復。YouTube 要求確認你不是機器人時，如果你已在 Explore 登入，Arroxy 也會嘗試使用該登入；Cookie 設定中還可使用來自檔案或瀏覽器的 Cookie。
 
-**Arroxy 支援哪些語言？**
+</details>
+
+<details>
+<summary><strong>Arroxy 支援哪些語言？</strong></summary>
+
 立即可用的 31 種語言：Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文。 Arroxy 會在首次啟動時自動檢測作業系統語言，你也可以隨時從工具列的語言選擇器切換。Runtime locale JSON 位於 src/shared/i18n/locales/，面向譯者的 PO catalog 位於 i18n/locales/ — 歡迎在 GitHub 上建立 PR 貢獻。
 
-**需要額外安裝其他軟體嗎？**
+</details>
+
+<details>
+<summary><strong>需要額外安裝其他軟體嗎？</strong></summary>
+
 不需要。yt-dlp 會在首次啟動時自動下載並快取到你的電腦上；ffmpeg 和 ffprobe 隨應用程式一起提供。之後無需任何額外設定。
 
-**能下載播放清單或整個頻道嗎？**
+</details>
+
+<details>
+<summary><strong>能下載播放清單或整個頻道嗎？</strong></summary>
+
 可以，兩者都支援。貼上播放清單或頻道 URL（例如 `youtube.com/@handle`、`/channel/UC…`、`/c/Name`、`/user/Old`）；選擇要掃描的項目數量，然後將整個清單加入佇列或選擇特定影片。日期範圍篩選即將推出。
 
-**macOS 提示"應用已損壞" — 怎麼處理？**
+</details>
+
+<details>
+<summary><strong>macOS 提示"應用已損壞" — 怎麼處理？</strong></summary>
+
 這是 macOS Gatekeeper 在攔截未簽名應用，並非真正損壞。請查看 [macOS first launch](#macos-first-launch)，其中有移除 quarantine 並啟動 Arroxy 的 Terminal 指令。
 
-**下載 YouTube 影片合法嗎？**
+</details>
+
+<details>
+<summary><strong>下載 YouTube 影片合法嗎？</strong></summary>
+
 在大多數地區，個人私人使用一般被接受。你需要自行負責遵守 YouTube 的[服務條款](https://www.youtube.com/t/terms)及當地版權法律。
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>開發藍圖
+## <a id="roadmap"></a>🗺️ 開發藍圖
 
 仍在計劃中 — 大致按優先順序排序：
 
@@ -393,7 +468,7 @@ yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時�
 
 ---
 
-## <a id="support"></a>支援 Arroxy
+## <a id="support"></a>💖 支援 Arroxy
 
 Arroxy 完全免費並採用 MIT 授權條款 —— 沒有廣告、沒有遙測、沒有付費版本。如果它為你節省了時間，你可以透過 Bitcoin 或 Tron 支援它的開發：地址見 [DONATE.md](DONATE.md)，這是唯一的官方來源。Arroxy 絕不會透過電子郵件或私信向你傳送地址。給儲存庫點星、報告問題和改進翻譯同樣有幫助。
 
@@ -401,7 +476,7 @@ Arroxy 完全免費並採用 MIT 授權條款 —— 沒有廣告、沒有遙測
 
 ---
 
-## <a id="tech"></a>技術堆疊
+## <a id="tech"></a>🛠️ 技術堆疊
 
 <details>
 <summary><strong>Stack</strong></summary>
@@ -494,9 +569,10 @@ bun run dist:win     # 在受支援的主機上打包 Windows 目標
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -551,9 +627,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## 使用條款
+## 📜 使用條款
 
 Arroxy 僅供個人私人使用。你需要自行確保下載行為符合 YouTube 的[服務條款](https://www.youtube.com/t/terms)及你所在地區的版權法律。請勿使用 Arroxy 下載、複製或分發你不享有權利的內容。開發者對任何濫用行為不承擔責任。
 

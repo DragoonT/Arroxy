@@ -23,29 +23,32 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 ---
 
 ## មាតិកា
 
-- [មុខងារ](#features)
-- [ដំឡើង និងបើកលើកដំបូង](#install)
+- [✨ មុខងារ](#features)
+- [📥 ដំឡើង និងបើកលើកដំបូង](#install)
   - [ការបើកលើកដំបូងលើ Windows](#windows-first-launch)
   - [ការបើកលើកដំបូងលើ macOS](#macos-first-launch)
   - [ហេតុអ្វីអ្នកអាចឃើញការព្រមាន](#why-warning)
   - [ការបើកលើកដំបូងលើ Linux](#linux-first-launch)
   - [ផ្ទៀងផ្ទាត់ការទាញយករបស់អ្នក (SHA256)](#verify)
-- [ហេតុអ្វី Arroxy](#why)
-- [ឯកជនភាព](#privacy)
-- [សំណួរញឹកញាប់](#faq)
-- [ផែនការ](#roadmap)
-- [គាំទ្រ Arroxy](#support)
-- [បង្កើតឡើងដោយ](#tech)
+- [⚖️ ហេតុអ្វី Arroxy](#why)
+- [🔒 ឯកជនភាព](#privacy)
+- [❓ សំណួរញឹកញាប់](#faq)
+- [🗺️ ផែនការ](#roadmap)
+- [💖 គាំទ្រ Arroxy](#support)
+- [🛠️ បង្កើតឡើងដោយ](#tech)
 
 ---
 
-## <a id="features"></a>មុខងារ
+## <a id="features"></a>✨ មុខងារ
+
+<details>
+<summary><strong>📸 រូបថតអេក្រង់</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -84,7 +87,10 @@
   </tr>
 </table>
 
-### Explore៖ រុករក YouTube នៅក្នុង Arroxy
+</details>
+
+<details open>
+<summary><strong>🧭 Explore៖ រុករក YouTube នៅក្នុង Arroxy</strong></summary>
 
 - **ផ្ទាំង Explore** — រុករក YouTube នៅក្នុង Arroxy ហើយទាញយកអ្វីដែលអ្នករកឃើញដោយមិនចាំបាច់ចម្លងតំណ។ **ទាញយក · *ប្រវត្តិរូបរបស់អ្នក*** ដាក់វីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ដែលអ្នកកំពុងមើលក្នុងជួរ; ព្រួញនៅជាប់វាប្តូរប្រវត្តិរូប ហើយដំបងវេទមន្តបើកការទាញយកជាជំហានៗសម្រាប់ជ្រើសរើសទម្រង់ អក្សររត់ និងច្រើនទៀត
 - **ចុចកណ្ដុរស្ដាំដើម្បីទាញយក** — ចុចកណ្ដុរស្ដាំលើតំណវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ណាមួយក្នុង Explore ដើម្បីទាញយកវាដោយប្រវត្តិរូបរបស់អ្នក ជ្រើសប្រវត្តិរូបផ្សេងពី **ទាញយកដោយប្រើ** បើកការទាញយកជាជំហានៗ ឬចម្លងតំណ។ មិនចាំបាច់បើកវីដេអូនីមួយៗជាមុនទេ
@@ -94,20 +100,29 @@
 - **ប្រើគណនីបន្ទាប់បន្សំ** — អេក្រង់ដំបូងរបស់ Explore ពន្យល់ពីមូលហេតុ៖ ការទាញយកជាមួយគណនីមានហានិភ័យខ្លះដែលគណនីនោះអាចត្រូវបានរឹតបន្តឹង។ ចាកចេញពី Explore ពីការកំណត់នៅពេលណាដែលអ្នកចង់បំភ្លេចការចូលគណនី
 - **កម្មវិធីទប់ស្កាត់ពាណិជ្ជកម្ម** — Explore ទប់ស្កាត់ពាណិជ្ជកម្ម និងកម្មវិធីតាមដាននៅលើទំព័ររបស់វាផ្ទាល់; ការទាញយកមិនរងផលប៉ះពាល់ទេ។ បើកតាមលំនាំដើម ចុចម្តងលើខែលក្នុងរបារឧបករណ៍ Explore ដើម្បីបិទវា ហើយវាមិនដែលធ្វើសកម្មភាពលើទំព័រចូលគណនីរបស់ Google ទេ។ YouTube អាចប្រឆាំងនឹងកម្មវិធីទប់ស្កាត់ពាណិជ្ជកម្មសម្រាប់គណនីដែលបានចូល
 
-### គុណភាព និងទម្រង់
+</details>
+
+<details>
+<summary><strong>🎞️ គុណភាព និងទម្រង់</strong></summary>
 
 - រហូតដល់ **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **អត្រាស៊ុមខ្ពស់** រក្សាដដែល — 60 fps, 120 fps, HDR
 - **សំឡេង** — នាំចេញតែសំឡេងជា MP3, M4A/AAC, Opus ឬ WAV។ ក្នុងការទាញយកអន្តរកម្ម ជ្រើសរើសបទ surround/Dolby ដើមរបស់ប្រភព (AC-3, E-AC-3, 5.1, DRC) នៅពេលមាន ឬកំណត់លំនាំដើមសកល **ចូលចិត្ត Surround / Dolby**
 - **ប្រវត្តិរូបតាមគោលដៅ** — *រូបភាពល្អបំផុត* (AV1 · VP9) ឬ *Smart TV* (MP4 · H.264) រក្សាទុកជា ស្វ័យប្រវត្តិ, MP4, MKV ឬ WebM ដោយមិនអ៊ិនកូដឡើងវិញ។ HDR គឺ *ស្វ័យប្រវត្តិ* (តែនៅពេលអេក្រង់របស់អ្នកអាចបង្ហាញបាន), *SDR* ឬ *HDR*
 
-### ឯកជនភាព និងការគ្រប់គ្រង
+</details>
+
+<details>
+<summary><strong>🛡️ ឯកជនភាព និងការគ្រប់គ្រង</strong></summary>
 
 - ដំណើរការក្នុងម៉ាស៊ីន 100% — ការទាញយកទៅដោយផ្ទាល់ពី YouTube ទៅថាសរបស់អ្នក
 - **កូដចំហ** — គ្រប់បន្ទាត់អាចត្រួតពិនិត្យបាន អាជ្ញាប័ណ្ណ MIT
 - ឯកសាររក្សាទុកដោយផ្ទាល់ទៅថតដែលអ្នកជ្រើសរើស
 
-### លំហូរការងារ
+</details>
+
+<details>
+<summary><strong>⚡ លំហូរការងារ</strong></summary>
 
 - **គ្រាប់ចុចផ្លូវកាត់ទាញយកសកល** — ចម្លងតំណក្នុងកម្មវិធីណាមួយ ហើយចុច `Ctrl+Shift+D` (`Cmd+Shift+D` លើ macOS); Arroxy ដាក់វាក្នុងជួរជាមួយប្រវត្តិរូបសកម្មរបស់អ្នកដោយមិនបើកផ្ទាំងបង្អួច ហើយការជូនដំណឹងមួយបញ្ជាក់វា។ បើកតាមលំនាំដើម អាចប្តូរគ្រាប់ចុចបាន
 - **របៀបចាប់ផ្តើមបត់បែន** — ជ្រើសរើសការទាញយកតែមួយដែលមានការណែនាំ ផ្ទាំងជ្រើសរើសបញ្ជីចាក់/ប៉ុស្តិ៍ ការបិទភ្ជាប់ URL ច្រើន ទាញយករហ័ស ជាមួយលំនាំដើមដែលបានរក្សាទុក ឬរុករក និងទាញយកពី Explore
@@ -129,7 +144,10 @@
 - **អូរ៉ូរ៉ា ឬសាមញ្ញ, ងងឹត ឬភ្លឺ** — បន្ទះកញ្ចក់លើមេឃដែលកំពុងផ្លាស់ទី ឬផ្ទៃរឹងស្ងប់ស្ងាត់ ប្តូរពីបាតទំព័រ។ កុំព្យូទ័រដែលគ្មានការបង្កើនល្បឿនក្រាហ្វិកទទួលបាន សាមញ្ញ ដោយស្វ័យប្រវត្តិ
 - **របារម៉ឺនុយ Mac** — នៅលើ macOS បើកការកំណត់ (`Cmd+,`) កំណត់ដែនកំណត់ល្បឿនទាញយក ប្តូររចនាប័ទ្ម និងធីម ហើយបើកកំណត់ហេតុ ឬរក្សាទុកឯកសាររោគវិនិច្ឆ័យពីរបារម៉ឺនុយ
 
-### អក្សររត់ និងការដំណើរការក្រោយ
+</details>
+
+<details>
+<summary><strong>📝 អក្សររត់ និងការដំណើរការក្រោយ</strong></summary>
 
 - **អក្សររត់** ជា SRT, VTT ឬ ASS — ដោយដៃ ឬបង្កើតដោយស្វ័យប្រវត្តិ ជាភាសាណាមួយដែលមាន
 - រក្សាទុកនៅជាប់វីដេអូ បង្កប់ក្នុង `.mkv` ឬរៀបចំក្នុងថតរង `Subtitles/`
@@ -137,16 +155,21 @@
 - **SponsorBlock** — រំលង ឬសម្គាល់ជាជំពូកនូវអ្នកឧបត្ថម្ភ ផ្នែកណែនាំ ផ្នែកបញ្ចប់ ការផ្សព្វផ្សាយខ្លួនឯង
 - **ទិន្នន័យមេតាបង្កប់** — ចំណងជើង កាលបរិច្ឆេទផ្ទុកឡើង ប៉ុស្តិ៍ ការពិពណ៌នា រូបភាពតូច និងសញ្ញាសម្គាល់ជំពូកត្រូវបានសរសេរចូលក្នុងឯកសារ
 
-### YouTube + គេហទំព័រ 2000
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + គេហទំព័រ 2000</strong></summary>
 
 - **YouTube ពេញលេញ** — វីដេអូ Shorts ប៉ុស្តិ៍ បញ្ជីចាក់ YouTube Music និងផតខាស ត្រូវបានគាំទ្រជាប្រភពលំដាប់ទីមួយ
 - **គេហទំព័រជាង 2000 ផ្សេងទៀត** តាមរយៈ yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org និងច្រើនទៀត
 - **តែសំឡេង និងអក្សររត់** ដំណើរការលើគ្រប់គេហទំព័រដែលគាំទ្រ មិនមែនតែ YouTube ទេ
 - ប្រសិនបើគេហទំព័រផ្លាស់ប្តូរ yt-dlp ចេញការជួសជុលរៀងរាល់សប្តាហ៍ ហើយ Arroxy ធ្វើបច្ចុប្បន្នភាព binary ដោយស្វ័យប្រវត្តិនៅពេលបើក
 
+</details>
+
 ---
 
-## <a id="install"></a>ដំឡើង និងបើកលើកដំបូង
+## <a id="install"></a>📥 ដំឡើង និងបើកលើកដំបូង
 
 **Windows**
 
@@ -185,7 +208,8 @@ Build មានតែ x86_64 ប៉ុណ្ណោះ។ គ្មាន `curl`?
 
 [**ឯកសារចេញផ្សាយទាំងអស់ →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>ការបើកលើកដំបូងលើ Windows
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 ការបើកលើកដំបូងលើ Windows</strong></summary>
 
 នៅពេលបើកលើកដំបូង អ្នកអាចឃើញ **"Windows protected your PC"** ឬ **"Unknown publisher."** វាអនុវត្តចំពោះទាំង `Arroxy-win-x64-Setup.exe` និង `Arroxy-win-x64-Portable.exe`។ Arroxy ឥតគិតថ្លៃ និងកូដចំហ ហើយ build Windows មិនត្រូវបានចុះហត្ថលេខាកូដជាមួយវិញ្ញាបនបត្របង់ប្រាក់ទេ នោះហើយជាមូលហេតុដែល SmartScreen សម្គាល់ពួកវា។ វា **មិនមែន** មានន័យដោយស្វ័យប្រវត្តិថា Arroxy មិនមានសុវត្ថិភាពនោះទេ។ ដើម្បីបន្ត៖
 
@@ -205,7 +229,10 @@ Defender heuristics ពេលខ្លះសម្គាល់កម្មវិ
 
 ចូលចិត្ត Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>ការបើកលើកដំបូងលើ macOS
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 ការបើកលើកដំបូងលើ macOS</strong></summary>
 
 Build macOS របស់ Arroxy ត្រូវបានចុះហត្ថលេខា ad-hoc ប៉ុន្តែមិនត្រូវបាន notarize ដោយ Apple ទេ ដូច្នេះ Gatekeeper ទប់ស្កាត់ការបើកលើកដំបូងជាមួយ *"Arroxy.app" Not Opened — Apple could not verify "Arroxy.app" is free of malware*។ នោះមានន័យថា macOS មិនអាចពិនិត្យកម្មវិធីជាមួយ Apple បាន មិនមែនថាមានអ្វីខុសជាមួយឯកសារនោះទេ។ ការដំឡើងជាមួយ Homebrew ជៀសវាងប្រអប់នេះទាំងស្រុង។ ប្រសិនបើអ្នកបានប្រើ DMG ពាក្យបញ្ជា Terminal មួយសម្អាតវា៖
 
@@ -227,7 +254,10 @@ open /Applications/Arroxy.app
 
 > Build macOS ត្រូវបានបង្កើតតាម CI លើ runner Apple Silicon និង Intel។ ប្រសិនបើអ្នកជួបបញ្ហា សូម [បើក issue](../../issues) — មតិពីអ្នកប្រើ macOS ជួយកំណត់វដ្តតេស្ត macOS យ៉ាងសកម្ម។
 
-### <a id="why-warning"></a>ហេតុអ្វីអ្នកអាចឃើញការព្រមាន
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ ហេតុអ្វីអ្នកអាចឃើញការព្រមាន</strong></summary>
 
 Arroxy ជាកូដចំហ និងមានអាជ្ញាប័ណ្ណ MIT។ Build Windows និង macOS **មិនត្រូវបានចុះហត្ថលេខាកូដទេ** — វិញ្ញាបនបត្រ Apple Developer ID និង Windows EV code-signing នីមួយៗមានតម្លៃរាប់រយដុល្លារក្នុងមួយឆ្នាំ ដែលគម្រោងឯករាជ្យត្រូវបង់ពីហោប៉ៅខ្លួនឯង។ បើគ្មានហត្ថលេខាទាំងនោះ Windows SmartScreen និង macOS Gatekeeper នឹងព្រមានអ្នកនៅពេលបើកលើកដំបូង។ ការព្រមានមានន័យថា *ប្រព័ន្ធប្រតិបត្តិការរបស់អ្នកមិនស្គាល់អ្នកបោះពុម្ព* — វាមិនមានន័យថា Arroxy ជាមេរោគទេ។
 
@@ -237,7 +267,10 @@ Arroxy ជាកូដចំហ និងមានអាជ្ញាប័ណ្
 - **ពិនិត្យ SHA256។** ផ្ទៀងឯកសាររបស់អ្នកជាមួយ [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) ដែលបានបោះពុម្ព — មើល [ផ្ទៀងផ្ទាត់ការទាញយករបស់អ្នក](#verify) ខាងក្រោម។
 - **ស្កេនដោយភាគីទីបី។** ផ្ទុកឯកសារឡើងទៅ [VirusTotal](https://www.virustotal.com)។
 
-### <a id="linux-first-launch"></a>ការបើកលើកដំបូងលើ Linux
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 ការបើកលើកដំបូងលើ Linux</strong></summary>
 
 AppImage ដំណើរការដោយផ្ទាល់ — គ្មានការដំឡើង។ អ្នកគ្រាន់តែត្រូវសម្គាល់ឯកសារថាអាចដំណើរការបាន។
 
@@ -269,8 +302,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **ការទាញយក Linux នៅលើទំព័រចេញផ្សាយមានតែ x86_64 ប៉ុណ្ណោះ។** លើម៉ាស៊ីន ARM64 (Raspberry Pi, Asahi Linux) Flatpak នៅតែដំឡើងបាន បន្ទាប់មកបរាជ័យនៅពេលបើកជាមួយ `bwrap: execvp ldconfig: Exec format error`។
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>ផ្ទៀងផ្ទាត់ការទាញយករបស់អ្នក (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 ផ្ទៀងផ្ទាត់ការទាញយករបស់អ្នក (SHA256)</strong></summary>
 
 រាល់ការចេញផ្សាយបោះពុម្ពឯកសារ `SHA256SUMS` ជាមួយឯកសារ binary។ ដើម្បីពិនិត្យថាការទាញយករបស់អ្នកមិនខូច ឬត្រូវបានកែប្រែក្នុងពេលបញ្ជូន សូមគណនា hash ឯកសាររបស់អ្នកក្នុងម៉ាស៊ីន ហើយផ្ទៀងជាមួយបន្ទាត់ក្នុង `SHA256SUMS`។ បើកទំព័រចេញផ្សាយចុងក្រោយ → **Assets** → ទាញយក `SHA256SUMS`។
 
@@ -297,7 +332,7 @@ sha256sum Arroxy-linux-x64.AppImage
 </details>
 
 <details>
-<summary><strong>Windows៖ កម្មវិធីដំឡើង ធៀបនឹង ចល័ត</strong></summary>
+<summary><strong>📦 Windows៖ កម្មវិធីដំឡើង ធៀបនឹង ចល័ត</strong></summary>
 
 |               | កម្មវិធីដំឡើង NSIS | `.exe` ចល័ត |
 | ------------- | :----------------------: | :---------------------: |
@@ -313,7 +348,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="why"></a>ហេតុអ្វី Arroxy
+## <a id="why"></a>⚖️ ហេតុអ្វី Arroxy
 
 ការប្រៀបធៀបជាមួយជម្រើសផ្សេងទៀតដែលពេញនិយមបំផុត៖
 
@@ -330,7 +365,7 @@ Arroxy ត្រូវបានបង្កើតឡើងសម្រាប់�
 
 ---
 
-## <a id="privacy"></a>ឯកជនភាព
+## <a id="privacy"></a>🔒 ឯកជនភាព
 
 ការទាញយកត្រូវបានទាញដោយផ្ទាល់តាម [yt-dlp](https://github.com/yt-dlp/yt-dlp) ពី YouTube ទៅថតដែលអ្នកជ្រើសរើស — គ្មានអ្វីឆ្លងកាត់ម៉ាស៊ីនមេភាគីទីបីទេ។ ប្រវត្តិមើល ប្រវត្តិទាញយក URL និងមាតិកាឯកសារនៅលើឧបករណ៍របស់អ្នក។
 
@@ -340,41 +375,81 @@ Explore រក្សាការចូលគណនីផ្ទាល់ខ្ល
 
 ---
 
-## <a id="faq"></a>សំណួរញឹកញាប់
+## <a id="faq"></a>❓ សំណួរញឹកញាប់
 
-**តើវាពិតជាឥតគិតថ្លៃមែនទេ?**
+<details>
+<summary><strong>តើវាពិតជាឥតគិតថ្លៃមែនទេ?</strong></summary>
+
 បាទ/ចាស — អាជ្ញាប័ណ្ណ MIT គ្មានកម្រិតពិសេសបង់ប្រាក់ គ្មានការរឹតបន្តឹងមុខងារ។
 
-**តើខ្ញុំអាចទាញយកវីដេអូគុណភាពអ្វីខ្លះ?**
+</details>
+
+<details>
+<summary><strong>តើខ្ញុំអាចទាញយកវីដេអូគុណភាពអ្វីខ្លះ?</strong></summary>
+
 អ្វីដែល YouTube ផ្តល់៖ 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p បូកនឹងតែសំឡេង។ ស្ទ្រីម 60 fps, 120 fps និង HDR ត្រូវបានរក្សាដដែល។
 
-**តើខ្ញុំអាចដកតែសំឡេងជា MP3 បានទេ?**
+</details>
+
+<details>
+<summary><strong>តើខ្ញុំអាចដកតែសំឡេងជា MP3 បានទេ?</strong></summary>
+
 បាទ/ចាស។ ជ្រើសរើស *តែសំឡេង* ក្នុងម៉ឺនុយទម្រង់ ហើយជ្រើសរើស MP3, M4A/AAC, Opus ឬ WAV។
 
-**តើខ្ញុំទាញយកវីដេអូដែលត្រូវការគណនី YouTube យ៉ាងដូចម្តេច?**
+</details>
+
+<details>
+<summary><strong>តើខ្ញុំទាញយកវីដេអូដែលត្រូវការគណនី YouTube យ៉ាងដូចម្តេច?</strong></summary>
+
 ចូលគណនីម្តងក្នុងផ្ទាំង Explore។ បន្ទាប់មក Arroxy អាចទាញយកវីដេអូឯកជន និងសម្រាប់តែសមាជិកដែលគណនីរបស់អ្នកអាចមើលបាន វីដេអូកំណត់អាយុប្រសិនបើគណនីបានផ្ទៀងផ្ទាត់អាយុ និងបញ្ជី Watch Later និង Liked របស់អ្នក។ វាប្រើការចូលគណនីតែនៅពេលការទាញយកបរាជ័យក្នុងរបៀបដែលគណនីអាចជួសជុលបាន; អ្វីៗផ្សេងទៀតទាញយកដូចមុន។ នេះគឺជាជម្រើស **ការចូលគណនី Explore** ដែលរាយបញ្ជីមុនគេ ហើយសម្គាល់ថា ណែនាំ ក្នុងការកំណត់ cookie ហើយ Arroxy ជ្រើសរើសវាជូនអ្នកនៅលើកដំបូងដែលអ្នកបើក Explore។ wiki របស់ yt-dlp កត់សម្គាល់ថា [ស្វ័យប្រវត្តិកម្មដែលបានចូលគណនីអាចធ្វើឱ្យគណនី Google ត្រូវបានសម្គាល់](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) ដូច្នេះគណនីបន្ទាប់បន្សំជាជម្រើសដែលមានសុវត្ថិភាពជាង។
 
-**តើវានឹងបន្តដំណើរការនៅពេល YouTube ផ្លាស់ប្តូរអ្វីមួយទេ?**
+</details>
+
+<details>
+<summary><strong>តើវានឹងបន្តដំណើរការនៅពេល YouTube ផ្លាស់ប្តូរអ្វីមួយទេ?</strong></summary>
+
 yt-dlp ត្រូវបានធ្វើបច្ចុប្បន្នភាពដោយស្វ័យប្រវត្តិនៅពេលបើក ហើយ Arroxy ចេញការជួសជុលយ៉ាងឆាប់រហ័សនៅពេល YouTube ផ្លាស់ប្តូរអ្វីមួយ។ នៅពេល YouTube សុំឱ្យអ្នកបញ្ជាក់ថាអ្នកមិនមែនជា bot Arroxy ក៏សាកល្បងការចូលគណនី Explore របស់អ្នកប្រសិនបើអ្នកបានចូលគណនីនៅទីនោះ ហើយ cookies ពីឯកសារ ឬកម្មវិធីរុករករបស់អ្នកមាននៅក្នុងការកំណត់ cookie។
 
-**តើ Arroxy មានជាភាសាអ្វីខ្លះ?**
+</details>
+
+<details>
+<summary><strong>តើ Arroxy មានជាភាសាអ្វីខ្លះ?</strong></summary>
+
 31 ភាសា ភ្លាមៗ៖ Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文។ Arroxy រកឃើញភាសាប្រព័ន្ធប្រតិបត្តិការរបស់អ្នកដោយស្វ័យប្រវត្តិនៅពេលបើកលើកដំបូង ហើយអ្នកអាចប្តូរបានគ្រប់ពេលពីផ្ទាំងជ្រើសរើសភាសាក្នុងរបារឧបករណ៍។ Runtime locale JSON ស្ថិតនៅក្នុង src/shared/i18n/locales/ ហើយកាតាឡុក PO សម្រាប់អ្នកបកប្រែស្ថិតនៅក្នុង i18n/locales/ — បើក PR នៅលើ GitHub ដើម្បីចូលរួមចំណែក។
 
-**តើខ្ញុំត្រូវដំឡើងអ្វីផ្សេងទៀតទេ?**
+</details>
+
+<details>
+<summary><strong>តើខ្ញុំត្រូវដំឡើងអ្វីផ្សេងទៀតទេ?</strong></summary>
+
 ទេ។ yt-dlp ត្រូវបានទាញយកដោយស្វ័យប្រវត្តិនៅពេលបើកលើកដំបូង ហើយរក្សាទុកក្នុងម៉ាស៊ីនរបស់អ្នក; ffmpeg និង ffprobe ភ្ជាប់មកជាមួយកម្មវិធី។ បន្ទាប់ពីនោះ មិនត្រូវការការរៀបចំបន្ថែមទេ។
 
-**តើខ្ញុំអាចទាញយកបញ្ជីចាក់ ឬប៉ុស្តិ៍ទាំងមូលបានទេ?**
+</details>
+
+<details>
+<summary><strong>តើខ្ញុំអាចទាញយកបញ្ជីចាក់ ឬប៉ុស្តិ៍ទាំងមូលបានទេ?</strong></summary>
+
 បាទ/ចាស — ទាំងពីរ។ បិទភ្ជាប់ URL បញ្ជីចាក់ ឬ URL ប៉ុស្តិ៍ (ឧ. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); ជ្រើសរើសចំនួនធាតុដែលត្រូវស្កេន បន្ទាប់មកដាក់បញ្ជីទាំងមូលក្នុងជួរ ឬជ្រើសរើសវីដេអូជាក់លាក់។ តម្រងចន្លោះកាលបរិច្ឆេទនឹងមកដល់ឆាប់ៗនេះ។
 
-**macOS និយាយថា "the app is damaged" — តើខ្ញុំត្រូវធ្វើអ្វី?**
+</details>
+
+<details>
+<summary><strong>macOS និយាយថា "the app is damaged" — តើខ្ញុំត្រូវធ្វើអ្វី?</strong></summary>
+
 នោះគឺ macOS Gatekeeper ទប់ស្កាត់កម្មវិធីដែលមិនបានចុះហត្ថលេខា មិនមែនការខូចពិតប្រាកដទេ។ មើល [ការបើកលើកដំបូងលើ macOS](#macos-first-launch) សម្រាប់ពាក្យបញ្ជា Terminal ដែលសម្អាត quarantine និងបើក Arroxy។
 
-**តើការទាញយកវីដេអូ YouTube ស្របច្បាប់ទេ?**
+</details>
+
+<details>
+<summary><strong>តើការទាញយកវីដេអូ YouTube ស្របច្បាប់ទេ?</strong></summary>
+
 សម្រាប់ការប្រើប្រាស់ផ្ទាល់ខ្លួន និងឯកជន វាត្រូវបានទទួលយកជាទូទៅក្នុងយុត្តាធិការភាគច្រើន។ អ្នកទទួលខុសត្រូវក្នុងការអនុវត្តតាម [លក្ខខណ្ឌសេវាកម្ម](https://www.youtube.com/t/terms) របស់ YouTube និងច្បាប់រក្សាសិទ្ធិក្នុងតំបន់របស់អ្នក។
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>ផែនការ
+## <a id="roadmap"></a>🗺️ ផែនការ
 
 នៅតែគ្រោងទុក — តាមលំដាប់អាទិភាពប្រហាក់ប្រហែល៖
 
@@ -391,7 +466,7 @@ yt-dlp ត្រូវបានធ្វើបច្ចុប្បន្នភ�
 
 ---
 
-## <a id="support"></a>គាំទ្រ Arroxy
+## <a id="support"></a>💖 គាំទ្រ Arroxy
 
 Arroxy ឥតគិតថ្លៃ និងមានអាជ្ញាប័ណ្ណ MIT — គ្មានពាណិជ្ជកម្ម គ្មានការតាមដាន គ្មានកម្រិតបង់ប្រាក់។ ប្រសិនបើវាជួយសន្សំពេលវេលារបស់អ្នក អ្នកអាចគាំទ្រការអភិវឌ្ឍជាមួយ Bitcoin ឬ Tron៖ អាសយដ្ឋានមាននៅក្នុង [DONATE.md](DONATE.md) ដែលជាប្រភពផ្លូវការតែមួយគត់សម្រាប់ពួកវា។ Arroxy នឹងមិនដែលផ្ញើអាសយដ្ឋានមកអ្នកតាមអ៊ីមែល ឬសារផ្ទាល់ទេ។ ការដាក់ផ្កាយលើ repo ការរាយការណ៍កំហុស និងការកែលម្អការបកប្រែក៏ជួយបានច្រើនដូចគ្នា។
 
@@ -399,7 +474,7 @@ Arroxy ឥតគិតថ្លៃ និងមានអាជ្ញាប័ណ
 
 ---
 
-## <a id="tech"></a>បង្កើតឡើងដោយ
+## <a id="tech"></a>🛠️ បង្កើតឡើងដោយ
 
 <details>
 <summary><strong>បច្ចេកវិទ្យាដែលប្រើ</strong></summary>
@@ -492,9 +567,10 @@ bun run dist:win     # package Windows targets when run on a supported host
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -549,9 +625,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## លក្ខខណ្ឌប្រើប្រាស់
+## 📜 លក្ខខណ្ឌប្រើប្រាស់
 
 Arroxy គឺជាឧបករណ៍សម្រាប់ការប្រើប្រាស់ផ្ទាល់ខ្លួន និងឯកជនតែប៉ុណ្ណោះ។ អ្នកទទួលខុសត្រូវតែម្នាក់ឯងក្នុងការធានាថាការទាញយករបស់អ្នកអនុលោមតាម [លក្ខខណ្ឌសេវាកម្ម](https://www.youtube.com/t/terms) របស់ YouTube និងច្បាប់រក្សាសិទ្ធិនៃយុត្តាធិការរបស់អ្នក។ កុំប្រើ Arroxy ដើម្បីទាញយក ផលិតឡើងវិញ ឬចែកចាយមាតិកាដែលអ្នកមិនមានសិទ្ធិប្រើ។ អ្នកអភិវឌ្ឍមិនទទួលខុសត្រូវចំពោះការប្រើប្រាស់ខុសណាមួយឡើយ។
 

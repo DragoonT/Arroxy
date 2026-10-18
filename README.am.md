@@ -23,29 +23,32 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 ---
 
 ## ዝርዝር
 
-- [ባህሪያት](#features)
-- [መጫን እና የመጀመሪያ ማስነሳት](#install)
+- [✨ ባህሪያት](#features)
+- [📥 መጫን እና የመጀመሪያ ማስነሳት](#install)
   - [Windows ላይ ለመጀመሪያ ጊዜ አስጀምር](#windows-first-launch)
   - [macOS ላይ ለመጀመሪያ ጊዜ አስጀምር](#macos-first-launch)
   - [ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ](#why-warning)
   - [Linux ላይ ለመጀመሪያ ጊዜ አስጀምር](#linux-first-launch)
   - [ማውረዱን ያረጋግጡ (SHA256)](#verify)
-- [ለምን Arroxy](#why)
-- [ግላዊነት](#privacy)
-- [ተደጋጋሚ ጥያቄዎች](#faq)
-- [ወደፊት ዕቅድ](#roadmap)
-- [Arroxy ይደግፉ](#support)
-- [ከምን ተሠርቷል](#tech)
+- [⚖️ ለምን Arroxy](#why)
+- [🔒 ግላዊነት](#privacy)
+- [❓ ተደጋጋሚ ጥያቄዎች](#faq)
+- [🗺️ ወደፊት ዕቅድ](#roadmap)
+- [💖 Arroxy ይደግፉ](#support)
+- [🛠️ ከምን ተሠርቷል](#tech)
 
 ---
 
-## <a id="features"></a>ባህሪያት
+## <a id="features"></a>✨ ባህሪያት
+
+<details>
+<summary><strong>📸 ቅጽበታዊ ገጽ እይታዎች</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -84,7 +87,10 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
   </tr>
 </table>
 
-### Explore: YouTubeን በArroxy ውስጥ ያስሱ
+</details>
+
+<details open>
+<summary><strong>🧭 Explore: YouTubeን በArroxy ውስጥ ያስሱ</strong></summary>
 
 - **Explore ትር** — YouTubeን በArroxy ውስጥ ያስሱ እና ያገኙትን ሊንክ ሳይገለብጡ ያውርዱ። **አውርድ · *መገለጫዎ*** እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel በወረፋ ያስገባል፤ ከጎኑ ያለው ቀስት መገለጫዎችን ይቀይራል፣ የአስማት ዘንግ ደግሞ ቅርጸቶችን፣ ንዑስ ርዕሶችን እና ሌሎችን ለመምረጥ ደረጃ በደረጃ ማውረድን ይከፍታል
 - **ለማውረድ በቀኝ ጠቅ ያድርጉ** — በExplore ውስጥ ማንኛውንም የቪዲዮ፣ playlist ወይም channel ሊንክ በቀኝ ጠቅ አድርገው በመገለጫዎ ያውርዱ፣ ከ**በመገለጫ አውርድ** ሌላ መገለጫ ይምረጡ፣ ደረጃ በደረጃ ማውረድን ይክፈቱ ወይም ሊንኩን ይቅዱ። እያንዳንዱን ቪዲዮ አስቀድሞ መክፈት አያስፈልግም
@@ -94,20 +100,29 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 - **ሁለተኛ ሒሳብ ይጠቀሙ** — የExplore የመጀመሪያ ማያ ለምን እንደሆነ ያብራራል፡ በሒሳብ ማውረድ ያ ሒሳብ የመገደብ የተወሰነ አደጋ አለው። መግቢያውን ለመርሳት በፈለጉት ጊዜ ከSettings ከExplore ይውጡ
 - **የማስታወቂያ ማገጃ** — Explore በራሱ ገጾች ላይ ማስታወቂያዎችን እና መከታተያዎችን ያግዳል፤ ማውረዶች አይነኩም። በነባሪ በርቷል፣ በExplore የመሳሪያ አሞሌ ላይ ባለው ጋሻ ላይ አንድ ጠቅታ ያጠፋዋል፣ እና በGoogle የመግቢያ ገጾች ላይ ፈጽሞ አይሠራም። YouTube ለገቡ ሒሳቦች የማስታወቂያ ማገጃዎችን ሊቋቋም ይችላል
 
-### ጥራት እና ቅርጸቶች
+</details>
+
+<details>
+<summary><strong>🎞️ ጥራት እና ቅርጸቶች</strong></summary>
 
 - እስከ **4K UHD (2160p)**፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p
 - **ፈጣን የፍሬም ፍጥነት** እንዳለ ተጠብቆ — 60 fps፣ 120 fps፣ HDR
 - **ድምፅ** — ኦዲዮ ብቻን ወደ MP3፣ M4A/AAC፣ Opus ወይም WAV ማውጣት። በinteractive downloads ውስጥ ካሉ የምንጩን native surround/Dolby ትራኮች (AC-3፣ E-AC-3፣ 5.1፣ DRC) ይምረጡ፣ ወይም ዓለም አቀፍ **surround / Dolby ን ይመርጡ** ነባሪ ያቀናብሩ
 - **ግብ ያላቸው መገለጫዎች** — *ምርጥ ምስል* (AV1 · VP9) ወይም *ስማርት TV* (MP4 · H.264)፣ ዳግም ኮድ ሳይደረግ እንደ ራስ-ሰር፣ MP4፣ MKV ወይም WebM ይቀመጣሉ። HDR *ራስ-ሰር* (ማያዎ ማሳየት ሲችል ብቻ)፣ *SDR* ወይም *HDR* ነው
 
-### ግላዊነት እና ቁጥጥር
+</details>
+
+<details>
+<summary><strong>🛡️ ግላዊነት እና ቁጥጥር</strong></summary>
 
 - 100% አካባቢያዊ ሂደት — ማውረዶች ቀጥታ ከ YouTube ወደ ዲስክዎ ይሄዳሉ
 - ምንም ግባ፣ ምንም ኩኪ፣ ምንም Google ሒሳብ አልተያያዘም
 - ፋይሎች ወደ መረጡት አቃፊ ቀጥታ ተቀምጠዋል
 
-### የሥራ ፍሰት
+</details>
+
+<details>
+<summary><strong>⚡ የሥራ ፍሰት</strong></summary>
 
 - **አጠቃላይ የማውረድ አቋራጭ** — በማንኛውም መተግበሪያ ውስጥ አገናኝ ይቅዱና `Ctrl+Shift+D` (በmacOS ላይ `Cmd+Shift+D`) ይጫኑ፤ Arroxy መስኮቱን ሳይከፍት በንቁ መገለጫዎ ወደ ወረፋ ያስገባዋል፣ ማሳወቂያም ያረጋግጣል። በነባሪ የነቃ፣ እንደገና ሊመደብ የሚችል
 - **ተለዋዋጭ የመጀመሪያ ሁነታዎች** — የተመራ ነጠላ ማውረድ፣ የplaylist/channel መምረጫ፣ ብዙ URL መለጠፍ፣ በተቀመጡ ነባሪዎች Quick Download፣ ወይም ከExplore ማሰስና ማውረድ ይምረጡ
@@ -129,7 +144,10 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 - **Aurora ወይም ቀላል፣ ጨለማ ወይም ብርሃን** — በሚንቀሳቀስ ሰማይ ላይ የመስታወት ፓነሎች፣ ወይም ጸጥ ያሉ ጠጣር ገጾች፤ ከግርጌ ይቀያይሩ። የግራፊክስ ማፋጠን የሌላቸው ኮምፒውተሮች ቀላልን በራስ-ሰር ያገኛሉ
 - **የMac ሜኑ አሞሌ** — በmacOS ላይ ቅንብሮችን (`Cmd+,`) ይክፈቱ፣ የማውረድ ፍጥነት ገደብ ያዘጋጁ፣ ዘይቤና ገጽታ ይቀይሩ፣ እንዲሁም ምዝግቦችን ይክፈቱ ወይም የምርመራ ፋይል ከሜኑ አሞሌ ያስቀምጡ
 
-### ንዑስ ርዕሶች እና ድህረ-ሂደት
+</details>
+
+<details>
+<summary><strong>📝 ንዑስ ርዕሶች እና ድህረ-ሂደት</strong></summary>
 
 - **ንዑስ ርዕሶች** በ SRT፣ VTT፣ ወይም ASS — እጅ ወይም ራስ ሰር የተፈጠሩ፣ በማንኛውም ቋንቋ
 - ከቪዲዮ ጎን ያቆዩ፣ ወደ `.mkv` ያካቱ፣ ወይም ወደ `Subtitles/` ንዑስ አቃፊ ያዘጋጁ
@@ -137,16 +155,21 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 - **SponsorBlock** — ስፖንሰሮችን፣ ምዕራፍ ምልክቶችን፣ ወደፊት ምዕራፎችን፣ ራስ ሰር ማስታወቂያዎችን ዝለሉ ወይም ምዕራፍ ምልክት ያድርጉ
 - **የተካተተ ሜታዳታ** — ርዕስ፣ የሰቀሉ ቀን፣ ቻናል፣ ዝርዝር፣ አናት ስእል፣ እና ምዕራፍ ምልክቶች ወደ ፋይሉ ተጽፈዋል
 
-### YouTube + 2000 ጣቢያዎች
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + 2000 ጣቢያዎች</strong></summary>
 
 - **YouTube ሙሉ** — ቪዲዮዎች፣ Shorts፣ ቻናሎች፣ ፕሌይሊስቶች፣ YouTube Music እና ፖድካስቶች እንደ ቀዳሚ ምንጮች ይታሰባሉ
 - **2000+ ሌሎች ጣቢያዎች** yt-dlp አማካኝነት — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org እና ሌሎች ብዙ
 - **ኦዲዮ ብቻ እና ጽሑፍ ርዕሶች** ሁሉም ተደጋፊ ጣቢያዎች ላይ ይሠራሉ፣ YouTube ብቻ ሳይሆን
 - ጣቢያ ሲቀይር yt-dlp በሳምንት ውስጥ ማሻሻያዎችን ይልካሉ፣ Arroxy ደግሞ ሲጀምር binary ን ራስ-ሰር ያዘምናሉ
 
+</details>
+
 ---
 
-## <a id="install"></a>መጫን እና የመጀመሪያ ማስነሳት
+## <a id="install"></a>📥 መጫን እና የመጀመሪያ ማስነሳት
 
 **Windows**
 
@@ -185,7 +208,8 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 [**የቅርብ ጊዜ ስሪት ይያዙ →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Windows ላይ ለመጀመሪያ ጊዜ አስጀምር
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Windows ላይ ለመጀመሪያ ጊዜ አስጀምር</strong></summary>
 
 በመጀመሪያ ጊዜ ሲጀምሩ **"Windows protected your PC"** ወይም **"Unknown publisher"** ሊያዩ ይችላሉ። ይህ ለ `Arroxy-win-x64-Setup.exe` እና `Arroxy-win-x64-Portable.exe` ሁለቱም ይሠራሉ። Arroxy ነፃ እና ምን ኮድ ያለው ሲሆን የ Windows ቅጅዎቹ ባለ ክፍያ የምስክር ወረቀት ተፈርመዋ አይደሉም፣ ስለዚህ SmartScreen ያሳዩዋቸዋል። ይህ Arroxy ደህና ያልሆነ ማለት **አልሆነም**። ለቀጠሉ:
 
@@ -205,7 +229,10 @@ Defender ሂዩሪስቲክስ አንዳንድ ጊዜ ያልተፈረሙ NSIS �
 
 Scoop ይመርጣሉ? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>macOS ላይ ለመጀመሪያ ጊዜ አስጀምር
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 macOS ላይ ለመጀመሪያ ጊዜ አስጀምር</strong></summary>
 
 Arroxy ለ macOS እስካሁን ኮድ አልተፈረመም፣ ስለዚህ Gatekeeper ከ DMG ከጫኑት በኋላ አስፈሪውን *"Arroxy.app is damaged and can't be opened"* መልዕክት ሊያሳይ ይችላል። ይህ መልዕክት macOS ያልተፈረመ app በquarantine ውስጥ አስገብቶታል ማለት ነው፤ የapp ፋይሎች በእውነት ተጎድተዋል ማለት አይደለም። በአሁኑ macOS ላይ አስተማማኙ መፍትሔ Terminal ነው:
 
@@ -227,7 +254,10 @@ open /Applications/Arroxy.app
 
 > macOS ሕንጻዎች ከ Apple Silicon እና Intel ሩጫዎች በ CI ላይ ይሠራሉ። ችግር ካጋጠምዎ፣ [ጉዳይ ይክፈቱ](../../issues) — ከ macOS ተጠቃሚዎች ያለው ምላሽ የ macOS ፈተና ዑደቱን ቀጥታ ይቀርፃሉ።
 
-### <a id="why-warning"></a>ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ</strong></summary>
 
 Arroxy ምን ኮድ ያለው (open-source) እና MIT ፈቃድ ያለው ነው። የ Windows እና macOS ቅጅዎቹ **ኮድ አልተፈረመባቸውም** — Apple Developer ID እና Windows EV ኮድ-ፊርማ ሰርቲፊኬቶቹ እያንዳንዳቸው በዓመት በመቶዎች ዶላር ያስወጣሉ፣ ይህ ነጻ ፕሮጀክት ከኪሳቸው ይከፍላሉ። ያነዚህ ፊርሞች ሳይኖሩ፣ Windows SmartScreen እና macOS Gatekeeper በመጀመሪያ አስጀማሪ ያስጠነቅቋቸዋል። ማስጠንቀቂያዎቹ *ሥርዓተ ክወናዎ ናሸርን አይለይም* ማለት ናቸው — Arroxy ተንኮል-አዘል ሶፍትዌር ነው ማለት አይደሉም።
 
@@ -237,7 +267,10 @@ Arroxy ን ራስዎ ለማረጋገጥ ሦስት መንገዶች፣ ከፍ እ�
 - **SHA256ን ያረጋግጡ።** ፋይልዎን ከታተሙት [`SHA256SUMS`](../../releases/latest) ጋር ያዛምዱ — ከዚህ በታች [ማውረዱን ያረጋግጡ](#verify) ይመልከቱ።
 - **የሦስተኛ ወገን ቅኝት ያካሂዱ።** ፋይሉን ወደ [VirusTotal](https://www.virustotal.com) ይጫኑ።
 
-### <a id="linux-first-launch"></a>Linux ላይ ለመጀመሪያ ጊዜ አስጀምር
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Linux ላይ ለመጀመሪያ ጊዜ አስጀምር</strong></summary>
 
 AppImages ቀጥታ ይሠራሉ — ምንም ጫሌ አያስፈልጋቸውም። ፋይሉን ሊፈጸም እንደሚችል ብቻ ምልክት ማድረግ ያስፈልጋሉ።
 
@@ -269,8 +302,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>ማውረዱን ያረጋግጡ (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 ማውረዱን ያረጋግጡ (SHA256)</strong></summary>
 
 ሁሉም ስሪቶቹ ከሁለትዮሽ ፋይሎቹ ጎን `SHA256SUMS` ፋይልን ያሳትማሉ። ማውረዱ ሳይበላሽ ወይም ሳይሻሻል እንደደረሰ ለማረጋገጥ፣ ፋይልዎን ሃሽ ያድርጉ እና `SHA256SUMS` ውስጥ ካለው መስመር ጋር ያዛምዱ። ቅርቡን ስሪት ገጽ ይክፈቱ → **Assets** → `SHA256SUMS` ያውርዱ።
 
@@ -297,7 +332,7 @@ sha256sum Arroxy-linux-x64.AppImage
 </details>
 
 <details>
-<summary><strong>Windows: ጫኝ vs ተጓዥ</strong></summary>
+<summary><strong>📦 Windows: ጫኝ vs ተጓዥ</strong></summary>
 
 |               | NSIS ጫኝ | ተጓዥ `.exe` |
 | ------------- | :----------------------: | :---------------------: |
@@ -313,7 +348,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="why"></a>ለምን Arroxy
+## <a id="why"></a>⚖️ ለምን Arroxy
 
 ከተለመዱ አማራጮች ጋር ጎን ለጎን ማወዳደሪያ:
 
@@ -330,7 +365,7 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ይለጥፉ፣ ንጹ
 
 ---
 
-## <a id="privacy"></a>ግላዊነት
+## <a id="privacy"></a>🔒 ግላዊነት
 
 ማውረዶቹ ቀጥታ በ [yt-dlp](https://github.com/yt-dlp/yt-dlp) ከ YouTube ወደ መረጡት አቃፊ ይወርዳሉ — ምንም ሦስተኛ ወገን ሰርቨር አይሆንም። የእይታ ታሪክ፣ የማውረድ ታሪክ፣ URLs፣ እና የፋይሎቹ ይዘቶች በመሳሪያዎ ላይ ይቆያሉ።
 
@@ -340,41 +375,81 @@ Explore ከbrowserዎ የተለየ የራሱን መግቢያ ይይዛል፣ እ
 
 ---
 
-## <a id="faq"></a>ተደጋጋሚ ጥያቄዎች
+## <a id="faq"></a>❓ ተደጋጋሚ ጥያቄዎች
 
-**በርግጥ ነፃ ነው?**
+<details>
+<summary><strong>በርግጥ ነፃ ነው?</strong></summary>
+
 አዎ — MIT ፈቃድ አለው፣ ምንም ፕሪሚየም ደረጃ፣ ምንም ባህሪ ቁጥጥር የለም።
 
-**ምን ዓይነት ቪዲዮ ጥራቶች ማውረድ እችላሉ?**
+</details>
+
+<details>
+<summary><strong>ምን ዓይነት ቪዲዮ ጥራቶች ማውረድ እችላሉ?</strong></summary>
+
 YouTube የሚሰጣቸው ሁሉ: 4K UHD (2160p)፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p፣ እና ድምፅ ብቻ። 60 fps፣ 120 fps፣ እና HDR ዥረቶች እንዳሉ ይጠበቃሉ።
 
-**ድምፁን ብቻ MP3 አድርጎ ማቅረብ ይቻላሉ?**
+</details>
+
+<details>
+<summary><strong>ድምፁን ብቻ MP3 አድርጎ ማቅረብ ይቻላሉ?</strong></summary>
+
 አዎ። በፎርማት ሜኑ ውስጥ *ኦዲዮ ብቻ* ምረጥ እና MP3፣ M4A/AAC፣ Opus ወይም WAV ምረጥ።
 
-**YouTube ሒሳብ የሚፈልጉ ቪዲዮዎችን እንዴት አወርዳለሁ?**
+</details>
+
+<details>
+<summary><strong>YouTube ሒሳብ የሚፈልጉ ቪዲዮዎችን እንዴት አወርዳለሁ?</strong></summary>
+
 በExplore ትር ውስጥ አንድ ጊዜ ይግቡ። ከዚያ Arroxy ሒሳብዎ ማየት የሚችላቸውን የግል እና የአባላት-ብቻ ቪዲዮዎች፣ ሒሳቡ በዕድሜ ከተረጋገጠ ዕድሜ-የተገደቡ ቪዲዮዎች፣ እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ማውረድ ይችላል። መግቢያውን የሚጠቀመው ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ ነው፤ የቀረው ሁሉ እንደ ቀድሞው ይወርዳል። ይህ **Explore መግቢያ** ምርጫ ነው፣ በኩኪ ቅንብሮች ውስጥ መጀመሪያ የተዘረዘረ እና Recommended ተብሎ የተመለከተ፣ እና Explore ለመጀመሪያ ጊዜ ሲከፍቱ Arroxy ራሱ ይመርጣል። የ yt-dlp ዊኪ [በመግቢያ የሚደረግ አውቶሜሽን የ Google ሒሳብን ሊያመለክት እንደሚችል](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) ያስታውቃል፣ ስለዚህ ሁለተኛ ሒሳብ ጥንቃቄ ያለው ምርጫ ነው።
 
-**YouTube ሲቀያየር አሁንም ይሠራሉ?**
+</details>
+
+<details>
+<summary><strong>YouTube ሲቀያየር አሁንም ይሠራሉ?</strong></summary>
+
 yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube አንድ ነገር ሲቀይር Arroxy እርማቶችን በፍጥነት ያደርሳሉ። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ፣ እዚያ ከገቡ Arroxy የExplore መግቢያዎን ደግሞ ይሞክራል፣ እና ከፋይል ወይም ከbrowser የሚመጡ ኩኪዎች በኩኪ ቅንብሮች ውስጥ ይገኛሉ።
 
-**Arroxy በምን ቋንቋዎች ይገኛሉ?**
+</details>
+
+<details>
+<summary><strong>Arroxy በምን ቋንቋዎች ይገኛሉ?</strong></summary>
+
 31 ቋንቋዎች ወዲያውኑ ይገኛሉ፦ Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文። Arroxy በመጀመሪያ ሲጀመር የእርስዎን የስርዓተ ክወና ቋንቋ በራስ-ሰር ያውቃል፣ እና በመሳሪያ አሞሌው ውስጥ ካለው ቋንቋ መራጭ በማንኛውም ጊዜ መቀየር ይችላሉ። Runtime locale JSON በ src/shared/i18n/locales/ ውስጥ ይኖራል፣ የተርጓሚዎች PO ካታሎጎች ደግሞ በ i18n/locales/ ውስጥ ይኖራሉ — ለመሳተፍ GitHub ላይ PR ይክፈቱ።
 
-**ሌላ ነገር ጫን ያስፈልጋሉ?**
+</details>
+
+<details>
+<summary><strong>ሌላ ነገር ጫን ያስፈልጋሉ?</strong></summary>
+
 አይ። yt-dlp በመጀመሪያ አስጀማሪ ራስ-ሰር ይወርዳል እና በማሽንዎ ላይ ይቀመጣል፤ ffmpeg እና ffprobe ከአፑ ጋር ይመጣሉ። ከዚያ ተጨማሪ setup አያስፈልግም።
 
-**ፕሌይሊስቶች ወይም ሙሉ ቻናሎች ማውረድ ይቻላሉ?**
+</details>
+
+<details>
+<summary><strong>ፕሌይሊስቶች ወይም ሙሉ ቻናሎች ማውረድ ይቻላሉ?</strong></summary>
+
 አዎ — ሁለቱም። የplaylist ወይም channel URL ይለጥፉ (ለምሳሌ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); ስንት ግቤቶች እንዲቃኙ ይምረጡ፣ ከዚያም ሙሉውን ዝርዝር ወደ ወረፋ ያክሉ ወይም ቪዲዮዎችን በተናጠል ይምረጡ። የቀን ክልል ማጣሪያዎች በቅርቡ ይመጣሉ።
 
-**macOS "አፕ ተጎድቷል" ይላሉ — ምን ማድረግ አለብኝ?**
+</details>
+
+<details>
+<summary><strong>macOS "አፕ ተጎድቷል" ይላሉ — ምን ማድረግ አለብኝ?</strong></summary>
+
 ያ macOS Gatekeeper ያልተፈረመ app እየከለከለ ነው፣ እውነተኛ ጉዳት አይደለም። quarantine ለማስወገድ እና Arroxyን ለማስነሳት የTerminal ትዕዛዞችን በ[macOS first launch](#macos-first-launch) ይመልከቱ።
 
-**YouTube ቪዲዮዎች ማውረድ ሕጋዊ ነው?**
+</details>
+
+<details>
+<summary><strong>YouTube ቪዲዮዎች ማውረድ ሕጋዊ ነው?</strong></summary>
+
 ለግል፣ ሚስጥራዊ አጠቃቀም በአብዛኛዎቹ ዳኝነቶች ተቀባይነት ያለው ነው። የ YouTube [የአገልግሎት ደንቦቹን](https://www.youtube.com/t/terms) እና የቦታዎ የቅጂ መብት ሕጎቹን ማክበር ኃላፊነትዎ ነው።
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>ወደፊት ዕቅድ
+## <a id="roadmap"></a>🗺️ ወደፊት ዕቅድ
 
 አሁንም የታቀደ — በግምት በቅድሚያ ቅደም ተከተል:
 
@@ -391,7 +466,7 @@ yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube
 
 ---
 
-## <a id="support"></a>Arroxy ይደግፉ
+## <a id="support"></a>💖 Arroxy ይደግፉ
 
 Arroxy ነፃ ነው እና በMIT ፈቃድ ይሰራጫል — ማስታወቂያ የለም፣ ቴሌሜትሪ የለም፣ የሚከፈልበት እትም የለም። ጊዜዎን የሚቆጥብ ከሆነ ልማቱን በBitcoin ወይም በTron መደገፍ ይችላሉ፦ አድራሻዎቹ በ[DONATE.md](DONATE.md) ውስጥ ይገኛሉ፣ እርሱም ብቸኛው ይፋዊ ምንጫቸው ነው። Arroxy በኢሜይል ወይም በቀጥታ መልእክት አድራሻ በፍጹም አይልክልዎትም። ማከማቻውን በኮከብ ምልክት ማድረግ፣ ስህተቶችን ማሳወቅ እና ትርጉሞችን ማሻሻል እኩል ይረዳሉ።
 
@@ -399,7 +474,7 @@ Arroxy ነፃ ነው እና በMIT ፈቃድ ይሰራጫል — ማስታወቂ
 
 ---
 
-## <a id="tech"></a>ከምን ተሠርቷል
+## <a id="tech"></a>🛠️ ከምን ተሠርቷል
 
 <details>
 <summary><strong>Stack</strong></summary>
@@ -492,9 +567,10 @@ bun run dist:win     # supported host ላይ Windows targets package ማድረ�
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -549,9 +625,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## የአጠቃቀም ደንቦች
+## 📜 የአጠቃቀም ደንቦች
 
 Arroxy ለግል፣ ሚስጥራዊ አጠቃቀም ብቻ ሶፍትዌር ነው። ማውረዶቹ የ YouTube [የአገልግሎት ደንቦቹን](https://www.youtube.com/t/terms) እና የቦታዎ የቅጂ መብት ሕጎቹን ማክበር ሙሉ ኃላፊነትዎ ነው። Arroxy ን ለማውረድ፣ ለማባዛት ወይም ሊጠቀሙበት የማይፈቅዱ ይዘቶችን ለማሰራጨት አይጠቀሙ። ገንቢዎቹ ለምን ዓይነት አላግባብ አጠቃቀም ኃላፊነት አይወስዱም።
 

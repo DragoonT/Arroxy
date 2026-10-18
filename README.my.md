@@ -23,29 +23,32 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-17._
+> _Last updated: 2026-10-18._
 
 ---
 
 ## မာတိကာ
 
-- [လုပ်ဆောင်ချက်များ](#features)
-- [ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း](#install)
+- [✨ လုပ်ဆောင်ချက်များ](#features)
+- [📥 ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း](#install)
   - [Windows ပထမဆုံး launch](#windows-first-launch)
   - [macOS ပထမဆုံး launch](#macos-first-launch)
   - [သတိပေးချက် ဘာကြောင့်မြင်ရနိုင်သနည်း](#why-warning)
   - [Linux ပထမဆုံး launch](#linux-first-launch)
   - [သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ (SHA256)](#verify)
-- [Arroxy ဘာကြောင့်](#why)
-- [ကိုယ်ရေးကိုယ်တာ](#privacy)
-- [မေးလေ့ရှိသောမေးခွန်းများ](#faq)
-- [လမ်းပြမြေပုံ](#roadmap)
-- [Arroxy ကို ပံ့ပိုးရန်](#support)
-- [တည်ဆောက်ထားသောနည်းပညာ](#tech)
+- [⚖️ Arroxy ဘာကြောင့်](#why)
+- [🔒 ကိုယ်ရေးကိုယ်တာ](#privacy)
+- [❓ မေးလေ့ရှိသောမေးခွန်းများ](#faq)
+- [🗺️ လမ်းပြမြေပုံ](#roadmap)
+- [💖 Arroxy ကို ပံ့ပိုးရန်](#support)
+- [🛠️ တည်ဆောက်ထားသောနည်းပညာ](#tech)
 
 ---
 
-## <a id="features"></a>လုပ်ဆောင်ချက်များ
+## <a id="features"></a>✨ လုပ်ဆောင်ချက်များ
+
+<details>
+<summary><strong>📸 စခရင်ရှော့များ</strong></summary>
 
 <table align="center" width="100%">
   <tr>
@@ -84,7 +87,10 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
   </tr>
 </table>
 
-### Explore: Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပါ
+</details>
+
+<details open>
+<summary><strong>🧭 Explore: Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပါ</strong></summary>
 
 - **Explore tab** — Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး လင့်ခ်မကူးဘဲ တွေ့သည့်အရာကို ဒေါင်းလုဒ်လုပ်ပါ။ **ဒေါင်းလုဒ် · *သင့်ပရိုဖိုင်*** သည် သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို စာရင်းထဲထည့်ပေးသည်၊ ဘေးရှိ မြှားက ပရိုဖိုင်ပြောင်းပေးပြီး မှော်လှံတံက format၊ subtitle စသည်တို့ကို ရွေးရန် အဆင့်ဆင့် ဒေါင်းလုဒ်ကို ဖွင့်ပေးသည်
 - **Right-click ဖြင့် ဒေါင်းလုဒ်** — Explore ရှိ မည်သည့် ဗီဒီယို၊ playlist သို့မဟုတ် channel လင့်ခ်ကိုမဆို right-click နှိပ်ပြီး သင့်ပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်လုပ်ပါ၊ **ပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်** မှ အခြားပရိုဖိုင်ကို ရွေးပါ၊ အဆင့်ဆင့် ဒေါင်းလုဒ်ကို ဖွင့်ပါ သို့မဟုတ် လင့်ခ်ကို ကူးယူပါ။ ဗီဒီယိုတစ်ခုချင်းစီကို အရင်ဖွင့်ရန် မလိုပါ
@@ -94,20 +100,29 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 - **အရန်အကောင့် သုံးပါ** — Explore ၏ ပထမဆုံးမျက်နှာပြင်က အကြောင်းရင်းကို ရှင်းပြထားသည် - အကောင့်ဖြင့် ဒေါင်းလုဒ်လုပ်ခြင်းသည် ထိုအကောင့် ကန့်သတ်ခံရနိုင်သည့် အန္တရာယ် အနည်းငယ်ရှိသည်။ sign-in ကို မေ့စေလိုသည့်အခါ ဆက်တင်များမှ Explore ကို အချိန်မရွေး sign out လုပ်ပါ
 - **ကြော်ငြာပိတ်ဆို့ကိရိယာ** — Explore သည် ၎င်း၏ကိုယ်ပိုင်စာမျက်နှာများတွင် ကြော်ငြာနှင့် tracker များကို ပိတ်ဆို့သည်၊ ဒေါင်းလုဒ်များကို မထိခိုက်ပါ။ မူရင်းအတိုင်း ဖွင့်ထားပြီး Explore toolbar ရှိ ဒိုင်းလွှားကို တစ်ချက်နှိပ်ရုံဖြင့် ပိတ်နိုင်ကာ Google ၏ sign-in စာမျက်နှာများတွင် ဘယ်တော့မှ အလုပ်မလုပ်ပါ။ sign in ဝင်ထားသော အကောင့်များအတွက် YouTube က ကြော်ငြာပိတ်ဆို့ကိရိယာကို ပြန်လည်တားဆီးနိုင်သည်
 
-### အရည်အသွေးနှင့် format များ
+</details>
+
+<details>
+<summary><strong>🎞️ အရည်အသွေးနှင့် format များ</strong></summary>
 
 - **4K UHD (2160p)** အထိ၊ 1440p, 1080p, 720p, 480p, 360p
 - **High frame rate** ကို မူရင်းအတိုင်း ထိန်းသိမ်း — 60 fps, 120 fps, HDR
 - **အသံ** — အသံသာကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်ပါ။ interactive downloads တွင် ရနိုင်ပါက source ၏ native surround/Dolby tracks (AC-3၊ E-AC-3၊ 5.1၊ DRC) ကို ရွေးချယ်ပါ၊ သို့မဟုတ် global default **surround / Dolby ကို ဦးစားပေးပါ** ကို သတ်မှတ်ပါ
 - **ရည်မှန်းချက်ပါသော ပရိုဖိုင်များ** — *အကောင်းဆုံး ရုပ်ထွက်* (AV1 · VP9) သို့မဟုတ် *စမတ် TV* (MP4 · H.264)၊ ပြန်လည် encode မလုပ်ဘဲ အလိုအလျောက်၊ MP4၊ MKV သို့မဟုတ် WebM အဖြစ် သိမ်းဆည်းသည်။ HDR သည် *အလိုအလျောက်* (သင့်စခရင်ပြသနိုင်မှသာ)၊ *SDR* သို့မဟုတ် *HDR* ဖြစ်သည်
 
-### ကိုယ်ရေးကိုယ်တာနှင့် ထိန်းချုပ်မှု
+</details>
+
+<details>
+<summary><strong>🛡️ ကိုယ်ရေးကိုယ်တာနှင့် ထိန်းချုပ်မှု</strong></summary>
 
 - 100% local processing — ဒေါင်းလုဒ်များသည် YouTube မှ တိုက်ရိုက် သင့် disk သို့ သွားသည်
 - Login မပါ၊ cookie မပါ၊ Google account ချိတ်ဆက်မှုမပါ
 - သင်ရွေးချယ်သောဖိုဒါတွင် ဖိုင်များကို တိုက်ရိုက်သိမ်းဆည်းသည်
 
-### Workflow
+</details>
+
+<details>
+<summary><strong>⚡ Workflow</strong></summary>
 
 - **စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်** — မည်သည့်အက်ပ်တွင်မဆို လင့်ခ်ကို ကူးယူပြီး `Ctrl+Shift+D` (macOS တွင် `Cmd+Shift+D`) ကိုနှိပ်ပါ။ Arroxy သည် ဝင်းဒိုးမဖွင့်ဘဲ သင့်လက်ရှိပရိုဖိုင်ဖြင့် စာရင်းထဲထည့်ပေးပြီး အသိပေးချက်ဖြင့် အတည်ပြုပါသည်။ မူရင်းအတိုင်း ဖွင့်ထားပြီး ပြန်သတ်မှတ်နိုင်သည်
 - **ပြောင်းလွယ်ပြင်လွယ် စတင်မုဒ်များ** — လမ်းညွှန်ထားသော single download၊ playlist/channel picker၊ bulk URL paste၊ သိမ်းထားသော defaults ဖြင့် Quick Download၊ သို့မဟုတ် Explore တွင် ကြည့်ရှုပြီး ဒေါင်းလုဒ်လုပ်ခြင်းတို့ကို ရွေးပါ
@@ -129,7 +144,10 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 - **အောရိုရာ သို့မဟုတ် ရိုးရှင်း၊ အမှောင် သို့မဟုတ် အလင်း** — ရွေ့လျားနေသော ကောင်းကင်ပေါ်ရှိ ဖန်သားပြားများ သို့မဟုတ် တိတ်ဆိတ်သော အစိုင်အခဲမျက်နှာပြင်များ၊ footer မှ ပြောင်းနိုင်သည်။ ဂရပ်ဖစ်အရှိန်မြှင့်မှု မရှိသော ကွန်ပျူတာများသည် ရိုးရှင်း ကို အလိုအလျောက် ရရှိသည်
 - **Mac menu bar** — macOS တွင် menu bar မှ ဆက်တင်များ (`Cmd+,`) ကိုဖွင့်ပါ၊ ဒေါင်းလုဒ်အမြန်နှုန်းကန့်သတ်ချက်ကို သတ်မှတ်ပါ၊ စတိုင်နှင့် အသွင်အပြင်ကို ပြောင်းပါ၊ မှတ်တမ်းများကိုဖွင့်ပါ သို့မဟုတ် စစ်ဆေးချက်ဖိုင်ကို သိမ်းပါ
 
-### Subtitles နှင့် post-processing
+</details>
+
+<details>
+<summary><strong>📝 Subtitles နှင့် post-processing</strong></summary>
 
 - SRT, VTT သို့မဟုတ် ASS တွင် **Subtitles** — ကိုယ်တိုင်ရိုက်ထည့်ထားသော သို့မဟုတ် auto-generated၊ မည်သည့် language မဆို
 - ဗီဒီယိုဘေးတွင်သိမ်းပါ၊ `.mkv` ထဲ embed လုပ်ပါ၊ သို့မဟုတ် `Subtitles/` subfolder တွင် စီစဉ်ပါ
@@ -137,16 +155,21 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 - **SponsorBlock** — sponsors, intros, outros, self-promos ကို ကျော်ပြီး chapter-mark လုပ်ပါ
 - **Embedded metadata** — ခေါင်းစဉ်၊ upload date, channel, description, thumbnail နှင့် chapter markers တို့ကို ဖိုင်ထဲသို့ ရေးသွင်းသည်
 
-### YouTube + ၂၀၀၀ ဆိုဒ်
+</details>
+
+<details>
+<summary><strong>🌐 YouTube + ၂၀၀၀ ဆိုဒ်</strong></summary>
 
 - **YouTube၊ အပြည့်အဝ** — Videos, Shorts, Channels, Playlists, YouTube Music နှင့် Podcasts တို့ကို ပထမတန်းစား ရင်းမြစ်များအဖြစ် ကိုင်တွယ်သည်
 - **၂၀၀၀+ အခြားဆိုဒ်များ** yt-dlp မှတဆင့် — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org နှင့် အခြားအများကြီး
 - **အသံသာနှင့် subtitle များ** ထောက်ပံ့သောဆိုဒ်တိုင်းတွင် အလုပ်လုပ်သည်၊ YouTube တွင်သာမဟုတ်
 - ဆိုဒ်တစ်ခု ပြောင်းလဲပါက yt-dlp သည် အပတ်တိုင်း fix များ ထုတ်ပြီး Arroxy သည် launch တွင် binary ကို auto-update လုပ်သည်
 
+</details>
+
 ---
 
-## <a id="install"></a>ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း
+## <a id="install"></a>📥 ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း
 
 **Windows**
 
@@ -185,7 +208,8 @@ Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်�
 
 [**နောက်ဆုံး release ကို ယူပါ →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
-### <a id="windows-first-launch"></a>Windows ပထမဆုံး launch
+<details>
+<summary><strong><a id="windows-first-launch"></a>🪟 Windows ပထမဆုံး launch</strong></summary>
 
 ပထမဆုံး ဖွင့်သောအခါ **"Windows protected your PC"** သို့မဟုတ် **"Unknown publisher."** ဟု မြင်ရနိုင်သည်။ ၎င်းသည် `Arroxy-win-x64-Setup.exe` နှင့် `Arroxy-win-x64-Portable.exe` နှစ်မျိုးစလုံးအတွက် သက်ဆိုင်သည်။ Arroxy သည် အခမဲ့ open-source ဖြစ်ပြီး Windows builds များကို ငွေပေးချေ certificate ဖြင့် code-sign မလုပ်ထားသောကြောင့် SmartScreen က flag လုပ်သည်။ ၎င်းသည် Arroxy မဘေးကင်းကြောင်း **အလိုအလျောက်** မဆိုလိုပါ။ ဆက်လုပ်ရန်:
 
@@ -205,7 +229,10 @@ Defender heuristics သည် တစ်ခါတစ်ရံ unsigned NSIS insta
 
 Scoop ကို ပိုနှစ်သက်ပါသလား။ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
 
-### <a id="macos-first-launch"></a>macOS ပထမဆုံး launch
+</details>
+
+<details>
+<summary><strong><a id="macos-first-launch"></a>🍎 macOS ပထမဆုံး launch</strong></summary>
 
 Arroxy သည် macOS အတွက် code-sign မလုပ်ရသေးသောကြောင့် DMG မှ install လုပ်ပြီးနောက် Gatekeeper သည် ကြောက်စရာ *"Arroxy.app is damaged and can't be opened"* dialog ကို ပြသနိုင်သည်။ ထို message သည် macOS က unsigned app ကို quarantine လုပ်ထားသည်ဟု ဆိုလိုပြီး app files တကယ်ပျက်စီးနေသည်ဟု မဆိုလိုပါ။ လက်ရှိ macOS တွင် ယုံကြည်ရသော ဖြေရှင်းနည်းမှာ Terminal ဖြစ်သည်:
 
@@ -227,7 +254,10 @@ open /Applications/Arroxy.app
 
 > macOS builds များကို Apple Silicon နှင့် Intel runners တို့ပေါ်တွင် CI မှတဆင့် ထုတ်လုပ်သည်။ ပြဿနာများကြုံတွေ့ပါက [issue တင်ပါ](../../issues) — macOS သုံးစွဲသူများ၏ feedback သည် macOS testing cycle ကို တက်ကြွစွာ ပုံဖော်ပေသည်။
 
-### <a id="why-warning"></a>သတိပေးချက် ဘာကြောင့်မြင်ရနိုင်သနည်း
+</details>
+
+<details>
+<summary><strong><a id="why-warning"></a>⚠️ သတိပေးချက် ဘာကြောင့်မြင်ရနိုင်သနည်း</strong></summary>
 
 Arroxy သည် open-source ဖြစ်ပြီး MIT-licensed ဖြစ်သည်။ Windows နှင့် macOS builds များသည် **code-sign မလုပ်ထားပါ** — Apple Developer ID နှင့် Windows EV code-signing certificates တို့သည် တစ်နှစ်လျှင် ဒေါ်လာ ရာနှင့်ချီ ကုန်ကျပြီး indie project တစ်ခုအတွက် ကိုယ်တိုင်ကျခံရသည်။ ထိုလက်မှတ်များမပါဘဲ Windows SmartScreen နှင့် macOS Gatekeeper တို့သည် ပထမဆုံး launch တွင် သတိပေးလိမ့်မည်။ သတိပေးချက်များ၏ အဓိပ္ပာယ်မှာ *သင့် OS က publisher ကို မသိသောကြောင့်ဖြစ်ပြီး* Arroxy malware ဖြစ်ကြောင်း မဆိုလိုပါ။
 
@@ -237,7 +267,10 @@ Arroxy ကိုယ်တိုင် စစ်ဆေးရန် နည်း�
 - **SHA256 စစ်ဆေးပါ။** သင့်ဖိုင်ကို ထုတ်ဝေထားသော [`SHA256SUMS`](../../releases/latest) နှင့် ကိုက်ညီမှုစစ်ဆေးပါ — အောက်တွင် [သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ](#verify) ကိုကြည့်ပါ။
 - **Third-party scan ပြုလုပ်ပါ။** ဖိုင်ကို [VirusTotal](https://www.virustotal.com) တွင် upload ပြုလုပ်ပါ။
 
-### <a id="linux-first-launch"></a>Linux ပထမဆုံး launch
+</details>
+
+<details>
+<summary><strong><a id="linux-first-launch"></a>🐧 Linux ပထမဆုံး launch</strong></summary>
 
 AppImages များကို တိုက်ရိုက် run နိုင်သည် — ထည့်သွင်းမှုမလိုအပ်ပါ။ ဖိုင်ကို executable အဖြစ် mark လုပ်ရုံသာ လိုအပ်သည်။
 
@@ -269,8 +302,10 @@ tar xzf Arroxy-linux-x64.tar.gz
 
 **ထုတ်ဝေမှုစာမျက်နှာရှိ Linux ဒေါင်းလုဒ်များသည် x86_64 သီးသန့်ဖြစ်သည်။** ARM64 စက်များ (Raspberry Pi, Asahi Linux) တွင် Flatpak install လုပ်၍ရသော်လည်း ဖွင့်သည့်အခါ `bwrap: execvp ldconfig: Exec format error` ဖြင့် ကျရှုံးသည်။
 
+</details>
+
 <details>
-<summary><strong><a id="verify"></a>သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ (SHA256)</strong></summary>
+<summary><strong><a id="verify"></a>🔐 သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ (SHA256)</strong></summary>
 
 Release တိုင်းသည် binaries များနှင့်အတူ `SHA256SUMS` ဖိုင်ကို ထုတ်ဝေသည်။ သင့်ဒေါင်းလုဒ်သည် ပိုဆောင်ရင်းတွင် ပျက်စီးသွားခြင်း သို့မဟုတ် ကြားဖြတ်ဝင်ရောက်ပြောင်းလဲမှုမရှိကြောင်း စစ်ဆေးရန် ဖိုင်ကို locally hash ပြုလုပ်ပြီး `SHA256SUMS` ရှိ လိုင်းနှင့် ကိုက်ညီမှုစစ်ဆေးပါ။ နောက်ဆုံး release page ဖွင့်ပါ → **Assets** → `SHA256SUMS` ကိုဒေါင်းလုဒ်ဆွဲပါ။
 
@@ -297,7 +332,7 @@ Third-party malware scan လိုချင်ပါသလား? [VirusTotal](h
 </details>
 
 <details>
-<summary><strong>Windows: Installer နှင့် Portable နှိုင်းယှဉ်</strong></summary>
+<summary><strong>📦 Windows: Installer နှင့် Portable နှိုင်းယှဉ်</strong></summary>
 
 |               | NSIS Installer | Portable `.exe` |
 | ------------- | :----------------------: | :---------------------: |
@@ -313,7 +348,7 @@ Third-party malware scan လိုချင်ပါသလား? [VirusTotal](h
 
 ---
 
-## <a id="why"></a>Arroxy ဘာကြောင့်
+## <a id="why"></a>⚖️ Arroxy ဘာကြောင့်
 
 အသုံးများဆုံး alternatives များနှင့် side-by-side နှိုင်းယှဉ်ချက်:
 
@@ -330,7 +365,7 @@ Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချ
 
 ---
 
-## <a id="privacy"></a>ကိုယ်ရေးကိုယ်တာ
+## <a id="privacy"></a>🔒 ကိုယ်ရေးကိုယ်တာ
 
 Downloads များကို [yt-dlp](https://github.com/yt-dlp/yt-dlp) မှတဆင့် YouTube မှ တိုက်ရိုက် သင်ရွေးချယ်သောဖိုဒါသို့ fetch လုပ်သည် — third-party server မှတဆင့် routing မလုပ်ပါ။ ကြည့်ရှုမှတ်တမ်း၊ ဒေါင်းလုဒ်မှတ်တမ်း၊ URL များနှင့် ဖိုင်အကြောင်းအရာများသည် သင့်ကိရိယာပေါ်တွင်သာ ကျန်ရှိသည်။
 
@@ -340,41 +375,81 @@ Explore သည် သင့် browser နှင့် သီးခြားဖ�
 
 ---
 
-## <a id="faq"></a>မေးလေ့ရှိသောမေးခွန်းများ
+## <a id="faq"></a>❓ မေးလေ့ရှိသောမေးခွန်းများ
 
-**တကယ်ကို အခမဲ့လား?**
+<details>
+<summary><strong>တကယ်ကို အခမဲ့လား?</strong></summary>
+
 ဟုတ်သည် — MIT licensed၊ premium tier မပါ၊ feature gating မပါ။
 
-**မည်သည့် ဗီဒီယိုအရည်အသွေးများ ဒေါင်းလုဒ်ဆွဲနိုင်သနည်း?**
+</details>
+
+<details>
+<summary><strong>မည်သည့် ဗီဒီယိုအရည်အသွေးများ ဒေါင်းလုဒ်ဆွဲနိုင်သနည်း?</strong></summary>
+
 YouTube ပေးသောအရာများအားလုံး: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p နှင့် audio-only။ 60 fps, 120 fps နှင့် HDR streams များကို မူရင်းအတိုင်း ထိန်းသိမ်းသည်။
 
-**Audio ကိုသာ MP3 အဖြစ် ထုတ်ယူနိုင်သလား?**
+</details>
+
+<details>
+<summary><strong>Audio ကိုသာ MP3 အဖြစ် ထုတ်ယူနိုင်သလား?</strong></summary>
+
 ဟုတ်ပါတယ်။ format menu ထဲက *အသံသာ* ကိုရွေးပြီး MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV ကိုရွေးပါ။
 
-**YouTube account လိုအပ်သော ဗီဒီယိုများကို ဘယ်လို ဒေါင်းလုဒ်လုပ်ရမလဲ?**
+</details>
+
+<details>
+<summary><strong>YouTube account လိုအပ်သော ဗီဒီယိုများကို ဘယ်လို ဒေါင်းလုဒ်လုပ်ရမလဲ?</strong></summary>
+
 Explore tab တွင် တစ်ကြိမ် sign in ဝင်ပါ။ ထို့နောက် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private နှင့် member-only ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်။ အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ ထို sign-in ကို သုံးပြီး ကျန်အရာအားလုံးကို အရင်ကဲ့သို့ပင် ဒေါင်းလုဒ်လုပ်သည်။ ၎င်းမှာ cookie ဆက်တင်များတွင် ပထမဆုံးစာရင်းသွင်းထားပြီး "အကြံပြု" ဟု အမှတ်အသားပြထားသော **Explore sign-in** ရွေးချယ်မှုဖြစ်ပြီး Explore ကို ပထမဆုံးဖွင့်သောအခါ Arroxy က သင့်အတွက် ရွေးပေးသည်။ yt-dlp ၏ wiki က [sign in ဝင်ထားသော automation သည် Google account ကို flag လုပ်နိုင်ကြောင်း](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) သတိပေးထားသဖြင့် အရန် account တစ်ခုသည် ပိုပြီးဘေးကင်းသောရွေးချယ်မှုဖြစ်သည်။
 
-**YouTube တွင် တစ်ခုခုပြောင်းသောအခါ ဆက်လက်အလုပ်လုပ်မည်လား?**
+</details>
+
+<details>
+<summary><strong>YouTube တွင် တစ်ခုခုပြောင်းသောအခါ ဆက်လက်အလုပ်လုပ်မည်လား?</strong></summary>
+
 yt-dlp ကို launch တိုင်း အလိုအလျောက် update လုပ်ပြီး YouTube က တစ်ခုခု ပြောင်းလဲသောအခါ Arroxy က fix များကို လျင်မြန်စွာ ထုတ်ပေးသည်။ သင်သည် bot မဟုတ်ကြောင်း YouTube က အတည်ပြုခိုင်းသောအခါ Explore တွင် sign in ဝင်ထားလျှင် Arroxy က သင်၏ Explore sign-in ကိုလည်း စမ်းကြည့်ပြီး cookie ဆက်တင်များတွင် ဖိုင် သို့မဟုတ် browser မှ cookie များကိုလည်း သုံးနိုင်သည်။
 
-**Arroxy ကို မည်သည့်ဘာသာစကားများဖြင့် ရနိုင်သနည်း?**
+</details>
+
+<details>
+<summary><strong>Arroxy ကို မည်သည့်ဘာသာစကားများဖြင့် ရနိုင်သနည်း?</strong></summary>
+
 ချက်ချင်းအသုံးပြုနိုင်သော 31 ဘာသာစကားများ: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文။ Arroxy သည် ပထမဆုံးစတင်ချိန်တွင် သင့် operating system ဘာသာစကားကို အလိုအလျောက်သိရှိပြီး toolbar ရှိ ဘာသာစကားရွေးချယ်စနစ်မှ အချိန်မရွေးပြောင်းနိုင်သည်။ Runtime locale JSON သည် src/shared/i18n/locales/ တွင်ရှိပြီး ဘာသာပြန်သူများအတွက် PO catalog များသည် i18n/locales/ တွင်ရှိသည် — ပါဝင်ရန် GitHub တွင် PR ဖွင့်ပါ။
 
-**အခြားအရာများ ထည့်သွင်းရန်လိုသလား?**
+</details>
+
+<details>
+<summary><strong>အခြားအရာများ ထည့်သွင်းရန်လိုသလား?</strong></summary>
+
 မလိုပါ။ yt-dlp သည် ပထမဆုံး ဖွင့်ချိန်တွင် အလိုအလျောက် ဒေါင်းလုဒ်လုပ်ပြီး သင့်စက်တွင် cache လုပ်သည်; ffmpeg နှင့် ffprobe သည် app နှင့်အတူ ပါလာသည်။ ထို့နောက် နောက်ထပ် setup မလိုအပ်ပါ။
 
-**Playlist များ သို့မဟုတ် channel တစ်ခုလုံး ဒေါင်းလုဒ်ဆွဲနိုင်သလား?**
+</details>
+
+<details>
+<summary><strong>Playlist များ သို့မဟုတ် channel တစ်ခုလုံး ဒေါင်းလုဒ်ဆွဲနိုင်သလား?</strong></summary>
+
 ရပါတယ် — နှစ်မျိုးလုံး။ playlist သို့မဟုတ် channel URL ကို paste လုပ်ပါ (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); scan လုပ်မည့် entries အရေအတွက်ကိုရွေးပြီး စာရင်းတစ်ခုလုံးကို queue ထဲထည့်ပါ သို့မဟုတ် video များကို သီးသန့်ရွေးပါ။ date-range filters မကြာမီလာပါမည်။
 
-**macOS က "app ပျက်စီးနေသည်" ဟုဆိုသည် — ဘာလုပ်ရမည်နည်း?**
+</details>
+
+<details>
+<summary><strong>macOS က "app ပျက်စီးနေသည်" ဟုဆိုသည် — ဘာလုပ်ရမည်နည်း?</strong></summary>
+
 ၎င်းသည် macOS Gatekeeper က unsigned app ကို block လုပ်ခြင်းဖြစ်ပြီး တကယ်ပျက်စီးမှုမဟုတ်ပါ။ quarantine ကိုဖယ်ရှားပြီး Arroxy ကိုဖွင့်ရန် Terminal commands များကို [macOS first launch](#macos-first-launch) တွင် ကြည့်ပါ။
 
-**YouTube ဗီဒီယိုများ ဒေါင်းလုဒ်ဆွဲခြင်း တရားဝင်ပါသလား?**
+</details>
+
+<details>
+<summary><strong>YouTube ဗီဒီယိုများ ဒေါင်းလုဒ်ဆွဲခြင်း တရားဝင်ပါသလား?</strong></summary>
+
 ကိုယ်ရေးကိုယ်တာ သုံးစွဲမှုအတွက် ကိုယ်ရေးကိုယ်တာ purposes အတွက် နိုင်ငံအများစုတွင် ယေဘုယျအားဖြင့် လက်ခံသည်။ YouTube ၏ [Terms of Service](https://www.youtube.com/t/terms) နှင့် သင့်ဒေသခံ copyright ဥပဒေများနှင့် ကိုက်ညီသည်ကို သင်ကိုယ်တိုင် တာဝန်ယူရသည်။
+
+</details>
 
 ---
 
-## <a id="roadmap"></a>လမ်းပြမြေပုံ
+## <a id="roadmap"></a>🗺️ လမ်းပြမြေပုံ
 
 ဆက်လက်စီစဉ်ထားသည် — ဦးစားပေးအစဉ်လိုက် ခန့်မှန်းအားဖြင့်:
 
@@ -391,7 +466,7 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 
 ---
 
-## <a id="support"></a>Arroxy ကို ပံ့ပိုးရန်
+## <a id="support"></a>💖 Arroxy ကို ပံ့ပိုးရန်
 
 Arroxy သည် အခမဲ့ဖြစ်ပြီး MIT လိုင်စင်ဖြင့် ဖြန့်ဝေသည် — ကြော်ငြာမပါ၊ telemetry မပါ၊ ငွေပေးရသည့် ဗားရှင်းလည်း မရှိပါ။ သင့်အချိန်ကို သက်သာစေပါက Bitcoin သို့မဟုတ် Tron ဖြင့် ဖွံ့ဖြိုးတိုးတက်မှုကို ပံ့ပိုးနိုင်ပါသည် — လိပ်စာများကို [DONATE.md](DONATE.md) တွင် ကြည့်ပါ၊ ၎င်းသည် လိပ်စာများ၏ တစ်ခုတည်းသော တရားဝင် အရင်းအမြစ် ဖြစ်ပါသည်။ Arroxy သည် သင့်ထံသို့ အီးမေးလ် သို့မဟုတ် တိုက်ရိုက်မက်ဆေ့ချ်ဖြင့် လိပ်စာ ဘယ်တော့မျှ ပို့မည်မဟုတ်ပါ။ repo ကို ကြယ်ပွင့်ပေးခြင်း၊ bug များ အစီရင်ခံခြင်းနှင့် ဘာသာပြန်များ တိုးတက်အောင် ကူညီခြင်းတို့သည်လည်း အလားတူ အထောက်အကူဖြစ်ပါသည်။
 
@@ -399,7 +474,7 @@ Arroxy သည် အခမဲ့ဖြစ်ပြီး MIT လိုင်စ�
 
 ---
 
-## <a id="tech"></a>တည်ဆောက်ထားသောနည်းပညာ
+## <a id="tech"></a>🛠️ တည်ဆောက်ထားသောနည်းပညာ
 
 <details>
 <summary><strong>နည်းပညာ stack</strong></summary>
@@ -492,9 +567,10 @@ bun run dist:win     # supported host တွင် Windows targets package ထ�
 
 ---
 
-## <a id="troubleshooting"></a>Troubleshooting
+## <a id="troubleshooting"></a>🩺 Troubleshooting
 
-### App won't open / no window appears
+<details>
+<summary><strong>🖥️ App won't open / no window appears</strong></summary>
 
 The Arroxy process starts but no window shows up. Most often this is a GPU driver hang during startup. Try, in order:
 
@@ -549,9 +625,11 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 **6. Still stuck?** Open an issue with your OS version and any output from running with `--enable-logging --v=1`. If the app window does open, attach the file from **Settings → Save diagnostics file**: it holds both logs and your app details, with your user folder name removed. Otherwise attach `main.log`.
 
+</details>
+
 ---
 
-## အသုံးပြုမှုသဘောတူညီချက်
+## 📜 အသုံးပြုမှုသဘောတူညီချက်
 
 Arroxy သည် ကိုယ်ရေးကိုယ်တာ သုံးစွဲမှုအတွက်သာ tool ဖြစ်သည်။ သင့် downloads သည် YouTube ၏ [Terms of Service](https://www.youtube.com/t/terms) နှင့် သင့်နိုင်ငံ၏ copyright ဥပဒေများနှင့် ကိုက်ညီကြောင်း သေချာစေရန် တာဝန်သည် သင့်ကိုယ်သင်တွင်သာ ရှိသည်။ သင့်တွင် အသုံးပြုခွင့်မရှိသောကြောင့် content ကို ဒေါင်းလုဒ်ဆွဲ၊ ထပ်ဆင့်ဖြန့်ဝေ သို့မဟုတ် ဖြန့်ဖြူးရန် Arroxy ကို မသုံးပါနှင့်။ Developer များသည် မည်သည့် အလွဲသုံးမှုမဆိုအတွက် တာဝန်ကင်းသည်။
 
