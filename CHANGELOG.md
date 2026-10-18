@@ -8,6 +8,24 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.6.1
+
+A follow-up to 0.6.0 that keeps Aurora from freezing slow computers and makes assigning profiles in a playlist easier.
+
+## Highlights
+
+- **Assign profiles to playlist videos with checkboxes.** In a playlist's per-video profile step, tick the videos you want, or use the select-all box, then click **Assign to N videos**. Each row's profile opens the same profile menu used elsewhere, with Edit and New. A profile you create there is assigned to the videos it was opened for.
+- **A Donate button.** The footer has a new **Donate** button that shows Bitcoin, USDT (Tron) and Ethereum addresses with QR codes and a copy button for each.
+
+## Fixes
+
+- **Aurora no longer freezes slow computers.** Arroxy now times its first frames and lowers Aurora's resolution to keep the app responsive, and switches to Minimal only when the graphics card still can't keep up. The light theme's Aurora is also lighter to draw, and it no longer shows a black flash or freezes for a moment the first time it appears after an update.
+- Saving a profile from the playlist's per-video step no longer makes it your active profile.
+- Languages with more than two plural forms, such as Russian, Ukrainian, Polish and Arabic, now show correct counts instead of falling back to English.
+- The playlist scope control is now translated in every language, and every language uses one native name for Explore.
+
+---
+
 ## 0.6.0
 
 ## Highlights
