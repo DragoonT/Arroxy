@@ -54,3 +54,25 @@ Tag w/ semver pre-release suffix (e.g. `v0.4.0-beta.1`):
 - When ready: bump to plain semver (`v0.4.0`), tag annotated, push.
 
 **NSIS installer:** pin `electron-builder ≥ 26.9.0` (26.8.x has a `multiUser.nsh:35` buffer over-read on cold-heap). Drop `build/installer.nsh`. Any future custom NSIS `Page custom` callback must open with `${If} ${Silent} \n Abort \n ${EndIf}`. Note: the registry `latest` dist-tag is broken `26.8.1`; pin from `next` channel — `bun update --latest` silently downgrades.
+
+## Download size: what was measured and deferred
+
+Moving FFmpeg out of the installers ([ADR 0010](../docs/adr/0010-ffmpeg-is-a-managed-package-installed-once.md)) cut every download by 30–35%. The remaining compression options were measured on the first build without FFmpeg (2026-10-19, local Apple M5 Pro build, decimal MB) and all are deferred. Each keeps the app's files byte-identical; none changes what ships.
+
+| Download | Now | Option | After | Saved | Cost |
+| --- | ---: | --- | ---: | ---: | --- |
+| `Arroxy-mac-arm64.dmg` | 133.34 | LZMA (`ULMO`) | 101.42 | 23.9% | Copying the app out of the DMG: ~1 s → 5–7 s |
+| `Arroxy-mac-x64.dmg` | 140.07 | LZMA (`ULMO`) | 112.77 | 19.5% | Same; real Intel Macs untested, likely slower |
+| `Arroxy-linux-x64.tar.gz` | 125.99 | `tar.xz` (level 5) | 93.98 | 25.4% | Extract 0.4 s → 2.9 s; renames the asset |
+| `Arroxy-linux-x64.AppImage` | 122.28 | squashfs zstd 22, 1 MiB blocks | ≈112.07 | ≈8.4% | Custom mksquashfs step; launch speed and update size untested |
+| Chromium locales not in the app's languages | | drop 26 of 55 | | ≈4% macOS, ≈1% Linux | Explore's browser UI language changes for those OS languages |
+| `Arroxy-linux-x64.flatpak` | | none | | 0 | Already compressed (0.6.2: 148 MB against a 194 MB tar.gz of the same app); `flatpak update` fetches only changes |
+
+Why each is deferred, and what reopens it:
+
+- **LZMA DMG.** The one worth doing: the largest saving on a widely used download, and the asset name stays the same. The trade: users below roughly 50 Mbps finish sooner, faster connections lose a few seconds, and Homebrew installs and updates pay the same decode cost because brew mounts the DMG. Every stable electron-builder 26 rejects `dmg.format: "ULMO"` at schema validation, although the dmgbuild it bundles supports the format. Only 27.0.0-alpha accepts it. **Revisit when electron-builder 27 is stable**: then it is `"format": "ULMO"` under `dmg`, with no patch and no post-build conversion. ULMO needs macOS 10.15+, below Arroxy's floor. The macOS updater never reads the DMG blockmap (see [`in-app-updates.md`](in-app-updates.md)). After the change, verify that the DMG mounts and that `codesign --verify --deep --strict` passes on the mounted app.
+- **`tar.xz`.** 366 downloads across all stable releases, against ~4.5k for the DMGs. The rename touches `electron-builder.json5`, `release.yml` (`SHA256SUMS`, the Flatpak source jobs, the release-notes badge), `flatpak.yml` (which resolves the latest stable's tarball, so it would fail until a stable ships the new name), the READMEs, `tests/unit/release-asset-names.test.ts` and the `arroxy-web` release manifest. It would also 404 every existing `latest/download/Arroxy-linux-x64.tar.gz` link. Revisit only if tarball downloads grow, for example with the AUR package. If it ships, keep level 5: level 9 saves 2 MB more and takes 2.4× as long to compress.
+- **AppImage zstd 22.** electron-builder hardcodes the mksquashfs arguments, so this needs a repack step that regenerates the embedded blockmap. Larger blocks mean more decompression for every random read, which can slow launch. They can also enlarge differential updates, since the AppImage is the one Linux channel that self-updates. Revisit only with launch-time and update-size measurements on a real x64 Linux machine.
+- **Locale filtering.** A product decision, not a build setting. Too small a saving to risk Explore's browser language.
+
+Windows was settled separately and is not to be revisited: stronger NSIS compression slowed portable start and cost Setup its differential updates.
