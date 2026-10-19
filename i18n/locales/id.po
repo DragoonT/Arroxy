@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Artefak"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Kolom {{column}} dilepas."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Pemindahan kolom {{column}} dibatalkan."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Kolom {{column}} berada di atas {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Kolom {{column}} diangkat."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Kolom"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Sembunyikan artefak untuk {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "kolom yang dapat dipindahkan"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Untuk memindahkan kolom, tekan Spasi atau Enter, geser dengan tombol panah, lalu tekan Spasi atau Enter untuk melepaskannya. Tekan Escape untuk membatalkan."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "Sasaran keluaran"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Kemajuan"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Atur ulang kolom"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Ubah ukuran kolom {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

@@ -774,7 +774,15 @@
 			"notAvailable": "—",
 			"sortBy": "Sortuj według: {{label}}",
 			"showArtifactsFor": "Pokaż artefakty dla {{title}}",
-			"hideArtifactsFor": "Ukryj artefakty dla {{title}}"
+			"hideArtifactsFor": "Ukryj artefakty dla {{title}}",
+			"resetColumns": "Resetuj kolumny",
+			"resizeColumn": "Zmień szerokość kolumny {{column}}",
+			"movableColumn": "przesuwalna kolumna",
+			"moveColumnInstructions": "Aby przenieść kolumnę, naciśnij Spację lub Enter, przesuń ją klawiszami strzałek, a następnie naciśnij Spację lub Enter, aby ją upuścić. Naciśnij Escape, aby anulować.",
+			"columnPickedUp": "Podniesiono kolumnę {{column}}.",
+			"columnMovedOver": "Kolumna {{column}} znajduje się nad kolumną {{target}}.",
+			"columnDropped": "Upuszczono kolumnę {{column}}.",
+			"columnMoveCancelled": "Anulowano przenoszenie kolumny {{column}}."
 		},
 		"artifact": {"media": "Multimedia", "subtitle": "Napisy", "thumbnail": "Miniatura", "description": "Opis", "companion": "Plik dodatkowy", "unknown": "Artefakt", "missing": "Brak"},
 		"item": {

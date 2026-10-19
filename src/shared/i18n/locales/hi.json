@@ -671,7 +671,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} के अनुसार क्रमबद्ध करें",
 			"showArtifactsFor": "{{title}} की फ़ाइलें दिखाएँ",
-			"hideArtifactsFor": "{{title}} की फ़ाइलें छिपाएँ"
+			"hideArtifactsFor": "{{title}} की फ़ाइलें छिपाएँ",
+			"resetColumns": "कॉलम रीसेट करें",
+			"resizeColumn": "{{column}} कॉलम का आकार बदलें",
+			"movableColumn": "स्थानांतरित करने योग्य कॉलम",
+			"moveColumnInstructions": "कॉलम को ले जाने के लिए Space या Enter दबाएँ, तीर कुंजियों से उसे ले जाएँ, फिर छोड़ने के लिए Space या Enter दबाएँ। रद्द करने के लिए Escape दबाएँ।",
+			"columnPickedUp": "{{column}} कॉलम उठाया गया।",
+			"columnMovedOver": "{{column}} कॉलम {{target}} के ऊपर है।",
+			"columnDropped": "{{column}} कॉलम छोड़ा गया।",
+			"columnMoveCancelled": "{{column}} कॉलम को ले जाना रद्द किया गया।"
 		},
 		"artifact": {"media": "मीडिया", "subtitle": "उपशीर्षक", "thumbnail": "थंबनेल", "description": "विवरण", "companion": "सहायक फ़ाइल", "unknown": "फ़ाइल", "missing": "गुम"},
 		"item": {

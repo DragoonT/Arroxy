@@ -23,13 +23,20 @@ describe('queue table preferences', () => {
 			version: 1,
 			sorting: [{id: 'finishedAt', desc: true}],
 			columnOrder: ['finishedAt', 'title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'fileSize', 'addedAt'],
-			columnVisibility: {title: true, status: true, progressPercent: true, formatLabel: false, outputDir: true, artifacts: true, fileSize: true, addedAt: true, finishedAt: false}
+			columnVisibility: {title: true, status: true, progressPercent: true, formatLabel: false, outputDir: true, artifacts: true, fileSize: true, addedAt: true, finishedAt: false},
+			columnWidths: DEFAULT_QUEUE_TABLE_PREFERENCES.columnWidths
 		})
 	})
 
 	it('falls back field by field when persisted values have the wrong shape', () => {
-		expect(sanitizeQueueTablePreferences({sorting: 'addedAt', columnOrder: {}, columnVisibility: [true]})).toEqual({version: 1, sorting: [], columnOrder: DEFAULT_QUEUE_TABLE_PREFERENCES.columnOrder, columnVisibility: DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility})
-		expect(sanitizeQueueTablePreferences('garbage')).toEqual({version: 1, sorting: [], columnOrder: DEFAULT_QUEUE_TABLE_PREFERENCES.columnOrder, columnVisibility: DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility})
+		expect(sanitizeQueueTablePreferences({sorting: 'addedAt', columnOrder: {}, columnVisibility: [true]})).toEqual({
+			version: 1,
+			sorting: [],
+			columnOrder: DEFAULT_QUEUE_TABLE_PREFERENCES.columnOrder,
+			columnVisibility: DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility,
+			columnWidths: DEFAULT_QUEUE_TABLE_PREFERENCES.columnWidths
+		})
+		expect(sanitizeQueueTablePreferences('garbage')).toEqual({version: 1, sorting: [], columnOrder: DEFAULT_QUEUE_TABLE_PREFERENCES.columnOrder, columnVisibility: DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility, columnWidths: DEFAULT_QUEUE_TABLE_PREFERENCES.columnWidths})
 		expect(sanitizeQueueTablePreferences(null)).toEqual(sanitizeQueueTablePreferences({}))
 	})
 
@@ -42,8 +49,18 @@ describe('queue table preferences', () => {
 				{id: 'fileSize', desc: true}
 			],
 			columnOrder: ['status', 'title', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'fileSize', 'addedAt', 'finishedAt'],
-			columnVisibility: {...DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility, finishedAt: true, fileSize: false}
+			columnVisibility: {...DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility, finishedAt: true, fileSize: false},
+			columnWidths: DEFAULT_QUEUE_TABLE_PREFERENCES.columnWidths
 		})
+	})
+
+	it('defaults column widths to shares that fill the table and keeps valid persisted widths', () => {
+		const {columnWidths, columnVisibility} = DEFAULT_QUEUE_TABLE_PREFERENCES
+		const shownByDefault = Object.entries(columnWidths).filter(([id]) => columnVisibility[id as keyof typeof columnVisibility])
+		expect(shownByDefault.reduce((sum, [, width]) => sum + width, 0)).toBe(100)
+
+		expect(sanitizeQueueTablePreferences({columnWidths: {title: 42.5, status: -3, outputDir: 'wide', fileSize: Number.POSITIVE_INFINITY, bogus: 10}}).columnWidths).toEqual({...columnWidths, title: 42.5})
+		expect(sanitizeQueueTablePreferences({columnWidths: 'wide'}).columnWidths).toEqual(columnWidths)
 	})
 
 	it('loads defaults for missing or unparsable storage and round-trips saved preferences', () => {

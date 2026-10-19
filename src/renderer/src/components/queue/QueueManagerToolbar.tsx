@@ -1,14 +1,14 @@
 import type {ReactNode} from 'react'
 import type {Column} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
-import {Columns3, Inbox, Pause, Play, Trash2, X} from 'lucide-react'
+import {Columns3, Inbox, Pause, Play, RotateCcw, Trash2, X} from 'lucide-react'
 import type {QueueItem} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Label} from '../ui/label.js'
 import {Separator} from '../ui/separator.js'
-import {DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger} from '../ui/dropdown-menu.js'
+import {DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger} from '../ui/dropdown-menu.js'
 import {Switch} from '../ui/switch.js'
 import {QueueActionButton, TooltipIconButton} from './QueueManagerButtons.js'
 import {COLUMN_LABEL_KEYS, SELECTED_ACTIONS, STATUS_FILTERS, actionButtonDisabled, queueStatusFilterCount, type QueueSelectedAction} from './queueManagerActions.js'
@@ -36,9 +36,10 @@ interface QueueManagerToolbarProps {
 	onClearCompleted: () => void
 	autoRemoveCompleted: boolean
 	onAutoRemoveCompletedChange: (enabled: boolean) => void
+	onResetColumns: () => void
 }
 
-export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, filter, columns, onFilterChange, onSelectedAction, schedulerPaused, onPauseAll, onResumeAll, onCancelAll, onClearCompleted, autoRemoveCompleted, onAutoRemoveCompletedChange}: QueueManagerToolbarProps): ReactNode {
+export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, filter, columns, onFilterChange, onSelectedAction, schedulerPaused, onPauseAll, onResumeAll, onCancelAll, onClearCompleted, autoRemoveCompleted, onAutoRemoveCompletedChange, onResetColumns}: QueueManagerToolbarProps): ReactNode {
 	return (
 		<>
 			<div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/70 pb-3">
@@ -106,6 +107,11 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 									{t(COLUMN_LABEL_KEYS[column.id as QueueTableColumnId])}
 								</DropdownMenuCheckboxItem>
 							))}
+							<DropdownMenuSeparator />
+							<DropdownMenuItem onClick={onResetColumns} className="text-xs" data-testid="queue-columns-reset">
+								<RotateCcw aria-hidden />
+								{t('queue.table.resetColumns')}
+							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 					<ButtonGroup className="flex-wrap items-center gap-1 rounded-xl border border-border/60 bg-background/25 px-1 py-0.5" aria-label={t('queue.globalActionsLabel')}>

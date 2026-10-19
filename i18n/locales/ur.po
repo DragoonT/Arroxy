@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "آؤٹ پٹ فائلیں"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "{{column}} کالم چھوڑ دیا گیا۔"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "{{column}} کالم کو منتقل کرنا منسوخ کر دیا گیا۔"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}} کالم {{target}} کے اوپر ہے۔"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "{{column}} کالم اٹھایا گیا۔"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "کالمز"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "{{title}} کی فائلیں چھپائیں"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "منتقل ہونے والا کالم"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "کالم کو منتقل کرنے کے لیے اسپیس یا اینٹر دبائیں، تیر والی کیز سے اسے حرکت دیں، پھر چھوڑنے کے لیے دوبارہ اسپیس یا اینٹر دبائیں۔ منسوخ کرنے کے لیے Escape دبائیں۔"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "آؤٹ پٹ منزل"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "پیش رفت"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "کالمز ری سیٹ کریں"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "{{column}} کالم کا سائز تبدیل کریں"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

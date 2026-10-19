@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "فایل‌های خروجی"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "ستون {{column}} رها شد."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "جابه‌جایی ستون {{column}} لغو شد."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "ستون {{column}} روی {{target}} قرار دارد."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "ستون {{column}} برداشته شد."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "ستون‌ها"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "پنهان کردن فایل‌های خروجی {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "ستون قابل جابه‌جایی"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "برای جابه‌جایی یک ستون، Space یا Enter را فشار دهید، با کلیدهای جهت‌نما آن را حرکت دهید، سپس برای رها کردن دوباره Space یا Enter را فشار دهید. برای لغو، Escape را فشار دهید."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "مقصد خروجی"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "پیشرفت"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "بازنشانی ستون‌ها"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "تغییر اندازهٔ ستون {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Natija fayllari"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "{{column}} ustuni qo‘yildi."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "{{column}} ustunini ko‘chirish bekor qilindi."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}} ustuni {{target}} ustida."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "{{column}} ustuni olindi."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Ustunlar"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "{{title}} uchun fayllarni yashirish"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "ko‘chiriladigan ustun"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Ustunni ko‘chirish uchun Probel yoki Enter tugmasini bosing, uni strelka tugmalari bilan siljiting, so‘ng qo‘yish uchun yana Probel yoki Enter tugmasini bosing. Bekor qilish uchun Escape tugmasini bosing."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "Natija manzili"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Jarayon"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Ustunlarni tiklash"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "{{column}} ustuni o‘lchamini o‘zgartirish"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

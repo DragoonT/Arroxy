@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Ausgabedateien"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Spalte „{{column}}“ abgelegt."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Verschieben der Spalte „{{column}}“ abgebrochen."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Spalte „{{column}}“ befindet sich über „{{target}}“."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Spalte „{{column}}“ aufgenommen."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Spalten"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Ausgabedateien für {{title}} ausblenden"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "verschiebbare Spalte"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Zum Verschieben einer Spalte Leertaste oder Eingabetaste drücken, mit den Pfeiltasten bewegen und mit Leertaste oder Eingabetaste ablegen. Mit Escape abbrechen."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "Ausgabeziel"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Fortschritt"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Spalten zurücksetzen"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Breite der Spalte „{{column}}“ ändern"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

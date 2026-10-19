@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Çıktılar"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "{{column}} sütunu bırakıldı."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "{{column}} sütununu taşıma iptal edildi."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}} sütunu {{target}} sütununun üzerinde."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "{{column}} sütunu alındı."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Sütunlar"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "{{title}} için çıktıları gizle"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "taşınabilir sütun"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Bir sütunu taşımak için Boşluk veya Enter tuşuna basın, ok tuşlarıyla taşıyın, ardından bırakmak için tekrar Boşluk veya Enter tuşuna basın. İptal etmek için Esc tuşuna basın."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "Çıktı hedefi"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "İlerleme"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Sütunları sıfırla"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "{{column}} sütununu yeniden boyutlandır"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

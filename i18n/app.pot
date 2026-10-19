@@ -1170,6 +1170,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr ""
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr ""
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr ""
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr ""
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr ""
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr ""
@@ -1186,6 +1202,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr ""
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr ""
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr ""
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr ""
@@ -1196,6 +1220,14 @@ msgstr ""
 
 msgctxt "queue.table.progress"
 msgid "Progress"
+msgstr ""
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr ""
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
 msgstr ""
 
 msgctxt "queue.table.showArtifactsFor"

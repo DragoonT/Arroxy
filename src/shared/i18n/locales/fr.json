@@ -754,7 +754,15 @@
 			"notAvailable": "—",
 			"sortBy": "Trier par {{label}}",
 			"showArtifactsFor": "Afficher les fichiers de {{title}}",
-			"hideArtifactsFor": "Masquer les fichiers de {{title}}"
+			"hideArtifactsFor": "Masquer les fichiers de {{title}}",
+			"resetColumns": "Réinitialiser les colonnes",
+			"resizeColumn": "Redimensionner la colonne {{column}}",
+			"movableColumn": "colonne déplaçable",
+			"moveColumnInstructions": "Pour déplacer une colonne, appuyez sur Espace ou Entrée, déplacez-la avec les touches fléchées, puis appuyez sur Espace ou Entrée pour la déposer. Appuyez sur Échap pour annuler.",
+			"columnPickedUp": "Colonne {{column}} saisie.",
+			"columnMovedOver": "La colonne {{column}} est au-dessus de {{target}}.",
+			"columnDropped": "Colonne {{column}} déposée.",
+			"columnMoveCancelled": "Déplacement de la colonne {{column}} annulé."
 		},
 		"artifact": {"media": "Média", "subtitle": "Sous-titre", "thumbnail": "Miniature", "description": "Description", "companion": "Fichier associé", "unknown": "Fichier", "missing": "Manquant"},
 		"item": {

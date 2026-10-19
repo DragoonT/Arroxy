@@ -647,7 +647,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} ဖြင့် စီရန်",
 			"showArtifactsFor": "{{title}} ၏ ဖိုင်များကို ပြရန်",
-			"hideArtifactsFor": "{{title}} ၏ ဖိုင်များကို ဖျောက်ရန်"
+			"hideArtifactsFor": "{{title}} ၏ ဖိုင်များကို ဖျောက်ရန်",
+			"resetColumns": "ကော်လံများ ပြန်သတ်မှတ်ရန်",
+			"resizeColumn": "{{column}} ကော်လံ အရွယ်အစား ပြောင်းရန်",
+			"movableColumn": "ရွှေ့နိုင်သော ကော်လံ",
+			"moveColumnInstructions": "ကော်လံကို ရွှေ့ရန် Space သို့မဟုတ် Enter ကို နှိပ်ပါ၊ မြှားခလုတ်များဖြင့် ရွှေ့ပြီးနောက် Space သို့မဟုတ် Enter ကို ထပ်နှိပ်၍ ချပါ။ ပယ်ဖျက်ရန် Escape ကို နှိပ်ပါ။",
+			"columnPickedUp": "{{column}} ကော်လံကို ကောက်ယူလိုက်သည်။",
+			"columnMovedOver": "{{column}} ကော်လံသည် {{target}} အပေါ်တွင် ရှိသည်။",
+			"columnDropped": "{{column}} ကော်လံကို ချလိုက်သည်။",
+			"columnMoveCancelled": "{{column}} ကော်လံ ရွှေ့ခြင်းကို ပယ်ဖျက်လိုက်သည်။"
 		},
 		"artifact": {"media": "မီဒီယာ", "subtitle": "စာတန်းထိုး", "thumbnail": "ပုံသေး", "description": "ဖော်ပြချက်", "companion": "တွဲဖိုင်", "unknown": "ဖိုင်", "missing": "မရှိပါ"},
 		"item": {

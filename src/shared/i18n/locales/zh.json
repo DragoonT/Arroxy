@@ -628,7 +628,15 @@
 			"notAvailable": "—",
 			"sortBy": "按 {{label}} 排序",
 			"showArtifactsFor": "显示 {{title}} 的文件",
-			"hideArtifactsFor": "隐藏 {{title}} 的文件"
+			"hideArtifactsFor": "隐藏 {{title}} 的文件",
+			"resetColumns": "重置列",
+			"resizeColumn": "调整 {{column}} 列的宽度",
+			"movableColumn": "可移动的列",
+			"moveColumnInstructions": "要移动列，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。",
+			"columnPickedUp": "已拿起 {{column}} 列。",
+			"columnMovedOver": "{{column}} 列悬停在 {{target}} 列上。",
+			"columnDropped": "已放下 {{column}} 列。",
+			"columnMoveCancelled": "已取消移动 {{column}} 列。"
 		},
 		"artifact": {"media": "媒体", "subtitle": "字幕", "thumbnail": "缩略图", "description": "描述", "companion": "伴随文件", "unknown": "文件", "missing": "缺失"},
 		"item": {

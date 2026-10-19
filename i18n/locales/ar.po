@@ -1369,6 +1369,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "الملفات الناتجة"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "تم إفلات عمود {{column}}."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "تم إلغاء نقل عمود {{column}}."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "عمود {{column}} فوق {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "تم التقاط عمود {{column}}."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "الأعمدة"
@@ -1385,6 +1401,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "إخفاء ملفات {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "عمود قابل للنقل"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "لنقل عمود، اضغط على المسافة أو Enter، ثم حرّكه بمفاتيح الأسهم، ثم اضغط على المسافة أو Enter لإفلاته. اضغط على Esc للإلغاء."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1396,6 +1420,14 @@ msgstr "وجهة الإخراج"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "التقدم"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "إعادة ضبط الأعمدة"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "تغيير حجم عمود {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

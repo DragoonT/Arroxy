@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "ไฟล์ผลลัพธ์"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "วางคอลัมน์ {{column}} แล้ว"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "ยกเลิกการย้ายคอลัมน์ {{column}} แล้ว"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "คอลัมน์ {{column}} อยู่เหนือ {{target}}"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "หยิบคอลัมน์ {{column}} แล้ว"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "คอลัมน์"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "ซ่อนไฟล์ผลลัพธ์ของ {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "คอลัมน์ที่ย้ายได้"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "หากต้องการย้ายคอลัมน์ ให้กด Space หรือ Enter แล้วใช้ปุ่มลูกศรเพื่อย้าย จากนั้นกด Space หรือ Enter อีกครั้งเพื่อวาง กด Esc เพื่อยกเลิก"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "ปลายทางผลลัพธ์"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "ความคืบหน้า"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "รีเซ็ตคอลัมน์"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "ปรับขนาดคอลัมน์ {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

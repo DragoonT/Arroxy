@@ -680,7 +680,15 @@
 			"notAvailable": "—",
 			"sortBy": "Sắp xếp theo {{label}}",
 			"showArtifactsFor": "Hiện tệp của {{title}}",
-			"hideArtifactsFor": "Ẩn tệp của {{title}}"
+			"hideArtifactsFor": "Ẩn tệp của {{title}}",
+			"resetColumns": "Đặt lại cột",
+			"resizeColumn": "Đổi kích thước cột {{column}}",
+			"movableColumn": "cột có thể di chuyển",
+			"moveColumnInstructions": "Để di chuyển một cột, nhấn Space hoặc Enter, di chuyển bằng các phím mũi tên, rồi nhấn Space hoặc Enter để thả. Nhấn Escape để hủy.",
+			"columnPickedUp": "Đã nhấc cột {{column}}.",
+			"columnMovedOver": "Cột {{column}} đang ở trên {{target}}.",
+			"columnDropped": "Đã thả cột {{column}}.",
+			"columnMoveCancelled": "Đã hủy việc di chuyển cột {{column}}."
 		},
 		"artifact": {"media": "Phương tiện", "subtitle": "Phụ đề", "thumbnail": "Hình thu nhỏ", "description": "Mô tả", "companion": "Tệp đi kèm", "unknown": "Tệp", "missing": "Thiếu"},
 		"item": {

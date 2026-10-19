@@ -772,7 +772,15 @@
 			"notAvailable": "—",
 			"sortBy": "Сортировать по {{label}}",
 			"showArtifactsFor": "Показать файлы для {{title}}",
-			"hideArtifactsFor": "Скрыть файлы для {{title}}"
+			"hideArtifactsFor": "Скрыть файлы для {{title}}",
+			"resetColumns": "Сбросить столбцы",
+			"resizeColumn": "Изменить ширину столбца «{{column}}»",
+			"movableColumn": "перемещаемый столбец",
+			"moveColumnInstructions": "Чтобы переместить столбец, нажмите пробел или Enter, переместите его стрелками, затем снова нажмите пробел или Enter, чтобы отпустить его. Для отмены нажмите Escape.",
+			"columnPickedUp": "Столбец «{{column}}» взят.",
+			"columnMovedOver": "Столбец «{{column}}» находится над столбцом «{{target}}».",
+			"columnDropped": "Столбец «{{column}}» отпущен.",
+			"columnMoveCancelled": "Перемещение столбца «{{column}}» отменено."
 		},
 		"artifact": {"media": "Медиа", "subtitle": "Субтитр", "thumbnail": "Миниатюра", "description": "Описание", "companion": "Сопутствующий файл", "unknown": "Файл", "missing": "Отсутствует"},
 		"item": {

@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "የውጤት ፋይሎች"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "የ{{column}} ዓምድ ተጥሏል።"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "የ{{column}} ዓምድ ማንቀሳቀስ ተሰርዟል።"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "የ{{column}} ዓምድ በ{{target}} ላይ ነው።"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "የ{{column}} ዓምድ ተነሳ።"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "ዓምዶች"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "የ{{title}} ፋይሎችን ደብቅ"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "ተንቀሳቃሽ ዓምድ"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "ዓምድን ለማንቀሳቀስ ስፔስ ወይም ኤንተር ይጫኑ፣ በቀስት ቁልፎች ያንቀሳቅሱት፣ ከዚያ ለመጣል እንደገና ስፔስ ወይም ኤንተር ይጫኑ። ለመሰረዝ ኤስኬፕ ይጫኑ።"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "የውጤት መድረሻ"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "ሂደት"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "ዓምዶችን ዳግም አስጀምር"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "የ{{column}} ዓምድ መጠን ቀይር"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

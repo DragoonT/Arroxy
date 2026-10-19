@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "ឯកសារលទ្ធផល"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "បានទម្លាក់ជួរឈរ {{column}}។"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "ការផ្លាស់ទីជួរឈរ {{column}} ត្រូវបានបោះបង់។"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "ជួរឈរ {{column}} នៅលើ {{target}}។"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "បានលើកជួរឈរ {{column}}។"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "ជួរឈរ"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "លាក់ឯកសារលទ្ធផលសម្រាប់ {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "ជួរឈរដែលអាចផ្លាស់ទីបាន"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "ដើម្បីផ្លាស់ទីជួរឈរ សូមចុច Space ឬ Enter ផ្លាស់ទីវាដោយប្រើគ្រាប់ចុចព្រួញ បន្ទាប់មកចុច Space ឬ Enter ដើម្បីទម្លាក់។ ចុច Escape ដើម្បីបោះបង់។"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "គោលដៅលទ្ធផល"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "វឌ្ឍនភាព"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "កំណត់ជួរឈរឡើងវិញ"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "ប្តូរទំហំជួរឈរ {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

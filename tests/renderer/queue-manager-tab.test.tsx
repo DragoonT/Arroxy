@@ -106,11 +106,50 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+	vi.restoreAllMocks()
 	vi.unstubAllGlobals()
 	Reflect.deleteProperty(navigator, 'clipboard')
 	i18next.removeResourceBundle('en', 'translation')
 	i18next.addResourceBundle('en', 'translation', en, true, true)
 })
+
+function headerNames(): string[] {
+	return screen.getAllByRole('columnheader').map(header => header.textContent?.trim() ?? '')
+}
+
+// Each header's share of the table width, keyed by its label.
+function headerWidths(): Record<string, number> {
+	return Object.fromEntries(screen.getAllByRole('columnheader').map(header => [header.textContent?.trim() ?? '', Number.parseFloat(header.style.width)]))
+}
+
+// jsdom lays nothing out: give the table a width and each header a box in
+// column order, so resize and keyboard reordering can measure them. Columns
+// are 100px unless `widths` says otherwise, and run right to left when `rtl`.
+function stubTableGeometry({widths = [], rtl = false}: {widths?: readonly number[]; rtl?: boolean} = {}): void {
+	const tableWidth = 1000
+	const rect = (left: number, width: number): DOMRect => ({x: left, y: 0, left, top: 0, width, height: 40, right: left + width, bottom: 40, toJSON: () => ({})})
+	const widthAt = (index: number): number => widths[index] ?? 100
+	vi.spyOn(HTMLTableElement.prototype, 'getBoundingClientRect').mockReturnValue(rect(0, tableWidth))
+	vi.spyOn(HTMLTableCellElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLTableCellElement) {
+		const start = Array.from({length: this.cellIndex}, (_, index) => widthAt(index)).reduce((sum, width) => sum + width, 0)
+		const width = widthAt(this.cellIndex)
+		return rect(rtl ? tableWidth - start - width : start, width)
+	})
+}
+
+// Picks a header up with Space, presses `arrow` once and drops it.
+async function moveColumnWithKeyboard(header: HTMLElement, arrow: 'ArrowLeft' | 'ArrowRight'): Promise<void> {
+	const settle = (): Promise<void> =>
+		act(async () => {
+			await new Promise(resolve => setTimeout(resolve, 0))
+		})
+	header.focus()
+	fireEvent.keyDown(header, {code: 'Space', key: ' '})
+	await settle()
+	fireEvent.keyDown(document, {code: arrow, key: arrow})
+	await settle()
+	fireEvent.keyDown(document, {code: 'Space', key: ' '})
+}
 
 function makeLargeQueue(count: number) {
 	return Array.from({length: count}, (_, index) => makeItem({id: `item-${index + 1}`, title: `Queue video ${index + 1}`, status: index % 3 === 0 ? 'done' : 'pending', addedAt: new Date(Date.UTC(2026, 5, 19, 10, 0, index)).toISOString()}))
@@ -145,9 +184,124 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByRole('columnheader', {name: /size/i})).toBeInTheDocument()
 		// The table uses a fixed layout: a header without a width collapses to
 		// nothing and its label spills over the next column.
-		const widths = screen.getAllByRole('columnheader').map(header => Number(/\bw-\[(\d+)%\]/.exec(header.className)?.[1] ?? Number.NaN))
-		expect(widths.every(width => width > 0)).toBe(true)
-		expect(widths.reduce((sum, width) => sum + width, 0)).toBe(100)
+		const widths = headerWidths()
+		expect(Object.values(widths).every(width => width > 0)).toBe(true)
+		expect(Object.values(widths).reduce((sum, width) => sum + width, 0)).toBeCloseTo(100)
+	})
+
+	it('resizes a column from the keyboard by trading width with its right neighbour, and remembers it', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		stubTableGeometry()
+
+		const {unmount} = render(<QueueManagerTab />)
+		const before = headerWidths()
+		const handle = screen.getByRole('separator', {name: 'Resize Title column'})
+		fireEvent.keyDown(handle, {key: 'ArrowRight'})
+		fireEvent.keyDown(handle, {key: 'ArrowRight'})
+		const after = headerWidths()
+
+		expect(after.Title).toBeGreaterThan(before.Title ?? 0)
+		expect(after.Status).toBeLessThan(before.Status ?? 0)
+		expect((after.Title ?? 0) + (after.Status ?? 0)).toBeCloseTo((before.Title ?? 0) + (before.Status ?? 0))
+		expect(after.Progress).toBeCloseTo(before.Progress ?? 0)
+
+		unmount()
+		render(<QueueManagerTab />)
+		expect(headerWidths().Title).toBeCloseTo(after.Title ?? 0)
+	})
+
+	it('resizes a column by dragging its edge and saves the width on release', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		stubTableGeometry()
+
+		const {unmount} = render(<QueueManagerTab />)
+		const before = headerWidths()
+		const handle = screen.getByRole('separator', {name: 'Resize Status column'})
+		fireEvent.pointerDown(handle, {pointerId: 1, button: 0, clientX: 300})
+		// 30px of a 1000px table is 3% of it.
+		fireEvent.pointerMove(handle, {pointerId: 1, clientX: 330})
+		const during = headerWidths()
+		expect(during.Status).toBeCloseTo((before.Status ?? 0) + 3)
+		expect(during.Progress).toBeCloseTo((before.Progress ?? 0) - 3)
+		fireEvent.pointerUp(handle, {pointerId: 1, clientX: 330})
+
+		unmount()
+		render(<QueueManagerTab />)
+		expect(headerWidths().Status).toBeCloseTo(during.Status ?? 0)
+	})
+
+	it('has no resize handle after the last column', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.queryByRole('separator', {name: 'Resize Added column'})).not.toBeInTheDocument()
+		expect(screen.getByRole('separator', {name: 'Resize Size column'})).toBeInTheDocument()
+	})
+
+	it('sorts from the keyboard instead of picking the column up', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		stubTableGeometry()
+
+		render(<QueueManagerTab />)
+		const sortByTitle = screen.getByRole('button', {name: /sort by title/i})
+		sortByTitle.focus()
+
+		// A prevented keydown would stop the button from activating.
+		expect(fireEvent.keyDown(sortByTitle, {code: 'Enter', key: 'Enter'})).toBe(true)
+		expect(fireEvent.keyDown(sortByTitle, {code: 'Space', key: ' '})).toBe(true)
+	})
+
+	it('moves a wide column one place in a right-to-left table', async () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		// Title wide and Status narrow, so an edge-aligned move would overshoot.
+		stubTableGeometry({widths: [332, 48], rtl: true})
+
+		render(<QueueManagerTab />)
+		await moveColumnWithKeyboard(screen.getByRole('columnheader', {name: /title/i}), 'ArrowLeft')
+
+		await waitFor(() => expect(headerNames().slice(0, 3)).toEqual(['Status', 'Title', 'Progress']))
+	})
+
+	it('moves a column with the keyboard and remembers the new order', async () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		stubTableGeometry()
+
+		const {unmount} = render(<QueueManagerTab />)
+		const title = screen.getByRole('columnheader', {name: /title/i})
+		title.focus()
+		fireEvent.keyDown(title, {code: 'Space', key: ' '})
+		await act(async () => {
+			await new Promise(resolve => setTimeout(resolve, 0))
+		})
+		fireEvent.keyDown(document, {code: 'ArrowRight', key: 'ArrowRight'})
+		await act(async () => {
+			await new Promise(resolve => setTimeout(resolve, 0))
+		})
+		fireEvent.keyDown(document, {code: 'Space', key: ' '})
+
+		await waitFor(() => expect(headerNames().slice(0, 2)).toEqual(['Status', 'Title']))
+		unmount()
+		render(<QueueManagerTab />)
+		expect(headerNames().slice(0, 2)).toEqual(['Status', 'Title'])
+	})
+
+	it('resets column order, widths and visibility from the columns menu', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		stubTableGeometry()
+
+		render(<QueueManagerTab />)
+		const defaults = headerWidths()
+		fireEvent.keyDown(screen.getByRole('separator', {name: 'Resize Title column'}), {key: 'ArrowRight'})
+		fireEvent.click(screen.getByRole('button', {name: /columns/i}))
+		fireEvent.click(screen.getByRole('menuitemcheckbox', {name: /progress/i}))
+		expect(headerNames()).not.toContain('Progress')
+
+		// Checkbox items keep the menu open.
+		fireEvent.click(screen.getByRole('menuitem', {name: 'Reset columns'}))
+
+		expect(headerNames()).toContain('Progress')
+		expect(headerWidths().Title).toBeCloseTo(defaults.Title ?? 0)
 	})
 
 	it('formats queue dates with a shared formatter instead of per-cell locale lookups', () => {

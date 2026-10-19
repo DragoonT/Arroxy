@@ -13,7 +13,7 @@
 // reveal a hover/focus-only control with `group-hover/row:` without this
 // component knowing anything about that control.
 
-import {flexRender, type Row, type RowData, type Table as TanstackTable, type TableFeatures} from '@tanstack/react-table'
+import {flexRender, type Header, type Row, type RowData, type Table as TanstackTable, type TableFeatures} from '@tanstack/react-table'
 import {row_getVisibleCells} from '@tanstack/react-table/static-functions'
 import type {VirtualItem} from '@tanstack/react-virtual'
 import {Fragment, type KeyboardEvent, type ReactNode, type RefObject} from 'react'
@@ -40,6 +40,8 @@ export interface SelectableVirtualTableProps<TFeatures extends TableFeatures, T 
 	rowTestId: (rowId: string) => string
 	rowDataAttributes?: (row: Row<TFeatures, T>) => Record<string, string>
 	columnClassName?: (columnId: string) => string | undefined
+	// Replaces the default header row, e.g. with movable, resizable headers.
+	renderHeaderRow?: (headers: Header<TFeatures, T, unknown>[]) => ReactNode
 	scrollTestId: string
 }
 
@@ -71,6 +73,7 @@ export function SelectableVirtualTable<TFeatures extends TableFeatures, T extend
 	rowTestId,
 	rowDataAttributes,
 	columnClassName,
+	renderHeaderRow,
 	scrollTestId
 }: SelectableVirtualTableProps<TFeatures, T>): ReactNode {
 	const columnClass = columnClassName ?? ((): undefined => undefined)
@@ -78,15 +81,19 @@ export function SelectableVirtualTable<TFeatures extends TableFeatures, T extend
 		<div ref={scrollRef} className="h-[clamp(12rem,calc(100vh-16rem),34rem)] min-h-0 overflow-auto rounded-xl border border-border-strong bg-background/25" data-testid={scrollTestId}>
 			<Table className="w-full table-fixed">
 				<TableHeader className="sticky top-0 z-10 bg-card/95">
-					{table.getHeaderGroups().map(headerGroup => (
-						<TableRow key={headerGroup.id} className="hover:bg-transparent">
-							{headerGroup.headers.map(header => (
-								<SectionLabel key={header.id} render={<TableHead />} className={cn('px-3', columnClass(header.column.id))}>
-									{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-								</SectionLabel>
-							))}
-						</TableRow>
-					))}
+					{table.getHeaderGroups().map(headerGroup =>
+						renderHeaderRow ? (
+							<Fragment key={headerGroup.id}>{renderHeaderRow(headerGroup.headers)}</Fragment>
+						) : (
+							<TableRow key={headerGroup.id} className="hover:bg-transparent">
+								{headerGroup.headers.map(header => (
+									<SectionLabel key={header.id} render={<TableHead />} className={cn('px-3', columnClass(header.column.id))}>
+										{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+									</SectionLabel>
+								))}
+							</TableRow>
+						)
+					)}
 				</TableHeader>
 				<TableBody>
 					{rows.length === 0 ? (

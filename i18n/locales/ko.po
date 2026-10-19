@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "결과물"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "{{column}} 열을 놓았습니다."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "{{column}} 열 이동이 취소되었습니다."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}} 열이 {{target}} 위에 있습니다."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "{{column}} 열을 집었습니다."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "열"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "{{title}}의 결과물 숨기기"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "이동 가능한 열"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "열을 이동하려면 Space 또는 Enter 키를 누르고, 방향키로 이동한 다음 Space 또는 Enter 키를 눌러 놓으세요. 취소하려면 Esc 키를 누르세요."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "출력 대상"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "진행률"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "열 재설정"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "{{column}} 열 크기 조절"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

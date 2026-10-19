@@ -1,7 +1,12 @@
 import {z} from 'zod'
 import {QUEUE_TABLE_COLUMN_IDS, queueTableColumnIdSchema, type QueueTableColumnId} from '@shared/schemas.js'
+import {DEFAULT_QUEUE_COLUMN_WIDTHS} from './queueColumnWidths.js'
 
 export type {QueueTableColumnId}
+
+export function isQueueTableColumnId(value: unknown): value is QueueTableColumnId {
+	return queueTableColumnIdSchema.safeParse(value).success
+}
 
 const STORAGE_KEY = 'arroxy.queueTablePreferences.v1'
 
@@ -30,14 +35,29 @@ const columnVisibilityFieldsSchema = z.object({title: lockedVisible, status: loc
 >)
 const columnVisibilitySchema = columnVisibilityFieldsSchema.catch(() => columnVisibilityFieldsSchema.parse({}))
 
-const preferenceFieldsSchema = z.object({sorting: lenientList(sortingRuleSchema), columnOrder: columnOrderSchema, columnVisibility: columnVisibilitySchema})
+// Widths are shares of the table (see queueColumnWidths), so any positive number is valid.
+const width = (id: QueueTableColumnId): z.ZodType<number, unknown> => z.number().positive().catch(DEFAULT_QUEUE_COLUMN_WIDTHS[id])
+const columnWidthFieldsSchema = z.object({
+	title: width('title'),
+	status: width('status'),
+	progressPercent: width('progressPercent'),
+	formatLabel: width('formatLabel'),
+	outputDir: width('outputDir'),
+	artifacts: width('artifacts'),
+	fileSize: width('fileSize'),
+	addedAt: width('addedAt'),
+	finishedAt: width('finishedAt')
+} satisfies Record<QueueTableColumnId, z.ZodType<number, unknown>>)
+const columnWidthsSchema = columnWidthFieldsSchema.catch(() => columnWidthFieldsSchema.parse({}))
+
+const preferenceFieldsSchema = z.object({sorting: lenientList(sortingRuleSchema), columnOrder: columnOrderSchema, columnVisibility: columnVisibilitySchema, columnWidths: columnWidthsSchema})
 
 // Never fails: storage is untrusted, so every field falls back on its own.
 const queueTablePreferencesSchema = preferenceFieldsSchema.catch(() => preferenceFieldsSchema.parse({})).transform(fields => ({version: 1 as const, ...fields}))
 
 export type QueueTablePreferences = z.output<typeof queueTablePreferencesSchema>
 
-export const DEFAULT_QUEUE_TABLE_PREFERENCES: QueueTablePreferences = {version: 1, sorting: [{id: 'addedAt', desc: true}], columnOrder: [...QUEUE_TABLE_COLUMN_IDS], columnVisibility: columnVisibilitySchema.parse({})}
+export const DEFAULT_QUEUE_TABLE_PREFERENCES: QueueTablePreferences = {version: 1, sorting: [{id: 'addedAt', desc: true}], columnOrder: [...QUEUE_TABLE_COLUMN_IDS], columnVisibility: columnVisibilitySchema.parse({}), columnWidths: {...DEFAULT_QUEUE_COLUMN_WIDTHS}}
 
 export function sanitizeQueueTablePreferences(value: unknown): QueueTablePreferences {
 	return queueTablePreferencesSchema.parse(value)

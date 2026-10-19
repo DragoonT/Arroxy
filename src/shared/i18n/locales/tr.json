@@ -716,7 +716,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} ile sırala",
 			"showArtifactsFor": "{{title}} için çıktıları göster",
-			"hideArtifactsFor": "{{title}} için çıktıları gizle"
+			"hideArtifactsFor": "{{title}} için çıktıları gizle",
+			"resetColumns": "Sütunları sıfırla",
+			"resizeColumn": "{{column}} sütununu yeniden boyutlandır",
+			"movableColumn": "taşınabilir sütun",
+			"moveColumnInstructions": "Bir sütunu taşımak için Boşluk veya Enter tuşuna basın, ok tuşlarıyla taşıyın, ardından bırakmak için tekrar Boşluk veya Enter tuşuna basın. İptal etmek için Esc tuşuna basın.",
+			"columnPickedUp": "{{column}} sütunu alındı.",
+			"columnMovedOver": "{{column}} sütunu {{target}} sütununun üzerinde.",
+			"columnDropped": "{{column}} sütunu bırakıldı.",
+			"columnMoveCancelled": "{{column}} sütununu taşıma iptal edildi."
 		},
 		"artifact": {"media": "Medya", "subtitle": "Altyazı", "thumbnail": "Küçük resim", "description": "Açıklama", "companion": "Eşlikçi", "unknown": "Çıktı", "missing": "Eksik"},
 		"item": {

@@ -713,7 +713,15 @@
 			"notAvailable": "—",
 			"sortBy": "Panga kwa {{label}}",
 			"showArtifactsFor": "Onyesha faili za {{title}}",
-			"hideArtifactsFor": "Ficha faili za {{title}}"
+			"hideArtifactsFor": "Ficha faili za {{title}}",
+			"resetColumns": "Weka upya safu wima",
+			"resizeColumn": "Badilisha ukubwa wa safu wima ya {{column}}",
+			"movableColumn": "safu wima inayoweza kusogezwa",
+			"moveColumnInstructions": "Ili kusogeza safu wima, bonyeza Spacebar au Enter, isogeze kwa vitufe vya mishale, kisha bonyeza Spacebar au Enter ili kuiachia. Bonyeza Escape ili kughairi.",
+			"columnPickedUp": "Safu wima ya {{column}} imeshikwa.",
+			"columnMovedOver": "Safu wima ya {{column}} iko juu ya {{target}}.",
+			"columnDropped": "Safu wima ya {{column}} imeachiwa.",
+			"columnMoveCancelled": "Kusogeza safu wima ya {{column}} kumeghairiwa."
 		},
 		"artifact": {"media": "Midia", "subtitle": "Manukuu", "thumbnail": "Kijipicha", "description": "Maelezo", "companion": "Faili saidizi", "unknown": "Faili", "missing": "Haipo"},
 		"item": {

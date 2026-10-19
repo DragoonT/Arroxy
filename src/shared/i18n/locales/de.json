@@ -730,7 +730,15 @@
 			"notAvailable": "—",
 			"sortBy": "Nach {{label}} sortieren",
 			"showArtifactsFor": "Ausgabedateien für {{title}} anzeigen",
-			"hideArtifactsFor": "Ausgabedateien für {{title}} ausblenden"
+			"hideArtifactsFor": "Ausgabedateien für {{title}} ausblenden",
+			"resetColumns": "Spalten zurücksetzen",
+			"resizeColumn": "Breite der Spalte „{{column}}“ ändern",
+			"movableColumn": "verschiebbare Spalte",
+			"moveColumnInstructions": "Zum Verschieben einer Spalte Leertaste oder Eingabetaste drücken, mit den Pfeiltasten bewegen und mit Leertaste oder Eingabetaste ablegen. Mit Escape abbrechen.",
+			"columnPickedUp": "Spalte „{{column}}“ aufgenommen.",
+			"columnMovedOver": "Spalte „{{column}}“ befindet sich über „{{target}}“.",
+			"columnDropped": "Spalte „{{column}}“ abgelegt.",
+			"columnMoveCancelled": "Verschieben der Spalte „{{column}}“ abgebrochen."
 		},
 		"artifact": {"media": "Medien", "subtitle": "Untertitel", "thumbnail": "Thumbnail", "description": "Beschreibung", "companion": "Begleitdatei", "unknown": "Datei", "missing": "Fehlt"},
 		"item": {

@@ -738,7 +738,15 @@
 			"notAvailable": "—",
 			"sortBy": "Ordina per {{label}}",
 			"showArtifactsFor": "Mostra i file risultanti di {{title}}",
-			"hideArtifactsFor": "Nascondi i file risultanti di {{title}}"
+			"hideArtifactsFor": "Nascondi i file risultanti di {{title}}",
+			"resetColumns": "Reimposta colonne",
+			"resizeColumn": "Ridimensiona la colonna {{column}}",
+			"movableColumn": "colonna spostabile",
+			"moveColumnInstructions": "Per spostare una colonna, premi Spazio o Invio, spostala con i tasti freccia, poi premi Spazio o Invio per rilasciarla. Premi Esc per annullare.",
+			"columnPickedUp": "Colonna {{column}} presa.",
+			"columnMovedOver": "La colonna {{column}} è sopra {{target}}.",
+			"columnDropped": "Colonna {{column}} rilasciata.",
+			"columnMoveCancelled": "Spostamento della colonna {{column}} annullato."
 		},
 		"artifact": {"media": "Contenuti multimediali", "subtitle": "Sottotitolo", "thumbnail": "Miniatura", "description": "Descrizione", "companion": "File associato", "unknown": "Elemento", "missing": "Mancante"},
 		"item": {
