@@ -6,8 +6,10 @@ import {useAppStore} from '../../../store/useAppStore.js'
 import {conflictLabelKey, singleConflictWarnings} from '../../../store/wizard/downloadReviewProjection.js'
 import {mp4CaveatCodec} from '../../../store/wizard/resolveContainer.js'
 
-// The MP4 caveat and the conflicts, one warning line each.
-function SummaryWarnings(): ReactNode {
+// The MP4 caveat and the conflicts under Format's footer, one warning line each:
+// the Download beside Continue skips Review, where they also show. No wrapper,
+// so the footer band spaces them and stays empty when there are none.
+export function FormatFooterWarnings(): ReactNode {
 	const {t} = useTranslation()
 	// Only what the lines say: the footer stays still while downloads tick the store.
 	const caveat = useAppStore(mp4CaveatCodec)
@@ -27,15 +29,5 @@ function SummaryWarnings(): ReactNode {
 				</p>
 			))}
 		</>
-	)
-}
-
-// The MP4 caveat and the conflicts under Format's footer: the Download beside
-// Continue skips Review, where they also show.
-export function FormatFooterWarnings(): ReactNode {
-	return (
-		<div className="flex flex-col gap-1 empty:hidden [&>p:first-child]:pt-2.5">
-			<SummaryWarnings />
-		</div>
 	)
 }

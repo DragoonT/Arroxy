@@ -146,7 +146,7 @@ export function ProfileEditLine(): ReactNode {
 	return (
 		<>
 			{changed.length > 0 ? (
-				<div className="flex items-center gap-2 pt-2.5 text-sm text-muted-foreground" data-testid="review-changed-bar">
+				<div className="flex items-center gap-2 text-sm text-muted-foreground" data-testid="review-changed-bar">
 					<PenLine className="size-3.5 shrink-0 text-primary" aria-hidden />
 					<Hint label={t('wizard.review.changed', {profile: profileName, areas})} reveal>
 						<p className="min-w-0 flex-1 truncate">
