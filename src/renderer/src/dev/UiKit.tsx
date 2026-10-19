@@ -474,7 +474,7 @@ export function UiKit({onExit}: {onExit: () => void}): ReactNode {
 						<RadioGroup value={choice} onValueChange={value => setChoice(String(value))} className="block">
 							<FormatLine name="2160p" alias="4K">
 								<FormatChip value="2160" name="2160p 4K · AV1 · mp4 · HDR10 · 2.2 GB" label="AV1" tags={['HDR10']} size="2.2 GB" profilePick />
-								<FormatChip value="2160-vp9" name="2160p 4K · VP9 · webm · 1.1 GB" label="VP9" size="1.1 GB" />
+								<FormatChip value="2160-vp9" name="2160p 4K · VP9 · webm · 18.4 Mbps · 1.1 GB" hint="webm · 18.4 Mbps" label="VP9" size="1.1 GB" />
 							</FormatLine>
 							<FormatLine name="1080p">
 								<FormatChip value="1080" name="1080p · H.264 · mp4 · 30 fps · 515 MB" label="H.264" tags={['30 fps']} size="515 MB" />

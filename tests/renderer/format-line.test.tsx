@@ -9,7 +9,7 @@ function renderLines(onValueChange = vi.fn(), value = 'av1'): ReturnType<typeof 
 		<RadioGroup value={value} onValueChange={onValueChange}>
 			<FormatLine name="2160p" alias="4K">
 				<FormatChip value="av1" name="2160p 4K · AV1 · mp4 · HDR10 · 1.0 GB" label="AV1" tags={['HDR10']} size="1.0 GB" profilePick />
-				<FormatChip value="vp9" name="2160p 4K · VP9 · webm · 520 MB" label="VP9" size="520 MB" />
+				<FormatChip value="vp9" name="2160p 4K · VP9 · webm · 520 MB" hint="webm · 2.6 Mbps" label="VP9" size="520 MB" />
 			</FormatLine>
 			<FormatLine name="">
 				<FormatChip value="none" name="No audio" label="No audio" disabled />
@@ -49,12 +49,12 @@ describe('FormatLine and FormatChip', () => {
 		expect(screen.getByRole('radio', {name: /VP9/})).not.toHaveAttribute('data-profile-pick')
 	})
 
-	it('shows the full description, file type included, only after a five-second hover', async () => {
+	it('hints only what the chip leaves out, and only after a five-second hover', async () => {
 		vi.useFakeTimers()
 		try {
 			renderLines()
-			const chip = screen.getByRole('radio', {name: /VP9/})
 			const openHints = (): string[] => [...document.querySelectorAll('[data-slot="tooltip-content"]')].map(tip => tip.textContent)
+			const chip = screen.getByRole('radio', {name: /VP9/})
 			fireEvent.mouseEnter(chip)
 			fireEvent.mouseMove(chip)
 
@@ -62,7 +62,21 @@ describe('FormatLine and FormatChip', () => {
 			expect(openHints()).toEqual([])
 
 			await act(() => vi.advanceTimersByTimeAsync(200))
-			expect(openHints().some(tip => tip.includes('2160p 4K · VP9 · webm · 520 MB'))).toBe(true)
+			expect(openHints()).toEqual(['webm · 2.6 Mbps'])
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('gives a chip with nothing more to say no hint', async () => {
+		vi.useFakeTimers()
+		try {
+			renderLines()
+			const chip = screen.getByRole('radio', {name: /AV1/})
+			fireEvent.mouseEnter(chip)
+			fireEvent.mouseMove(chip)
+			await act(() => vi.advanceTimersByTimeAsync(6000))
+			expect(document.querySelectorAll('[data-slot="tooltip-content"]')).toHaveLength(0)
 		} finally {
 			vi.useRealTimers()
 		}

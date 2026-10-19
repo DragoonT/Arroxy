@@ -11,10 +11,10 @@ interface VideoColumnProps {
 	onSelect: (formatId: string) => void
 }
 
-// Every fact about the stream, for its spoken name and hover hint.
+// Every fact about the stream, for its spoken name.
 function streamName(line: VideoLine, row: VideoFormatRow, profileLabel: string | null): string {
 	const resolution = line.alias ? `${line.name} ${line.alias}` : line.name
-	return [resolution, row.codec, row.ext, row.fps ? `${row.fps} fps` : null, row.range, ...row.markers.map(view => view.label), row.size, profileLabel].flatMap(part => (part ? [part] : [])).join(' · ')
+	return [resolution, row.codec, row.ext, row.fps ? `${row.fps} fps` : null, row.range, ...row.markers.map(view => view.label), row.bitrate, row.size, profileLabel].flatMap(part => (part ? [part] : [])).join(' · ')
 }
 
 // One row per resolution; columns per dynamic range (HDR formats, then SDR) and,
@@ -55,6 +55,7 @@ export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumn
 									key={`${range}|${codec}`}
 									value={row.formatId}
 									name={streamName(line, row, row.isProfilePick ? profileLabel : null)}
+									hint={row.hint}
 									label={row.chipLabel}
 									markers={row.markers}
 									tags={row.hasAudio && view.mixedAudio ? [...row.chipTags, t('wizard.formats.withAudio')] : row.chipTags}

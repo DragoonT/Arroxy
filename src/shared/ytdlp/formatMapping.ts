@@ -120,8 +120,9 @@ export function mapFormats(formats: readonly YtDlpFormat[], durationSeconds?: nu
 		const isVideoOnly = item.acodec === 'none'
 		const dynamicRange = item.dynamic_range && item.dynamic_range !== 'SDR' ? item.dynamic_range : undefined
 		const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ')
+		const tbr = item.tbr ?? item.vbr
 
-		return [{formatId, label: details, ext, resolution, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), filesize, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide)} satisfies FormatOption]
+		return [{formatId, label: details, ext, resolution, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), ...(tbr ? {tbr} : {}), filesize, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide)} satisfies FormatOption]
 	})
 
 	return sortFormatsByQuality(mapped)

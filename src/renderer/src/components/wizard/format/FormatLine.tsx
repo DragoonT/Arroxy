@@ -21,7 +21,7 @@ const NARROW_ONLY = 'hidden max-lg:inline'
 // give it one line, the size drops under the label instead of spilling out.
 const CHIP_FIT = 'h-auto min-h-9 min-w-auto flex-wrap justify-between gap-x-4 gap-y-0 py-1'
 const NARROW_CHIP = 'max-lg:h-auto max-lg:flex-col max-lg:items-start max-lg:gap-0 max-lg:py-1.5'
-// A chip's hint repeats every fact about its stream; it waits for a hover that
+// A chip's hint says what the chip leaves out; it waits for a hover that
 // means it, so moving across the chips to pick one shows nothing.
 const CHIP_HINT_DELAY_MS = 5000
 const TAG = 'shrink-0 text-caption text-subtle-foreground group-data-checked/radio-chip:text-selected-foreground'
@@ -64,11 +64,12 @@ export function FormatLine({name, alias, children}: {name: string; alias?: strin
 }
 
 // One stream: what tells it apart on the start side, its size on the end side.
-// `name` is what the chip says aloud and in its hover hint: every fact about the
-// stream, including the ones the chip leaves out (file type).
+// `name` is what the chip says aloud: every fact about the stream. `hint` is its
+// hover hint: only the facts the chip doesn't show; without one, no hint.
 export function FormatChip({
 	value,
 	name,
+	hint,
 	label,
 	tags = [],
 	markers = [],
@@ -81,6 +82,7 @@ export function FormatChip({
 }: {
 	value: string
 	name: string
+	hint?: string | null
 	label: string
 	tags?: readonly string[]
 	markers?: readonly StreamMarkerView[]
@@ -91,35 +93,40 @@ export function FormatChip({
 	narrowStack?: boolean
 	className?: string
 }): ReactNode {
-	return (
-		<Hint label={name} reveal delay={CHIP_HINT_DELAY_MS}>
-			<RadioGroupChip value={value} aria-label={name} disabled={disabled} data-profile-pick={profilePick || undefined} className={cn(CHIP_FIT, narrowStack && NARROW_CHIP, className)}>
-				<span className="flex min-w-0 items-center gap-2 whitespace-nowrap">
-					{adornment}
-					<span>{label}</span>
-					{markers.map(view => (
-						<MarkerIcon key={view.marker} {...view} />
-					))}
+	const chip = (
+		<RadioGroupChip value={value} aria-label={name} disabled={disabled} data-profile-pick={profilePick || undefined} className={cn(CHIP_FIT, narrowStack && NARROW_CHIP, className)}>
+			<span className="flex min-w-0 items-center gap-2 whitespace-nowrap">
+				{adornment}
+				<span>{label}</span>
+				{markers.map(view => (
+					<MarkerIcon key={view.marker} {...view} />
+				))}
+				{tags.map(tag => (
+					<span key={tag} className={cn(TAG, narrowStack && NARROW_HIDDEN)}>
+						{tag}
+					</span>
+				))}
+			</span>
+			{size || tags.length > 0 ? (
+				<span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-xs tabular-nums text-muted-foreground group-data-checked/radio-chip:text-selected-foreground">
+					{/* A narrow chip gives its label the whole first line and says its tags beside the size. */}
 					{tags.map(tag => (
-						<span key={tag} className={cn(TAG, narrowStack && NARROW_HIDDEN)}>
+						<span key={tag} className={cn(TAG, narrowStack ? NARROW_ONLY : 'hidden')}>
 							{tag}
 						</span>
 					))}
+					{size}
 				</span>
-				{size || tags.length > 0 ? (
-					<span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-xs tabular-nums text-muted-foreground group-data-checked/radio-chip:text-selected-foreground">
-						{/* A narrow chip gives its label the whole first line and says its tags beside the size. */}
-						{tags.map(tag => (
-							<span key={tag} className={cn(TAG, narrowStack ? NARROW_ONLY : 'hidden')}>
-								{tag}
-							</span>
-						))}
-						{size}
-					</span>
-				) : null}
-				{profilePick ? <ProfileDot className="absolute -end-1 -top-1 ring-2 ring-background" /> : null}
-			</RadioGroupChip>
+			) : null}
+			{profilePick ? <ProfileDot className="absolute -end-1 -top-1 ring-2 ring-background" /> : null}
+		</RadioGroupChip>
+	)
+	return hint ? (
+		<Hint label={hint} reveal delay={CHIP_HINT_DELAY_MS}>
+			{chip}
 		</Hint>
+	) : (
+		chip
 	)
 }
 

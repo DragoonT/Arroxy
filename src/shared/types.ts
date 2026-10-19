@@ -218,6 +218,8 @@ export interface FormatOption {
 	fps?: number
 	// yt-dlp vcodec (e.g. avc1.640028, vp9, av01…); lets MP4 profiles prefer H.264.
 	videoCodec?: string
+	// yt-dlp's total bitrate (kbps) of a video stream: its picture, plus its sound when muxed.
+	tbr?: number
 	abr?: number
 	audioCodec?: string
 	audioChannels?: number
