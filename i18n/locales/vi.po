@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Tệp đầu ra"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Đã thả cột {{column}}."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Đã hủy việc di chuyển cột {{column}}."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Cột {{column}} đang ở trên {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Đã nhấc cột {{column}}."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Cột"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Ẩn tệp của {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "cột có thể di chuyển"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Để di chuyển một cột, nhấn Space hoặc Enter, di chuyển bằng các phím mũi tên, rồi nhấn Space hoặc Enter để thả. Nhấn Escape để hủy."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "Đích đầu ra"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Tiến trình"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Đặt lại cột"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Đổi kích thước cột {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

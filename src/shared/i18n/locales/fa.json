@@ -694,7 +694,15 @@
 			"notAvailable": "—",
 			"sortBy": "مرتب‌سازی بر اساس {{label}}",
 			"showArtifactsFor": "نمایش فایل‌های خروجی {{title}}",
-			"hideArtifactsFor": "پنهان کردن فایل‌های خروجی {{title}}"
+			"hideArtifactsFor": "پنهان کردن فایل‌های خروجی {{title}}",
+			"resetColumns": "بازنشانی ستون‌ها",
+			"resizeColumn": "تغییر اندازهٔ ستون {{column}}",
+			"movableColumn": "ستون قابل جابه‌جایی",
+			"moveColumnInstructions": "برای جابه‌جایی یک ستون، Space یا Enter را فشار دهید، با کلیدهای جهت‌نما آن را حرکت دهید، سپس برای رها کردن دوباره Space یا Enter را فشار دهید. برای لغو، Escape را فشار دهید.",
+			"columnPickedUp": "ستون {{column}} برداشته شد.",
+			"columnMovedOver": "ستون {{column}} روی {{target}} قرار دارد.",
+			"columnDropped": "ستون {{column}} رها شد.",
+			"columnMoveCancelled": "جابه‌جایی ستون {{column}} لغو شد."
 		},
 		"artifact": {"media": "رسانه", "subtitle": "زیرنویس", "thumbnail": "تصویر بندانگشتی", "description": "توضیحات", "companion": "فایل همراه", "unknown": "فایل خروجی", "missing": "مفقود"},
 		"item": {

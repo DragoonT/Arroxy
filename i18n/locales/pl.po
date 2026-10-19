@@ -1279,6 +1279,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Artefakty"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Upuszczono kolumnę {{column}}."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Anulowano przenoszenie kolumny {{column}}."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Kolumna {{column}} znajduje się nad kolumną {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Podniesiono kolumnę {{column}}."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Kolumny"
@@ -1295,6 +1311,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Ukryj artefakty dla {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "przesuwalna kolumna"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Aby przenieść kolumnę, naciśnij Spację lub Enter, przesuń ją klawiszami strzałek, a następnie naciśnij Spację lub Enter, aby ją upuścić. Naciśnij Escape, aby anulować."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1306,6 +1330,14 @@ msgstr "Miejsce docelowe"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Postęp"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Resetuj kolumny"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Zmień szerokość kolumny {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

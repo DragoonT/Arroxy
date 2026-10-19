@@ -694,7 +694,15 @@
 			"notAvailable": "—",
 			"sortBy": "Sort by {{label}}",
 			"showArtifactsFor": "Show artifacts for {{title}}",
-			"hideArtifactsFor": "Hide artifacts for {{title}}"
+			"hideArtifactsFor": "Hide artifacts for {{title}}",
+			"resetColumns": "Reset columns",
+			"resizeColumn": "Resize {{column}} column",
+			"movableColumn": "movable column",
+			"moveColumnInstructions": "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel.",
+			"columnPickedUp": "Picked up the {{column}} column.",
+			"columnMovedOver": "The {{column}} column is over {{target}}.",
+			"columnDropped": "Dropped the {{column}} column.",
+			"columnMoveCancelled": "Moving the {{column}} column was cancelled."
 		},
 		"artifact": {"media": "Media", "subtitle": "Subtitle", "thumbnail": "Thumbnail", "description": "Description", "companion": "Companion", "unknown": "Artifact", "missing": "Missing"},
 		"item": {

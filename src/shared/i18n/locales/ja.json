@@ -689,7 +689,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} で並べ替え",
 			"showArtifactsFor": "{{title}} のファイルを表示",
-			"hideArtifactsFor": "{{title}} のファイルを非表示"
+			"hideArtifactsFor": "{{title}} のファイルを非表示",
+			"resetColumns": "列をリセット",
+			"resizeColumn": "{{column}}列の幅を変更",
+			"movableColumn": "移動可能な列",
+			"moveColumnInstructions": "列を移動するには、スペースキーまたはEnterキーを押し、矢印キーで移動してから、スペースキーまたはEnterキーを押して配置します。キャンセルするにはEscキーを押します。",
+			"columnPickedUp": "{{column}}列をつかみました。",
+			"columnMovedOver": "{{column}}列が{{target}}の上にあります。",
+			"columnDropped": "{{column}}列を配置しました。",
+			"columnMoveCancelled": "{{column}}列の移動をキャンセルしました。"
 		},
 		"artifact": {"media": "メディア", "subtitle": "字幕", "thumbnail": "サムネイル", "description": "説明", "companion": "関連ファイル", "unknown": "ファイル", "missing": "見つかりません"},
 		"item": {

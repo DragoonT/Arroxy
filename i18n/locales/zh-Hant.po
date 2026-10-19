@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "產出檔案"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "已放下 {{column}} 欄。"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "已取消移動 {{column}} 欄。"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}} 欄懸停在 {{target}} 欄上。"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "已拿起 {{column}} 欄。"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "欄"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "隱藏 {{title}} 的產出檔案"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "可移動的欄"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "若要移動欄，請按空白鍵或 Enter 鍵，用方向鍵移動，然後再按空白鍵或 Enter 鍵放下。按 Esc 鍵取消。"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "輸出目的地"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "進度"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "重設欄"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "調整 {{column}} 欄的寬度"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

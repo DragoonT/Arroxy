@@ -673,7 +673,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} 기준 정렬",
 			"showArtifactsFor": "{{title}}의 결과물 표시",
-			"hideArtifactsFor": "{{title}}의 결과물 숨기기"
+			"hideArtifactsFor": "{{title}}의 결과물 숨기기",
+			"resetColumns": "열 재설정",
+			"resizeColumn": "{{column}} 열 크기 조절",
+			"movableColumn": "이동 가능한 열",
+			"moveColumnInstructions": "열을 이동하려면 Space 또는 Enter 키를 누르고, 방향키로 이동한 다음 Space 또는 Enter 키를 눌러 놓으세요. 취소하려면 Esc 키를 누르세요.",
+			"columnPickedUp": "{{column}} 열을 집었습니다.",
+			"columnMovedOver": "{{column}} 열이 {{target}} 위에 있습니다.",
+			"columnDropped": "{{column}} 열을 놓았습니다.",
+			"columnMoveCancelled": "{{column}} 열 이동이 취소되었습니다."
 		},
 		"artifact": {"media": "미디어", "subtitle": "자막", "thumbnail": "미리보기 이미지", "description": "설명", "companion": "보조 파일", "unknown": "결과물", "missing": "누락됨"},
 		"item": {

@@ -738,7 +738,15 @@
 			"notAvailable": "—",
 			"sortBy": "Ordenar por {{label}}",
 			"showArtifactsFor": "Mostrar arquivos gerados para {{title}}",
-			"hideArtifactsFor": "Ocultar arquivos gerados para {{title}}"
+			"hideArtifactsFor": "Ocultar arquivos gerados para {{title}}",
+			"resetColumns": "Redefinir colunas",
+			"resizeColumn": "Redimensionar a coluna {{column}}",
+			"movableColumn": "coluna móvel",
+			"moveColumnInstructions": "Para mover uma coluna, pressione Espaço ou Enter, mova-a com as setas do teclado e pressione Espaço ou Enter para soltá-la. Pressione Esc para cancelar.",
+			"columnPickedUp": "Coluna {{column}} selecionada.",
+			"columnMovedOver": "A coluna {{column}} está sobre {{target}}.",
+			"columnDropped": "Coluna {{column}} solta.",
+			"columnMoveCancelled": "Movimentação da coluna {{column}} cancelada."
 		},
 		"artifact": {"media": "Mídia", "subtitle": "Legenda", "thumbnail": "Miniatura", "description": "Descrição", "companion": "Complementar", "unknown": "Arquivo", "missing": "Ausente"},
 		"item": {

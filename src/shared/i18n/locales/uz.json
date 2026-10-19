@@ -738,7 +738,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} bo‘yicha saralash",
 			"showArtifactsFor": "{{title}} uchun fayllarni ko‘rsatish",
-			"hideArtifactsFor": "{{title}} uchun fayllarni yashirish"
+			"hideArtifactsFor": "{{title}} uchun fayllarni yashirish",
+			"resetColumns": "Ustunlarni tiklash",
+			"resizeColumn": "{{column}} ustuni o‘lchamini o‘zgartirish",
+			"movableColumn": "ko‘chiriladigan ustun",
+			"moveColumnInstructions": "Ustunni ko‘chirish uchun Probel yoki Enter tugmasini bosing, uni strelka tugmalari bilan siljiting, so‘ng qo‘yish uchun yana Probel yoki Enter tugmasini bosing. Bekor qilish uchun Escape tugmasini bosing.",
+			"columnPickedUp": "{{column}} ustuni olindi.",
+			"columnMovedOver": "{{column}} ustuni {{target}} ustida.",
+			"columnDropped": "{{column}} ustuni qo‘yildi.",
+			"columnMoveCancelled": "{{column}} ustunini ko‘chirish bekor qilindi."
 		},
 		"artifact": {"media": "Media", "subtitle": "Subtitr", "thumbnail": "Eskiz", "description": "Tavsif", "companion": "Qo‘shimcha fayl", "unknown": "Fayl", "missing": "Yo‘q"},
 		"item": {

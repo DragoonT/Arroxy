@@ -702,7 +702,15 @@
 			"notAvailable": "—",
 			"sortBy": "Urutkan berdasarkan {{label}}",
 			"showArtifactsFor": "Tampilkan artefak untuk {{title}}",
-			"hideArtifactsFor": "Sembunyikan artefak untuk {{title}}"
+			"hideArtifactsFor": "Sembunyikan artefak untuk {{title}}",
+			"resetColumns": "Atur ulang kolom",
+			"resizeColumn": "Ubah ukuran kolom {{column}}",
+			"movableColumn": "kolom yang dapat dipindahkan",
+			"moveColumnInstructions": "Untuk memindahkan kolom, tekan Spasi atau Enter, geser dengan tombol panah, lalu tekan Spasi atau Enter untuk melepaskannya. Tekan Escape untuk membatalkan.",
+			"columnPickedUp": "Kolom {{column}} diangkat.",
+			"columnMovedOver": "Kolom {{column}} berada di atas {{target}}.",
+			"columnDropped": "Kolom {{column}} dilepas.",
+			"columnMoveCancelled": "Pemindahan kolom {{column}} dibatalkan."
 		},
 		"artifact": {"media": "Media", "subtitle": "Subjudul", "thumbnail": "gambar kecil", "description": "Keterangan", "companion": "Pendamping", "unknown": "Artefak", "missing": "Hilang"},
 		"item": {

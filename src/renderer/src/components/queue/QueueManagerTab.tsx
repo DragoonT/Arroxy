@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTable, type ColumnOrderState, type ColumnVisibilityState, type SortingState, type Updater} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
+import {arrayMove} from '@dnd-kit/sortable'
 import {useTranslation} from 'react-i18next'
 import {CirclePause} from 'lucide-react'
 import type {QueueItem, QueueSelectionAction} from '@shared/types.js'
@@ -11,9 +12,10 @@ import {Button} from '../ui/button.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {useWidthBreakpoint} from '../shared/useWidthBreakpoint.js'
-import {saveQueueTablePreferences, sanitizeQueueTablePreferences, type QueueTableColumnId, type QueueTablePreferences} from './queueTablePreferences.js'
+import {DEFAULT_QUEUE_TABLE_PREFERENCES, isQueueTableColumnId, saveQueueTablePreferences, sanitizeQueueTablePreferences, type QueueTableColumnId, type QueueTablePreferences} from './queueTablePreferences.js'
+import type {QueueColumnWidths} from './queueColumnWidths.js'
 import {createQueueManagerState, queueManagerReducer} from './queueManagerState.js'
-import {COLUMN_LABEL_KEYS, actionButtonDisabled, type QueueSelectedAction} from './queueManagerActions.js'
+import {actionButtonDisabled, type QueueSelectedAction} from './queueManagerActions.js'
 import {QueueManagerToolbar} from './QueueManagerToolbar.js'
 import {QueueManagerTable} from './QueueManagerTable.js'
 import {useQueueManagerColumns} from './useQueueManagerColumns.js'
@@ -33,12 +35,7 @@ function resolveUpdater<T>(updater: Updater<T>, previous: T): T {
 	return updaterFn(previous)
 }
 
-function isQueueTableColumnId(columnId: string): columnId is QueueTableColumnId {
-	return columnId in COLUMN_LABEL_KEYS
-}
-
-function isResponsiveRenderedColumn(columnId: string, viewportWidth: number): boolean {
-	if (!isQueueTableColumnId(columnId)) return true
+function isResponsiveRenderedColumn(columnId: QueueTableColumnId, viewportWidth: number): boolean {
 	const hiddenMaxWidth = RESPONSIVE_COLUMN_HIDE_MAX_WIDTH[columnId]
 	return hiddenMaxWidth === undefined || viewportWidth > hiddenMaxWidth
 }
@@ -175,6 +172,25 @@ export function QueueManagerTab(): ReactNode {
 		[updateTablePreferences]
 	)
 
+	const setColumnWidths = useCallback(
+		(columnWidths: QueueColumnWidths): void => {
+			updateTablePreferences(previous => ({...previous, columnWidths}))
+		},
+		[updateTablePreferences]
+	)
+
+	const moveColumn = useCallback(
+		(columnId: QueueTableColumnId, targetId: QueueTableColumnId): void => {
+			updateTablePreferences(previous => ({...previous, columnOrder: arrayMove(previous.columnOrder, previous.columnOrder.indexOf(columnId), previous.columnOrder.indexOf(targetId))}))
+		},
+		[updateTablePreferences]
+	)
+
+	// Sorting is a view choice, not layout, so a reset keeps it.
+	const resetColumns = useCallback((): void => {
+		updateTablePreferences(previous => ({...DEFAULT_QUEUE_TABLE_PREFERENCES, sorting: previous.sorting}))
+	}, [updateTablePreferences])
+
 	const cancelProbing = useCallback((itemId: string): void => void cancelItemDownload(itemId), [cancelItemDownload])
 	const columns = useQueueManagerColumns({expandedIds, onToggleExpanded: toggleExpanded, onCancelProbing: cancelProbing, t})
 
@@ -223,7 +239,11 @@ export function QueueManagerTab(): ReactNode {
 
 	const selectedCount = selectedItems.length
 	const visibleColumns = table.getVisibleLeafColumns()
-	const renderedColumnCount = Math.max(1, visibleColumns.filter(column => isResponsiveRenderedColumn(column.id, widthBreakpoint)).length)
+	const renderedColumnIds = visibleColumns
+		.map(column => column.id)
+		.filter(isQueueTableColumnId)
+		.filter(columnId => isResponsiveRenderedColumn(columnId, widthBreakpoint))
+	const renderedColumnCount = Math.max(1, renderedColumnIds.length)
 
 	return (
 		<Card variant="glass" render={<section />} className="mx-auto min-h-[28rem] w-full max-w-[92rem] gap-0 p-3" data-testid="queue-manager-tab">
@@ -243,6 +263,7 @@ export function QueueManagerTab(): ReactNode {
 				onClearCompleted={() => void clearCompleted()}
 				autoRemoveCompleted={autoRemoveCompleted}
 				onAutoRemoveCompletedChange={enabled => void setAutoRemoveCompleted(enabled)}
+				onResetColumns={resetColumns}
 			/>
 
 			{schedulerPaused && hasWaitingItems && (
@@ -266,6 +287,10 @@ export function QueueManagerTab(): ReactNode {
 				topVirtualPadding={topVirtualPadding}
 				bottomVirtualPadding={bottomVirtualPadding}
 				renderedColumnCount={renderedColumnCount}
+				renderedColumnIds={renderedColumnIds}
+				columnWidths={tablePreferences.columnWidths}
+				onColumnWidthsChange={setColumnWidths}
+				onMoveColumn={moveColumn}
 				contextItems={contextItems}
 				expandedIds={expandedIds}
 				selectedIds={selectedIds}

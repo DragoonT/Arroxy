@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "生成ファイル"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "{{column}}列を配置しました。"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "{{column}}列の移動をキャンセルしました。"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}}列が{{target}}の上にあります。"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "{{column}}列をつかみました。"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "列"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "{{title}} のファイルを非表示"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "移動可能な列"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "列を移動するには、スペースキーまたはEnterキーを押し、矢印キーで移動してから、スペースキーまたはEnterキーを押して配置します。キャンセルするにはEscキーを押します。"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "出力先"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "進行状況"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "列をリセット"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "{{column}}列の幅を変更"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

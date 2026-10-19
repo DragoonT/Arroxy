@@ -631,7 +631,15 @@
 			"notAvailable": "—",
 			"sortBy": "តម្រៀបតាម {{label}}",
 			"showArtifactsFor": "បង្ហាញឯកសារលទ្ធផលសម្រាប់ {{title}}",
-			"hideArtifactsFor": "លាក់ឯកសារលទ្ធផលសម្រាប់ {{title}}"
+			"hideArtifactsFor": "លាក់ឯកសារលទ្ធផលសម្រាប់ {{title}}",
+			"resetColumns": "កំណត់ជួរឈរឡើងវិញ",
+			"resizeColumn": "ប្តូរទំហំជួរឈរ {{column}}",
+			"movableColumn": "ជួរឈរដែលអាចផ្លាស់ទីបាន",
+			"moveColumnInstructions": "ដើម្បីផ្លាស់ទីជួរឈរ សូមចុច Space ឬ Enter ផ្លាស់ទីវាដោយប្រើគ្រាប់ចុចព្រួញ បន្ទាប់មកចុច Space ឬ Enter ដើម្បីទម្លាក់។ ចុច Escape ដើម្បីបោះបង់។",
+			"columnPickedUp": "បានលើកជួរឈរ {{column}}។",
+			"columnMovedOver": "ជួរឈរ {{column}} នៅលើ {{target}}។",
+			"columnDropped": "បានទម្លាក់ជួរឈរ {{column}}។",
+			"columnMoveCancelled": "ការផ្លាស់ទីជួរឈរ {{column}} ត្រូវបានបោះបង់។"
 		},
 		"artifact": {"media": "មេឌៀ", "subtitle": "អក្សររត់", "thumbnail": "រូបភាពតូច", "description": "ការពិពណ៌នា", "companion": "ឯកសារភ្ជាប់", "unknown": "ឯកសារលទ្ធផល", "missing": "បាត់"},
 		"item": {

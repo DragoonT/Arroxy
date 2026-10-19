@@ -658,7 +658,15 @@
 			"notAvailable": "—",
 			"sortBy": "በ{{label}} ደርድር",
 			"showArtifactsFor": "የ{{title}} ፋይሎችን አሳይ",
-			"hideArtifactsFor": "የ{{title}} ፋይሎችን ደብቅ"
+			"hideArtifactsFor": "የ{{title}} ፋይሎችን ደብቅ",
+			"resetColumns": "ዓምዶችን ዳግም አስጀምር",
+			"resizeColumn": "የ{{column}} ዓምድ መጠን ቀይር",
+			"movableColumn": "ተንቀሳቃሽ ዓምድ",
+			"moveColumnInstructions": "ዓምድን ለማንቀሳቀስ ስፔስ ወይም ኤንተር ይጫኑ፣ በቀስት ቁልፎች ያንቀሳቅሱት፣ ከዚያ ለመጣል እንደገና ስፔስ ወይም ኤንተር ይጫኑ። ለመሰረዝ ኤስኬፕ ይጫኑ።",
+			"columnPickedUp": "የ{{column}} ዓምድ ተነሳ።",
+			"columnMovedOver": "የ{{column}} ዓምድ በ{{target}} ላይ ነው።",
+			"columnDropped": "የ{{column}} ዓምድ ተጥሏል።",
+			"columnMoveCancelled": "የ{{column}} ዓምድ ማንቀሳቀስ ተሰርዟል።"
 		},
 		"artifact": {"media": "ሚዲያ", "subtitle": "ንዑስ ርዕስ", "thumbnail": "አነስተኛ ምስል", "description": "መግለጫ", "companion": "ተጓዳኝ ፋይል", "unknown": "ፋይል", "missing": "ጠፍቷል"},
 		"item": {

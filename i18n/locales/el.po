@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Αρχεία εξόδου"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Η στήλη {{column}} αφέθηκε."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Ακυρώθηκε η μετακίνηση της στήλης {{column}}."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Η στήλη {{column}} βρίσκεται πάνω από τη στήλη {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Σηκώθηκε η στήλη {{column}}."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Στήλες"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Απόκρυψη αρχείων για {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "μετακινούμενη στήλη"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Για να μετακινήσεις μια στήλη, πάτα Space ή Enter, μετακίνησέ την με τα πλήκτρα βελών και πάτα ξανά Space ή Enter για να την αφήσεις. Πάτα Escape για ακύρωση."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "Προορισμός εξόδου"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Πρόοδος"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Επαναφορά στηλών"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Αλλαγή μεγέθους στήλης {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

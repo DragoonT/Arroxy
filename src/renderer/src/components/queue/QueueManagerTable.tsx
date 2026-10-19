@@ -12,7 +12,9 @@ import {QueueArtifactsRow} from './QueueArtifactsRow.js'
 import {DownloadErrorGuidanceRow, QueueAttentionRow} from './QueueAttentionRow.js'
 import {isDownloadErrorRow, needsAttention} from './queueAttention.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
-import type {QueueTableColumnId} from './queueTablePreferences.js'
+import {isQueueTableColumnId, type QueueTableColumnId} from './queueTablePreferences.js'
+import type {QueueColumnWidths} from './queueColumnWidths.js'
+import {QueueTableHeaderRow} from './QueueTableHeaderRow.js'
 import {SELECTED_ACTIONS, actionButtonDisabled, actionDisabledTooltip, type QueueSelectedAction} from './queueManagerActions.js'
 
 interface QueueManagerTableProps {
@@ -24,6 +26,11 @@ interface QueueManagerTableProps {
 	topVirtualPadding: number
 	bottomVirtualPadding: number
 	renderedColumnCount: number
+	// Rendered columns in display order.
+	renderedColumnIds: readonly QueueTableColumnId[]
+	columnWidths: QueueColumnWidths
+	onColumnWidthsChange: (widths: QueueColumnWidths) => void
+	onMoveColumn: (columnId: QueueTableColumnId, targetId: QueueTableColumnId) => void
 	contextItems: QueueItem[]
 	expandedIds: ReadonlySet<string>
 	selectedIds: ReadonlySet<string>
@@ -33,23 +40,13 @@ interface QueueManagerTableProps {
 	onContextAction: (action: QueueSelectedAction, items: QueueItem[]) => void
 }
 
-// The table has a fixed layout, so every column needs a width share: one
-// without collapses to nothing and its header spills over its neighbour.
-// The default visible set (all but Finished) adds up to 100%.
-const COLUMN_CLASS_NAMES: Record<QueueTableColumnId, string> = {
-	title: 'w-[21%] min-w-0',
-	status: 'w-[17%]',
-	progressPercent: 'w-[9%]',
-	formatLabel: 'w-[13%] max-[820px]:hidden',
-	outputDir: 'w-[13%] max-[1040px]:hidden',
-	artifacts: 'w-[8%] text-center',
-	fileSize: 'w-[10%] max-[960px]:hidden',
-	addedAt: 'w-[9%] max-[900px]:hidden',
-	finishedAt: 'w-[9%] max-[900px]:hidden'
-}
+// Widths come from the header row (see QueueTableHeaderRow): the table has a
+// fixed layout, so its first row sizes every column. These hide the columns a
+// narrow window has no room for, in step with RESPONSIVE_COLUMN_HIDE_MAX_WIDTH.
+const COLUMN_CLASS_NAMES: Record<QueueTableColumnId, string> = {title: 'min-w-0', status: '', progressPercent: '', formatLabel: 'max-[820px]:hidden', outputDir: 'max-[1040px]:hidden', artifacts: 'text-center', fileSize: 'max-[960px]:hidden', addedAt: 'max-[900px]:hidden', finishedAt: 'max-[900px]:hidden'}
 
 function columnClassName(columnId: string): string {
-	return columnId in COLUMN_CLASS_NAMES ? COLUMN_CLASS_NAMES[columnId as QueueTableColumnId] : ''
+	return isQueueTableColumnId(columnId) ? COLUMN_CLASS_NAMES[columnId] : ''
 }
 
 const QueueContextMenuItems = memo(function QueueContextMenuItems({items, onAction}: {items: QueueItem[]; onAction: (action: QueueSelectedAction, items: QueueItem[]) => void}): ReactNode {
@@ -83,7 +80,26 @@ const QueueContextMenuItems = memo(function QueueContextMenuItems({items, onActi
 	)
 })
 
-export function QueueManagerTable({t, table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, contextItems, expandedIds, selectedIds, interactions, highlightedId, onContextAction}: QueueManagerTableProps): ReactNode {
+export function QueueManagerTable({
+	t,
+	table,
+	rows,
+	virtualRows,
+	scrollRef,
+	topVirtualPadding,
+	bottomVirtualPadding,
+	renderedColumnCount,
+	renderedColumnIds,
+	columnWidths,
+	onColumnWidthsChange,
+	onMoveColumn,
+	contextItems,
+	expandedIds,
+	selectedIds,
+	interactions,
+	highlightedId,
+	onContextAction
+}: QueueManagerTableProps): ReactNode {
 	return (
 		<SelectableVirtualTable
 			table={table}
@@ -101,6 +117,7 @@ export function QueueManagerTable({t, table, rows, virtualRows, scrollRef, topVi
 			rowTestId={rowId => `queue-manager-row-${rowId}`}
 			rowDataAttributes={row => ({'data-status': row.original.status, ...(row.original.id === highlightedId ? {'data-highlighted': 'true'} : {})})}
 			columnClassName={columnClassName}
+			renderHeaderRow={headers => <QueueTableHeaderRow t={t} headers={headers} renderedColumnIds={renderedColumnIds} columnWidths={columnWidths} columnClassName={columnClassName} onColumnWidthsChange={onColumnWidthsChange} onMoveColumn={onMoveColumn} />}
 			renderContextMenu={() => <QueueContextMenuItems items={contextItems} onAction={onContextAction} />}
 			renderExtraRows={row => (
 				<>

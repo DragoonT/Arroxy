@@ -733,7 +733,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} tin tartiibessi",
 			"showArtifactsFor": "Faayiloota {{title}} agarsiisi",
-			"hideArtifactsFor": "Faayiloota {{title}} dhoksi"
+			"hideArtifactsFor": "Faayiloota {{title}} dhoksi",
+			"resetColumns": "Tarjaalee deebisi",
+			"resizeColumn": "Bal'ina tarjaa {{column}} jijjiiri",
+			"movableColumn": "tarjaa sochoosuun danda'amu",
+			"moveColumnInstructions": "Tarjaa sochoosuuf Space ykn Enter tuqi, furtuuwwan xiyyaatiin sochoosi, achiis gadi dhiisuuf Space ykn Enter irra deebi'ii tuqi. Haquuf Escape tuqi.",
+			"columnPickedUp": "Tarjaan {{column}} kaafameera.",
+			"columnMovedOver": "Tarjaan {{column}} tarjaa {{target}} irra jira.",
+			"columnDropped": "Tarjaan {{column}} gadi dhiifameera.",
+			"columnMoveCancelled": "Sochii tarjaa {{column}} haqameera."
 		},
 		"artifact": {"media": "Miidiyaa", "subtitle": "Axxiinsa", "thumbnail": "Suuraa xiqqaa", "description": "Ibsa", "companion": "Faayilii dabalataa", "unknown": "Faayilii", "missing": "Hin jiru"},
 		"item": {

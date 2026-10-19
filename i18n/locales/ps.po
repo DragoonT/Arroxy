@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "وتلې فایلونه"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "د {{column}} ستنه پرېښودل شوه."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "د {{column}} ستنې خوځول لغوه شول."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "د {{column}} ستنه د {{target}} پر سر ده."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "د {{column}} ستنه پورته شوه."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "ستنې"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "د {{title}} فایلونه پټ کړه"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "د حرکت وړ ستنه"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "د ستنې د خوځولو لپاره Space یا Enter کېکاږئ، بیا یې د غشو کیلیدونو سره وخوځوئ، او د پرېښودو لپاره بیا Space یا Enter کېکاږئ. د لغوه کولو لپاره Escape کېکاږئ."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "د وتلو هدف"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "پرمختګ"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "ستنې بیا تنظیمول"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "د {{column}} ستنې اندازه بدله کړئ"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

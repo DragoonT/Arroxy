@@ -1279,6 +1279,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Файлы"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Столбец «{{column}}» отпущен."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Перемещение столбца «{{column}}» отменено."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Столбец «{{column}}» находится над столбцом «{{target}}»."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Столбец «{{column}}» взят."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Столбцы"
@@ -1295,6 +1311,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Скрыть файлы для {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "перемещаемый столбец"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Чтобы переместить столбец, нажмите пробел или Enter, переместите его стрелками, затем снова нажмите пробел или Enter, чтобы отпустить его. Для отмены нажмите Escape."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1306,6 +1330,14 @@ msgstr "Папка назначения"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Прогресс"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Сбросить столбцы"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Изменить ширину столбца «{{column}}»"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

@@ -1144,6 +1144,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "ထွက်လာသော ဖိုင်များ"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "{{column}} ကော်လံကို ချလိုက်သည်။"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "{{column}} ကော်လံ ရွှေ့ခြင်းကို ပယ်ဖျက်လိုက်သည်။"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}} ကော်လံသည် {{target}} အပေါ်တွင် ရှိသည်။"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "{{column}} ကော်လံကို ကောက်ယူလိုက်သည်။"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "ကော်လံများ"
@@ -1160,6 +1176,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "{{title}} ၏ ဖိုင်များကို ဖျောက်ရန်"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "ရွှေ့နိုင်သော ကော်လံ"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "ကော်လံကို ရွှေ့ရန် Space သို့မဟုတ် Enter ကို နှိပ်ပါ၊ မြှားခလုတ်များဖြင့် ရွှေ့ပြီးနောက် Space သို့မဟုတ် Enter ကို ထပ်နှိပ်၍ ချပါ။ ပယ်ဖျက်ရန် Escape ကို နှိပ်ပါ။"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1171,6 +1195,14 @@ msgstr "ထုတ်လွှတ်မည့်နေရာ"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "တိုးတက်မှု"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "ကော်လံများ ပြန်သတ်မှတ်ရန်"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "{{column}} ကော်လံ အရွယ်အစား ပြောင်းရန်"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

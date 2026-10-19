@@ -670,7 +670,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} অনুযায়ী সাজান",
 			"showArtifactsFor": "{{title}}-এর ফাইল দেখান",
-			"hideArtifactsFor": "{{title}}-এর ফাইল লুকান"
+			"hideArtifactsFor": "{{title}}-এর ফাইল লুকান",
+			"resetColumns": "কলাম রিসেট করুন",
+			"resizeColumn": "{{column}} কলামের আকার পরিবর্তন করুন",
+			"movableColumn": "সরানোযোগ্য কলাম",
+			"moveColumnInstructions": "কলাম সরাতে Space বা Enter চাপুন, তীর কী দিয়ে সরান, তারপর রাখতে আবার Space বা Enter চাপুন। বাতিল করতে Escape চাপুন।",
+			"columnPickedUp": "{{column}} কলামটি তোলা হয়েছে।",
+			"columnMovedOver": "{{column}} কলামটি {{target}}-এর উপরে আছে।",
+			"columnDropped": "{{column}} কলামটি রাখা হয়েছে।",
+			"columnMoveCancelled": "{{column}} কলাম সরানো বাতিল করা হয়েছে।"
 		},
 		"artifact": {"media": "মিডিয়া", "subtitle": "সাবটাইটেল", "thumbnail": "থাম্বনেইল", "description": "বিবরণ", "companion": "সহযোগী ফাইল", "unknown": "ফাইল", "missing": "অনুপস্থিত"},
 		"item": {

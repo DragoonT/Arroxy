@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Faili za matokeo"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Safu wima ya {{column}} imeachiwa."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Kusogeza safu wima ya {{column}} kumeghairiwa."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Safu wima ya {{column}} iko juu ya {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Safu wima ya {{column}} imeshikwa."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Safu wima"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Ficha faili za {{title}}"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "safu wima inayoweza kusogezwa"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Ili kusogeza safu wima, bonyeza Spacebar au Enter, isogeze kwa vitufe vya mishale, kisha bonyeza Spacebar au Enter ili kuiachia. Bonyeza Escape ili kughairi."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "Lengo la matokeo"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Maendeleo"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Weka upya safu wima"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Badilisha ukubwa wa safu wima ya {{column}}"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

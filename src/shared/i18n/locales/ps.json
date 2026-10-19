@@ -723,7 +723,15 @@
 			"notAvailable": "—",
 			"sortBy": "د {{label}} له مخې ترتیب کړه",
 			"showArtifactsFor": "د {{title}} فایلونه وښیه",
-			"hideArtifactsFor": "د {{title}} فایلونه پټ کړه"
+			"hideArtifactsFor": "د {{title}} فایلونه پټ کړه",
+			"resetColumns": "ستنې بیا تنظیمول",
+			"resizeColumn": "د {{column}} ستنې اندازه بدله کړئ",
+			"movableColumn": "د حرکت وړ ستنه",
+			"moveColumnInstructions": "د ستنې د خوځولو لپاره Space یا Enter کېکاږئ، بیا یې د غشو کیلیدونو سره وخوځوئ، او د پرېښودو لپاره بیا Space یا Enter کېکاږئ. د لغوه کولو لپاره Escape کېکاږئ.",
+			"columnPickedUp": "د {{column}} ستنه پورته شوه.",
+			"columnMovedOver": "د {{column}} ستنه د {{target}} پر سر ده.",
+			"columnDropped": "د {{column}} ستنه پرېښودل شوه.",
+			"columnMoveCancelled": "د {{column}} ستنې خوځول لغوه شول."
 		},
 		"artifact": {"media": "رسنۍ", "subtitle": "ژباړلیک", "thumbnail": "وړه انځور", "description": "تفصیل", "companion": "ملګری فایل", "unknown": "فایل", "missing": "ورک"},
 		"item": {

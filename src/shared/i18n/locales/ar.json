@@ -804,7 +804,15 @@
 			"notAvailable": "—",
 			"sortBy": "فرز حسب {{label}}",
 			"showArtifactsFor": "إظهار ملفات {{title}}",
-			"hideArtifactsFor": "إخفاء ملفات {{title}}"
+			"hideArtifactsFor": "إخفاء ملفات {{title}}",
+			"resetColumns": "إعادة ضبط الأعمدة",
+			"resizeColumn": "تغيير حجم عمود {{column}}",
+			"movableColumn": "عمود قابل للنقل",
+			"moveColumnInstructions": "لنقل عمود، اضغط على المسافة أو Enter، ثم حرّكه بمفاتيح الأسهم، ثم اضغط على المسافة أو Enter لإفلاته. اضغط على Esc للإلغاء.",
+			"columnPickedUp": "تم التقاط عمود {{column}}.",
+			"columnMovedOver": "عمود {{column}} فوق {{target}}.",
+			"columnDropped": "تم إفلات عمود {{column}}.",
+			"columnMoveCancelled": "تم إلغاء نقل عمود {{column}}."
 		},
 		"artifact": {"media": "وسائط", "subtitle": "ترجمة", "thumbnail": "صورة مصغرة", "description": "الوصف", "companion": "ملف مرافق", "unknown": "ملف", "missing": "مفقود"},
 		"item": {

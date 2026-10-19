@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "आउटपुट फ़ाइलें"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "{{column}} कॉलम छोड़ा गया।"
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "{{column}} कॉलम को ले जाना रद्द किया गया।"
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "{{column}} कॉलम {{target}} के ऊपर है।"
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "{{column}} कॉलम उठाया गया।"
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "कॉलम"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "{{title}} की फ़ाइलें छिपाएँ"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "स्थानांतरित करने योग्य कॉलम"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "कॉलम को ले जाने के लिए Space या Enter दबाएँ, तीर कुंजियों से उसे ले जाएँ, फिर छोड़ने के लिए Space या Enter दबाएँ। रद्द करने के लिए Escape दबाएँ।"
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "आउटपुट लक्ष्य"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "प्रगति"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "कॉलम रीसेट करें"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "{{column}} कॉलम का आकार बदलें"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

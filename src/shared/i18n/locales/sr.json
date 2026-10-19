@@ -732,7 +732,15 @@
 			"notAvailable": "—",
 			"sortBy": "Сортирај по {{label}}",
 			"showArtifactsFor": "Прикажи датотеке за {{title}}",
-			"hideArtifactsFor": "Сакриј датотеке за {{title}}"
+			"hideArtifactsFor": "Сакриј датотеке за {{title}}",
+			"resetColumns": "Ресетуј колоне",
+			"resizeColumn": "Промени ширину колоне {{column}}",
+			"movableColumn": "колона која се може померати",
+			"moveColumnInstructions": "Да бисте померили колону, притисните Размакницу или Enter, померите је стрелицама, а затим поново притисните Размакницу или Enter да је отпустите. Притисните Esc за отказивање.",
+			"columnPickedUp": "Колона {{column}} је узета.",
+			"columnMovedOver": "Колона {{column}} је изнад колоне {{target}}.",
+			"columnDropped": "Колона {{column}} је спуштена.",
+			"columnMoveCancelled": "Померање колоне {{column}} је отказано."
 		},
 		"artifact": {"media": "Медији", "subtitle": "Титл", "thumbnail": "Сличица", "description": "Опис", "companion": "Пратећа датотека", "unknown": "Датотека", "missing": "Недостаје"},
 		"item": {

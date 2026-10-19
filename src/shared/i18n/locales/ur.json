@@ -717,7 +717,15 @@
 			"notAvailable": "—",
 			"sortBy": "{{label}} کے لحاظ سے ترتیب دیں",
 			"showArtifactsFor": "{{title}} کی فائلیں دکھائیں",
-			"hideArtifactsFor": "{{title}} کی فائلیں چھپائیں"
+			"hideArtifactsFor": "{{title}} کی فائلیں چھپائیں",
+			"resetColumns": "کالمز ری سیٹ کریں",
+			"resizeColumn": "{{column}} کالم کا سائز تبدیل کریں",
+			"movableColumn": "منتقل ہونے والا کالم",
+			"moveColumnInstructions": "کالم کو منتقل کرنے کے لیے اسپیس یا اینٹر دبائیں، تیر والی کیز سے اسے حرکت دیں، پھر چھوڑنے کے لیے دوبارہ اسپیس یا اینٹر دبائیں۔ منسوخ کرنے کے لیے Escape دبائیں۔",
+			"columnPickedUp": "{{column}} کالم اٹھایا گیا۔",
+			"columnMovedOver": "{{column}} کالم {{target}} کے اوپر ہے۔",
+			"columnDropped": "{{column}} کالم چھوڑ دیا گیا۔",
+			"columnMoveCancelled": "{{column}} کالم کو منتقل کرنا منسوخ کر دیا گیا۔"
 		},
 		"artifact": {"media": "میڈیا", "subtitle": "سب ٹائٹل", "thumbnail": "تھمب نیل", "description": "تفصیل", "companion": "ساتھ والی فائل", "unknown": "فائل", "missing": "غائب"},
 		"item": {

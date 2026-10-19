@@ -631,7 +631,15 @@
 			"notAvailable": "—",
 			"sortBy": "依 {{label}} 排序",
 			"showArtifactsFor": "顯示 {{title}} 的產出檔案",
-			"hideArtifactsFor": "隱藏 {{title}} 的產出檔案"
+			"hideArtifactsFor": "隱藏 {{title}} 的產出檔案",
+			"resetColumns": "重設欄",
+			"resizeColumn": "調整 {{column}} 欄的寬度",
+			"movableColumn": "可移動的欄",
+			"moveColumnInstructions": "若要移動欄，請按空白鍵或 Enter 鍵，用方向鍵移動，然後再按空白鍵或 Enter 鍵放下。按 Esc 鍵取消。",
+			"columnPickedUp": "已拿起 {{column}} 欄。",
+			"columnMovedOver": "{{column}} 欄懸停在 {{target}} 欄上。",
+			"columnDropped": "已放下 {{column}} 欄。",
+			"columnMoveCancelled": "已取消移動 {{column}} 欄。"
 		},
 		"artifact": {"media": "媒體", "subtitle": "字幕", "thumbnail": "縮圖", "description": "描述", "companion": "附屬檔案", "unknown": "產出檔案", "missing": "缺少"},
 		"item": {

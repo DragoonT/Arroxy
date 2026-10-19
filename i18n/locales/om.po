@@ -1189,6 +1189,22 @@ msgctxt "queue.table.artifacts"
 msgid "Artifacts"
 msgstr "Faayiloota bu'aa"
 
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Tarjaan {{column}} gadi dhiifameera."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Sochii tarjaa {{column}} haqameera."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Tarjaan {{column}} tarjaa {{target}} irra jira."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Tarjaan {{column}} kaafameera."
+
 msgctxt "queue.table.columns"
 msgid "Columns"
 msgstr "Tarjaalee"
@@ -1205,6 +1221,14 @@ msgctxt "queue.table.hideArtifactsFor"
 msgid "Hide artifacts for {{title}}"
 msgstr "Faayiloota {{title}} dhoksi"
 
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "tarjaa sochoosuun danda'amu"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Tarjaa sochoosuuf Space ykn Enter tuqi, furtuuwwan xiyyaatiin sochoosi, achiis gadi dhiisuuf Space ykn Enter irra deebi'ii tuqi. Haquuf Escape tuqi."
+
 msgctxt "queue.table.notAvailable"
 msgid "—"
 msgstr "—"
@@ -1216,6 +1240,14 @@ msgstr "Iddoo bu'aa"
 msgctxt "queue.table.progress"
 msgid "Progress"
 msgstr "Adeemsa"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Tarjaalee deebisi"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Bal'ina tarjaa {{column}} jijjiiri"
 
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"

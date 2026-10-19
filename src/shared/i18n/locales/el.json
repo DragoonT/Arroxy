@@ -726,7 +726,15 @@
 			"notAvailable": "—",
 			"sortBy": "Ταξινόμηση κατά {{label}}",
 			"showArtifactsFor": "Εμφάνιση αρχείων για {{title}}",
-			"hideArtifactsFor": "Απόκρυψη αρχείων για {{title}}"
+			"hideArtifactsFor": "Απόκρυψη αρχείων για {{title}}",
+			"resetColumns": "Επαναφορά στηλών",
+			"resizeColumn": "Αλλαγή μεγέθους στήλης {{column}}",
+			"movableColumn": "μετακινούμενη στήλη",
+			"moveColumnInstructions": "Για να μετακινήσεις μια στήλη, πάτα Space ή Enter, μετακίνησέ την με τα πλήκτρα βελών και πάτα ξανά Space ή Enter για να την αφήσεις. Πάτα Escape για ακύρωση.",
+			"columnPickedUp": "Σηκώθηκε η στήλη {{column}}.",
+			"columnMovedOver": "Η στήλη {{column}} βρίσκεται πάνω από τη στήλη {{target}}.",
+			"columnDropped": "Η στήλη {{column}} αφέθηκε.",
+			"columnMoveCancelled": "Ακυρώθηκε η μετακίνηση της στήλης {{column}}."
 		},
 		"artifact": {"media": "Πολυμέσα", "subtitle": "Υπότιτλος", "thumbnail": "Μικρογραφία", "description": "Περιγραφή", "companion": "Συνοδευτικό αρχείο", "unknown": "Αρχείο", "missing": "Λείπει"},
 		"item": {

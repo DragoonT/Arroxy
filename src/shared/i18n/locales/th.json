@@ -628,7 +628,15 @@
 			"notAvailable": "—",
 			"sortBy": "เรียงตาม {{label}}",
 			"showArtifactsFor": "แสดงไฟล์ผลลัพธ์ของ {{title}}",
-			"hideArtifactsFor": "ซ่อนไฟล์ผลลัพธ์ของ {{title}}"
+			"hideArtifactsFor": "ซ่อนไฟล์ผลลัพธ์ของ {{title}}",
+			"resetColumns": "รีเซ็ตคอลัมน์",
+			"resizeColumn": "ปรับขนาดคอลัมน์ {{column}}",
+			"movableColumn": "คอลัมน์ที่ย้ายได้",
+			"moveColumnInstructions": "หากต้องการย้ายคอลัมน์ ให้กด Space หรือ Enter แล้วใช้ปุ่มลูกศรเพื่อย้าย จากนั้นกด Space หรือ Enter อีกครั้งเพื่อวาง กด Esc เพื่อยกเลิก",
+			"columnPickedUp": "หยิบคอลัมน์ {{column}} แล้ว",
+			"columnMovedOver": "คอลัมน์ {{column}} อยู่เหนือ {{target}}",
+			"columnDropped": "วางคอลัมน์ {{column}} แล้ว",
+			"columnMoveCancelled": "ยกเลิกการย้ายคอลัมน์ {{column}} แล้ว"
 		},
 		"artifact": {"media": "สื่อ", "subtitle": "คำบรรยาย", "thumbnail": "ภาพขนาดย่อ", "description": "คำอธิบาย", "companion": "ไฟล์ประกอบ", "unknown": "ไฟล์ผลลัพธ์", "missing": "ไม่มี"},
 		"item": {
