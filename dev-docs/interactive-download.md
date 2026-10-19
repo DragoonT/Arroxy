@@ -176,7 +176,7 @@ resolver's output. It drives the Review bar and the after-download toast.
 
 - Format strip: thumbnail, title, the chosen streams in one line, and
   "Change format" back to Format.
-- Rows, each opening in place (one open at a time, Done closes it):
+- Rows, each opening in place (one open at a time; its header closes it):
   - **Subtitles**: the same picker as Subtitles mode plus Next to video /
     Inside the video / `subtitles/` folder. "Inside the video" notes that the
     file becomes .mkv, and the file name row updates.

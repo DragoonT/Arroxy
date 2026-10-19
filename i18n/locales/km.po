@@ -3512,10 +3512,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "ប្តូរទម្រង់"
 
-msgctxt "wizard.review.done"
-msgid "Done"
-msgstr "រួចរាល់"
-
 msgctxt "wizard.review.fileNameHint"
 msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
 msgstr "Token៖ {title}, {id}, {uploader}, {date}, {resolution}។ កន្ទុយឯកសារត្រូវបានបន្ថែមជូនអ្នក។"

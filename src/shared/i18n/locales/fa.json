@@ -495,7 +495,6 @@
 			"rowsHeading": "سایر موارد",
 			"rows": {"subtitles": "زیرنویس‌ها", "sponsorBlock": "SponsorBlock", "extras": "موارد اضافی", "saveTo": "ذخیره در", "fileName": "نام فایل"},
 			"value": {"subtitlesOff": "خاموش", "sponsorBlockOff": "خاموش", "extrasNone": "هیچ‌کدام"},
-			"done": "انجام شد",
 			"changed": "تغییر نسبت به {{profile}}: {{areas}}. فقط برای این دانلود اعمال می‌شود.",
 			"areas": {"format": "قالب", "subtitles": "زیرنویس‌ها", "sponsorBlock": "SponsorBlock", "extras": "موارد اضافی", "saveTo": "پوشه", "fileName": "نام فایل"},
 			"updateProfile": "به‌روزرسانی «{{profile}}» با این تغییرات",

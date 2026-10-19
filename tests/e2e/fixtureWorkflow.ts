@@ -123,7 +123,7 @@ export async function prepareSingleReview(page: Page, videoId: string, subtitles
 			.getByRole('checkbox', {name: /english/i})
 			.first()
 			.click()
-		await page.locator('[data-testid="review-row-subtitles-done"]').click()
+		await page.locator('[data-testid="review-row-subtitles-toggle"]').click()
 	}
 }
 

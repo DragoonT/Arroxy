@@ -158,7 +158,7 @@ test('Electron Review edits apply to one download and can be saved as a profile'
 		await prepareSingleReview(page, videoId)
 		await page.locator('[data-testid="review-row-fileName-toggle"]').click()
 		await page.locator('[data-testid="review-filename-input"]').fill('{title} edited')
-		await page.locator('[data-testid="review-row-fileName-done"]').click()
+		await page.locator('[data-testid="review-row-fileName-toggle"]').click()
 		await expect(page.locator('[data-testid="review-changed-bar"]')).toContainText('file name')
 
 		await page.locator('[data-testid="review-save-as-profile"]').click()

@@ -3512,10 +3512,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "형식 변경"
 
-msgctxt "wizard.review.done"
-msgid "Done"
-msgstr "완료"
-
 msgctxt "wizard.review.fileNameHint"
 msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
 msgstr "사용 가능한 토큰: {title}, {id}, {uploader}, {date}, {resolution}. 확장자는 자동으로 붙습니다."

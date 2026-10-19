@@ -3667,10 +3667,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Αλλαγή μορφής"
 
-msgctxt "wizard.review.done"
-msgid "Done"
-msgstr "Τέλος"
-
 msgctxt "wizard.review.fileNameHint"
 msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
 msgstr "Μεταβλητές: {title}, {id}, {uploader}, {date}, {resolution}. Η επέκταση προστίθεται αυτόματα."

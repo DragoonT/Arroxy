@@ -479,7 +479,6 @@
 			"rowsHeading": "বাকি সবকিছু",
 			"rows": {"subtitles": "সাবটাইটেল", "sponsorBlock": "SponsorBlock", "extras": "অতিরিক্ত", "saveTo": "সেভ করুন", "fileName": "ফাইলের নাম"},
 			"value": {"subtitlesOff": "বন্ধ", "sponsorBlockOff": "বন্ধ", "extrasNone": "কিছু নয়"},
-			"done": "সম্পন্ন",
 			"changed": "{{profile}} থেকে পরিবর্তিত: {{areas}}। শুধু এই ডাউনলোডে প্রযোজ্য।",
 			"areas": {"format": "ফরম্যাট", "subtitles": "সাবটাইটেল", "sponsorBlock": "SponsorBlock", "extras": "অতিরিক্ত", "saveTo": "ফোল্ডার", "fileName": "ফাইলের নাম"},
 			"updateProfile": "এই পরিবর্তনগুলো দিয়ে “{{profile}}” হালনাগাদ করুন",

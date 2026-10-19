@@ -524,7 +524,6 @@
 			"rowsHeading": "Todo o resto",
 			"rows": {"subtitles": "Legendas", "sponsorBlock": "SponsorBlock", "extras": "Extras", "saveTo": "Salvar em", "fileName": "Nome do arquivo"},
 			"value": {"subtitlesOff": "Desativado", "sponsorBlockOff": "Desativado", "extrasNone": "Nenhum"},
-			"done": "Concluído",
 			"changed": "Alterado em relação a {{profile}}: {{areas}}. Vale apenas para este download.",
 			"areas": {"format": "formato", "subtitles": "legendas", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "pasta", "fileName": "nome do arquivo"},
 			"updateProfile": "Atualizar “{{profile}}” com estas alterações",

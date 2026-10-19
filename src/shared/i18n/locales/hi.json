@@ -479,7 +479,6 @@
 			"rowsHeading": "बाकी सब",
 			"rows": {"subtitles": "उपशीर्षक", "sponsorBlock": "SponsorBlock", "extras": "अतिरिक्त", "saveTo": "स्थान", "fileName": "फ़ाइल नाम"},
 			"value": {"subtitlesOff": "बंद", "sponsorBlockOff": "बंद", "extrasNone": "कोई नहीं"},
-			"done": "पूरा",
 			"changed": "{{profile}} से बदला गया: {{areas}}। यह केवल इसी डाउनलोड पर लागू होता है।",
 			"areas": {"format": "फ़ॉर्मैट", "subtitles": "उपशीर्षक", "sponsorBlock": "SponsorBlock", "extras": "अतिरिक्त", "saveTo": "फ़ोल्डर", "fileName": "फ़ाइल नाम"},
 			"updateProfile": "“{{profile}}” को इन बदलावों से अपडेट करें",

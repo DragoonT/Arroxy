@@ -4287,10 +4287,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "تغيير الصيغة"
 
-msgctxt "wizard.review.done"
-msgid "Done"
-msgstr "تم"
-
 msgctxt "wizard.review.fileNameHint"
 msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
 msgstr "الرموز: {title}، {id}، {uploader}، {date}، {resolution}. تتم إضافة الامتداد تلقائيًا."

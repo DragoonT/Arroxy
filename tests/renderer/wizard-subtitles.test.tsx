@@ -425,12 +425,12 @@ describe('Review — rows', () => {
 		}
 	})
 
-	it('closes the open row with Done', () => {
+	it('closes the open row from its header', () => {
 		singleState({wizardReviewRow: 'fileName'})
 		render(<StepReview />)
 		expect(screen.getByTestId('review-filename-input')).toBeInTheDocument()
 
-		fireEvent.click(screen.getByTestId('review-row-fileName-done'))
+		fireEvent.click(screen.getByTestId('review-row-fileName-toggle'))
 		expect(useAppStore.getState().wizardReviewRow).toBeNull()
 		expect(screen.getByTestId('review-row-fileName-toggle')).toHaveAttribute('aria-expanded', 'false')
 	})

@@ -482,7 +482,6 @@
 			"rowsHeading": "그 밖의 항목",
 			"rows": {"subtitles": "자막", "sponsorBlock": "SponsorBlock", "extras": "추가 항목", "saveTo": "저장 위치", "fileName": "파일 이름"},
 			"value": {"subtitlesOff": "끄기", "sponsorBlockOff": "끄기", "extrasNone": "없음"},
-			"done": "완료",
 			"changed": "{{profile}}에서 변경됨: {{areas}}. 이 다운로드에만 적용됩니다.",
 			"areas": {"format": "형식", "subtitles": "자막", "sponsorBlock": "SponsorBlock", "extras": "추가 항목", "saveTo": "폴더", "fileName": "파일 이름"},
 			"updateProfile": "이 변경 사항으로 “{{profile}}” 업데이트",

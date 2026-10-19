@@ -524,7 +524,6 @@
 			"rowsHeading": "Tutto il resto",
 			"rows": {"subtitles": "Sottotitoli", "sponsorBlock": "SponsorBlock", "extras": "Extra", "saveTo": "Salva in", "fileName": "Nome file"},
 			"value": {"subtitlesOff": "Disattivati", "sponsorBlockOff": "Disattivato", "extrasNone": "Nessuno"},
-			"done": "Completato",
 			"changed": "Modificato rispetto a {{profile}}: {{areas}}. Vale solo per questo download.",
 			"areas": {"format": "formato", "subtitles": "sottotitoli", "sponsorBlock": "SponsorBlock", "extras": "extra", "saveTo": "cartella", "fileName": "nome file"},
 			"updateProfile": "Aggiorna “{{profile}}” con queste modifiche",

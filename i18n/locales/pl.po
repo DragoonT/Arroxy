@@ -3977,10 +3977,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Zmień format"
 
-msgctxt "wizard.review.done"
-msgid "Done"
-msgstr "Gotowe"
-
 msgctxt "wizard.review.fileNameHint"
 msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
 msgstr "Znaczniki: {title}, {id}, {uploader}, {date}, {resolution}. Rozszerzenie zostanie dodane automatycznie."

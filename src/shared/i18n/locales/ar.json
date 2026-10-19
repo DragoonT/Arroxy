@@ -578,7 +578,6 @@
 			"rowsHeading": "كل شيء آخر",
 			"rows": {"subtitles": "الترجمات", "sponsorBlock": "SponsorBlock", "extras": "الإضافات", "saveTo": "الحفظ في", "fileName": "اسم الملف"},
 			"value": {"subtitlesOff": "إيقاف", "sponsorBlockOff": "إيقاف", "extrasNone": "لا شيء"},
-			"done": "تم",
 			"changed": "تغيّر عن {{profile}}: {{areas}}. ينطبق على هذا التنزيل فقط.",
 			"areas": {"format": "الصيغة", "subtitles": "الترجمات", "sponsorBlock": "SponsorBlock", "extras": "الإضافات", "saveTo": "المجلد", "fileName": "اسم الملف"},
 			"updateProfile": "تحديث “{{profile}}” بهذه التغييرات",

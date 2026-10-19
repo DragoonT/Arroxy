@@ -3667,10 +3667,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "फ़ॉर्मैट बदलें"
 
-msgctxt "wizard.review.done"
-msgid "Done"
-msgstr "पूरा"
-
 msgctxt "wizard.review.fileNameHint"
 msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
 msgstr "टोकन: {title}, {id}, {uploader}, {date}, {resolution}। एक्सटेंशन अपने आप जुड़ जाता है।"

@@ -489,7 +489,6 @@
 			"rowsHeading": "Mọi thứ khác",
 			"rows": {"subtitles": "Phụ đề", "sponsorBlock": "SponsorBlock", "extras": "Bổ sung", "saveTo": "Lưu vào", "fileName": "Tên tệp"},
 			"value": {"subtitlesOff": "Tắt", "sponsorBlockOff": "Tắt", "extrasNone": "Không có"},
-			"done": "Xong",
 			"changed": "Khác với {{profile}}: {{areas}}. Chỉ áp dụng cho lượt tải này.",
 			"areas": {"format": "định dạng", "subtitles": "phụ đề", "sponsorBlock": "SponsorBlock", "extras": "bổ sung", "saveTo": "thư mục", "fileName": "tên tệp"},
 			"updateProfile": "Cập nhật “{{profile}}” với các thay đổi này",

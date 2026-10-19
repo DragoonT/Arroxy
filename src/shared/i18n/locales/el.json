@@ -520,7 +520,6 @@
 			"rowsHeading": "Όλα τα υπόλοιπα",
 			"rows": {"subtitles": "Υπότιτλοι", "sponsorBlock": "SponsorBlock", "extras": "Επιπλέον", "saveTo": "Αποθήκευση σε", "fileName": "Όνομα αρχείου"},
 			"value": {"subtitlesOff": "Απενεργοποιημένο", "sponsorBlockOff": "Απενεργοποιημένο", "extrasNone": "Κανένα"},
-			"done": "Τέλος",
 			"changed": "Αλλαγές σε σχέση με το {{profile}}: {{areas}}. Ισχύει μόνο για αυτή τη λήψη.",
 			"areas": {"format": "μορφή", "subtitles": "υπότιτλοι", "sponsorBlock": "SponsorBlock", "extras": "επιπλέον", "saveTo": "φάκελος", "fileName": "όνομα αρχείου"},
 			"updateProfile": "Ενημέρωση του «{{profile}}» με αυτές τις αλλαγές",
