@@ -184,9 +184,9 @@
 			"quickWholePlaylist": "Tarree taphachiisaa guutuu buufadhu",
 			"playlistLimit": "Daangaa sakatta’iinsa playlist: wantoota {{count}}",
 			"quickLimitDescription": "Baay’ina olaanaa wantoota Arroxy tarree taphachiisaa, chaanaalii, yookaan bu’aa barbaacha gara tarree hojiiitti galchuu dura sakatta’u.",
-			"singleTooltip": "Haala viidiyoo tokkoo yt-dlp fayyadama; playlist URL kanaan hidhame ni tuffatama.",
+			"singleTooltip": "Viidiyoo kana qofa fe'a. Playlist URL kanaan hidhame ni tuffatama.",
 			"quickSingleTooltip": "Buufata tokko gara tarree hojiiitti galcha, tarree taphachiisaa URL kanaan walqabate immoo ni dhiisa.",
-			"playlistTooltip": "Haala playlist yt-dlp fayyadamee hanga daangaa sakatta’iinsa playlist kee dura filannoo agarsiisa.",
+			"playlistTooltip": "Filataa agarsiisuu dura playlist hanga daangaa sakatta'iinsa playlist keetii fe'a.",
 			"quickPlaylistTooltip": "Wantoota tarree taphachiisaa fe’aman hunda piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun gara tarree hojiiitti galcha. Sakatta’iinsi daangaa kee yoo ga’e, Arroxy tarree hojiiitti galchuu dura ni gaafata."
 		},
 		"url": {
@@ -197,7 +197,7 @@
 				"summaryFirst": "Wantoota jalqabaa fe'i: {{count}}",
 				"summaryRange": "Wantoota {{from}}-{{to}} fe'i",
 				"dialogTitle": "Bal'ina tarree taphaa",
-				"dialogDescription": "Arroxy tarree taphaa kanaaf yt-dlp maal akka fe'u gaafatu filadhu.",
+				"dialogDescription": "Arroxy playlist kanaaf maal akka fe'u filadhu.",
 				"itemsLabel": "Wantoota fe'amuu qaban",
 				"appLimit": "Daangaa appii fayyadami: {{count}}",
 				"first": "Jalqaba",
@@ -310,7 +310,7 @@
 				"browserPlaceholder": "Browser filadhu…",
 				"browserHelp": "Cookies browser irraa kallattiin dubbisa. Chromium-gosa browser cufamuu qaba.",
 				"enabledButNoBrowser": "Cookies fayyadamuuf browser filadhu",
-				"banWarning": "YouTube akkawntoota cookies yt-dlp waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Yoo danda'ame akkawuntii yeroo fayyadami.",
+				"banWarning": "YouTube akkawntoota cookies isaanii meeshaalee buufannoo akka Arroxy fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Yoo danda'ame akkawuntii yeroo fayyadami.",
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "cookies.txt LOCALLY argadhu (Chrome)"
 			},
@@ -345,7 +345,7 @@
 				"customDialogCancel": "Haquu",
 				"customDialogSave": "Daangaa kuusi",
 				"invalid": "Lakkoofsa guutuu 1 hanga 5000 fayyadami",
-				"tooltip": "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
+				"tooltip": "Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 			},
 			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Isteeriyoo ykn surround yeroo piroofaayiliin sagalee dhalootaa filatu. Piroofaayiliin kana jijjiiruu danda'a.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
 			"autoRetry": {"label": "Buufata kufe irra deebi'ii yaali", "description": "Rakkoo networkii yookaan saarvarii booda ofumaan irra deebi'ee yaala, yaalii tokkoo fi kan biraa gidduutti dheeraa eega. Buufanni marsariitiin ugguramee ofumaan hin yaalamu.", "unit": "yeroo"},
@@ -480,7 +480,7 @@
 				"currentModeFile": "Faayilii",
 				"currentModeBrowser": "Browser",
 				"currentModeExplore": "Seensa Daawwannaa",
-				"explanationFile": "Faayilin cookies kee duwwaa, yeroon darbee, ykn foormaatii dogoggoraa ta'uu danda'a (yt-dlp Netscape cookies.txt eega). Cookies irra deebi'ii ergi, faayilii biraa filadhu, Browser haala jijjiiri, ykn cookies dhaabbi.",
+				"explanationFile": "Faayilin cookies kee duwwaa, yeroon darbee, ykn foormaatii dogoggoraa ta'uu danda'a (Arroxy Netscape cookies.txt barbaada). Cookies irra deebi'ii ergi, faayilii biraa filadhu, Browser haala jijjiiri, ykn cookies dhaabbi.",
 				"explanationBrowser": "Cookies browser irraa kallattiin dubbifama. Browser yoo amma hojjechaa jiraate, kuusaa cookies isaa cufamuu danda'a (Chromium-gosa). Browser YouTube keessattis seenuu qaba. Browser cufadhu, browser biraa jijjiiri, Faayilii haala jijjiiri, ykn cookies dhaabbi.",
 				"openSettingsCta": "Qindaa'inoota cookies bani",
 				"exploreSignIn": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaadu ni danda'a", "body": "Viidiyoon kun akkaawuntii YouTube kan barbaadu yoo ta'e, Daawwannaa keessatti seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa.", "cta": "Daawwannaa keessatti seeni"},
@@ -488,7 +488,7 @@
 				"exploreOffer": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Daawwannaa keessatti seeni, Arroxyn irra deebi'ee yaala.", "cta": "Daawwannaa keessatti seeni"},
 				"exploreReuse": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Daawwannaa keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu.", "cta": "Seensa Daawwannaa koo fayyadamii irra deebi'ii yaali"},
 				"otherCookiesCta": "Faayilii cookies ykn browser fayyadami…",
-				"needsCookies": {"heading": "Gareewwan kun seensa gaafata", "body": "yt-dlp viidiyoo kana mirkaneessuu malee argachuu hin danda'u. Qindaa'inoota ammayyaa keessatti cookies qopheessi — browser seenite irra qeensi, ykn faayilii cookies.txt galchi."},
+				"needsCookies": {"heading": "Gareewwan kun seensa gaafata", "body": "Arroxy viidiyoo kana mirkaneessuu malee argachuu hin dandeenye. Qindaa'inoota ammayyaa keessatti cookies qopheessi — browser seenite irra qeensi, ykn faayilii cookies.txt galchi."},
 				"dpapi": {
 					"heading": "Cookies Chrome'ii farsimaa Windows'n cufame",
 					"explanation": "Chrome 127 fi itti aanu cookies'a appoonii biroon Windows irratti dubbisuu hin dandeenye ta'een farsima. Furmaata armaan gadii keessaa tokko yaali.",
@@ -795,7 +795,7 @@
 		"preparingBinaries": "Faayiloota binaryii qopheessaa jira…",
 		"mintingToken": "Tookenii YouTube uumaa jira…",
 		"remintingToken": "Tookenii irra deebi'ee uumaa jira…",
-		"startingYtdlp": "Prosessii yt-dlp jalqabaa jira…",
+		"startingYtdlp": "Injinii buusuu jalqabaa jira…",
 		"downloadingMedia": "Viidiyoo fi sagalee buufaa jira…",
 		"mergingFormats": "Sagalee fi viidiyoo walitti makaa jira…",
 		"extractingAudio": "Sagalee jijjiiramaa jira…",
@@ -810,8 +810,8 @@
 		"cancelled": "Daawniloodii haqame",
 		"complete": "Daawniloodii xumurame",
 		"usedExtractorFallback": "Haala laafaa ta'een buufame — daawniloodii amanamuuf cookies.txt qopheessi",
-		"ytdlpProcessError": "Dogoggora prosessii yt-dlp: {{error}}",
-		"ytdlpExitCode": "yt-dlp koodii {{code}} wajjin bahe",
+		"ytdlpProcessError": "Dogoggora injinii buusuu: {{error}}",
+		"ytdlpExitCode": "Injinii buusuun koodii {{code}} wajjin bahe",
 		"downloadingBinary": "Faayilii binaryii {{name}} buufaa jira…",
 		"unknownStartupFailure": "Daawniloodii jalqabbii hin beekamne kufee",
 		"diskSpaceInsufficient": "Bakki kuusaa gahaa miti — {{required}} barbaachisa, {{free}} qofa jira",
@@ -860,7 +860,7 @@
 	},
 	"errors": {
 		"ytdlp": {
-			"botBlock": "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf YouTube gama ta'uu danda'a — Arroxy jalqabbii irratti yt-dlp ofumaan haaromsa, kanaaf fooyyessaan olka'iinsa irra ga'ee booda ofumaan ni dhufaa.",
+			"botBlock": "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf saayitii gama ta'uu danda'a — Arroxy jalqabbii irratti injinii buusuu isaa haaromsa, kanaaf fooyya'iinsi yeroo ba'u ofumaan ni dhufa.",
 			"ipBlock": "Teessoon IP kee YouTube'n cufamuu mala. Yeroo booda irra deebi'i ykn VPN fayyadami.",
 			"rateLimit": "Saayitiin gaaffilee walqunnamtii kana irraa dhufan daangessaa jira.",
 			"ageRestricted": "Viidiyoon kun umuriin-daangeffamee seensa malee buufachuu hin danda'u.",
@@ -868,13 +868,13 @@
 			"geoBlocked": "Viidiyoon kun naanno kee keessatti hin argamu.",
 			"outOfDiskSpace": "Bakki disikii gahaa hin jiru. Bakka duwwaa godhi achiin irra deebi'i.",
 			"outputNotWritable": "Arroxy galmee buufataa keessatti barreessuu hin danda'u. Galmeen sun dubbisuuf qofa ta'uu, dhaabbata cufame irra jiraachuu, ykn qindaa'ina dhuunfummaa sirna keetiin dhorkamuu danda'a. Galmee biraa filadhu ykn seensa hayyami, achiin irra deebi'i.",
-			"unsupportedUrl": "URL kana yt-dlp hin deeggaru. Marsariitota yt-dlp deeggaru keessaa hidhaa biraa yaali.",
-			"chunkTransferFailure": "Sarvarri buufannaa giddu-galeessatti kuteera, yt-dlp irra deebi'uun yaale booddee kufe. Kun baay'inaan foormaatii viidiyoo guddoo (4K HDR / VP9 bitrate olaanaa) irratti mul'ata. Irra deebi'i, network/VPN jijjiiri, ykn foormaatii qulqullina xiqqaa ta'e filadhu.",
-			"missingDependency": "yt-dlp ffmpeg yookaan ffprobe argachuu hin dandeenye. Qindaa'ina irra deebi'ii hojjedhu yookaan bakka FFmpeg kaa'i, ergasii buusuu irra deebi'ii yaali.",
-			"postprocessFailure": "yt-dlp buufannaa xumuree, garuu post-processing (merge / mux / convert) hin milkoofne. Kun yeroo baay'ee rakkoo ffmpeg yeroo gabaabaa ti — irra deebi'i, yoo itti fufe walitti makamuu foormaatii biraa yaali.",
-			"parse": "Deebii saayitii irraa dhufe parse gochuun hin danda'amne. Extractor yt-dlp jijjiiramuu mala. Arroxy yeroo banamu yt-dlp ofumaan haaressa — daqiiqaa muraasa booda fooyya'iinsi yeroo ba'u irra deebi'i.",
+			"unsupportedUrl": "Arroxy URL kana hin deeggaru. Linkii saayitii biraa yaali.",
+			"chunkTransferFailure": "Sarvarri buufannaa giddu-galeessatti kuteera, Arroxy irra deebi'uun yaale booddee kufe. Kun baay'inaan foormaatii viidiyoo guddoo (4K HDR / VP9 bitrate olaanaa) irratti mul'ata. Irra deebi'i, network/VPN jijjiiri, ykn foormaatii qulqullina xiqqaa ta'e filadhu.",
+			"missingDependency": "Arroxy FFmpeg yookaan FFprobe argachuu hin dandeenye. Qindaa'ina irra deebi'ii hojjedhu yookaan bakka FFmpeg kaa'i, ergasii buusuu irra deebi'ii yaali.",
+			"postprocessFailure": "Buufannaan xumuramee, garuu post-processing (merge / mux / convert) hin milkoofne. Kun yeroo baay'ee rakkoo ffmpeg yeroo gabaabaa ti — irra deebi'i, yoo itti fufe walitti makamuu foormaatii biraa yaali.",
+			"parse": "Deebii saayitii irraa dhufe parse gochuun hin danda'amne. Saayitichi viidiyoo akkamitti akka dhiheessu jijjiirrachuu danda'a. Arroxy yeroo banamu injinii buusuu isaa haaromsa — daqiiqaa muraasa booda fooyya'iinsi yeroo ba'u irra deebi'i.",
 			"network": "Dogoggora network. Walqunnamtii kee mirkaneessi ergasii irra deebi'i.",
-			"drmProtected": "Viidiyoon kun DRM-iin eegama. yt-dlp DRM haquu hin danda'u, kanaafuu faayilichi buufachuu hin danda'amu.",
+			"drmProtected": "Viidiyoon kun DRM-iin eegama. Arroxy DRM haquu hin danda'u, kanaafuu faayilichi buufachuu hin danda'amu.",
 			"loginRequired": "Viidiyoon kun akkaawuntii seene barbaada.",
 			"unknown": "Buufannaan kufe. Bu’aa raaw’aa armaan gadii ilaali."
 		}
@@ -970,7 +970,7 @@
 			"title": "YouTube Arroxy keessatti ilaali",
 			"body": "Viidiyoo, tarree taphachiisaa ykn channel barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as YouTube seeni.",
 			"riskTitle": "Akkaawuntii lammaffaatiin seeni",
-			"riskBody": "YouTube akkaawuntiiwwan meeshaalee buufannoo akka yt-dlp waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin.",
+			"riskBody": "YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin.",
 			"continue": "Itti fufi"
 		},
 		"nudge": {

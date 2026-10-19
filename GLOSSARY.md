@@ -232,6 +232,10 @@ _Avoid_: burned-in, hardcoded, baked-in subtitles
 One of the external programs Arroxy drives to do its work — the downloader and the media tools it relies on.
 _Avoid_: binary, tool, executable
 
+**Download engine**:
+What the user sees the downloader called. On-screen copy says "Arroxy" when it describes what the app did, and "the download engine" only for the updatable part underneath. The tool's real name appears only where the user needs it: installing it by hand, searching an error, or a link to its own pages.
+_Avoid_: naming the downloader in on-screen copy elsewhere
+
 **Binary manifest**:
 The versioned list that tells Arroxy which managed binary build to fetch for the current platform.
 _Avoid_: index, build list

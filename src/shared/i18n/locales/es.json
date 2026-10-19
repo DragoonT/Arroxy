@@ -187,9 +187,9 @@
 			"quickWholePlaylist": "Descargar toda la lista",
 			"playlistLimit": "Límite de análisis de playlist: {{count}} elementos",
 			"quickLimitDescription": "Cantidad máxima de elementos que Arroxy escanea antes de poner en cola una lista, un canal o un resultado de búsqueda.",
-			"singleTooltip": "Usa el modo de vídeo único de yt-dlp para ignorar la playlist adjunta a esta URL.",
+			"singleTooltip": "Carga solo este vídeo. Se ignora la playlist adjunta a esta URL.",
 			"quickSingleTooltip": "Pone en cola una descarga e ignora la lista adjunta a esta URL.",
-			"playlistTooltip": "Usa el modo playlist de yt-dlp y carga hasta tu límite de análisis antes de mostrar el selector.",
+			"playlistTooltip": "Carga la playlist, hasta tu límite de análisis, antes de mostrar el selector.",
 			"quickPlaylistTooltip": "Pone en cola cada elemento cargado de la lista con el perfil de Descarga rápida activo. Si el escaneo alcanza tu límite, Arroxy pregunta antes de ponerlos en cola."
 		},
 		"url": {
@@ -200,7 +200,7 @@
 				"summaryFirst": "Cargar los primeros elementos: {{count}}",
 				"summaryRange": "Cargar elementos {{from}}-{{to}}",
 				"dialogTitle": "Alcance de la lista",
-				"dialogDescription": "Elige qué le pide Arroxy a yt-dlp que cargue de esta lista.",
+				"dialogDescription": "Elige qué carga Arroxy para esta playlist.",
 				"itemsLabel": "Elementos que cargar",
 				"appLimit": "Usar el límite de la app: {{count}}",
 				"first": "Primeros",
@@ -314,7 +314,7 @@
 				"browserPlaceholder": "Elige un navegador…",
 				"browserHelp": "Lee las cookies directamente del navegador. El navegador debe estar cerrado para los basados en Chromium.",
 				"enabledButNoBrowser": "Elige un navegador para usar cookies",
-				"banWarning": "YouTube puede marcar — y a veces banear — cuentas cuyas cookies usa yt-dlp. Usa una cuenta desechable cuando puedas.",
+				"banWarning": "Sitios como YouTube pueden marcar — y a veces banear — cuentas cuyas cookies usan herramientas de descarga como Arroxy. Usa una cuenta desechable cuando puedas.",
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "Obtener cookies.txt LOCALMENTE (Chrome)"
 			},
@@ -349,7 +349,7 @@
 				"customDialogCancel": "Cancelar",
 				"customDialogSave": "Guardar límite",
 				"invalid": "Usa un número entero del 1 al 5000",
-				"tooltip": "Se corresponde con yt-dlp --playlist-end: Arroxy solo solicita este número de entradas de playlist, canal o búsqueda al construir el selector."
+				"tooltip": "Arroxy solo solicita este número de entradas de playlist, canal o búsqueda al construir el selector."
 			},
 			"nativeAudioPreference": {"label": "Preferencia de audio nativo", "description": "Estéreo o envolvente cuando un perfil elige audio nativo. Un perfil puede anularlo.", "compatible": "Estéreo compatible", "surround": "Preferir surround / Dolby"},
 			"autoRetry": {"label": "Reintentar descargas fallidas", "description": "Vuelve a intentarlo automáticamente tras un fallo de red o del servidor, esperando más entre cada intento. Las descargas bloqueadas por el sitio nunca se reintentan automáticamente.", "unit": "veces"},
@@ -483,7 +483,7 @@
 				"currentModeFile": "Archivo",
 				"currentModeBrowser": "Navegador",
 				"currentModeExplore": "Sesión de Explorar",
-				"explanationFile": "El archivo de cookies puede estar vacío, caducado o en un formato incorrecto (yt-dlp espera Netscape cookies.txt). Prueba a exportar las cookies de nuevo, elegir un archivo diferente, cambiar al modo Navegador o desactivar las cookies.",
+				"explanationFile": "El archivo de cookies puede estar vacío, caducado o en un formato incorrecto (Arroxy necesita un archivo Netscape cookies.txt). Prueba a exportar las cookies de nuevo, elegir un archivo diferente, cambiar al modo Navegador o desactivar las cookies.",
 				"explanationBrowser": "Las cookies se leen directamente del navegador. Si el navegador está abierto en este momento, su base de datos de cookies puede estar bloqueada (familia Chromium). El navegador también debe tener la sesión de YouTube iniciada. Prueba a cerrar el navegador, cambiar a otro, cambiar al modo Archivo o desactivar las cookies.",
 				"openSettingsCta": "Abrir ajustes de cookies",
 				"exploreSignIn": {"heading": "Este vídeo puede requerir una cuenta de YouTube", "body": "Si este vídeo requiere una cuenta de YouTube, inicia sesión en Explorar y vuelve a intentarlo. Arroxy usa esa sesión solo cuando una descarga la necesita.", "cta": "Iniciar sesión en Explorar"},
@@ -491,7 +491,7 @@
 				"exploreOffer": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Inicia sesión en Explorar y Arroxy lo reintentará.", "cta": "Iniciar sesión en Explorar"},
 				"exploreReuse": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Has iniciado sesión en Explorar, pero las descargas no están usando esa sesión ahora mismo.", "cta": "Usar mi sesión de Explorar y reintentar"},
 				"otherCookiesCta": "Usar un archivo de cookies o un navegador…",
-				"needsCookies": {"heading": "Este sitio requiere inicio de sesión", "body": "yt-dlp no pudo acceder a este vídeo sin autenticación. Configura las cookies en los ajustes avanzados — apúntalas a un navegador en el que ya hayas iniciado sesión o importa un archivo cookies.txt."},
+				"needsCookies": {"heading": "Este sitio requiere inicio de sesión", "body": "Arroxy no pudo acceder a este vídeo sin autenticación. Configura las cookies en los ajustes avanzados — apúntalas a un navegador en el que ya hayas iniciado sesión o importa un archivo cookies.txt."},
 				"dpapi": {
 					"heading": "Cookies de Chrome bloqueadas por el cifrado de Windows",
 					"explanation": "Chrome 127 y versiones posteriores cifran las cookies de un modo que otras aplicaciones no pueden leer en Windows. Prueba una de las soluciones siguientes.",
@@ -806,7 +806,7 @@
 		"preparingBinaries": "Preparando binarios…",
 		"mintingToken": "Generando token de YouTube…",
 		"remintingToken": "Regenerando token…",
-		"startingYtdlp": "Iniciando proceso yt-dlp…",
+		"startingYtdlp": "Iniciando el motor de descarga…",
 		"downloadingMedia": "Descargando video y audio…",
 		"mergingFormats": "Combinando audio y video…",
 		"extractingAudio": "Convirtiendo audio…",
@@ -821,8 +821,8 @@
 		"cancelled": "Descarga cancelada",
 		"complete": "Descarga completada",
 		"usedExtractorFallback": "Descargado con extractor relajado — configura un cookies.txt para descargas más fiables",
-		"ytdlpProcessError": "Error en el proceso yt-dlp: {{error}}",
-		"ytdlpExitCode": "yt-dlp terminó con código {{code}}",
+		"ytdlpProcessError": "Error del motor de descarga: {{error}}",
+		"ytdlpExitCode": "El motor de descarga terminó con código {{code}}",
 		"downloadingBinary": "Descargando binario {{name}}…",
 		"unknownStartupFailure": "Fallo desconocido al iniciar la descarga",
 		"diskSpaceInsufficient": "Espacio en disco insuficiente — se necesitan {{required}}, solo hay {{free}} disponibles",
@@ -875,7 +875,7 @@
 	},
 	"errors": {
 		"ytdlp": {
-			"botBlock": "La protección contra bots se activó. La IP que estás usando probablemente está marcada (rango de datacenter o salida de VPN con mucho tráfico). Cambia tu IP o elige un punto de salida de VPN diferente y vuelve a intentarlo. Si sigue fallando, puede ser un cambio temporal de YouTube — Arroxy actualiza yt-dlp automáticamente al iniciar, por lo que la corrección llegará sola en cuanto esté disponible en el repositorio.",
+			"botBlock": "La protección contra bots se activó. La IP que estás usando probablemente está marcada (rango de datacenter o salida de VPN con mucho tráfico). Cambia tu IP o elige un punto de salida de VPN diferente y vuelve a intentarlo. Si sigue fallando, puede ser un cambio temporal del sitio — Arroxy actualiza su motor de descarga al iniciar, por lo que la corrección llegará sola en cuanto esté disponible.",
 			"ipBlock": "Tu dirección IP parece estar bloqueada por YouTube. Inténtalo más tarde o usa una VPN.",
 			"rateLimit": "El sitio está limitando las solicitudes de esta conexión.",
 			"ageRestricted": "Este vídeo tiene restricción de edad y no se puede descargar sin una cuenta iniciada.",
@@ -883,13 +883,13 @@
 			"geoBlocked": "Este vídeo no está disponible en tu región.",
 			"outOfDiskSpace": "No hay suficiente espacio en disco. Libera espacio e inténtalo de nuevo.",
 			"outputNotWritable": "Arroxy no puede escribir en la carpeta de descargas. Puede que sea de solo lectura, esté en una unidad bloqueada o la bloqueen los ajustes de privacidad de tu sistema. Elige otra carpeta o permite el acceso e inténtalo de nuevo.",
-			"unsupportedUrl": "Esa URL no es compatible con yt-dlp. Prueba otro enlace de cualquiera de los sitios compatibles con yt-dlp.",
-			"chunkTransferFailure": "El servidor cortó la descarga repetidamente y yt-dlp se rindió tras varios intentos. Esto suele ocurrir con los formatos de mayor tamaño (4K HDR / VP9 de alta tasa de bits). Vuelve a intentarlo, cambia de red/VPN o elige un formato de menor resolución.",
-			"missingDependency": "yt-dlp no pudo encontrar ffmpeg ni ffprobe. Vuelve a ejecutar la configuración o indica una ubicación de FFmpeg y luego reintenta la descarga.",
-			"postprocessFailure": "yt-dlp terminó la descarga, pero el post-procesado (mezcla / mux / conversión) falló. A menudo es un problema transitorio de ffmpeg — reintenta, y si persiste prueba con otra combinación de formatos.",
-			"parse": "No se pudo analizar la respuesta del sitio. Es posible que el extractor de yt-dlp esté desfasado. Arroxy actualiza yt-dlp automáticamente al iniciar — reintenta en unos minutos cuando llegue el arreglo.",
+			"unsupportedUrl": "Arroxy no admite esta URL. Prueba con un enlace de otro sitio.",
+			"chunkTransferFailure": "El servidor cortó la descarga repetidamente y Arroxy se rindió tras varios intentos. Esto suele ocurrir con los formatos de mayor tamaño (4K HDR / VP9 de alta tasa de bits). Vuelve a intentarlo, cambia de red/VPN o elige un formato de menor resolución.",
+			"missingDependency": "Arroxy no pudo encontrar FFmpeg ni FFprobe. Vuelve a ejecutar la configuración o indica una ubicación de FFmpeg y luego reintenta la descarga.",
+			"postprocessFailure": "La descarga terminó, pero el post-procesado (mezcla / mux / conversión) falló. A menudo es un problema transitorio de ffmpeg — reintenta, y si persiste prueba con otra combinación de formatos.",
+			"parse": "No se pudo analizar la respuesta del sitio. Es posible que el sitio haya cambiado la forma en que sirve los vídeos. Arroxy actualiza su motor de descarga al iniciar — reintenta en unos minutos cuando llegue el arreglo.",
 			"network": "Error de red. Comprueba tu conexión y reintenta.",
-			"drmProtected": "Este vídeo está protegido con DRM. yt-dlp no puede eliminar el DRM, por lo que el archivo no se puede descargar.",
+			"drmProtected": "Este vídeo está protegido con DRM. Arroxy no puede eliminar el DRM, por lo que el archivo no se puede descargar.",
 			"loginRequired": "Este video necesita una cuenta con sesión iniciada.",
 			"unknown": "La descarga falló. Mira la salida en bruto a continuación."
 		}
@@ -989,7 +989,7 @@
 			"title": "Explora YouTube dentro de Arroxy",
 			"body": "Encuentra un vídeo, una lista de reproducción o un canal y descárgalo desde aquí, sin copiar enlaces. Inicia sesión en YouTube aquí para descargar vídeos que requieren una cuenta.",
 			"riskTitle": "Inicia sesión con una cuenta secundaria",
-			"riskBody": "YouTube puede marcar —y a veces bloquear— las cuentas usadas con herramientas de descarga como yt-dlp. Usa una cuenta que puedas permitirte perder, no la principal.",
+			"riskBody": "YouTube puede marcar —y a veces bloquear— las cuentas usadas con herramientas de descarga como Arroxy. Usa una cuenta que puedas permitirte perder, no la principal.",
 			"continue": "Continuar"
 		},
 		"nudge": {

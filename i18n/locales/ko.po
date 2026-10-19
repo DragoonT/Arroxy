@@ -209,16 +209,16 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "이 동영상은 연령 제한이 있어 로그인한 계정 없이는 다운로드할 수 없습니다."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
-msgstr "봇 보호가 작동했습니다. 사용 중인 IP가 데이터센터 대역이거나 사용자가 많은 VPN 출구라 차단되었을 가능성이 큽니다. IP를 바꾸거나 다른 VPN 엔드포인트를 선택한 뒤 다시 시도하세요. 계속 실패한다면 사이트의 일시적인 변경 때문일 수 있습니다. Arroxy는 시작할 때 yt-dlp를 자동 업데이트하므로 업스트림에서 수정본이 배포되면 자동으로 적용됩니다."
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "봇 보호가 작동했습니다. 사용 중인 IP가 데이터센터 대역이거나 사용자가 많은 VPN 출구라 차단되었을 가능성이 큽니다. IP를 바꾸거나 다른 VPN 엔드포인트를 선택한 뒤 다시 시도하세요. 계속 실패한다면 사이트의 일시적인 변경 때문일 수 있습니다. Arroxy는 시작할 때 다운로드 엔진을 업데이트하므로 수정본이 배포되면 자동으로 적용됩니다."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
-msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
-msgstr "서버가 다운로드 도중 연결을 계속 끊어 yt-dlp가 재시도 후 포기했습니다. 주로 가장 큰 동영상 형식(4K HDR/고비트레이트 VP9)에서 발생합니다. 다시 시도하거나 네트워크/VPN을 바꾸거나 더 낮은 해상도의 형식을 선택하세요."
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "서버가 다운로드 도중 연결을 계속 끊어 Arroxy가 재시도 후 포기했습니다. 주로 가장 큰 동영상 형식(4K HDR/고비트레이트 VP9)에서 발생합니다. 다시 시도하거나 네트워크/VPN을 바꾸거나 더 낮은 해상도의 형식을 선택하세요."
 
 msgctxt "errors.ytdlp.drmProtected"
-msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
-msgstr "이 동영상은 DRM으로 보호됩니다. yt-dlp는 DRM을 제거할 수 없으므로 파일을 다운로드할 수 없습니다."
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "이 동영상은 DRM으로 보호됩니다. Arroxy는 DRM을 제거할 수 없으므로 파일을 다운로드할 수 없습니다."
 
 msgctxt "errors.ytdlp.geoBlocked"
 msgid "This video is not available in your region."
@@ -233,8 +233,8 @@ msgid "This video needs a signed-in account."
 msgstr "이 동영상은 로그인한 계정이 필요합니다."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
-msgstr "yt-dlp가 ffmpeg 또는 ffprobe를 찾지 못했습니다. 설정을 다시 실행하거나 FFmpeg 위치를 지정한 다음 다운로드를 다시 시도하세요."
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy가 FFmpeg 또는 FFprobe를 찾지 못했습니다. 설정을 다시 실행하거나 FFmpeg 위치를 지정한 다음 다운로드를 다시 시도하세요."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -249,12 +249,12 @@ msgid "Arroxy can't write to the download folder. It may be read-only, on a lock
 msgstr "Arroxy가 다운로드 폴더에 쓸 수 없습니다. 폴더가 읽기 전용이거나, 잠긴 드라이브에 있거나, 시스템의 개인정보 보호 설정으로 차단되었을 수 있습니다. 다른 폴더를 선택하거나 접근을 허용한 뒤 다시 시도하세요."
 
 msgctxt "errors.ytdlp.parse"
-msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
-msgstr "사이트의 응답을 분석할 수 없습니다. yt-dlp 추출기가 사이트 변경을 따라가지 못했을 수 있습니다. Arroxy는 시작 시 yt-dlp를 자동 업데이트하므로 수정본이 배포된 뒤 몇 분 후 다시 시도하세요."
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "사이트의 응답을 분석할 수 없습니다. 사이트가 동영상을 제공하는 방식이 바뀌었을 수 있습니다. Arroxy는 시작 시 다운로드 엔진을 업데이트하므로 수정본이 배포된 뒤 몇 분 후 다시 시도하세요."
 
 msgctxt "errors.ytdlp.postprocessFailure"
-msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
-msgstr "yt-dlp가 다운로드를 완료했지만 후처리(병합/먹싱/변환)에 실패했습니다. 일시적인 ffmpeg 문제인 경우가 많으니 다시 시도하고, 문제가 계속되면 다른 형식 조합을 사용해 보세요."
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "다운로드는 완료되었지만 후처리(병합/먹싱/변환)에 실패했습니다. 일시적인 ffmpeg 문제인 경우가 많으니 다시 시도하고, 문제가 계속되면 다른 형식 조합을 사용해 보세요."
 
 msgctxt "errors.ytdlp.rateLimit"
 msgid "The site is rate-limiting requests from this connection."
@@ -269,8 +269,8 @@ msgid "Download failed. See the raw output below."
 msgstr "다운로드에 실패했습니다. 아래 원시 출력을 확인하세요."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
-msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "이 URL은 yt-dlp에서 지원하지 않습니다. yt-dlp가 지원하는 다른 사이트의 링크를 사용해 보세요."
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy는 이 URL을 지원하지 않습니다. 다른 사이트의 링크를 시도해 보세요."
 
 msgctxt "explore.error.loadBody"
 msgid "Check your connection, then try again."
@@ -325,8 +325,8 @@ msgid "Continue"
 msgstr "계속"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
-msgstr "YouTube는 yt-dlp 같은 다운로드 도구로 사용한 계정에 표시를 하거나 때로는 정지할 수 있습니다. 주 계정이 아니라 잃어도 괜찮은 계정을 사용하세요."
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTube는 Arroxy 같은 다운로드 도구로 사용한 계정에 표시를 하거나 때로는 정지할 수 있습니다. 주 계정이 아니라 잃어도 괜찮은 계정을 사용하세요."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
@@ -1786,8 +1786,8 @@ msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr "요청 제한을 피하기 위해 {{seconds}}초 대기 중…"
 
 msgctxt "status.startingYtdlp"
-msgid "Starting yt-dlp process…"
-msgstr "yt-dlp 프로세스 시작 중…"
+msgid "Starting the download engine…"
+msgstr "다운로드 엔진 시작 중…"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"
@@ -1802,12 +1802,12 @@ msgid "Downloaded with relaxed extractor — set up a cookies.txt for more relia
 msgstr "완화된 추출기로 다운로드했습니다. 더 안정적인 다운로드를 위해 cookies.txt를 설정하세요"
 
 msgctxt "status.ytdlpExitCode"
-msgid "yt-dlp exited with code {{code}}"
-msgstr "yt-dlp가 코드 {{code}}로 종료되었습니다"
+msgid "The download engine exited with code {{code}}"
+msgstr "다운로드 엔진이 코드 {{code}}로 종료되었습니다"
 
 msgctxt "status.ytdlpProcessError"
-msgid "yt-dlp process error: {{error}}"
-msgstr "yt-dlp 프로세스 오류: {{error}}"
+msgid "Download engine error: {{error}}"
+msgstr "다운로드 엔진 오류: {{error}}"
 
 msgctxt "theme.dark"
 msgid "Dark mode"
@@ -2268,8 +2268,8 @@ msgid "Cookies are read directly from the browser. If the browser is currently r
 msgstr "쿠키는 브라우저에서 직접 읽습니다. 브라우저가 실행 중이면 쿠키 데이터베이스가 잠겨 있을 수 있습니다(Chromium 계열). 브라우저에서 YouTube에도 로그인되어 있어야 합니다. 브라우저를 닫거나 다른 브라우저로 바꾸거나 파일 모드로 전환하거나 쿠키를 꺼 보세요."
 
 msgctxt "wizard.formats.cookiesError.explanationFile"
-msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
-msgstr "쿠키 파일이 비었거나 만료되었거나 형식이 잘못되었을 수 있습니다(yt-dlp는 Netscape cookies.txt 형식이 필요합니다). 쿠키를 다시 내보내거나 다른 파일을 선택하거나 브라우저 모드로 전환하거나 쿠키를 꺼 보세요."
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "쿠키 파일이 비었거나 만료되었거나 형식이 잘못되었을 수 있습니다(Arroxy는 Netscape cookies.txt 형식이 필요합니다). 쿠키를 다시 내보내거나 다른 파일을 선택하거나 브라우저 모드로 전환하거나 쿠키를 꺼 보세요."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
@@ -2320,8 +2320,8 @@ msgid "Cookies might be the cause"
 msgstr "쿠키가 원인일 수 있음"
 
 msgctxt "wizard.formats.cookiesError.needsCookies.body"
-msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
-msgstr "인증 없이는 yt-dlp가 이 동영상에 접근할 수 없습니다. 고급 설정에서 쿠키를 설정하세요. 이미 로그인한 브라우저를 지정하거나 cookies.txt 파일을 가져오면 됩니다."
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "인증 없이는 Arroxy가 이 동영상에 접근할 수 없었습니다. 고급 설정에서 쿠키를 설정하세요. 이미 로그인한 브라우저를 지정하거나 cookies.txt 파일을 가져오면 됩니다."
 
 msgctxt "wizard.formats.cookiesError.needsCookies.heading"
 msgid "This site requires sign-in"
@@ -2608,8 +2608,8 @@ msgid "Playlist probe limit: {{count}} items"
 msgstr "재생목록 분석 제한: {{count}}개 항목"
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
-msgstr "yt-dlp 재생목록 모드를 사용하며 선택 화면을 표시하기 전에 분석 제한까지 가져옵니다."
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "선택 화면을 표시하기 전에 재생목록을 분석 제한까지 불러옵니다."
 
 msgctxt "wizard.mixedPrompt.quickBody"
 msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
@@ -2636,8 +2636,8 @@ msgid "Download whole playlist"
 msgstr "전체 재생목록 다운로드"
 
 msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
-msgstr "yt-dlp 단일 동영상 모드를 사용하므로 이 URL에 연결된 재생목록은 무시됩니다."
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "이 동영상만 불러옵니다. 이 URL에 연결된 재생목록은 무시됩니다."
 
 msgctxt "wizard.mixedPrompt.singleVideo"
 msgid "Just this one"
@@ -3929,8 +3929,8 @@ msgid "downloads"
 msgstr "다운로드"
 
 msgctxt "wizard.url.cookies.banWarning"
-msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
-msgstr "YouTube 같은 사이트는 yt-dlp에서 쿠키를 사용하는 계정을 표시하거나 때로는 정지할 수 있습니다. 가능하면 일회용 계정을 사용하세요."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "YouTube 같은 사이트는 Arroxy 같은 다운로드 도구에서 쿠키를 사용하는 계정을 표시하거나 때로는 정지할 수 있습니다. 가능하면 일회용 계정을 사용하세요."
 
 msgctxt "wizard.url.cookies.browserHelp"
 msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
@@ -4325,8 +4325,8 @@ msgid "{{count}} items"
 msgstr "{{count}}개 항목"
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "yt-dlp --playlist-end에 해당합니다. Arroxy는 선택 화면을 만들 때 재생목록, 채널 또는 검색 항목을 이 수만큼만 요청합니다."
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy는 선택 화면을 만들 때 재생목록, 채널 또는 검색 항목을 이 수만큼만 요청합니다."
 
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
@@ -4353,8 +4353,8 @@ msgid "Change"
 msgstr "변경"
 
 msgctxt "wizard.url.playlistScope.dialogDescription"
-msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
-msgstr "이 재생목록에서 Arroxy가 yt-dlp에 불러오도록 요청할 범위를 선택하세요."
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "이 재생목록에서 Arroxy가 불러올 범위를 선택하세요."
 
 msgctxt "wizard.url.playlistScope.dialogTitle"
 msgid "Playlist scope"

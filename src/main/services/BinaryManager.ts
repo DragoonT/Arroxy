@@ -598,7 +598,7 @@ export class BinaryManager {
 			: undefined
 		const diag = await this.resolveYtDlp({onStatus, onProgress})
 		if (diag.state !== 'runnable' || !diag.resolvedPath) {
-			throw new Error(diag.failure?.message ?? 'yt-dlp could not be resolved')
+			throw new Error(diag.failure?.message ?? 'The download engine could not be resolved')
 		}
 		return diag.resolvedPath
 	}

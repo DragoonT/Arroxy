@@ -209,16 +209,16 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Video này bị giới hạn độ tuổi và không thể tải xuống nếu không có tài khoản đã đăng nhập."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
-msgstr "Đã kích hoạt bảo vệ bot. Địa chỉ IP bạn đang dùng rất có thể đã bị gắn cờ (dải địa chỉ trung tâm dữ liệu hoặc điểm thoát VPN bận). Hãy đổi IP hoặc chọn điểm kết nối VPN khác rồi thử lại. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía YouTube — Arroxy tự động cập nhật yt-dlp khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng khi upstream phát hành."
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Đã kích hoạt bảo vệ bot. Địa chỉ IP bạn đang dùng rất có thể đã bị gắn cờ (dải địa chỉ trung tâm dữ liệu hoặc điểm thoát VPN bận). Hãy đổi IP hoặc chọn điểm kết nối VPN khác rồi thử lại. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía trang web — Arroxy cập nhật bộ máy tải xuống khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng ngay khi được phát hành."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
-msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
-msgstr "Máy chủ liên tục ngắt kết nối giữa chừng và yt-dlp đã bỏ cuộc sau nhiều lần thử lại. Lỗi này thường xảy ra với các định dạng video lớn nhất (4K HDR / VP9 bitrate cao). Hãy thử lại, đổi mạng/VPN, hoặc chọn định dạng độ phân giải thấp hơn."
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Máy chủ liên tục ngắt kết nối giữa chừng và Arroxy đã bỏ cuộc sau nhiều lần thử lại. Lỗi này thường xảy ra với các định dạng video lớn nhất (4K HDR / VP9 bitrate cao). Hãy thử lại, đổi mạng/VPN, hoặc chọn định dạng độ phân giải thấp hơn."
 
 msgctxt "errors.ytdlp.drmProtected"
-msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
-msgstr "Video này được bảo vệ bởi DRM. yt-dlp không thể gỡ DRM, vì vậy tệp không thể được tải xuống."
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Video này được bảo vệ bởi DRM. Arroxy không thể gỡ DRM, vì vậy tệp không thể được tải xuống."
 
 msgctxt "errors.ytdlp.geoBlocked"
 msgid "This video is not available in your region."
@@ -233,8 +233,8 @@ msgid "This video needs a signed-in account."
 msgstr "Video này cần một tài khoản đã đăng nhập."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
-msgstr "yt-dlp không tìm thấy ffmpeg hoặc ffprobe. Hãy chạy lại thiết lập hoặc chọn vị trí FFmpeg, rồi thử tải lại."
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy không tìm thấy FFmpeg hoặc FFprobe. Hãy chạy lại thiết lập hoặc chọn vị trí FFmpeg, rồi thử tải lại."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -249,12 +249,12 @@ msgid "Arroxy can't write to the download folder. It may be read-only, on a lock
 msgstr "Arroxy không thể ghi vào thư mục tải xuống. Thư mục có thể chỉ cho phép đọc, nằm trên ổ đĩa bị khóa, hoặc bị chặn bởi cài đặt quyền riêng tư của hệ thống. Hãy chọn thư mục khác hoặc cho phép truy cập rồi thử lại."
 
 msgctxt "errors.ytdlp.parse"
-msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
-msgstr "Không thể phân tích phản hồi từ trang web. Bộ trích xuất của yt-dlp có thể đã lỗi thời. Arroxy tự động cập nhật yt-dlp khi khởi chạy — hãy thử lại sau vài phút khi bản sửa lỗi được phát hành."
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Không thể phân tích phản hồi từ trang web. Trang web có thể đã thay đổi cách cung cấp video. Arroxy cập nhật bộ máy tải xuống khi khởi động — hãy thử lại sau vài phút khi bản sửa lỗi được phát hành."
 
 msgctxt "errors.ytdlp.postprocessFailure"
-msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
-msgstr "yt-dlp đã tải xong nhưng quá trình xử lý hậu kỳ (gộp / mux / chuyển đổi) bị lỗi. Thường đây là sự cố tạm thời của ffmpeg — hãy thử lại, và nếu vẫn lỗi thì thử một tổ hợp định dạng khác."
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Đã tải xong nhưng quá trình xử lý hậu kỳ (gộp / mux / chuyển đổi) bị lỗi. Thường đây là sự cố tạm thời của ffmpeg — hãy thử lại, và nếu vẫn lỗi thì thử một tổ hợp định dạng khác."
 
 msgctxt "errors.ytdlp.rateLimit"
 msgid "The site is rate-limiting requests from this connection."
@@ -269,8 +269,8 @@ msgid "Download failed. See the raw output below."
 msgstr "Tải xuống thất bại. Xem đầu ra thô bên dưới."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
-msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "URL đó không được yt-dlp hỗ trợ. Hãy thử một liên kết khác từ bất kỳ trang web nào được yt-dlp hỗ trợ."
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy không hỗ trợ URL này. Hãy thử liên kết từ một trang web khác."
 
 msgctxt "explore.error.loadBody"
 msgid "Check your connection, then try again."
@@ -325,8 +325,8 @@ msgid "Continue"
 msgstr "Tiếp tục"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
-msgstr "YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản dùng với công cụ tải xuống như yt-dlp. Hãy dùng tài khoản bạn có thể chấp nhận mất, không phải tài khoản chính."
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản dùng với công cụ tải xuống như Arroxy. Hãy dùng tài khoản bạn có thể chấp nhận mất, không phải tài khoản chính."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
@@ -1786,8 +1786,8 @@ msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr "Đang chờ {{seconds}}s để tránh giới hạn tốc độ…"
 
 msgctxt "status.startingYtdlp"
-msgid "Starting yt-dlp process…"
-msgstr "Đang khởi động tiến trình yt-dlp…"
+msgid "Starting the download engine…"
+msgstr "Đang khởi động bộ máy tải xuống…"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"
@@ -1802,12 +1802,12 @@ msgid "Downloaded with relaxed extractor — set up a cookies.txt for more relia
 msgstr "Đã tải xuống với trình trích xuất dự phòng — thiết lập cookies.txt để tải xuống đáng tin cậy hơn"
 
 msgctxt "status.ytdlpExitCode"
-msgid "yt-dlp exited with code {{code}}"
-msgstr "yt-dlp thoát với mã {{code}}"
+msgid "The download engine exited with code {{code}}"
+msgstr "Bộ máy tải xuống đã thoát với mã {{code}}"
 
 msgctxt "status.ytdlpProcessError"
-msgid "yt-dlp process error: {{error}}"
-msgstr "Lỗi tiến trình yt-dlp: {{error}}"
+msgid "Download engine error: {{error}}"
+msgstr "Lỗi bộ máy tải xuống: {{error}}"
 
 msgctxt "theme.dark"
 msgid "Dark mode"
@@ -2268,8 +2268,8 @@ msgid "Cookies are read directly from the browser. If the browser is currently r
 msgstr "Cookies được đọc trực tiếp từ trình duyệt. Nếu trình duyệt đang mở, cơ sở dữ liệu cookies có thể bị khóa (Chromium-family). Trình duyệt cũng phải đã đăng nhập vào YouTube. Hãy thử đóng trình duyệt, chuyển sang trình duyệt khác, chuyển sang chế độ Tệp hoặc tắt cookies."
 
 msgctxt "wizard.formats.cookiesError.explanationFile"
-msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
-msgstr "Tệp cookies của bạn có thể trống, đã hết hạn hoặc sai định dạng (yt-dlp yêu cầu Netscape cookies.txt). Hãy thử xuất lại cookies, chọn tệp khác, chuyển sang chế độ Trình duyệt hoặc tắt cookies."
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Tệp cookies của bạn có thể trống, đã hết hạn hoặc sai định dạng (Arroxy yêu cầu tệp Netscape cookies.txt). Hãy thử xuất lại cookies, chọn tệp khác, chuyển sang chế độ Trình duyệt hoặc tắt cookies."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
@@ -2320,8 +2320,8 @@ msgid "Cookies might be the cause"
 msgstr "Cookies có thể là nguyên nhân"
 
 msgctxt "wizard.formats.cookiesError.needsCookies.body"
-msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
-msgstr "yt-dlp không thể truy cập video này mà không xác thực. Hãy cấu hình cookies trong cài đặt nâng cao — trỏ đến trình duyệt bạn đã đăng nhập, hoặc nhập tệp cookies.txt."
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy không thể truy cập video này mà không xác thực. Hãy cấu hình cookies trong cài đặt nâng cao — trỏ đến trình duyệt bạn đã đăng nhập, hoặc nhập tệp cookies.txt."
 
 msgctxt "wizard.formats.cookiesError.needsCookies.heading"
 msgid "This site requires sign-in"
@@ -2608,8 +2608,8 @@ msgid "Playlist probe limit: {{count}} items"
 msgstr "Giới hạn dò playlist: {{count}} mục"
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
-msgstr "Dùng chế độ playlist của yt-dlp và lấy đến giới hạn dò playlist trước khi hiện bộ chọn."
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Tải playlist đến giới hạn dò playlist của bạn trước khi hiện bộ chọn."
 
 msgctxt "wizard.mixedPrompt.quickBody"
 msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
@@ -2636,8 +2636,8 @@ msgid "Download whole playlist"
 msgstr "Tải toàn bộ playlist"
 
 msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
-msgstr "Dùng chế độ video đơn của yt-dlp để bỏ qua playlist gắn với URL này."
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Chỉ tải video này. Playlist gắn với URL này sẽ bị bỏ qua."
 
 msgctxt "wizard.mixedPrompt.singleVideo"
 msgid "Just this one"
@@ -3929,8 +3929,8 @@ msgid "downloads"
 msgstr "mục"
 
 msgctxt "wizard.url.cookies.banWarning"
-msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
-msgstr "YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản có cookies được yt-dlp sử dụng. Hãy dùng tài khoản phụ khi có thể."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Các trang như YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản có cookies được dùng bởi công cụ tải xuống như Arroxy. Hãy dùng tài khoản phụ khi có thể."
 
 msgctxt "wizard.url.cookies.browserHelp"
 msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
@@ -4325,8 +4325,8 @@ msgid "{{count}} items"
 msgstr "{{count}} mục"
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
 
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
@@ -4353,8 +4353,8 @@ msgid "Change"
 msgstr "Thay đổi"
 
 msgctxt "wizard.url.playlistScope.dialogDescription"
-msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
-msgstr "Chọn nội dung Arroxy yêu cầu yt-dlp tải cho danh sách phát này."
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Chọn nội dung Arroxy tải cho danh sách phát này."
 
 msgctxt "wizard.url.playlistScope.dialogTitle"
 msgid "Playlist scope"

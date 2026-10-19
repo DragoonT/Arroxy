@@ -234,16 +234,16 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "هذا الفيديو مقيّد بالعمر ولا يمكن تنزيله بدون حساب مسجّل الدخول."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
-msgstr "تم تفعيل الحماية من الروبوتات. على الأرجح أن عنوان IP الذي تستخدمه مُعلَّم (نطاق مراكز البيانات أو نقطة خروج VPN مزدحمة). غيّر عنوان IP أو اختر نقطة اتصال VPN مختلفة وأعد المحاولة. إذا استمر الفشل، فقد يكون ذلك تغييراً مؤقتاً من جانب YouTube — يُحدّث Arroxy تلقائياً yt-dlp عند التشغيل، لذا سيصل الإصلاح تلقائياً بمجرد أن يُطلقه المصدر."
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "تم تفعيل الحماية من الروبوتات. على الأرجح أن عنوان IP الذي تستخدمه مُعلَّم (نطاق مراكز البيانات أو نقطة خروج VPN مزدحمة). غيّر عنوان IP أو اختر نقطة اتصال VPN مختلفة وأعد المحاولة. إذا استمر الفشل، فقد يكون ذلك تغييراً مؤقتاً من جانب الموقع — يُحدّث Arroxy محرّك التنزيل عند التشغيل، لذا سيصل الإصلاح تلقائياً بمجرد صدوره."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
-msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
-msgstr "استمر الخادم في قطع التنزيل في منتصفه وتخلى yt-dlp بعد محاولات متعددة. يحدث هذا عادةً مع أكبر صيغ الفيديو (4K HDR / VP9 عالي معدل البت). أعد المحاولة، أو غيّر الشبكة/VPN، أو اختر صيغة بدقة أقل."
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "ظل الخادم يقطع التنزيل في منتصفه، واستسلم Arroxy بعد إعادة المحاولة. يحدث هذا عادةً مع أكبر صيغ الفيديو (4K HDR / VP9 عالي معدل البت). أعد المحاولة، أو غيّر الشبكة/VPN، أو اختر صيغة بدقة أقل."
 
 msgctxt "errors.ytdlp.drmProtected"
-msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
-msgstr "هذا الفيديو محمي بـ DRM. لا يستطيع yt-dlp إزالة DRM، لذا لا يمكن تنزيل الملف."
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "هذا الفيديو محمي بـ DRM. لا يستطيع Arroxy إزالة DRM، لذا لا يمكن تنزيل الملف."
 
 msgctxt "errors.ytdlp.geoBlocked"
 msgid "This video is not available in your region."
@@ -258,8 +258,8 @@ msgid "This video needs a signed-in account."
 msgstr "يحتاج هذا الفيديو إلى حساب مسجَّل الدخول."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
-msgstr "تعذّر على yt-dlp العثور على ffmpeg أو ffprobe. شغّل الإعداد مرة أخرى أو حدّد موقع FFmpeg، ثم أعد محاولة التنزيل."
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "تعذّر على Arroxy العثور على FFmpeg أو FFprobe. شغّل الإعداد مرة أخرى أو حدّد موقع FFmpeg، ثم أعد محاولة التنزيل."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -274,12 +274,12 @@ msgid "Arroxy can't write to the download folder. It may be read-only, on a lock
 msgstr "لا يستطيع Arroxy الكتابة في مجلد التنزيل. قد يكون للقراءة فقط، أو على محرك أقراص مقفل، أو محظورًا بإعدادات الخصوصية في نظامك. اختر مجلدًا آخر أو اسمح بالوصول، ثم أعد المحاولة."
 
 msgctxt "errors.ytdlp.parse"
-msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
-msgstr "تعذّر تحليل الاستجابة الواردة من الموقع. ربما تكون أداة الاستخراج في yt-dlp قد تأخّرت. يقوم Arroxy بتحديث yt-dlp تلقائيًا عند التشغيل — أعد المحاولة بعد بضع دقائق حالما يصدر الإصلاح."
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "تعذّر تحليل الاستجابة الواردة من الموقع. ربما غيّر الموقع طريقة تقديمه للفيديوهات. يُحدّث Arroxy محرّك التنزيل عند التشغيل — أعد المحاولة بعد بضع دقائق حالما يصدر الإصلاح."
 
 msgctxt "errors.ytdlp.postprocessFailure"
-msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
-msgstr "انتهى yt-dlp من التنزيل لكن المعالجة اللاحقة (دمج / mux / تحويل) فشلت. غالبًا ما تكون مشكلة ffmpeg مؤقتة — أعد المحاولة، وإذا استمرت المشكلة جرّب توليفة صيغ مختلفة."
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "اكتمل التنزيل لكن المعالجة اللاحقة (دمج / mux / تحويل) فشلت. غالبًا ما تكون مشكلة ffmpeg مؤقتة — أعد المحاولة، وإذا استمرت المشكلة جرّب توليفة صيغ مختلفة."
 
 msgctxt "errors.ytdlp.rateLimit"
 msgid "The site is rate-limiting requests from this connection."
@@ -294,8 +294,8 @@ msgid "Download failed. See the raw output below."
 msgstr "فشل التنزيل. راجع الإخراج الخام أدناه."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
-msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "هذا الرابط غير مدعوم من yt-dlp. جرّب رابطًا آخر من أي موقع يدعمه yt-dlp."
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "لا يدعم Arroxy هذا الرابط. جرّب رابطاً من موقع آخر."
 
 msgctxt "explore.error.loadBody"
 msgid "Check your connection, then try again."
@@ -350,8 +350,8 @@ msgid "Continue"
 msgstr "متابعة"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
-msgstr "قد يُعلّم YouTube — وأحياناً يحظر — الحسابات المستخدمة مع أدوات التنزيل مثل yt-dlp. استخدم حساباً يمكنك التضحية به، لا حسابك الرئيسي."
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "قد يُعلّم YouTube — وأحياناً يحظر — الحسابات المستخدمة مع أدوات التنزيل مثل Arroxy. استخدم حساباً يمكنك التضحية به، لا حسابك الرئيسي."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
@@ -2036,8 +2036,8 @@ msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr "الانتظار {{seconds}} ثانية لتجنب تجاوز الحد…"
 
 msgctxt "status.startingYtdlp"
-msgid "Starting yt-dlp process…"
-msgstr "جارٍ تشغيل عملية yt-dlp…"
+msgid "Starting the download engine…"
+msgstr "جارٍ بدء محرّك التنزيل…"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"
@@ -2052,12 +2052,12 @@ msgid "Downloaded with relaxed extractor — set up a cookies.txt for more relia
 msgstr "تم التنزيل باستخدام المستخرج المخفف — أعدّ cookies.txt لتنزيلات أكثر موثوقية"
 
 msgctxt "status.ytdlpExitCode"
-msgid "yt-dlp exited with code {{code}}"
-msgstr "خرج yt-dlp بالرمز {{code}}"
+msgid "The download engine exited with code {{code}}"
+msgstr "خرج محرّك التنزيل بالرمز {{code}}"
 
 msgctxt "status.ytdlpProcessError"
-msgid "yt-dlp process error: {{error}}"
-msgstr "خطأ في عملية yt-dlp: {{error}}"
+msgid "Download engine error: {{error}}"
+msgstr "خطأ في محرّك التنزيل: {{error}}"
 
 msgctxt "theme.dark"
 msgid "Dark mode"
@@ -2718,8 +2718,8 @@ msgid "Cookies are read directly from the browser. If the browser is currently r
 msgstr "تُقرأ الكوكيز مباشرةً من المتصفح. إذا كان المتصفح يعمل حالياً، فقد تكون قاعدة بيانات الكوكيز مقفلة (متصفحات عائلة Chromium). يجب أن يكون المتصفح مسجّل الدخول إلى YouTube. جرّب إغلاق المتصفح، أو التبديل إلى متصفح مختلف، أو التبديل إلى وضع الملف، أو إيقاف الكوكيز."
 
 msgctxt "wizard.formats.cookiesError.explanationFile"
-msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
-msgstr "ملف الكوكيز قد يكون فارغاً أو منتهي الصلاحية أو بتنسيق خاطئ (يتوقع yt-dlp ملف Netscape cookies.txt). جرّب إعادة تصدير الكوكيز، أو اختيار ملف مختلف، أو التبديل إلى وضع المتصفح، أو إيقاف الكوكيز."
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "ملف الكوكيز قد يكون فارغاً أو منتهي الصلاحية أو بتنسيق خاطئ (يحتاج Arroxy إلى ملف Netscape cookies.txt). جرّب إعادة تصدير الكوكيز، أو اختيار ملف مختلف، أو التبديل إلى وضع المتصفح، أو إيقاف الكوكيز."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
@@ -2770,8 +2770,8 @@ msgid "Cookies might be the cause"
 msgstr "ربما تكون الكوكيز هي السبب"
 
 msgctxt "wizard.formats.cookiesError.needsCookies.body"
-msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
-msgstr "تعذّر على yt-dlp الوصول إلى هذا الفيديو بدون مصادقة. أعدّ الكوكيز في الإعدادات المتقدمة — وجّههم نحو متصفح سجّلت الدخول إليه مسبقاً، أو استورد ملف cookies.txt."
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "تعذّر على Arroxy الوصول إلى هذا الفيديو بدون مصادقة. أعدّ الكوكيز في الإعدادات المتقدمة — وجّهها نحو متصفح سجّلت الدخول إليه مسبقاً، أو استورد ملف cookies.txt."
 
 msgctxt "wizard.formats.cookiesError.needsCookies.heading"
 msgid "This site requires sign-in"
@@ -3058,8 +3058,8 @@ msgid "Playlist probe limit: {{count}} items"
 msgstr "حد فحص قائمة التشغيل: {{count}} عنصرًا"
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
-msgstr "يستخدم وضع قائمة التشغيل في yt-dlp ويجلب العناصر حتى حد الفحص قبل عرض أداة الاختيار."
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "يحمّل قائمة التشغيل حتى حد الفحص الذي حددته قبل عرض أداة الاختيار."
 
 msgctxt "wizard.mixedPrompt.quickBody"
 msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
@@ -3086,8 +3086,8 @@ msgid "Download whole playlist"
 msgstr "نزّل قائمة التشغيل كاملة"
 
 msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
-msgstr "يستخدم وضع الفيديو المفرد في yt-dlp بحيث يتم تجاهل قائمة التشغيل المرتبطة بهذا الرابط."
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "يحمّل هذا الفيديو فقط. يتم تجاهل قائمة التشغيل المرتبطة بهذا الرابط."
 
 msgctxt "wizard.mixedPrompt.singleVideo"
 msgid "Just this one"
@@ -4704,8 +4704,8 @@ msgid "downloads"
 msgstr "تنزيلات"
 
 msgctxt "wizard.url.cookies.banWarning"
-msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
-msgstr "قد يُعلّم YouTube — وأحياناً يحظر — الحسابات التي يستخدم yt-dlp كوكيزها. استخدم حساباً مؤقتاً إن أمكن."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "قد تُعلّم مواقع مثل YouTube — وأحياناً تحظر — الحسابات التي تُستخدم كوكيزها بواسطة أدوات التنزيل مثل Arroxy. استخدم حساباً مؤقتاً إن أمكن."
 
 msgctxt "wizard.url.cookies.browserHelp"
 msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
@@ -5100,8 +5100,8 @@ msgid "{{count}} items"
 msgstr "{{count}} عناصر"
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "يُعيَّن إلى yt-dlp --playlist-end: يطلب Arroxy هذا العدد فقط من إدخالات القائمة أو القناة أو البحث عند بناء أداة الاختيار."
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "يطلب Arroxy هذا العدد فقط من إدخالات قوائم التشغيل أو القنوات أو البحث أثناء بناء أداة الاختيار."
 
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
@@ -5128,8 +5128,8 @@ msgid "Change"
 msgstr "تغيير"
 
 msgctxt "wizard.url.playlistScope.dialogDescription"
-msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
-msgstr "اختر ما يطلب Arroxy من yt-dlp تحميله لقائمة التشغيل هذه."
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "اختر ما يحمّله Arroxy لقائمة التشغيل هذه."
 
 msgctxt "wizard.url.playlistScope.dialogTitle"
 msgid "Playlist scope"

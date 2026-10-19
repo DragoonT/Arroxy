@@ -192,9 +192,9 @@
 			"quickWholePlaylist": "Butun pleylistni yuklab olish",
 			"playlistLimit": "Pleylist tekshiruv chegarasi: {{count}} ta element",
 			"quickLimitDescription": "Pleylist, kanal yoki qidiruv natijasini navbatga qo‘yishdan oldin Arroxy skanerlaydigan eng ko‘p elementlar soni.",
-			"singleTooltip": "Bu URLga ulangan pleylist e’tiborsiz qolishi uchun yt-dlp bitta video rejimidan foydalanadi.",
+			"singleTooltip": "Faqat shu videoni yuklaydi. Bu URLga ulangan pleylist e’tiborsiz qoldiriladi.",
 			"quickSingleTooltip": "Bitta yuklab olishni navbatga qo‘yadi va bu URLga biriktirilgan pleylistni e’tiborsiz qoldiradi.",
-			"playlistTooltip": "Tanlagichni ko‘rsatishdan oldin yt-dlp pleylist rejimida belgilangan chegaragacha yuklaydi.",
+			"playlistTooltip": "Tanlagichni ko‘rsatishdan oldin pleylistni belgilangan chegaragacha yuklaydi.",
 			"quickPlaylistTooltip": "Yuklangan har bir pleylist elementini faol Tez yuklab olish profili bilan navbatga qo‘yadi. Skanerlash limitingizga yetsa, Arroxy navbatga qo‘yishdan oldin so‘raydi."
 		},
 		"url": {
@@ -205,7 +205,7 @@
 				"summaryFirst": "Dastlabki {{count}} ta elementni yuklash",
 				"summaryRange": "{{from}}-{{to}}-elementlarni yuklash",
 				"dialogTitle": "Ijro roʻyxati doirasi",
-				"dialogDescription": "Arroxy ushbu ijro roʻyxati uchun yt-dlp'dan nimani yuklashni soʻrashini tanlang.",
+				"dialogDescription": "Arroxy ushbu ijro roʻyxati uchun nimani yuklashini tanlang.",
 				"itemsLabel": "Yuklanadigan elementlar",
 				"appLimit": "Ilova chegarasidan foydalanish: {{count}}",
 				"first": "Birinchi",
@@ -318,7 +318,7 @@
 				"browserPlaceholder": "Brauzer tanlang…",
 				"browserHelp": "Brauzerdan to'g'ridan-to'g'ri cookies o'qiydi. Chromium oilasidagi brauzerlar yopiq bo'lishi kerak.",
 				"enabledButNoBrowser": "Cookiesdan foydalanish uchun brauzer tanlang",
-				"banWarning": "YouTube — va ba'zida — yt-dlp cookieslaridan foydalanadigan hisoblarni belgilashi yoki taqiqlashi mumkin. Iloji bo'lsa vaqtinchalik hisob ishlating.",
+				"banWarning": "YouTube kabi saytlar cookieslari Arroxy kabi yuklab olish vositalari tomonidan ishlatiladigan hisoblarni belgilashi — va ba'zida taqiqlashi — mumkin. Iloji bo'lsa vaqtinchalik hisob ishlating.",
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "cookies.txt ni LOKAL olish (Chrome)"
 			},
@@ -353,7 +353,7 @@
 				"customDialogCancel": "Bekor qilish",
 				"customDialogSave": "Chegarani saqlash",
 				"invalid": "1 dan 5000 gacha bo'lgan butun son kiriting",
-				"tooltip": "yt-dlp --playlist-end ga to'g'ri keladi: Arroxy tanlagichni qurishdan oldin faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
+				"tooltip": "Arroxy tanlagichni qurishda faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
 			},
 			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "Profil asl audioni tanlaganda stereo yoki surround. Profil buni o'zgartirishi mumkin.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
 			"autoRetry": {"label": "Muvaffaqiyatsiz yuklamalarni qayta urinish", "description": "Tarmoq yoki server nosozligidan so'ng avtomatik qayta urinadi va har urinishdan oldin uzoqroq kutadi. Sayt tomonidan bloklangan yuklamalar hech qachon avtomatik qayta urinilmaydi.", "unit": "marta"},
@@ -485,7 +485,7 @@
 				"currentModeFile": "Fayl",
 				"currentModeBrowser": "Brauzer",
 				"currentModeExplore": "Kashfiyot orqali kirish",
-				"explanationFile": "Cookies faylingiz bo'sh, muddati o'tgan yoki noto'g'ri formatda bo'lishi mumkin (yt-dlp Netscape cookies.txt kutadi). Cookiesni qayta eksport qiling, boshqa fayl tanlang, Brauzer rejimiga o'ting yoki cookiesni o'chiring.",
+				"explanationFile": "Cookies faylingiz bo'sh, muddati o'tgan yoki noto'g'ri formatda bo'lishi mumkin (Arroxy Netscape cookies.txt faylini talab qiladi). Cookiesni qayta eksport qiling, boshqa fayl tanlang, Brauzer rejimiga o'ting yoki cookiesni o'chiring.",
 				"explanationBrowser": "Cookies to'g'ridan-to'g'ri brauzerdan o'qiladi. Agar brauzer hozir ochiq bo'lsa, uning cookie ma'lumotlar bazasi qulflangan bo'lishi mumkin (Chromium-family). Brauzer YouTube ga kirgan bo'lishi ham kerak. Brauzerni yoping, boshqa brauzer sinab ko'ring, Fayl rejimiga o'ting yoki cookiesni o'chiring.",
 				"openSettingsCta": "Cookies sozlamalarini ochish",
 				"exploreSignIn": {"heading": "Bu video YouTube hisobini talab qilishi mumkin", "body": "Agar bu video YouTube hisobini talab qilsa, Kashfiyotga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.", "cta": "Kashfiyotga kirish"},
@@ -493,7 +493,7 @@
 				"exploreOffer": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Kashfiyot orqali kiring, Arroxy qayta urinib ko'radi.", "cta": "Kashfiyot orqali kirish"},
 				"exploreReuse": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Siz Kashfiyotga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti.", "cta": "Kashfiyot orqali kirishimdan foydalanib, qayta urinish"},
 				"otherCookiesCta": "Buning o'rniga cookies fayli yoki brauzerdan foydalanish…",
-				"needsCookies": {"heading": "Bu sayt tizimga kirish talab qiladi", "body": "yt-dlp bu videoga autentifikatsiyasiz kira olmadi. Kengaytirilgan sozlamalarda cookiesni sozlang — allaqachon kirgan brauzeringizga yo'naltiring yoki cookies.txt faylini import qiling."},
+				"needsCookies": {"heading": "Bu sayt tizimga kirish talab qiladi", "body": "Arroxy bu videoga autentifikatsiyasiz kira olmadi. Kengaytirilgan sozlamalarda cookiesni sozlang — allaqachon kirgan brauzeringizga yo'naltiring yoki cookies.txt faylini import qiling."},
 				"dpapi": {
 					"heading": "Chrome cookies Windows shifrlash orqali bloklangan",
 					"explanation": "Chrome 127 va undan yangi versiyalar cookies ni Windows da boshqa ilovalar o'qiy olmaydigan tarzda shifrlaydi. Quyidagi yechimlardan birini sinab ko'ring.",
@@ -800,7 +800,7 @@
 		"preparingBinaries": "Ikkilik fayllar tayyorlanmoqda…",
 		"mintingToken": "YouTube tokeni yaratilmoqda…",
 		"remintingToken": "Token qayta yaratilmoqda…",
-		"startingYtdlp": "yt-dlp jarayoni boshlanmoqda…",
+		"startingYtdlp": "Yuklash mexanizmi ishga tushmoqda…",
 		"downloadingMedia": "Video va audio yuklanmoqda…",
 		"mergingFormats": "Audio va video birlashtirilmoqda…",
 		"extractingAudio": "Audio konvertatsiya qilinmoqda…",
@@ -815,8 +815,8 @@
 		"cancelled": "Yuklama bekor qilindi",
 		"complete": "Yuklama yakunlandi",
 		"usedExtractorFallback": "Yengilroq ekstraktor bilan yuklab olindi — ishonchli yuklamalar uchun cookies.txt ni sozlang",
-		"ytdlpProcessError": "yt-dlp jarayon xatosi: {{error}}",
-		"ytdlpExitCode": "yt-dlp {{code}} kodi bilan chiqdi",
+		"ytdlpProcessError": "Yuklash mexanizmi xatosi: {{error}}",
+		"ytdlpExitCode": "Yuklash mexanizmi {{code}} kodi bilan yakunlandi",
 		"downloadingBinary": "{{name}} ikkilik fayli yuklanmoqda…",
 		"unknownStartupFailure": "Noma'lum yuklama ishga tushirish xatosi",
 		"diskSpaceInsufficient": "Disk xotirasi yetarli emas — {{required}} kerak, faqat {{free}} mavjud",
@@ -865,7 +865,7 @@
 	},
 	"errors": {
 		"ytdlp": {
-			"botBlock": "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu YouTube tomonidan vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi, shuning uchun tuzatish yuqori oqim chiqarilishi bilan avtomatik amalga oshiriladi.",
+			"botBlock": "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu sayt tomonidagi vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda o'zining yuklash mexanizmini yangilaydi, shuning uchun tuzatish chiqishi bilan avtomatik qo'llaniladi.",
 			"ipBlock": "IP manzilingiz YouTube tomonidan bloklangan ko'rinadi. Keyinroq urinib ko'ring yoki VPN ishlating.",
 			"rateLimit": "Sayt bu ulanishdan keladigan so‘rovlarni cheklayapti.",
 			"ageRestricted": "Bu video yosh cheklovli va tizimga kirgan hisob bo'lmasdan yuklab bo'lmaydi.",
@@ -873,13 +873,13 @@
 			"geoBlocked": "Bu video sizning mintaqangizda mavjud emas.",
 			"outOfDiskSpace": "Disk xotirasi yetarli emas. Bo'sh joy ajrating va qayta urinib ko'ring.",
 			"outputNotWritable": "Arroxy yuklab olish jildiga yoza olmayapti. Jild faqat o'qish uchun bo'lishi, qulflangan diskda turishi yoki tizimingizning maxfiylik sozlamalari tomonidan bloklangan bo'lishi mumkin. Boshqa jildni tanlang yoki kirishga ruxsat bering, so'ng qayta urinib ko'ring.",
-			"unsupportedUrl": "Bu URL yt-dlp tomonidan qo'llab-quvvatlanmaydi. yt-dlp qo'llab-quvvatlaydigan saytlardan boshqa havolani sinab ko'ring.",
-			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va yt-dlp qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
-			"missingDependency": "yt-dlp ffmpeg yoki ffprobe ni topa olmadi. Sozlashni qayta ishga tushiring yoki FFmpeg joylashuvini belgilang, so'ng yuklab olishni qayta urinib ko'ring.",
-			"postprocessFailure": "yt-dlp yuklab olishni tugatdi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",
-			"parse": "Saytdan kelgan javobni tahlil qilib bo'lmadi. yt-dlp ekstraktori eskirib qolgan bo'lishi mumkin. Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi — bir necha daqiqadan so'ng tuzatish kelgach qayta urinib ko'ring.",
+			"unsupportedUrl": "Arroxy bu URL ni qo'llab-quvvatlamaydi. Boshqa saytdan havola sinab ko'ring.",
+			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va Arroxy qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
+			"missingDependency": "Arroxy FFmpeg yoki FFprobe ni topa olmadi. Sozlashni qayta ishga tushiring yoki FFmpeg joylashuvini belgilang, so'ng yuklab olishni qayta urinib ko'ring.",
+			"postprocessFailure": "Yuklab olish tugadi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",
+			"parse": "Saytdan kelgan javobni tahlil qilib bo'lmadi. Sayt videolarni taqdim etish usulini o'zgartirgan bo'lishi mumkin. Arroxy ishga tushganda o'zining yuklash mexanizmini yangilaydi — bir necha daqiqadan so'ng tuzatish chiqqach qayta urinib ko'ring.",
 			"network": "Tarmoq xatosi. Aloqangizni tekshiring va qayta urining.",
-			"drmProtected": "Bu video DRM bilan himoyalangan. yt-dlp DRM ni olib tashlayolmaydi, shuning uchun fayl yuklab bo'lmaydi.",
+			"drmProtected": "Bu video DRM bilan himoyalangan. Arroxy DRM ni olib tashlay olmaydi, shuning uchun faylni yuklab bo'lmaydi.",
 			"loginRequired": "Bu video uchun tizimga kirgan hisob kerak.",
 			"unknown": "Yuklab olish muvaffaqiyatsiz tugadi. Quyidagi xom natijani ko'ring."
 		}
@@ -975,7 +975,7 @@
 			"title": "YouTube'ni Arroxy ichida ko'ring",
 			"body": "Video, pleylist yoki kanalni toping va shu yerdan yuklab oling — havolalarni nusxalamasdan. Hisob talab qiladigan videolarni yuklab olish uchun bu yerda YouTube'ga kiring.",
 			"riskTitle": "Qo'shimcha hisob bilan kiring",
-			"riskBody": "YouTube yt-dlp kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning.",
+			"riskBody": "YouTube Arroxy kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning.",
 			"continue": "Davom etish"
 		},
 		"nudge": {

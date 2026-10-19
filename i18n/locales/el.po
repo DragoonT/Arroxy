@@ -214,16 +214,16 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Αυτό το βίντεο έχει περιορισμό ηλικίας και δεν μπορεί να ληφθεί χωρίς συνδεδεμένο λογαριασμό."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
-msgstr "Η προστασία bot ενεργοποιήθηκε. Η IP που χρησιμοποιείς είναι πιθανότατα επισημασμένη (εύρος datacenter ή πολυσύχναστη έξοδος VPN). Άλλαξε IP ή επέλεξε διαφορετικό endpoint VPN και δοκίμασε ξανά. Αν συνεχίζει να αποτυγχάνει, μπορεί να πρόκειται για προσωρινή αλλαγή από πλευράς YouTube — το Arroxy ενημερώνει αυτόματα το yt-dlp κατά την εκκίνηση, οπότε η επιδιόρθωση εφαρμόζεται αυτόματα μόλις την κυκλοφορήσει το upstream."
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Η προστασία bot ενεργοποιήθηκε. Η IP που χρησιμοποιείς είναι πιθανότατα επισημασμένη (εύρος datacenter ή πολυσύχναστη έξοδος VPN). Άλλαξε IP ή επέλεξε διαφορετικό endpoint VPN και δοκίμασε ξανά. Αν συνεχίζει να αποτυγχάνει, μπορεί να πρόκειται για προσωρινή αλλαγή από πλευράς του ιστότοπου — το Arroxy ενημερώνει τη μηχανή λήψης κατά την εκκίνηση, οπότε η επιδιόρθωση εφαρμόζεται αυτόματα μόλις κυκλοφορήσει."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
-msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
-msgstr "Ο διακομιστής διέκοπτε συνεχώς τη λήψη στη μέση και το yt-dlp τα παράτησε μετά από επανειλημμένες προσπάθειες. Αυτό συμβαίνει συνήθως με τα μεγαλύτερα φορμά βίντεο (4K HDR / VP9 υψηλού ρυθμού μετάδοσης). Δοκίμασε ξανά, άλλαξε δίκτυο/VPN ή επέλεξε χαμηλότερη ανάλυση."
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Ο διακομιστής διέκοπτε συνεχώς τη λήψη στη μέση και το Arroxy τα παράτησε μετά από επανειλημμένες προσπάθειες. Αυτό συμβαίνει συνήθως με τα μεγαλύτερα φορμά βίντεο (4K HDR / VP9 υψηλού ρυθμού μετάδοσης). Δοκίμασε ξανά, άλλαξε δίκτυο/VPN ή επέλεξε χαμηλότερη ανάλυση."
 
 msgctxt "errors.ytdlp.drmProtected"
-msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
-msgstr "Αυτό το βίντεο προστατεύεται από DRM. Το yt-dlp δεν μπορεί να αφαιρέσει DRM, οπότε το αρχείο δεν μπορεί να ληφθεί."
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Αυτό το βίντεο προστατεύεται από DRM. Το Arroxy δεν μπορεί να αφαιρέσει DRM, οπότε το αρχείο δεν μπορεί να ληφθεί."
 
 msgctxt "errors.ytdlp.geoBlocked"
 msgid "This video is not available in your region."
@@ -238,8 +238,8 @@ msgid "This video needs a signed-in account."
 msgstr "Αυτό το βίντεο απαιτεί λογαριασμό με σύνδεση."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
-msgstr "Το yt-dlp δεν βρήκε το ffmpeg ή το ffprobe. Εκτέλεσε ξανά τη ρύθμιση ή όρισε μια τοποθεσία FFmpeg και μετά δοκίμασε ξανά τη λήψη."
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Το Arroxy δεν βρήκε το FFmpeg ή το FFprobe. Εκτέλεσε ξανά τη ρύθμιση ή όρισε μια τοποθεσία FFmpeg και μετά δοκίμασε ξανά τη λήψη."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -254,12 +254,12 @@ msgid "Arroxy can't write to the download folder. It may be read-only, on a lock
 msgstr "Το Arroxy δεν μπορεί να γράψει στον φάκελο λήψεων. Μπορεί να είναι μόνο για ανάγνωση, σε κλειδωμένη μονάδα δίσκου ή να μπλοκάρεται από τις ρυθμίσεις απορρήτου του συστήματός σου. Διάλεξε άλλον φάκελο ή επίτρεψε την πρόσβαση και δοκίμασε ξανά."
 
 msgctxt "errors.ytdlp.parse"
-msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
-msgstr "Δεν ήταν δυνατή η ανάλυση της απάντησης από τον ιστότοπο. Ο extractor του yt-dlp μπορεί να έχει μείνει πίσω. Το Arroxy ενημερώνει αυτόματα το yt-dlp κατά την εκκίνηση — δοκίμασε ξανά σε λίγα λεπτά μόλις κυκλοφορήσει η διόρθωση."
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Δεν ήταν δυνατή η ανάλυση της απάντησης από τον ιστότοπο. Ο ιστότοπος μπορεί να άλλαξε τον τρόπο με τον οποίο σερβίρει τα βίντεο. Το Arroxy ενημερώνει τη μηχανή λήψης κατά την εκκίνηση — δοκίμασε ξανά σε λίγα λεπτά μόλις κυκλοφορήσει η διόρθωση."
 
 msgctxt "errors.ytdlp.postprocessFailure"
-msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
-msgstr "Το yt-dlp ολοκλήρωσε τη λήψη αλλά η μετα-επεξεργασία (merge / mux / convert) απέτυχε. Συχνά πρόκειται για παροδικό πρόβλημα του ffmpeg — δοκίμασε ξανά και, αν επιμένει, δοκίμασε διαφορετικό συνδυασμό φορμά."
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Η λήψη ολοκληρώθηκε, αλλά η μετα-επεξεργασία (merge / mux / convert) απέτυχε. Συχνά πρόκειται για παροδικό πρόβλημα του ffmpeg — δοκίμασε ξανά και, αν επιμένει, δοκίμασε διαφορετικό συνδυασμό φορμά."
 
 msgctxt "errors.ytdlp.rateLimit"
 msgid "The site is rate-limiting requests from this connection."
@@ -274,8 +274,8 @@ msgid "Download failed. See the raw output below."
 msgstr "Η λήψη απέτυχε. Δες το raw output παρακάτω."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
-msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "Αυτό το URL δεν υποστηρίζεται από το yt-dlp. Δοκίμασε διαφορετικό σύνδεσμο από οποιονδήποτε ιστότοπο που υποστηρίζει το yt-dlp."
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Το Arroxy δεν υποστηρίζει αυτό το URL. Δοκίμασε έναν σύνδεσμο από διαφορετικό ιστότοπο."
 
 msgctxt "explore.error.loadBody"
 msgid "Check your connection, then try again."
@@ -330,8 +330,8 @@ msgid "Continue"
 msgstr "Συνέχεια"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
-msgstr "Το YouTube μπορεί να επισημάνει — και μερικές φορές να αποκλείσει — λογαριασμούς που χρησιμοποιούνται με εργαλεία λήψης όπως το yt-dlp. Χρησιμοποίησε έναν λογαριασμό που αντέχεις να χάσεις, όχι τον κύριο."
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Το YouTube μπορεί να επισημάνει — και μερικές φορές να αποκλείσει — λογαριασμούς που χρησιμοποιούνται με εργαλεία λήψης όπως το Arroxy. Χρησιμοποίησε έναν λογαριασμό που αντέχεις να χάσεις, όχι τον κύριο."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
@@ -1836,8 +1836,8 @@ msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr "Αναμονή {{seconds}} δευτ. για αποφυγή περιορισμών ρυθμού…"
 
 msgctxt "status.startingYtdlp"
-msgid "Starting yt-dlp process…"
-msgstr "Εκκίνηση διαδικασίας yt-dlp…"
+msgid "Starting the download engine…"
+msgstr "Εκκίνηση της μηχανής λήψης…"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"
@@ -1852,12 +1852,12 @@ msgid "Downloaded with relaxed extractor — set up a cookies.txt for more relia
 msgstr "Λήψη με χαλαρό extractor — ρύθμισε cookies.txt για πιο αξιόπιστες λήψεις"
 
 msgctxt "status.ytdlpExitCode"
-msgid "yt-dlp exited with code {{code}}"
-msgstr "Το yt-dlp έγινε έξοδος με κωδικό {{code}}"
+msgid "The download engine exited with code {{code}}"
+msgstr "Η μηχανή λήψης τερμάτισε με κωδικό {{code}}"
 
 msgctxt "status.ytdlpProcessError"
-msgid "yt-dlp process error: {{error}}"
-msgstr "Σφάλμα διαδικασίας yt-dlp: {{error}}"
+msgid "Download engine error: {{error}}"
+msgstr "Σφάλμα μηχανής λήψης: {{error}}"
 
 msgctxt "theme.dark"
 msgid "Dark mode"
@@ -2358,8 +2358,8 @@ msgid "Cookies are read directly from the browser. If the browser is currently r
 msgstr "Τα cookies διαβάζονται απευθείας από το πρόγραμμα περιήγησης. Αν τρέχει αυτή τη στιγμή, η βάση δεδομένων cookies μπορεί να είναι κλειδωμένη (οικογένεια Chromium). Το πρόγραμμα περιήγησης πρέπει επίσης να είναι συνδεδεμένο στο YouTube. Δοκίμασε να το κλείσεις, να χρησιμοποιήσεις διαφορετικό πρόγραμμα, να μεταβείς σε λειτουργία αρχείου ή να απενεργοποιήσεις τα cookies."
 
 msgctxt "wizard.formats.cookiesError.explanationFile"
-msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
-msgstr "Το αρχείο cookies μπορεί να είναι κενό, ληγμένο ή σε λάθος μορφή (το yt-dlp αναμένει Netscape cookies.txt). Δοκίμασε να εξάγεις ξανά τα cookies, να επιλέξεις διαφορετικό αρχείο, να μεταβείς σε λειτουργία προγράμματος περιήγησης ή να απενεργοποιήσεις τα cookies."
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Το αρχείο cookies μπορεί να είναι κενό, ληγμένο ή σε λάθος μορφή (το Arroxy χρειάζεται αρχείο Netscape cookies.txt). Δοκίμασε να εξάγεις ξανά τα cookies, να επιλέξεις διαφορετικό αρχείο, να μεταβείς σε λειτουργία προγράμματος περιήγησης ή να απενεργοποιήσεις τα cookies."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
@@ -2410,8 +2410,8 @@ msgid "Cookies might be the cause"
 msgstr "Τα cookies μπορεί να φταίνε"
 
 msgctxt "wizard.formats.cookiesError.needsCookies.body"
-msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
-msgstr "Το yt-dlp δεν μπόρεσε να αποκτήσει πρόσβαση σε αυτό το βίντεο χωρίς έλεγχο ταυτότητας. Ρύθμισε τα cookies στις ρυθμίσεις για προχωρημένους — επίλεξε πρόγραμμα περιήγησης στο οποίο είσαι ήδη συνδεδεμένος, ή εισήγαγε αρχείο cookies.txt."
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Το Arroxy δεν μπόρεσε να αποκτήσει πρόσβαση σε αυτό το βίντεο χωρίς έλεγχο ταυτότητας. Ρύθμισε τα cookies στις ρυθμίσεις για προχωρημένους — επίλεξε πρόγραμμα περιήγησης στο οποίο είσαι ήδη συνδεδεμένος, ή εισήγαγε αρχείο cookies.txt."
 
 msgctxt "wizard.formats.cookiesError.needsCookies.heading"
 msgid "This site requires sign-in"
@@ -2698,8 +2698,8 @@ msgid "Playlist probe limit: {{count}} items"
 msgstr "Όριο ελέγχου playlist: {{count}} στοιχεία"
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
-msgstr "Χρησιμοποιεί τη λειτουργία playlist του yt-dlp και ανακτά μέχρι το όριό σου πριν εμφανίσει τον επιλογέα."
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Φορτώνει την playlist, μέχρι το όριο ελέγχου playlist που έχεις ορίσει, πριν εμφανίσει τον επιλογέα."
 
 msgctxt "wizard.mixedPrompt.quickBody"
 msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
@@ -2726,8 +2726,8 @@ msgid "Download whole playlist"
 msgstr "Λήψη ολόκληρης λίστας αναπαραγωγής"
 
 msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
-msgstr "Χρησιμοποιεί τη λειτουργία μεμονωμένου βίντεο του yt-dlp ώστε να αγνοηθεί η playlist που είναι συνδεδεμένη με αυτό το URL."
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Φορτώνει μόνο αυτό το βίντεο. Η playlist που συνδέεται με αυτό το URL αγνοείται."
 
 msgctxt "wizard.mixedPrompt.singleVideo"
 msgid "Just this one"
@@ -4084,8 +4084,8 @@ msgid "downloads"
 msgstr "λήψεις"
 
 msgctxt "wizard.url.cookies.banWarning"
-msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
-msgstr "Το YouTube μπορεί να επισημάνει — και μερικές φορές να αποκλείσει — λογαριασμούς των οποίων τα cookies χρησιμοποιούνται από το yt-dlp. Χρησιμοποίησε έναν εφεδρικό λογαριασμό αν είναι δυνατόν."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Ιστότοποι όπως το YouTube μπορεί να επισημάνουν — και μερικές φορές να αποκλείσουν — λογαριασμούς των οποίων τα cookies χρησιμοποιούνται από εργαλεία λήψης όπως το Arroxy. Χρησιμοποίησε έναν εφεδρικό λογαριασμό αν είναι δυνατόν."
 
 msgctxt "wizard.url.cookies.browserHelp"
 msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
@@ -4480,8 +4480,8 @@ msgid "{{count}} items"
 msgstr "{{count}} στοιχεία"
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Αντιστοιχεί στο yt-dlp --playlist-end: το Arroxy ζητά μόνο τόσες εγγραφές playlist, καναλιού ή αναζήτησης κατά τη δημιουργία του picker."
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Το Arroxy ζητά μόνο τόσες εγγραφές playlist, καναλιού ή αναζήτησης κατά τη δημιουργία του επιλογέα."
 
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
@@ -4508,8 +4508,8 @@ msgid "Change"
 msgstr "Αλλαγή"
 
 msgctxt "wizard.url.playlistScope.dialogDescription"
-msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
-msgstr "Επιλέξτε τι ζητά το Arroxy από το yt-dlp να φορτώσει για αυτή την playlist."
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Επίλεξε τι φορτώνει το Arroxy για αυτή την playlist."
 
 msgctxt "wizard.url.playlistScope.dialogTitle"
 msgid "Playlist scope"
