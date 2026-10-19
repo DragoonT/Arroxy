@@ -83,6 +83,28 @@ describe('selectView — media kinds', () => {
 		expect(view.currentResolutionLabel).toBe('1080p')
 	})
 
+	it("says each video stream's bitrate, and nothing when the site gives none", () => {
+		const formats = SEPARATE_FORMATS.map(f => (f.formatId === '137' ? {...f, tbr: 2645.9} : f))
+		const view = selectView({selectedVideoFormatId: '137', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, language: 'de'})
+		expect(view.video.rows.find(row => row.formatId === '137')?.bitrate).toBe('2,6 Mbps')
+		expect(view.video.rows.find(row => row.formatId === '136')?.bitrate).toBeNull()
+	})
+
+	it('hints only the facts a video chip leaves out: file type, an untagged frame rate, bitrate', () => {
+		const formats: FormatOption[] = [
+			{formatId: '399', label: 'av1', ext: 'mp4', resolution: '1080p', fps: 30, videoCodec: 'av01.0.09M.08', tbr: 2645.9, filesize: 1000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '298', label: 'h264 60', ext: 'mp4', resolution: '720p', fps: 60, videoCodec: 'avc1.4d4020', isVideoOnly: true, isAudioOnly: false},
+			{formatId: '136', label: 'h264', ext: 'mp4', resolution: '720p', fps: 30, videoCodec: 'avc1.4d401f', isVideoOnly: true, isAudioOnly: false},
+			{formatId: 'hls', label: 'unknown codec', ext: 'mp4', resolution: '480p', fps: 30, isVideoOnly: true, isAudioOnly: false}
+		]
+		const rows = selectView({selectedVideoFormatId: '399', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats}).video.rows
+		const hint = (id: string): string | null | undefined => rows.find(row => row.formatId === id)?.hint
+		expect(hint('399')).toBe('mp4 · 30 fps · 2.6 Mbps')
+		expect(hint('298')).toBe('mp4')
+		// The chip already says the file type when the site names no codec.
+		expect(hint('hls')).toBe('30 fps')
+	})
+
 	it('tags the streams the profile picked', () => {
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '251'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: SEPARATE_FORMATS, profilePick: {videoFormatId: '136', audioSelection: {kind: 'native', formatId: '140'}}})
 		expect(view.video.rows.filter(row => row.isProfilePick).map(row => row.formatId)).toEqual(['136'])

@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {i18next} from '@shared/i18n/index.js'
-import {humanSize} from '@shared/format.js'
+import {humanBitrate, humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 import {audioCodecName, VIDEO_CODEC_ORDER, videoCodecName} from '@shared/fileTypeFit.js'
 import {channelLabel, sampleRateLabel} from '@shared/audioTrackMeta.js'
@@ -31,6 +31,9 @@ export interface VideoFormatRow {
 	fps: number | null
 	dynamicRange: string | null
 	size: string | null
+	bitrate: string | null
+	// The hover hint: only what the chip and its row and column leave out; null when that is nothing.
+	hint: string | null
 	// What the chip says: the codec, or the file type when the codec is unknown.
 	chipLabel: string
 	// Said after the label: a frame rate other than the one most streams have.
@@ -365,6 +368,9 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		const codec = videoCodecName(rawFormat?.videoCodec)
 		const fps = rawFormat?.fps ?? null
 		const dynamicRange = rawFormat?.dynamicRange ?? null
+		const fpsTag = fps !== null && fps !== commonFps ? `${fps} fps` : null
+		const bitrate = rawFormat?.tbr ? humanBitrate(rawFormat.tbr, state.language) : null
+		const hint = compact([codec ? ext : null, fps !== null && !fpsTag ? `${fps} fps` : null, bitrate]).join(' · ')
 		return {
 			filesize,
 			formatId: group.formatId,
@@ -374,8 +380,10 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			fps,
 			dynamicRange,
 			size: filesize ? scale.text(filesize) : null,
+			bitrate,
+			hint: hint === '' ? null : hint,
 			chipLabel: codec ?? ext,
-			chipTags: compact([fps !== null && fps !== commonFps ? `${fps} fps` : null]),
+			chipTags: compact([fpsTag]),
 			range: dynamicRange ?? SDR,
 			isProfilePick: group.formatId === profileVideoId,
 			hasAudio: rawFormat !== undefined && !rawFormat.isVideoOnly,

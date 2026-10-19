@@ -1,6 +1,6 @@
 // @vitest-environment node
 import {describe, expect, it} from 'vite-plus/test'
-import {compactSize, humanSize} from '@shared/format.js'
+import {compactSize, humanBitrate, humanSize} from '@shared/format.js'
 
 describe('humanSize', () => {
 	it('names 1024-based sizes with binary units and keeps one decimal', () => {
@@ -27,5 +27,18 @@ describe('compactSize', () => {
 
 	it('formats the number for the UI locale', () => {
 		expect(compactSize(1536, 'de')).toBe('1,5 KiB')
+	})
+})
+
+describe('humanBitrate', () => {
+	it('says kbps below a megabit and Mbps with one decimal above', () => {
+		expect(humanBitrate(850.4)).toBe('850 kbps')
+		expect(humanBitrate(2645.9)).toBe('2.6 Mbps')
+		expect(humanBitrate(12_000)).toBe('12.0 Mbps')
+	})
+
+	it('formats the number for the UI locale', () => {
+		expect(humanBitrate(2645.9, 'de')).toBe('2,6 Mbps')
+		expect(humanBitrate(1500, 'de')).toBe('1,5 Mbps')
 	})
 })

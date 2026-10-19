@@ -35,7 +35,7 @@ function QualityMeter({quality}: {quality: AudioTrackQuality}): ReactNode {
 	)
 }
 
-// Every fact about the stream, for its spoken name and hover hint.
+// Every fact about the stream, for its spoken name.
 function streamName(row: NativeAudioRow, extras: readonly (string | null)[]): string {
 	return [row.track, row.codec, row.ext, row.bitrate, ...row.details, ...row.markers.map(view => view.label), row.size, ...extras].flatMap(part => (part ? [part] : [])).join(' · ')
 }
@@ -210,6 +210,8 @@ function NativeStreamChip({row, disabled, narrowStack}: {row: NativeAudioRow; di
 		<FormatChip
 			value={`native:${row.formatId}`}
 			name={streamName(row, [qualityLabel, row.isProfilePick ? t('wizard.formats.profile.tag') : null])}
+			// The chip shows its bitrate, details and size; the quality meter has no words.
+			hint={[row.chipLabel === row.ext ? null : row.ext, qualityLabel].flatMap(part => (part ? [part] : [])).join(' · ')}
 			label={row.chipLabel}
 			tags={row.chipTags.map(tag => (tag === 'DRC' ? drcTag : tag))}
 			markers={row.markers}

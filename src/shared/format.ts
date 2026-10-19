@@ -13,6 +13,12 @@ export function humanSize(bytes: number, locale?: string): string {
 	return prettyBytes(bytes, {binary: true, locale, minimumFractionDigits: 1, maximumFractionDigits: 1})
 }
 
+// Bitrates count in 1000s: 850 kbps, 2.6 Mbps. `locale` as for humanSize.
+export function humanBitrate(kbps: number, locale?: string): string {
+	if (kbps < 1000) return `${new Intl.NumberFormat(locale ?? 'en-US', {maximumFractionDigits: 0}).format(kbps)} kbps`
+	return `${new Intl.NumberFormat(locale ?? 'en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1}).format(kbps / 1000)} Mbps`
+}
+
 // About three significant digits, for narrow columns: 1.5 KiB, 137 MiB.
 export function compactSize(bytes: number, locale?: string): string {
 	return prettyBytes(bytes, {binary: true, locale})

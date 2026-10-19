@@ -40,6 +40,19 @@ describe('mapFormats', () => {
 		expect(mapped.find(f => f.formatId === '140')?.videoCodec).toBeUndefined()
 	})
 
+	it('keeps the bitrate of a video stream, or of a muxed stream as a whole', () => {
+		const mapped = mapFormats([
+			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none', tbr: 2645.9, vbr: 2645.9},
+			{format_id: '18', resolution: '640x360', ext: 'mp4', vcodec: 'avc1.42001E', acodec: 'mp4a.40.2', tbr: 501.5},
+			{format_id: '136', resolution: '1280x720', ext: 'mp4', vcodec: 'avc1.4d401f', acodec: 'none', vbr: 1200},
+			{format_id: '135', resolution: '854x480', ext: 'mp4', vcodec: 'avc1.4d401e', acodec: 'none'}
+		])
+		expect(mapped.find(f => f.formatId === '137')?.tbr).toBe(2645.9)
+		expect(mapped.find(f => f.formatId === '18')?.tbr).toBe(501.5)
+		expect(mapped.find(f => f.formatId === '136')?.tbr).toBe(1200)
+		expect(mapped.find(f => f.formatId === '135')).not.toHaveProperty('tbr')
+	})
+
 	it('includes audio-only formats (vcodec === none) with isAudioOnly flag', () => {
 		const mapped = mapFormats([
 			{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},
