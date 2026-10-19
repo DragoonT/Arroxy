@@ -280,6 +280,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			unbindCopiedLinks = bindCopiedLinks(set)
 
 			get().bindExploreView()
+			get().bindSiteCooldowns()
 
 			unbindProbeProgress?.()
 			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {

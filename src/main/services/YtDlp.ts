@@ -10,8 +10,8 @@ import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
-import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
-import {siteForUrl} from '@shared/sites/index.js'
+import {parseProxySetting, proxyForLog, proxyRouteKey} from '@main/utils/proxyUrl.js'
+import {requestSiteFor, siteForUrl} from '@shared/sites/index.js'
 import type {SiteId} from '@shared/sites/types.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
@@ -22,6 +22,8 @@ import type {TokenService} from './TokenService.js'
 import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
+import {rateLimitEvidence, rateLimitLine} from './rateLimitEvidence.js'
+import type {SiteRequestState} from './SiteRequestState.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
@@ -142,6 +144,9 @@ interface InvokeOptions {
 	// false skips the anonymous token entirely: one launch with the plan's own args.
 	anonymousPoToken?: boolean
 	onInvocation?: (summary: YtDlpInvocationSummary) => void
+	// Runs last before each spawn, after the token mint; a result it returns
+	// stands for the run, and nothing spawns.
+	beforeSpawn?: () => YtDlpResult | null
 }
 
 const EXPLORE_SESSION_UNAVAILABLE_MESSAGE = 'Explore session unavailable'
@@ -157,6 +162,24 @@ function spawnCapExceeded(): YtDlpResult {
 
 function cancelledResult(): YtDlpResult {
 	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: ''}
+}
+
+// Matches the rateLimit pattern of ytdlp-errors, so callers that classify the
+// message read a held run as the rate limit it is.
+export const RATE_LIMIT_COOLDOWN_MESSAGE = 'Too many requests recently: waiting out the rate-limit cooldown'
+
+// A bot wall that came with a rate limit is the rate limit: an account cannot
+// lift it, so nothing may escalate to the Explore session on it (the token
+// ladder stops for the same reason, retriesOnBotWall).
+function rateLimitOverBotWall(result: YtDlpResult): YtDlpResult {
+	if (result.kind !== 'exit-error' || result.errorKind !== 'botBlock') return result
+	const line = rateLimitLine(result.stderr)
+	return line === null ? result : {...result, errorKind: 'rateLimit', rawError: line}
+}
+
+function heldByCooldown(site: string, until: number): YtDlpResult {
+	ytDlpLog.info('run held: the site is rate-limiting this connection', {site, until: new Date(until).toISOString()})
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: ''}
 }
 
 function probeTimedOut(): YtDlpResult {
@@ -245,6 +268,9 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 	const e2eArgs = opts.e2eMode?.ytDlpArgs({isProbe: opts.isProbe === true}) ?? []
 	const args = [...e2eArgs, ...encodingArgs, ...ffmpegLocationArgs, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...planArgs]
 	checkOneBlockPerExtractor(args, opts.e2eMode)
+	// After the mint: a cooldown that started meanwhile holds this spawn.
+	const held = opts.beforeSpawn?.()
+	if (held) return held
 	const jsRuntimeSummary = summarizeYtDlpJsRuntimeForLog(opts.jsRuntime)
 	opts.onInvocation?.({ytDlpPath: opts.ytDlpPath, ffmpegPath: opts.ffmpegPath, args: redactArgs(args), jsRuntime: jsRuntimeSummary, attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : null})
 
@@ -412,6 +438,12 @@ function shouldUsePotLadder(opts: InvokeOptions): boolean {
 // "can't fetch more than 100 videos". Explicit single-video probes cannot
 // enumerate tabs, so they can use the manual PoT ladder to expose clients and
 // formats that require it.
+// A rate limit seen on the way to the bot check ends the ladder: another
+// request now would only meet the same limit (SiteRequestState holds new ones).
+function retriesOnBotWall(result: YtDlpResult): boolean {
+	return result.kind === 'exit-error' && result.errorKind === 'botBlock' && rateLimitEvidence(result.stderr) === null
+}
+
 async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 	// Site adapter resolves PoT applicability from the URL hostname. The unified
 	// probe pipeline runs before extractor identity is known, so URL-based
@@ -430,7 +462,7 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 		return invokeOnce(opts, finalFallbackStrategy(opts))
 	}
 
-	if (result.kind !== 'exit-error' || result.errorKind !== 'botBlock') return result
+	if (!retriesOnBotWall(result)) return result
 
 	try {
 		result = await invokeOnce(opts, {kind: 'pot', reMint: true})
@@ -439,7 +471,7 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 		return invokeOnce(opts, finalFallbackStrategy(opts))
 	}
 
-	if (result.kind !== 'exit-error' || result.errorKind !== 'botBlock') return result
+	if (!retriesOnBotWall(result)) return result
 
 	return invokeOnce(opts, finalFallbackStrategy(opts))
 }
@@ -449,6 +481,11 @@ export interface YtDlpRunOptions {
 	// The download attempt this run belongs to: signed-in spawns are capped per
 	// key. A run without one (a probe) gets a budget of its own.
 	jobKey?: string
+	// false: the run goes ahead through a rate-limit cooldown. Only for the
+	// rest of a job that has already saved its media (the subtitle phase): the
+	// cooldown holds new work, and dropping that job's subtitles would lose
+	// what the user asked for over one more request.
+	honorCooldown?: boolean
 }
 
 // Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
@@ -472,7 +509,7 @@ export class YtDlp {
 		private readonly binaryManager: BinaryManager,
 		private readonly tokenService: TokenService,
 		private readonly settingsStore: SettingsSource,
-		private readonly opts: {e2eMode?: E2eHarnessMode; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>; sessionAuth?: SessionAuthorization; anonymousPoToken?: boolean} = {}
+		private readonly opts: {e2eMode?: E2eHarnessMode; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>; sessionAuth?: SessionAuthorization; anonymousPoToken?: boolean; siteRequests?: SiteRequestState} = {}
 	) {}
 
 	// Call once at job start to emit binary-setup status events.
@@ -526,6 +563,33 @@ export class YtDlp {
 	async run(req: YtDlpRequest, signal?: YtDlpSignal, options: YtDlpRunOptions = {}): Promise<YtDlpResult> {
 		// A job paused (or cancelled) with no live process stops at its next run.
 		if (stoppedBeforeSpawn(signal)) return cancelledResult()
+		const siteRequests = this.opts.siteRequests
+		if (!siteRequests) return this.runAdmitted(req, signal, options, () => null)
+		// The site rate-limited this connection recently: nothing new may ask it
+		// until the cooldown ends, whoever the run would sign in as.
+		const site = requestSiteFor(req.url)
+		const admission = siteRequests.admit(site, {honorCooldown: options.honorCooldown !== false})
+		if (admission.kind === 'wait') return heldByCooldown(site, admission.until)
+		const {run} = admission
+		const watched: YtDlpSignal = {
+			...signal,
+			onStderr: lines => {
+				run.observe(lines)
+				signal?.onStderr?.(lines)
+			}
+		}
+		const result = await this.runAdmitted(req, watched, options, route => {
+			const until = run.recheck(route)
+			return until === null ? null : heldByCooldown(site, until)
+		})
+		run.finish(result.stderr, result.kind === 'success')
+		return result
+	}
+
+	// `beforeSpawn` runs last before each spawn, after the binary setup, any
+	// slot wait and the token mint, with the network route the process goes
+	// out on; a result it returns is the run's, and nothing spawns.
+	private async runAdmitted(req: YtDlpRequest, signal: YtDlpSignal | undefined, options: YtDlpRunOptions, beforeSpawn: (route: string) => YtDlpResult | null): Promise<YtDlpResult> {
 		if (!this._ytDlpPath) await this.prepare()
 		this._lastInvocation = null
 		this._lastInvocations = []
@@ -543,6 +607,7 @@ export class YtDlp {
 		// error names the problem better than silently dropping the proxy would.
 		const proxySetting = parseProxySetting(settings.common?.proxyUrl)
 		const proxyUrl = proxySetting.kind === 'proxy' ? proxySetting.url : nonEmpty(settings.common?.proxyUrl?.trim())
+		const route = proxyRouteKey(settings.common?.proxyUrl)
 		const pacing = resolveNetworkPacing(settings.common)
 		const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common)
 		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy})
@@ -581,6 +646,7 @@ export class YtDlp {
 				hasExplicitYoutubePlayerClient,
 				anonymousPoToken: this.opts.anonymousPoToken,
 				signal,
+				beforeSpawn: () => beforeSpawn(route),
 				onInvocation: summary => {
 					this._lastInvocation = summary
 					this._lastInvocations.push(summary)
@@ -589,7 +655,7 @@ export class YtDlp {
 		const spawnGate = this.opts.spawnGate
 		// A signed-in probe waits for a slot no longer than its own timeout (R21):
 		// it shares the gate with signed-in downloads, which can hold a slot for long.
-		const result = identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke()
+		const result = rateLimitOverBotWall(identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke())
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup
