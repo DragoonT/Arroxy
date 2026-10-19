@@ -71,18 +71,6 @@ function CookiesSourceField({cookiesMode}: {cookiesMode: CookiesMode}): ReactNod
 				<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
 			</ToggleGroup>
 			{cookiesMode === 'explore' ? <ExploreModeDescription enabled={exploreEnabled} /> : null}
-			<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-caption">
-				<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
-					{t('wizard.url.cookies.helpLink')}
-				</Button>
-				<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)} data-testid="cookies-firefox-link">
-					{t('wizard.url.cookies.extensionFirefox')}
-				</Button>
-				<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)} data-testid="cookies-chrome-link">
-					{t('wizard.url.cookies.extensionChrome')}
-				</Button>
-			</div>
-			<WarningText text={t('wizard.url.cookies.risk')} />
 			{cookiesMode !== 'off' ? <WarningText text={t('wizard.url.cookies.banWarning')} /> : null}
 		</Field>
 	)
@@ -116,6 +104,18 @@ function CookiesFileField(): ReactNode {
 				</InputGroupAddon>
 			</InputGroup>
 			{cookiesPath.trim() ? null : <WarningText text={t('wizard.url.cookies.enabledButNoFile')} />}
+			<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-caption">
+				<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
+					{t('wizard.url.cookies.helpLink')}
+				</Button>
+				<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)} data-testid="cookies-firefox-link">
+					{t('wizard.url.cookies.extensionFirefox')}
+				</Button>
+				<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)} data-testid="cookies-chrome-link">
+					{t('wizard.url.cookies.extensionChrome')}
+				</Button>
+			</div>
+			<WarningText text={t('wizard.url.cookies.risk')} />
 		</Field>
 	)
 }
