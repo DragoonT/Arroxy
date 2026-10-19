@@ -10,27 +10,40 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## Highlights
 
-- **A clearer path through a single-video download.** The Format screen's highlighted button is now **Continue**, to Review, where subtitles, SponsorBlock, extras like the thumbnail, the folder and the file name are, with Extras open. **Download** is still right there for anyone who doesn't need Review. If you have downloaded before, a one-time note on Review says all those settings now live on that one page.
-- **Update your profile or save a new one from any download.** Once you change something, the footer of Format and Review says what changed from your profile, with buttons to update that profile (showing exactly what will change first), save the settings as a new profile, or undo.
-- **Switching profile no longer throws away your edits.** If you changed subtitles, extras or the folder and then pick another profile, Arroxy asks whether to keep those changes or reset everything to the new profile.
-- **Video, no audio.** The Format screen's switch now matches the profile editor: Video + audio, Video, no audio, Audio only, Subtitles only. Switching to Video, no audio and back keeps the audio language you picked.
-- **Every codec at every resolution.** Each resolution now lists AV1, VP9 and H.264 side by side, in the same column on every row, so you can pick H.264 at 1080p for an older TV even when a profile prefers AV1.
-- **Arroxy tells you what a stream really is.** Streams YouTube upscaled with AI, AI-dubbed audio languages, enhanced-bitrate streams, 360° videos, damaged and watermarked copies are tagged on the Format screen.
-- **Profiles skip AI-upscaled streams.** YouTube offers some old videos in taller sizes made with AI; they add no real detail. Profiles now pick the original streams, and the profile editor's Advanced section has a setting to allow them. Profiles you already have skip them too.
+- **Smaller download, FFmpeg installed once.** Arroxy no longer bundles FFmpeg. It downloads it once on first launch and keeps it across updates. If that fails, it uses your own FFmpeg, or **Set it up manually** installs one with Homebrew or WinGet.
+- **Honest about rate limits.** Arroxy says when a site is rate-limiting you and waits before asking again. **Try now** skips the wait.
+- **Free memory while away.** A new Explore setting (off by default) closes the Explore page when you leave it and restores it when you come back.
+- **A clearer single-video download.** **Continue** on the Format screen leads to Review, which now holds subtitles, SponsorBlock, extras, the folder and the file name. **Download** is still there if you don't need Review.
+- **Update your profile from any download.** When you change something, Format and Review show what differs from your profile, with buttons to update it, save it as a new profile, or undo.
+- **Switching profile keeps your edits.** Arroxy asks whether to keep your changes or reset to the new profile.
+- **Video, no audio.** The Format screen offers Video + audio, Video, no audio, Audio only and Subtitles only, like the profile editor.
+- **Every codec at every resolution.** Each resolution lists AV1, VP9 and H.264 side by side, so you can pick H.264 even when your profile prefers AV1.
+- **Stream tags.** The Format screen marks AI-upscaled, AI-dubbed, enhanced-bitrate, 360°, damaged and watermarked streams.
+- **Profiles skip AI-upscaled streams.** A setting in the profile editor's Advanced section allows them.
 
 ## Fixes
 
-- Choosing an audio language and converting to MP3, M4A, Opus or WAV now converts that language, not the video's default one.
-- Switching from Audio only back to video no longer jumps to the largest stream: it picks what your profile would, or a 720p stream when the profile has no video.
-- Sizes are shown for sites that don't report them, estimated from the stream's bitrate, and the Format screen lists each resolution once, tallest first.
-- A slow format lookup can be cancelled after two minutes.
-- Sites whose stream list is gone (an HTTP 410 or 403) no longer make Arroxy wait for a second lookup.
-- A stream whose site gives no resolution is listed as "Unknown resolution", not under a stray note like "watermarked" or "unknown".
-- Subtitles embedded into MKV are tagged with the right language for every ISO 639-1 language, not just the 29 most common ones, so players name tracks like Tamil, Slovak or Welsh correctly.
-- A long playlist title that ends in an emoji or accented letter no longer leaves a broken character at the end of its folder name.
-- Titles recovered for Vimeo OTT (VHX) videos show accents, dashes and quotes correctly instead of raw codes like `&eacute;` or `&mdash;`.
-- A download that uses ffmpeg shows its speed and position without a wrong, untranslated "Merging…" label beside the Downloading status.
-- **Clipboard watch is predictable.** Copy a single link and it goes straight into the URL field, replacing what was there, with **Undo** on the toast. A link copied while Arroxy is busy (fetching formats, starting a download, the bulk dialog, another tab or step) waits and fills in once you are back on the Download tab, and the latest copy wins. Text that only contains a link, or a link to an image or document, is left alone. The **Use copied link** prompt is gone.
+- Converting to MP3, M4A, Opus or WAV uses the audio language you chose.
+- Switching from Audio only back to video picks what your profile would, not the largest stream.
+- Sizes are estimated for sites that don't report them, and each resolution is listed once.
+- A slow format lookup can be cancelled.
+- A site whose stream list is gone no longer triggers a second lookup.
+- Streams without a resolution are listed as "Unknown resolution".
+- Subtitles embedded into MKV get the right language tag for every ISO 639-1 language.
+- A playlist title ending in an emoji or accented letter no longer leaves a broken character in its folder name.
+- Vimeo OTT titles show accents, dashes and quotes correctly.
+- Downloads that use ffmpeg no longer show a stray "Merging…" label.
+- **Clipboard watch is predictable.** A copied link replaces the URL field, with **Undo**. A link copied while Arroxy is busy fills in once you're back on the Download tab. The **Use copied link** prompt is gone.
+- YouTube downloads use YouTube's download token again.
+- First-time setup no longer gives up on slow connections, and **Try again** resumes instead of starting over.
+- Part of video downloads show real progress, speed and time left.
+- Format chip hints show the video bitrate and open as soon as you hover.
+- The hotkey recorder accepts Shift and Option combinations, arrows, punctuation and the numpad.
+- youtube-nocookie.com links are treated as YouTube links.
+- Logs and feedback diagnostics no longer include signed stream URLs or YouTube tokens.
+- The Vimeo OTT title lookup can no longer reach addresses on your local network.
+- The Download menu and the Downloads column picker work with the keyboard.
+- A busy download queue no longer slows the app down.
 
 ---
 
