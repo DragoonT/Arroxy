@@ -466,6 +466,7 @@
 			"noAudio": "Без аудіо",
 			"withAudio": "з аудіо",
 			"resolutionUnknown": "Розмір невідомий",
+			"bitrateValue": "Бітрейт: {{bitrate}}",
 			"marker": {"aiUpscaled": "Збільшено ШІ", "aiDubbed": "Дубляж ШІ", "audioDescription": "Аудіоопис", "spatialAudio": "Просторовий звук", "vr": "360° / VR", "enhancedBitrate": "Підвищений бітрейт", "damaged": "Пошкоджено", "watermarked": "З водяним знаком"},
 			"keepAudio": "Залишити як є",
 			"keepAudioMeta": "Вбудоване аудіо",

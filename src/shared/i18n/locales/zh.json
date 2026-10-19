@@ -380,6 +380,7 @@
 			"noAudio": "无音频",
 			"withAudio": "含音频",
 			"resolutionUnknown": "分辨率未知",
+			"bitrateValue": "比特率 {{bitrate}}",
 			"marker": {"aiUpscaled": "AI 放大", "aiDubbed": "AI 配音", "audioDescription": "音频描述", "spatialAudio": "空间音频", "vr": "360° / VR", "enhancedBitrate": "增强比特率", "damaged": "已损坏", "watermarked": "带水印"},
 			"keepAudio": "保持原样",
 			"keepAudioMeta": "内置音频",

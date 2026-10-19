@@ -400,6 +400,7 @@
 			"noAudio": "Không có âm thanh",
 			"withAudio": "có âm thanh",
 			"resolutionUnknown": "Không rõ độ phân giải",
+			"bitrateValue": "Tốc độ bit {{bitrate}}",
 			"marker": {"aiUpscaled": "Nâng cấp AI", "aiDubbed": "Lồng tiếng AI", "audioDescription": "Mô tả âm thanh", "spatialAudio": "Âm thanh không gian", "vr": "360° / VR", "enhancedBitrate": "Tốc độ bit nâng cao", "damaged": "Bị hỏng", "watermarked": "Có hình mờ"},
 			"keepAudio": "Giữ nguyên",
 			"keepAudioMeta": "Âm thanh tích hợp",

@@ -417,6 +417,7 @@
 			"noAudio": "Hakuna sauti",
 			"withAudio": "yenye sauti",
 			"resolutionUnknown": "Azimio halijulikani",
+			"bitrateValue": "Kiwango cha biti {{bitrate}}",
 			"marker": {"aiUpscaled": "Imekuzwa kwa AI", "aiDubbed": "Imetafsiriwa na AI", "audioDescription": "Maelezo kwa sauti", "spatialAudio": "Sauti ya anga", "vr": "360° / VR", "enhancedBitrate": "Bitrate iliyoboreshwa", "damaged": "Imeharibika", "watermarked": "Ina alama-maji"},
 			"keepAudio": "Acha kama ilivyo",
 			"keepAudioMeta": "Sauti iliyojengwa ndani",

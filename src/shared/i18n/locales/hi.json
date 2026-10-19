@@ -400,6 +400,7 @@
 			"noAudio": "ऑडियो नहीं",
 			"withAudio": "ऑडियो के साथ",
 			"resolutionUnknown": "रिज़ॉल्यूशन अज्ञात",
+			"bitrateValue": "बिटरेट {{bitrate}}",
 			"marker": {"aiUpscaled": "AI अपस्केल", "aiDubbed": "AI डब", "audioDescription": "ऑडियो विवरण", "spatialAudio": "स्पेशियल ऑडियो", "vr": "360° / VR", "enhancedBitrate": "बेहतर बिटरेट", "damaged": "ख़राब", "watermarked": "वॉटरमार्क वाला"},
 			"keepAudio": "जैसा है वैसा रखें",
 			"keepAudioMeta": "बिल्ट-इन ऑडियो",

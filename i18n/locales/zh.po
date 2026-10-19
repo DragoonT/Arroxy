@@ -2127,6 +2127,10 @@ msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "仅音频"
 
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "比特率 {{bitrate}}"
+
 msgctxt "wizard.formats.botWall.bodyDisabled"
 msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
 msgstr "Cookies 已配置但未启用。启用后重试可获取完整列表，或更换网络后重试。"

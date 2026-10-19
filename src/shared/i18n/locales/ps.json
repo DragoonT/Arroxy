@@ -427,6 +427,7 @@
 			"noAudio": "غږ نشته",
 			"withAudio": "له غږ سره",
 			"resolutionUnknown": "ریزولوشن نامعلوم",
+			"bitrateValue": "بټ ریټ {{bitrate}}",
 			"marker": {"aiUpscaled": "AI لوی شوی", "aiDubbed": "AI ډوب شوی", "audioDescription": "غږیز تشریح", "spatialAudio": "فضايي غږ", "vr": "360° / VR", "enhancedBitrate": "ښه شوی بټ ریټ", "damaged": "زیانمن", "watermarked": "واټرمارک لري"},
 			"keepAudio": "لکه چې دی وساتئ",
 			"keepAudioMeta": "ورته غږ",

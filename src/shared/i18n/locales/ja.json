@@ -402,6 +402,7 @@
 			"noAudio": "音声なし",
 			"withAudio": "音声付き",
 			"resolutionUnknown": "解像度不明",
+			"bitrateValue": "ビットレート {{bitrate}}",
 			"marker": {"aiUpscaled": "AI アップスケール", "aiDubbed": "AI 吹き替え", "audioDescription": "音声解説", "spatialAudio": "空間オーディオ", "vr": "360° / VR", "enhancedBitrate": "高ビットレート", "damaged": "破損", "watermarked": "透かし入り"},
 			"keepAudio": "そのまま保持",
 			"keepAudioMeta": "内蔵音声",

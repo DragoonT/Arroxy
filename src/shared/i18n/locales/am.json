@@ -392,6 +392,7 @@
 			"noAudio": "ምንም ድምጽ የለም",
 			"withAudio": "ከድምፅ ጋር",
 			"resolutionUnknown": "ጥራት መጠን አይታወቅም",
+			"bitrateValue": "ቢትሬት {{bitrate}}",
 			"marker": {"aiUpscaled": "በAI የተሰፋ", "aiDubbed": "በAI የተተረጎመ", "audioDescription": "የድምፅ መግለጫ", "spatialAudio": "ስፓሻል ድምፅ", "vr": "360° / VR", "enhancedBitrate": "የተሻሻለ ቢትሬት", "damaged": "የተበላሸ", "watermarked": "የውሃ ምልክት ያለው"},
 			"keepAudio": "እንዳለ ቀጥል",
 			"keepAudioMeta": "ቀደም ሲል የተካተተ ድምጽ",

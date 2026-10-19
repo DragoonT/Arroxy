@@ -458,6 +458,7 @@
 			"noAudio": "Без аудио",
 			"withAudio": "с аудио",
 			"resolutionUnknown": "Размер неизвестен",
+			"bitrateValue": "Битрейт: {{bitrate}}",
 			"marker": {"aiUpscaled": "Увеличено ИИ", "aiDubbed": "Дубляж ИИ", "audioDescription": "Аудиоописание", "spatialAudio": "Пространственный звук", "vr": "360° / VR", "enhancedBitrate": "Повышенный битрейт", "damaged": "Повреждено", "watermarked": "С водяным знаком"},
 			"keepAudio": "Оставить как есть",
 			"keepAudioMeta": "Встроенное аудио",

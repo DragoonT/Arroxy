@@ -86,7 +86,7 @@ describe('selectView — media kinds', () => {
 	it("says each video stream's bitrate, and nothing when the site gives none", () => {
 		const formats = SEPARATE_FORMATS.map(f => (f.formatId === '137' ? {...f, tbr: 2645.9} : f))
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, language: 'de'})
-		expect(view.video.rows.find(row => row.formatId === '137')?.bitrate).toBe('2,6 Mbps')
+		expect(view.video.rows.find(row => row.formatId === '137')?.bitrate).toBe('Bitrate 2,6 Mbps')
 		expect(view.video.rows.find(row => row.formatId === '136')?.bitrate).toBeNull()
 	})
 
@@ -99,7 +99,7 @@ describe('selectView — media kinds', () => {
 		]
 		const rows = selectView({selectedVideoFormatId: '399', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats}).video.rows
 		const hint = (id: string): string | null | undefined => rows.find(row => row.formatId === id)?.hint
-		expect(hint('399')).toBe('mp4 · 30 fps · 2.6 Mbps')
+		expect(hint('399')).toBe('mp4 · 30 fps · Bitrate 2.6 Mbps')
 		expect(hint('298')).toBe('mp4')
 		// The chip already says the file type when the site names no codec.
 		expect(hint('hls')).toBe('30 fps')
