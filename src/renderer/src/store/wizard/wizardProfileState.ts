@@ -113,10 +113,6 @@ export function switchProfilePatch(profile: DownloadProfile, state: AppState, ke
 	return {...patch, ...settings}
 }
 
-function newProfileId(): string {
-	return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : `profile-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
-}
-
 // The run's settings as a profile with the given identity, or null when nothing
 // differs from the profile it started from (or this isn't a single-video run).
 function draftFromWizard(state: WizardReviewState, identity: {id: string; name: string}): DownloadProfile | null {
@@ -135,7 +131,7 @@ function draftFromWizard(state: WizardReviewState, identity: {id: string; name: 
 
 // The run's settings as a new profile.
 export function editedProfileDraft(state: WizardReviewState, name: string): DownloadProfile | null {
-	return draftFromWizard(state, {id: newProfileId(), name})
+	return draftFromWizard(state, {id: crypto.randomUUID(), name})
 }
 
 // The profile the run started from, with the run's settings in it. It keeps its
