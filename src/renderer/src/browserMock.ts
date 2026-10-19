@@ -34,6 +34,7 @@ import {
 	type BrowserMockLaunchMode,
 	type BrowserMockScenario
 } from './dev/browserMockScenarios.js'
+import {playSetupScript, simulateFirstLaunchDownloads} from './dev/warmupPlayback.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 import {createExploreMock} from './dev/exploreMock.js'
@@ -370,21 +371,11 @@ export function installBrowserMock(): void {
 					ffprobe: {id: 'ffprobe', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/ffprobe', attempts: []}
 				}
 
-				if (launchMode !== 'ready') {
-					const binaries: {name: DependencyId; size: number}[] = [
-						{name: 'yt-dlp', size: 12 * 1024 * 1024},
-						{name: 'ffmpeg', size: 80 * 1024 * 1024},
-						{name: 'ffprobe', size: 30 * 1024 * 1024}
-					]
-					for (const {name, size} of binaries) {
-						const steps = 10
-						for (let i = 1; i <= steps; i++) {
-							await delay(120)
-							warmupProgressListeners.forEach(l => l({binary: name, phase: 'downloading', bytesDownloaded: Math.round((size / steps) * i), totalBytes: size}))
-						}
-						warmupProgressListeners.forEach(l => l({binary: name, phase: 'done', bytesDownloaded: size, totalBytes: size}))
-					}
-				}
+				const emit = (event: WarmupProgressEvent): void => warmupProgressListeners.forEach(l => l(event))
+				// A setup scenario leaves warmup running after its script, so the
+				// splash holds that state for review.
+				if (!force && (await playSetupScript(scenarioState.scenario, emit))) return new Promise<never>(() => undefined)
+				if (launchMode !== 'ready') await simulateFirstLaunchDownloads(emit)
 
 				if (launchMode === 'cold-error' && !force && warmupCallCount === 1) {
 					const blocked: Record<DependencyId, DependencyDiagnostic> = {
@@ -412,6 +403,14 @@ export function installBrowserMock(): void {
 			installYtDlpWithWinget: async () => {
 				await delay(800)
 				return {ok: true, data: {installedPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe'}}
+			},
+			installFfmpegWithHomebrew: async () => {
+				await delay(800)
+				return {ok: true, data: {ffmpegPath: '/opt/homebrew/bin/ffmpeg', ffprobePath: '/opt/homebrew/bin/ffprobe'}}
+			},
+			installFfmpegWithWinget: async () => {
+				await delay(800)
+				return {ok: true, data: {ffmpegPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\ffmpeg.exe', ffprobePath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\ffprobe.exe'}}
 			},
 			setLanguage: async () => {
 				/* no-op in browser */

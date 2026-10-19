@@ -59,8 +59,6 @@ export type {
 	RuntimeBinaryId,
 	RuntimeBinaryChannel,
 	RuntimeBinaryProvider,
-	RuntimeBinaryManifestEntry,
-	RuntimeBinaryIndex,
 	WizardStepName
 } from './schemas.js'
 
@@ -70,6 +68,7 @@ export type {ExploreViewState} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
+export type {FfmpegPackageEntry, RuntimeBinaryIndex, RuntimeBinaryIndexEntry, RuntimeBinaryIndexV1, RuntimeBinaryManifestEntry} from './runtimeBinarySchemas.js'
 
 import type {
 	AudioTrackQuality,

@@ -8,6 +8,7 @@ import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
 import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {bindCopiedLinks} from './wizard/copiedLinkIntake.js'
 import {notify} from '../lib/notify.js'
+import {EMPTY_WARMUP_DOWNLOADS, trackWarmupDownloads} from './warmupDownloads.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
@@ -194,6 +195,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		warmupRunning: false,
 		warmupCancellable: false,
 		warmupProgress: null,
+		warmupDownloads: EMPTY_WARMUP_DOWNLOADS,
+		warmupStopped: false,
+		packageInstall: null,
 		copiedLink: null,
 		settings: null,
 		hotkeyRegistration: 'off',
@@ -252,7 +256,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			// initialize, so we can't unbind it here like the original did.
 			unbindWarmupProgress?.()
 			unbindWarmupProgress = window.appApi.events.onWarmupProgress(event => {
-				set(state => ({warmupProgress: {...(state.warmupProgress ?? {}), [event.binary]: event}}))
+				set(state => {
+					const warmupProgress = {...(state.warmupProgress ?? {}), [event.binary]: event}
+					return {warmupProgress, warmupDownloads: trackWarmupDownloads(state.warmupDownloads, warmupProgress, Date.now())}
+				})
 			})
 
 			// Hotkey trigger listener: lifetime-bound like warmup progress. Main
@@ -334,16 +341,18 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			// `initialized` — would stay up with no error and no way out.
 			let warmupDiagnostics: Record<DependencyId, DependencyDiagnostic> | null = null
 			let warmupBlocking: DependencyId[] = []
+			let warmupStopped = false
 			try {
 				const warmUpResult = await warmUpPromise
 				warmupDiagnostics = warmUpResult.ok ? warmUpResult.data.dependencies : null
 				warmupBlocking = warmUpResult.ok ? warmUpResult.data.blockingFailures : []
+				warmupStopped = warmUpResult.ok && warmUpResult.data.cancelled
 				if (!warmUpResult.ok) notify.warmupFailed('warm-up failed', warmUpResult.error)
 			} catch (err) {
 				notify.warmupFailed('warm-up threw', err)
 			}
 
-			set({initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking})
+			set({initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking, warmupStopped})
 			drainOverrideRepair(get)
 		},
 
@@ -365,14 +374,14 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			try {
 				const result = await window.appApi.app.warmUp({force: true})
 				if (result.ok) {
-					set({warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures})
+					set({warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures, warmupStopped: result.data.cancelled})
 				} else {
 					notify.warmupFailed('repair failed', result.error)
 				}
 			} catch (err) {
 				notify.warmupFailed('repair threw', err)
 			} finally {
-				set({warmupRunning: false, warmupCancellable: false})
+				set({warmupRunning: false, warmupCancellable: false, packageInstall: null})
 				drainOverrideRepair(get)
 			}
 		},
@@ -381,7 +390,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			if (get().warmupRunning) return
 			set({warmupRunning: true, warmupCancellable: false})
 			try {
+				set({packageInstall: 'homebrew'})
 				const install = await window.appApi.app.installYtDlpWithHomebrew()
+				set({packageInstall: null})
 				if (!install.ok) {
 					notify.warmupFailed('homebrew repair failed', install.error)
 					return
@@ -389,14 +400,14 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				set({warmupCancellable: true})
 				const result = await window.appApi.app.warmUp({force: true})
 				if (result.ok) {
-					set({warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures})
+					set({warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures, warmupStopped: result.data.cancelled})
 				} else {
 					notify.warmupFailed('post-homebrew repair failed', result.error)
 				}
 			} catch (err) {
 				notify.warmupFailed('homebrew repair threw', err)
 			} finally {
-				set({warmupRunning: false, warmupCancellable: false})
+				set({warmupRunning: false, warmupCancellable: false, packageInstall: null})
 				drainOverrideRepair(get)
 			}
 		},
@@ -405,7 +416,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			if (get().warmupRunning) return
 			set({warmupRunning: true, warmupCancellable: false})
 			try {
+				set({packageInstall: 'winget'})
 				const install = await window.appApi.app.installYtDlpWithWinget()
+				set({packageInstall: null})
 				if (!install.ok) {
 					notify.warmupFailed('winget repair failed', install.error)
 					return
@@ -413,14 +426,45 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				set({warmupCancellable: true})
 				const result = await window.appApi.app.warmUp({force: true})
 				if (result.ok) {
-					set({warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures})
+					set({warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures, warmupStopped: result.data.cancelled})
 				} else {
 					notify.warmupFailed('post-winget repair failed', result.error)
 				}
 			} catch (err) {
 				notify.warmupFailed('winget repair threw', err)
 			} finally {
-				set({warmupRunning: false, warmupCancellable: false})
+				set({warmupRunning: false, warmupCancellable: false, packageInstall: null})
+				drainOverrideRepair(get)
+			}
+		},
+
+		// Installs FFmpeg with the machine's package manager, then points Arroxy at
+		// that copy directly. A retry that went through the managed download first
+		// would sit on an unreachable server for a minute before falling back to it.
+		repairFfmpegWithPackageManager: async manager => {
+			if (get().warmupRunning) return
+			set({warmupRunning: true, warmupCancellable: false})
+			try {
+				set({packageInstall: manager})
+				const install = manager === 'homebrew' ? await window.appApi.app.installFfmpegWithHomebrew() : await window.appApi.app.installFfmpegWithWinget()
+				set({packageInstall: null})
+				if (!install.ok) {
+					notify.warmupFailed(`${manager} ffmpeg repair failed`, install.error)
+					return
+				}
+				const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides', {common: {binaryOverrides: {ffmpeg: install.data.ffmpegPath, ffprobe: install.data.ffprobePath}}}))
+				if (!saved) return
+				set({warmupCancellable: true})
+				const result = await window.appApi.app.warmUp({force: true})
+				if (result.ok) {
+					set({warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures, warmupStopped: result.data.cancelled})
+				} else {
+					notify.warmupFailed(`post-${manager} ffmpeg repair failed`, result.error)
+				}
+			} catch (err) {
+				notify.warmupFailed(`${manager} ffmpeg repair threw`, err)
+			} finally {
+				set({warmupRunning: false, warmupCancellable: false, packageInstall: null})
 				drainOverrideRepair(get)
 			}
 		},
