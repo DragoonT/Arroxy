@@ -16,7 +16,8 @@ export function WizardFooter({children, info, extraAbove, contentClassName}: Wiz
 		<div className="wizard-footer-surface sticky bottom-0 z-10 -mx-6">
 			{extraAbove ? (
 				<div className="px-6">
-					<div className={contentClassName}>{extraAbove}</div>
+					{/* The band pads both edges, so its lines sit centred above the divider; with nothing in it, it takes no room. */}
+					<div className={cn('flex flex-col gap-1.5 py-2 empty:hidden', contentClassName)}>{extraAbove}</div>
 				</div>
 			) : null}
 			<Separator className="wizard-footer-divider my-0 w-full" />
