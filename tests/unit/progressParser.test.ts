@@ -68,6 +68,42 @@ describe('ProgressParser — progress logging', () => {
 	})
 })
 
+// A Part of video download is ffmpeg's: it redraws a status line every half
+// second and opens every HLS segment with a line carrying the full signed URL.
+// The log keeps one status line per 10 s of ffmpeg's `elapsed=`, the final
+// summary, and none of the per-segment opens.
+describe('ProgressParser — ffmpeg logging', () => {
+	// The electron-log mock backs every level with one spy, so this is all levels.
+	function loggedLines(): unknown[] {
+		return vi.mocked(log.info).mock.calls.map(call => call[0])
+	}
+
+	it('logs one ffmpeg status line per 10 s of elapsed time, and the summary', () => {
+		vi.mocked(log.info).mockClear()
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+		const status = (time: string, elapsed: string): string => `frame=  815 fps= 48 q=-1.0 size=    5632KiB time=${time} bitrate=1481.8kbits/s speed=1.82x elapsed=${elapsed}`
+		const summary = 'frame= 2817 fps= 51 q=-1.0 Lsize=  122116KiB time=00:01:55.03 bitrate=8696.3kbits/s speed=2.08x elapsed=0:00:55.29'
+
+		parser.consume(active, [status('-00:00:02.41', '0:00:00.50'), status('00:00:01.27', '0:00:01.50'), status('00:00:31.13', '0:00:10.04'), status('00:00:33.80', '0:00:18.11'), status('00:01:04.55', '0:00:31.70'), summary].join('\n') + '\n')
+
+		expect(loggedLines().filter(line => typeof line === 'string' && line.startsWith('frame='))).toEqual([status('-00:00:02.41', '0:00:00.50'), status('00:00:31.13', '0:00:10.04'), status('00:01:04.55', '0:00:31.70'), summary])
+	})
+
+	it('leaves ffmpeg per-segment opens out of the log', () => {
+		vi.mocked(log.info).mockClear()
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(
+			active,
+			"[https @ 0x13200a600] Opening 'https://rr3---sn-u15hn5-c5.googlevideo.com/videoplayback/id/02185adc2a9efdf9/itag/625/playlist/index.m3u8/gosq/16/file/seg.ts' for reading\n[in#0/hls @ 0x1414055e0] Opening 'https://rr3---sn-u15hn5-c5.googlevideo.com/videoplayback/gosq/0?is=1&file=seg.ts' for reading\n"
+		)
+
+		expect(loggedLines()).toEqual([])
+	})
+})
+
 describe('ProgressParser — stream framing', () => {
 	// yt-dlp redraws progress with a bare '\r' and only terminates real lines with
 	// '\n'. When a Destination line is flushed behind a burst of redraws, splitting
