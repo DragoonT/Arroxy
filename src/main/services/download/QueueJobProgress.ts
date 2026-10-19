@@ -5,7 +5,8 @@
 
 import {STATUS_KEY, type StatusKey} from '@shared/schemas.js'
 import {ProgressFormatter} from '@shared/progressFormat.js'
-import {ProgressNormalizer} from '@shared/progressNormalizer.js'
+import {ffmpegPartPercent, ProgressNormalizer} from '@shared/progressNormalizer.js'
+import type {PreparedJob} from '@shared/preparedJob.js'
 import type {ProgressEvent, QueueItem} from '@shared/types.js'
 
 // Post-download phase keys. yt-dlp can emit a straggler `[download] X%`
@@ -14,6 +15,11 @@ import type {ProgressEvent, QueueItem} from '@shared/types.js'
 // `progressDetail` and the UI would flip from "Merging formats…" back to
 // "downloading at X MB/s" — visible regression on every fast job.
 const POST_DOWNLOAD_PHASES: ReadonlySet<StatusKey> = new Set([STATUS_KEY.mergingFormats, STATUS_KEY.extractingAudio, STATUS_KEY.convertingVideo, STATUS_KEY.embeddingMetadata, STATUS_KEY.movingFiles])
+
+function partSeconds(job: PreparedJob): number | null {
+	if (job.kind !== 'single-format' && job.kind !== 'audio-convert') return null
+	return job.videoPart ? job.videoPart.endSeconds - job.videoPart.startSeconds : null
+}
 
 export interface QueueJobProgressUpdate {
 	percent: number
@@ -29,9 +35,10 @@ export class QueueJobProgress {
 	read(item: QueueItem, event: ProgressEvent): QueueJobProgressUpdate | null {
 		const lastKey = item.lastStatus?.key
 		if (lastKey && POST_DOWNLOAD_PHASES.has(lastKey)) return null
+		const seconds = partSeconds(item.job)
 		let formatter = this.formatters.get(event.jobId)
 		if (!formatter) {
-			formatter = new ProgressFormatter()
+			formatter = new ProgressFormatter(seconds)
 			this.formatters.set(event.jobId, formatter)
 		}
 		let normalizer = this.normalizers.get(event.jobId)
@@ -40,7 +47,8 @@ export class QueueJobProgress {
 			this.normalizers.set(event.jobId, normalizer)
 		}
 		const detail = formatter.update(event.line)
-		return {percent: normalizer.nextRunningPercent(item.progressPercent, event), ...(detail !== null ? {detail} : {})}
+		const incoming = event.percent === undefined && seconds !== null ? {line: event.line, percent: ffmpegPartPercent(event.line, seconds)} : event
+		return {percent: normalizer.nextRunningPercent(item.progressPercent, incoming), ...(detail !== null ? {detail} : {})}
 	}
 
 	forget(jobId: string): void {
