@@ -639,7 +639,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		saveDownloadProfile: async (profile: DownloadProfile, activate = true) => {
 			const previous = currentProfiles(get().settings)
 			const profiles = saveDownloadProfileToPrefs(previous, profile, activate)
-			await applyProfilesPatchAsync(get, set, 'downloadProfile.save', profiles)
+			return applyProfilesPatchAsync(get, set, 'downloadProfile.save', profiles)
 		},
 
 		removeDownloadProfile: async (id: string) => {
@@ -670,6 +670,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		dismissStyleHint: async () => {
 			await applyCommonPatchAsync(get, set, 'styleHintDismissed', {styleHintDismissed: true})
+		},
+
+		dismissReviewCallout: async () => {
+			await applyCommonPatchAsync(get, set, 'reviewCalloutDismissed', {reviewCalloutDismissed: true})
 		},
 
 		dismissVideoPartCallout: async () => {

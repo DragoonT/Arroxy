@@ -13,6 +13,7 @@ import {preferredNativeAudioId} from './nativeAudioPreference.js'
 import type {GlobalHdr} from './hdrSetting.js'
 import {selectionOrder, type AudioRank, type SelectionOrder, type VideoRank} from './selectionOrder.js'
 import {matchesSubtitleLanguage} from './subtitleLanguages.js'
+import {tierHeightOf} from './videoTier.js'
 
 export interface ProfileSelectionInput {
 	profile: DownloadProfile
@@ -45,10 +46,11 @@ export interface ProfileSelection {
 const AUTO_CAPTION_SUFFIX = '-orig'
 const NO_AUDIO: AudioSelection = {kind: 'none'}
 
-// yt-dlp's `res` is the smaller dimension, so portrait 1080x1920 is 1080.
+// The stream's tier (see videoTier.ts): the same height the Format screen names
+// its row by, so a letterboxed 1280x640 is 720, never a 640 "fallback".
 export function videoHeight(resolution: string): number {
 	const dims = /(\d+)\s*x\s*(\d+)/.exec(resolution)
-	if (dims) return Math.min(Number(dims[1]), Number(dims[2]))
+	if (dims) return tierHeightOf(Number(dims[1]), Number(dims[2])) ?? Math.min(Number(dims[1]), Number(dims[2]))
 	const p = /(\d{3,4})p/.exec(resolution)
 	if (p) return Number(p[1])
 	const any = /(\d{3,4})/.exec(resolution)
@@ -87,6 +89,8 @@ function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order:
 			return codecRank(a) - codecRank(b)
 		case 'size':
 			return (b.filesize ?? 0) - (a.filesize ?? 0)
+		case 'site-preference':
+		case 'original':
 		case 'h264':
 		case 'mp4-streams':
 		case 'resolution':
@@ -111,7 +115,8 @@ function pickVideo(videos: readonly FormatOption[], order: SelectionOrder, notic
 	let pool = videos
 	const resolutionAt = order.video.findIndex(rank => rank.kind === 'resolution')
 	for (const rank of order.video.slice(0, resolutionAt)) {
-		const narrowed = pool.filter(f => (rank.kind === 'h264' ? isH264(f) : rank.kind === 'mp4-streams' ? f.ext === 'mp4' : true))
+		const topPreference = rank.kind === 'site-preference' ? Math.max(...pool.map(f => f.preference ?? 0)) : 0
+		const narrowed = pool.filter(f => (rank.kind === 'site-preference' ? (f.preference ?? 0) === topPreference : rank.kind === 'original' ? !f.markers?.includes('ai-upscaled') : rank.kind === 'h264' ? isH264(f) : rank.kind === 'mp4-streams' ? f.ext === 'mp4' : true))
 		// Without H.264 the profile can't be honoured anyway: pick by resolution
 		// across every codec so the notice can say what was chosen and why.
 		if (narrowed.length === 0 && rank.kind === 'h264') {
@@ -129,6 +134,9 @@ function pickVideo(videos: readonly FormatOption[], order: SelectionOrder, notic
 	return pool
 		.filter(f => videoHeight(f.resolution) === height)
 		.toSorted((a, b) => {
+			// The site's own rating of copies at one height (part of its preference).
+			const byQuality = (b.quality ?? 0) - (a.quality ?? 0)
+			if (byQuality !== 0) return byQuality
 			for (const rank of tieBreakers) {
 				const result = compareByRank(rank, a, b, order)
 				if (result !== 0) return result
@@ -184,7 +192,8 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 	const picked = pickVideo(videos, order, notices)
 	if (!picked) return {media: {kind: 'video', videoFormatId: '', audioSelection: NO_AUDIO}, order}
 	const pickedHeight = videoHeight(picked.resolution)
-	if (order.tier !== 'best' && pickedHeight !== Number(order.tier)) notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight})
+	// A stream whose site gives no size (height 0) says nothing about the tier: no "goes up to 0p".
+	if (order.tier !== 'best' && pickedHeight !== 0 && pickedHeight !== Number(order.tier)) notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight})
 
 	const audioRank = order.audio?.[0]
 	if (!audioRank || !picked.isVideoOnly) return {media: {kind: 'video', videoFormatId: picked.formatId, audioSelection: NO_AUDIO}, order}
