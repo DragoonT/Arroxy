@@ -70,37 +70,44 @@ describe('ProgressParser — progress logging', () => {
 
 // A Part of video download is ffmpeg's: it redraws a status line every half
 // second and opens every HLS segment with a line carrying the full signed URL.
-// The log keeps one status line per 10 s of ffmpeg's `elapsed=`, the final
-// summary, and none of the per-segment opens.
+// Start-up is where most failures show, so the log keeps every status line for
+// the first 30 s of ffmpeg's `elapsed=`, then one per 10 s, and the summary.
+// A segment open is kept as a short line: segment number and host, no URL.
 describe('ProgressParser — ffmpeg logging', () => {
 	// The electron-log mock backs every level with one spy, so this is all levels.
 	function loggedLines(): unknown[] {
 		return vi.mocked(log.info).mock.calls.map(call => call[0])
 	}
 
-	it('logs one ffmpeg status line per 10 s of elapsed time, and the summary', () => {
+	it('logs every ffmpeg status line for 30 s, then one per 10 s, and the summary', () => {
 		vi.mocked(log.info).mockClear()
 		const parser = new ProgressParser(vi.fn(), vi.fn())
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
-		const status = (time: string, elapsed: string): string => `frame=  815 fps= 48 q=-1.0 size=    5632KiB time=${time} bitrate=1481.8kbits/s speed=1.82x elapsed=${elapsed}`
+		const status = (elapsed: string): string => `frame=  815 fps= 48 q=-1.0 size=    5632KiB time=00:00:31.13 bitrate=1481.8kbits/s speed=1.82x elapsed=${elapsed}`
 		const summary = 'frame= 2817 fps= 51 q=-1.0 Lsize=  122116KiB time=00:01:55.03 bitrate=8696.3kbits/s speed=2.08x elapsed=0:00:55.29'
+		const elapsed = ['0:00:00.50', '0:00:01.00', '0:00:10.04', '0:00:18.11', '0:00:29.90', '0:00:31.70', '0:00:35.20', '0:00:41.20', '0:00:49.90']
 
-		parser.consume(active, [status('-00:00:02.41', '0:00:00.50'), status('00:00:01.27', '0:00:01.50'), status('00:00:31.13', '0:00:10.04'), status('00:00:33.80', '0:00:18.11'), status('00:01:04.55', '0:00:31.70'), summary].join('\n') + '\n')
+		parser.consume(active, [...elapsed.map(status), summary].join('\n') + '\n')
 
-		expect(loggedLines().filter(line => typeof line === 'string' && line.startsWith('frame='))).toEqual([status('-00:00:02.41', '0:00:00.50'), status('00:00:31.13', '0:00:10.04'), status('00:01:04.55', '0:00:31.70'), summary])
+		const kept = ['0:00:00.50', '0:00:01.00', '0:00:10.04', '0:00:18.11', '0:00:29.90', '0:00:31.70', '0:00:41.20']
+		expect(loggedLines().filter(line => typeof line === 'string' && line.startsWith('frame='))).toEqual([...kept.map(status), summary])
 	})
 
-	it('leaves ffmpeg per-segment opens out of the log', () => {
+	it('logs a segment open as its number and host, without the signed URL', () => {
 		vi.mocked(log.info).mockClear()
 		const parser = new ProgressParser(vi.fn(), vi.fn())
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
 
 		parser.consume(
 			active,
-			"[https @ 0x13200a600] Opening 'https://rr3---sn-u15hn5-c5.googlevideo.com/videoplayback/id/02185adc2a9efdf9/itag/625/playlist/index.m3u8/gosq/16/file/seg.ts' for reading\n[in#0/hls @ 0x1414055e0] Opening 'https://rr3---sn-u15hn5-c5.googlevideo.com/videoplayback/gosq/0?is=1&file=seg.ts' for reading\n"
+			[
+				"[https @ 0x13200a600] Opening 'https://rr3---sn-u15hn5-c5.googlevideo.com/videoplayback/id/02185adc2a9efdf9/itag/625/ip/203.0.113.7/sig/AE0s2JYw%3D%3D/playlist/index.m3u8/govp/slices%3D0-220/gosq/16/file/seg.ts' for reading",
+				"[in#0/hls @ 0x1414055e0] Opening 'https://rr3---sn-u15hn5-c5.googlevideo.com/videoplayback/id/02185adc2a9efdf9/ip/203.0.113.7/gosq/0?is=1&file=seg.ts' for reading",
+				"[hls @ 0x1414055e0] Opening 'https://cdn.example.com/stream/chunk-7.ts?token=secret' for reading"
+			].join('\n') + '\n'
 		)
 
-		expect(loggedLines()).toEqual([])
+		expect(loggedLines()).toEqual(['[https @ 0x13200a600] Opening segment 16 on rr3---sn-u15hn5-c5.googlevideo.com', '[in#0/hls @ 0x1414055e0] Opening segment 0 on rr3---sn-u15hn5-c5.googlevideo.com', '[hls @ 0x1414055e0] Opening cdn.example.com'])
 	})
 })
 
