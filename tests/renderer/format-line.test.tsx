@@ -3,18 +3,22 @@ import {act, fireEvent, render, screen} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {FormatChip, FormatLine} from '@renderer/components/wizard/format/FormatLine.js'
 import {RadioGroup} from '@renderer/components/ui/radio-group.js'
+import {TooltipProvider} from '@renderer/components/ui/tooltip.js'
 
 function renderLines(onValueChange = vi.fn(), value = 'av1'): ReturnType<typeof vi.fn> {
+	// The app's provider: hints open with no delay of their own.
 	render(
-		<RadioGroup value={value} onValueChange={onValueChange}>
-			<FormatLine name="2160p" alias="4K">
-				<FormatChip value="av1" name="2160p 4K · AV1 · mp4 · HDR10 · 1.0 GB" label="AV1" tags={['HDR10']} size="1.0 GB" profilePick />
-				<FormatChip value="vp9" name="2160p 4K · VP9 · webm · 520 MB" hint="webm · 2.6 Mbps" label="VP9" size="520 MB" />
-			</FormatLine>
-			<FormatLine name="">
-				<FormatChip value="none" name="No audio" label="No audio" disabled />
-			</FormatLine>
-		</RadioGroup>
+		<TooltipProvider>
+			<RadioGroup value={value} onValueChange={onValueChange}>
+				<FormatLine name="2160p" alias="4K">
+					<FormatChip value="av1" name="2160p 4K · AV1 · mp4 · HDR10 · 1.0 GB" label="AV1" tags={['HDR10']} size="1.0 GB" profilePick />
+					<FormatChip value="vp9" name="2160p 4K · VP9 · webm · 520 MB" hint="webm · 2.6 Mbps" label="VP9" size="520 MB" />
+				</FormatLine>
+				<FormatLine name="">
+					<FormatChip value="none" name="No audio" label="No audio" disabled />
+				</FormatLine>
+			</RadioGroup>
+		</TooltipProvider>
 	)
 	return onValueChange
 }
@@ -49,7 +53,7 @@ describe('FormatLine and FormatChip', () => {
 		expect(screen.getByRole('radio', {name: /VP9/})).not.toHaveAttribute('data-profile-pick')
 	})
 
-	it('hints only what the chip leaves out, and only after a five-second hover', async () => {
+	it('hints only what the chip leaves out, as soon as the pointer is on it', async () => {
 		vi.useFakeTimers()
 		try {
 			renderLines()
@@ -58,10 +62,7 @@ describe('FormatLine and FormatChip', () => {
 			fireEvent.mouseEnter(chip)
 			fireEvent.mouseMove(chip)
 
-			await act(() => vi.advanceTimersByTimeAsync(4900))
-			expect(openHints()).toEqual([])
-
-			await act(() => vi.advanceTimersByTimeAsync(200))
+			await act(() => vi.advanceTimersByTimeAsync(50))
 			expect(openHints()).toEqual(['webm · 2.6 Mbps'])
 		} finally {
 			vi.useRealTimers()

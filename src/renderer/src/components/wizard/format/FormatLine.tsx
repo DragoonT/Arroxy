@@ -21,9 +21,6 @@ const NARROW_ONLY = 'hidden max-lg:inline'
 // give it one line, the size drops under the label instead of spilling out.
 const CHIP_FIT = 'h-auto min-h-9 min-w-auto flex-wrap justify-between gap-x-4 gap-y-0 py-1'
 const NARROW_CHIP = 'max-lg:h-auto max-lg:flex-col max-lg:items-start max-lg:gap-0 max-lg:py-1.5'
-// A chip's hint says what the chip leaves out; it waits for a hover that
-// means it, so moving across the chips to pick one shows nothing.
-const CHIP_HINT_DELAY_MS = 5000
 const TAG = 'shrink-0 text-caption text-subtle-foreground group-data-checked/radio-chip:text-selected-foreground'
 
 // A stream marker as an icon, so a chip stays as wide as its codec and size in
@@ -121,13 +118,7 @@ export function FormatChip({
 			{profilePick ? <ProfileDot className="absolute -end-1 -top-1 ring-2 ring-background" /> : null}
 		</RadioGroupChip>
 	)
-	return hint ? (
-		<Hint label={hint} reveal delay={CHIP_HINT_DELAY_MS}>
-			{chip}
-		</Hint>
-	) : (
-		chip
-	)
+	return hint ? <Hint label={hint}>{chip}</Hint> : chip
 }
 
 // The download profile's pick. One legend says what it means, on the
