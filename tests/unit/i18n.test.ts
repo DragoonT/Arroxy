@@ -77,7 +77,7 @@ describe('mainT', () => {
 	})
 
 	it('interpolates {{x}} tokens', () => {
-		expect(mainT('en', 'status.ytdlpExitCode', {code: 7})).toBe('yt-dlp exited with code 7')
+		expect(mainT('en', 'status.ytdlpExitCode', {code: 7})).toBe('The download engine exited with code 7')
 		expect(mainT('en', 'status.downloadingBinary', {name: 'yt-dlp'})).toBe('Downloading yt-dlp binary…')
 	})
 

@@ -154,9 +154,9 @@
 			"quickWholePlaylist": "プレイリスト全体をダウンロード",
 			"playlistLimit": "プレイリスト取得上限: {{count}} 件",
 			"quickLimitDescription": "プレイリスト、チャンネル、検索結果をキューに追加する前に Arroxy がスキャンする最大項目数です。",
-			"singleTooltip": "yt-dlp の単一動画モードを使い、この URL に付いたプレイリストを無視します。",
+			"singleTooltip": "この動画だけを読み込みます。この URL に付いたプレイリストは無視されます。",
 			"quickSingleTooltip": "1 件のダウンロードをキューに追加し、この URL に付いているプレイリストは無視します。",
-			"playlistTooltip": "yt-dlp のプレイリストモードを使い、選択画面を出す前に上限まで取得します。",
+			"playlistTooltip": "選択画面を表示する前に、プレイリストを上限まで読み込みます。",
 			"quickPlaylistTooltip": "読み込まれた各プレイリスト項目を、有効なクイックダウンロードプロファイルでキューに追加します。スキャンが上限に達した場合、キューに追加する前に Arroxy が確認します。"
 		},
 		"url": {
@@ -167,7 +167,7 @@
 				"summaryFirst": "最初の{{count}}件を読み込み",
 				"summaryRange": "項目 {{from}}-{{to}} を読み込み",
 				"dialogTitle": "プレイリストの範囲",
-				"dialogDescription": "このプレイリストでArroxyがyt-dlpに読み込ませる内容を選択します。",
+				"dialogDescription": "このプレイリストでArroxyが読み込む内容を選択します。",
 				"itemsLabel": "読み込む項目",
 				"appLimit": "アプリの上限を使用: {{count}}",
 				"first": "最初",
@@ -279,7 +279,7 @@
 				"browserPlaceholder": "ブラウザを選択…",
 				"browserHelp": "ブラウザから直接Cookieを読み込みます。Chromiumベースのブラウザはブラウザを閉じた状態で使用してください。",
 				"enabledButNoBrowser": "Cookieを使うにはブラウザを選択してください",
-				"banWarning": "注意: yt-dlpがCookieで使うアカウントは、YouTube側でフラグが立てられたり、稀にBANされることがあります。可能なら使い捨てアカウントを使ってください。",
+				"banWarning": "注意: YouTubeなどのサイトでは、ArroxyのようなダウンロードツールがCookieを使ったアカウントにフラグが立てられたり、稀にBANされることがあります。可能なら使い捨てアカウントを使ってください。",
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "cookies.txt をローカルで取得 (Chrome)"
 			},
@@ -314,7 +314,7 @@
 				"customDialogCancel": "キャンセル",
 				"customDialogSave": "上限を保存",
 				"invalid": "1 から 5000 の整数を入力してください",
-				"tooltip": "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
+				"tooltip": "Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
 			},
 			"nativeAudioPreference": {"label": "ネイティブ音声の設定", "description": "プロフィールがネイティブ音声を選ぶときのステレオまたはサラウンドです。プロフィールごとに上書きできます。", "compatible": "互換性重視のステレオ", "surround": "サラウンド / Dolby を優先"},
 			"autoRetry": {"label": "失敗したダウンロードを再試行", "description": "ネットワークやサーバーの一時的な問題のあと、自動的に再試行します。試行ごとに待ち時間が長くなります。サイトにブロックされたダウンロードは自動再試行されません。", "unit": "回"},
@@ -444,7 +444,7 @@
 				"currentModeFile": "ファイル",
 				"currentModeBrowser": "ブラウザ",
 				"currentModeExplore": "「探索」のログイン",
-				"explanationFile": "Cookieファイルが空・期限切れ・または形式が正しくない可能性があります (yt-dlp は Netscape cookies.txt を期待しています)。Cookieを再エクスポートするか、別のファイルを選ぶか、ブラウザモードに切り替えるか、Cookieをオフにしてみてください。",
+				"explanationFile": "Cookieファイルが空・期限切れ・または形式が正しくない可能性があります (Arroxy には Netscape cookies.txt 形式のファイルが必要です)。Cookieを再エクスポートするか、別のファイルを選ぶか、ブラウザモードに切り替えるか、Cookieをオフにしてみてください。",
 				"explanationBrowser": "Cookieはブラウザから直接読み込まれます。ブラウザが起動中の場合、Cookieデータベースがロックされている可能性があります (Chromiumファミリー)。ブラウザがYouTubeにサインインしている必要もあります。ブラウザを閉じる、別のブラウザに切り替える、ファイルモードに変更する、またはCookieをオフにしてみてください。",
 				"openSettingsCta": "Cookie設定を開く",
 				"exploreSignIn": {"heading": "この動画にはYouTubeアカウントが必要かもしれません", "body": "この動画にYouTubeアカウントが必要な場合は、「探索」でログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。", "cta": "「探索」でログイン"},
@@ -452,7 +452,7 @@
 				"exploreOffer": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "「探索」でサインインすると、Arroxy が再試行します。", "cta": "「探索」でサインイン"},
 				"exploreReuse": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "「探索」にはサインインしていますが、現在ダウンロードではそのサインインが使われていません。", "cta": "「探索」のサインインを使って再試行"},
 				"otherCookiesCta": "代わりに Cookie ファイルまたはブラウザーを使う…",
-				"needsCookies": {"heading": "このサイトはサインインが必要です", "body": "yt-dlpは認証なしでこの動画にアクセスできませんでした。詳細設定でCookieを設定してください — すでにサインイン済みのブラウザを指定するか、cookies.txtファイルをインポートしてください。"},
+				"needsCookies": {"heading": "このサイトはサインインが必要です", "body": "Arroxyは認証なしでこの動画にアクセスできませんでした。詳細設定でCookieを設定してください — すでにサインイン済みのブラウザを指定するか、cookies.txtファイルをインポートしてください。"},
 				"dpapi": {
 					"heading": "ChromeのCookieがWindowsの暗号化によりブロックされています",
 					"explanation": "Chrome 127以降、Windows上では他のアプリが読み取れない方法でCookieが暗号化されています。以下のいずれかの回避策をお試しください。",
@@ -751,7 +751,7 @@
 		"preparingBinaries": "バイナリを準備中…",
 		"mintingToken": "YouTubeトークンを生成中…",
 		"remintingToken": "トークンを再生成中…",
-		"startingYtdlp": "yt-dlpプロセスを開始中…",
+		"startingYtdlp": "ダウンロードエンジンを起動中…",
 		"downloadingMedia": "ビデオと音声をダウンロード中…",
 		"mergingFormats": "音声とビデオを結合中…",
 		"extractingAudio": "音声を変換中…",
@@ -766,8 +766,8 @@
 		"cancelled": "ダウンロードがキャンセルされました",
 		"complete": "ダウンロード完了",
 		"usedExtractorFallback": "簡易抽出モードでダウンロードしました — より確実にするには cookies.txt の設定をおすすめします",
-		"ytdlpProcessError": "yt-dlpプロセスエラー: {{error}}",
-		"ytdlpExitCode": "yt-dlpがコード{{code}}で終了しました",
+		"ytdlpProcessError": "ダウンロードエンジンのエラー: {{error}}",
+		"ytdlpExitCode": "ダウンロードエンジンがコード{{code}}で終了しました",
 		"downloadingBinary": "バイナリ {{name}} をダウンロード中…",
 		"unknownStartupFailure": "ダウンロード開始時に不明なエラーが発生しました",
 		"diskSpaceInsufficient": "ディスク空き容量が不足しています — {{required}} 必要ですが、空きは {{free}} のみです",
@@ -812,7 +812,7 @@
 	},
 	"errors": {
 		"ytdlp": {
-			"botBlock": "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はYouTube側の一時的な変更の可能性があります。ArroxyはYouTube起動時にyt-dlpを自動更新するため、上流が修正をリリースすれば自動的に適用されます。",
+			"botBlock": "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はサイト側の一時的な変更の可能性があります。Arroxyは起動時にダウンロードエンジンを自動更新するため、修正がリリースされれば自動的に適用されます。",
 			"ipBlock": "IPアドレスがYouTubeにブロックされているようです。あとで試すか、VPNを使用してください。",
 			"rateLimit": "サイトがこの接続からのリクエストを制限しています。",
 			"ageRestricted": "この動画は年齢制限があり、ログインアカウントなしではダウンロードできません。",
@@ -820,13 +820,13 @@
 			"geoBlocked": "この動画はあなたの地域では視聴できません。",
 			"outOfDiskSpace": "ディスク容量が不足しています。空き容量を増やして再試行してください。",
 			"outputNotWritable": "Arroxy がダウンロードフォルダーに書き込めません。フォルダーが読み取り専用か、ロックされたドライブ上にあるか、システムのプライバシー設定でブロックされている可能性があります。別のフォルダーを選ぶかアクセスを許可してから、再試行してください。",
-			"unsupportedUrl": "その URL は yt-dlp でサポートされていません。yt-dlp がサポートするサイトの別のリンクを試してください。",
-			"chunkTransferFailure": "サーバーがストリームの途中で接続を何度も切断し、yt-dlpは再試行を繰り返した末に断念しました。最も大きなビデオフォーマット（4K HDR / 高ビットレート VP9）で起こりやすい問題です。再試行するか、ネットワークまたは VPN を切り替えるか、解像度の低いフォーマットを選択してください。",
-			"missingDependency": "yt-dlp が ffmpeg または ffprobe を見つけられませんでした。セットアップをもう一度実行するか、FFmpeg の場所を指定してから、ダウンロードをやり直してください。",
-			"postprocessFailure": "yt-dlp はダウンロードを完了しましたが、後処理（マージ / mux / 変換）に失敗しました。多くの場合、これは一時的な ffmpeg の問題です。再試行し、それでも続く場合は別のフォーマットの組み合わせを試してください。",
-			"parse": "サイトからの応答を解析できませんでした。yt-dlp の抽出機能が古くなっている可能性があります。Arroxy は起動時に yt-dlp を自動更新します — 修正版が配信されるまで数分待ってから再試行してください。",
+			"unsupportedUrl": "Arroxyはこの URL に対応していません。別のサイトのリンクを試してください。",
+			"chunkTransferFailure": "サーバーがストリームの途中で接続を何度も切断し、Arroxyは再試行を繰り返した末に断念しました。最も大きなビデオフォーマット（4K HDR / 高ビットレート VP9）で起こりやすい問題です。再試行するか、ネットワークまたは VPN を切り替えるか、解像度の低いフォーマットを選択してください。",
+			"missingDependency": "ArroxyがFFmpegまたはFFprobeを見つけられませんでした。セットアップをもう一度実行するか、FFmpegの場所を指定してから、ダウンロードをやり直してください。",
+			"postprocessFailure": "ダウンロードは完了しましたが、後処理（マージ / mux / 変換）に失敗しました。多くの場合、これは一時的な ffmpeg の問題です。再試行し、それでも続く場合は別のフォーマットの組み合わせを試してください。",
+			"parse": "サイトからの応答を解析できませんでした。サイト側で動画の配信方法が変わった可能性があります。Arroxy は起動時にダウンロードエンジンを自動更新します — 修正が配信されるまで数分待ってから再試行してください。",
 			"network": "ネットワークエラーです。接続を確認して再試行してください。",
-			"drmProtected": "この動画はDRM保護されています。yt-dlpはDRMを解除できないため、ファイルをダウンロードできません。",
+			"drmProtected": "この動画はDRM保護されています。ArroxyはDRMを解除できないため、ファイルをダウンロードできません。",
 			"loginRequired": "この動画にはサインイン済みのアカウントが必要です。",
 			"unknown": "ダウンロードに失敗しました。下の生の出力を確認してください。"
 		}
@@ -908,7 +908,7 @@
 			"title": "Arroxy内でYouTubeを閲覧",
 			"body": "動画・プレイリスト・チャンネルを見つけて、リンクをコピーせずにここからダウンロードできます。アカウントが必要な動画をダウンロードするには、ここでYouTubeにログインしてください。",
 			"riskTitle": "サブアカウントでログインしてください",
-			"riskBody": "YouTubeは、yt-dlpなどのダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。",
+			"riskBody": "YouTubeは、Arroxyなどのダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。",
 			"continue": "続行"
 		},
 		"nudge": {

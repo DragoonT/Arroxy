@@ -211,15 +211,15 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr ""
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
 msgstr ""
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
-msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
 msgstr ""
 
 msgctxt "errors.ytdlp.drmProtected"
-msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
 msgstr ""
 
 msgctxt "errors.ytdlp.geoBlocked"
@@ -235,7 +235,7 @@ msgid "This video needs a signed-in account."
 msgstr ""
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
 msgstr ""
 
 msgctxt "errors.ytdlp.network"
@@ -251,11 +251,11 @@ msgid "Arroxy can't write to the download folder. It may be read-only, on a lock
 msgstr ""
 
 msgctxt "errors.ytdlp.parse"
-msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
 msgstr ""
 
 msgctxt "errors.ytdlp.postprocessFailure"
-msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
 msgstr ""
 
 msgctxt "errors.ytdlp.rateLimit"
@@ -271,7 +271,7 @@ msgid "Download failed. See the raw output below."
 msgstr ""
 
 msgctxt "errors.ytdlp.unsupportedUrl"
-msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
 msgstr ""
 
 msgctxt "explore.error.loadBody"
@@ -327,7 +327,7 @@ msgid "Continue"
 msgstr ""
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
 msgstr ""
 
 msgctxt "explore.notice.riskTitle"
@@ -1813,7 +1813,7 @@ msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr ""
 
 msgctxt "status.startingYtdlp"
-msgid "Starting yt-dlp process…"
+msgid "Starting the download engine…"
 msgstr ""
 
 msgctxt "status.subtitlesFailed"
@@ -1829,11 +1829,11 @@ msgid "Downloaded with relaxed extractor — set up a cookies.txt for more relia
 msgstr ""
 
 msgctxt "status.ytdlpExitCode"
-msgid "yt-dlp exited with code {{code}}"
+msgid "The download engine exited with code {{code}}"
 msgstr ""
 
 msgctxt "status.ytdlpProcessError"
-msgid "yt-dlp process error: {{error}}"
+msgid "Download engine error: {{error}}"
 msgstr ""
 
 msgctxt "theme.dark"
@@ -2316,7 +2316,7 @@ msgid "Cookies are read directly from the browser. If the browser is currently r
 msgstr ""
 
 msgctxt "wizard.formats.cookiesError.explanationFile"
-msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr ""
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
@@ -2368,7 +2368,7 @@ msgid "Cookies might be the cause"
 msgstr ""
 
 msgctxt "wizard.formats.cookiesError.needsCookies.body"
-msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
 msgstr ""
 
 msgctxt "wizard.formats.cookiesError.needsCookies.heading"
@@ -2656,7 +2656,7 @@ msgid "Playlist probe limit: {{count}} items"
 msgstr ""
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
 msgstr ""
 
 msgctxt "wizard.mixedPrompt.quickBody"
@@ -2684,7 +2684,7 @@ msgid "Download whole playlist"
 msgstr ""
 
 msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgid "Loads only this video. The playlist attached to this URL is ignored."
 msgstr ""
 
 msgctxt "wizard.mixedPrompt.singleVideo"
@@ -4016,7 +4016,7 @@ msgid "downloads"
 msgstr ""
 
 msgctxt "wizard.url.cookies.banWarning"
-msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
 msgstr ""
 
 msgctxt "wizard.url.cookies.browserHelp"
@@ -4412,7 +4412,7 @@ msgid "{{count}} items"
 msgstr ""
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr ""
 
 msgctxt "wizard.url.playlistScope.appLimit"
@@ -4440,7 +4440,7 @@ msgid "Change"
 msgstr ""
 
 msgctxt "wizard.url.playlistScope.dialogDescription"
-msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgid "Choose what Arroxy loads for this playlist."
 msgstr ""
 
 msgctxt "wizard.url.playlistScope.dialogTitle"

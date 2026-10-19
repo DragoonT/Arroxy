@@ -209,16 +209,16 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Video ini dikenai pembatasan usia dan tidak dapat diunduh tanpa akun yang masuk."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
-msgstr "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui yt-dlp secara otomatis saat peluncuran, sehingga perbaikan dilakukan secara otomatis setelah upstream mengirimkannya."
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui mesin pengunduhnya saat peluncuran, sehingga perbaikan diterapkan secara otomatis setelah dirilis."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
-msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
-msgstr "Server terus memotong unduhan di tengah-tengah streaming dan yt-dlp menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah."
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Server terus memotong unduhan di tengah-tengah streaming dan Arroxy menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah."
 
 msgctxt "errors.ytdlp.drmProtected"
-msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
-msgstr "Video ini dilindungi DRM. yt-dlp tidak dapat menghapus DRM, sehingga file tidak dapat diunduh."
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Video ini dilindungi DRM. Arroxy tidak dapat menghapus DRM, sehingga file tidak dapat diunduh."
 
 msgctxt "errors.ytdlp.geoBlocked"
 msgid "This video is not available in your region."
@@ -233,8 +233,8 @@ msgid "This video needs a signed-in account."
 msgstr "Video ini memerlukan akun yang sudah masuk."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
-msgstr "yt-dlp tidak dapat menemukan ffmpeg atau ffprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi."
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy tidak dapat menemukan FFmpeg atau FFprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -249,12 +249,12 @@ msgid "Arroxy can't write to the download folder. It may be read-only, on a lock
 msgstr "Arroxy tidak dapat menulis ke folder unduhan. Folder itu mungkin hanya-baca, berada di drive yang terkunci, atau diblokir oleh pengaturan privasi sistem Anda. Pilih folder lain atau izinkan akses, lalu coba lagi."
 
 msgctxt "errors.ytdlp.parse"
-msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
-msgstr "Tidak dapat menguraikan respons dari situs. Ekstraktor yt-dlp mungkin melayang. Arroxy memperbarui secara otomatis yt-dlp saat peluncuran — coba lagi dalam beberapa menit setelah perbaikan dikirimkan."
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Tidak dapat menguraikan respons dari situs. Situs mungkin telah mengubah cara menyajikan video. Arroxy memperbarui mesin pengunduhnya saat peluncuran — coba lagi dalam beberapa menit setelah perbaikan dirilis."
 
 msgctxt "errors.ytdlp.postprocessFailure"
-msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
-msgstr "yt-dlp selesai diunduh tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain."
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Unduhan selesai, tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain."
 
 msgctxt "errors.ytdlp.rateLimit"
 msgid "The site is rate-limiting requests from this connection."
@@ -269,8 +269,8 @@ msgid "Download failed. See the raw output below."
 msgstr "Pengunduhan gagal. Lihat keluaran mentahnya di bawah."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
-msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "URL tersebut tidak didukung oleh yt-dlp. Coba tautan lain dari situs mana pun yang didukung yt-dlp."
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy tidak mendukung URL ini. Coba tautan dari situs lain."
 
 msgctxt "explore.error.loadBody"
 msgid "Check your connection, then try again."
@@ -325,8 +325,8 @@ msgid "Continue"
 msgstr "Lanjutkan"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
-msgstr "YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti yt-dlp. Gunakan akun yang rela Anda kehilangan, bukan akun utama."
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti Arroxy. Gunakan akun yang rela Anda kehilangan, bukan akun utama."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
@@ -1786,8 +1786,8 @@ msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr "Menunggu {{seconds}} untuk menghindari batas kecepatan…"
 
 msgctxt "status.startingYtdlp"
-msgid "Starting yt-dlp process…"
-msgstr "Memulai proses yt-dlp…"
+msgid "Starting the download engine…"
+msgstr "Memulai mesin pengunduh…"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"
@@ -1802,12 +1802,12 @@ msgid "Downloaded with relaxed extractor — set up a cookies.txt for more relia
 msgstr "Diunduh dengan ekstraktor santai — siapkan cookies.txt untuk pengunduhan yang lebih andal"
 
 msgctxt "status.ytdlpExitCode"
-msgid "yt-dlp exited with code {{code}}"
-msgstr "yt-dlp keluar dengan kode {{code}}"
+msgid "The download engine exited with code {{code}}"
+msgstr "Mesin pengunduh keluar dengan kode {{code}}"
 
 msgctxt "status.ytdlpProcessError"
-msgid "yt-dlp process error: {{error}}"
-msgstr "Kesalahan proses yt-dlp: {{error}}"
+msgid "Download engine error: {{error}}"
+msgstr "Kesalahan mesin pengunduh: {{error}}"
 
 msgctxt "theme.dark"
 msgid "Dark mode"
@@ -2268,8 +2268,8 @@ msgid "Cookies are read directly from the browser. If the browser is currently r
 msgstr "Cookie dibaca langsung dari browser. Jika browser sedang berjalan, database cookie-nya mungkin terkunci (keluarga Chromium). Browser juga harus masuk ke YouTube. Coba tutup browser, beralih ke browser lain, beralih ke mode File, atau matikan cookie."
 
 msgctxt "wizard.formats.cookiesError.explanationFile"
-msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
-msgstr "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (yt-dlp mengharapkan Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie."
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (Arroxy memerlukan file Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
@@ -2320,8 +2320,8 @@ msgid "Cookies might be the cause"
 msgstr "Cookie mungkin menjadi penyebabnya"
 
 msgctxt "wizard.formats.cookiesError.needsCookies.body"
-msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
-msgstr "yt-dlp tidak dapat mengakses video ini tanpa autentikasi. Konfigurasikan cookie dalam pengaturan lanjutan — arahkan cookie ke browser yang sudah Anda masuki, atau impor file cookies.txt."
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy tidak dapat mengakses video ini tanpa autentikasi. Konfigurasikan cookie dalam pengaturan lanjutan — arahkan cookie ke browser yang sudah Anda masuki, atau impor file cookies.txt."
 
 msgctxt "wizard.formats.cookiesError.needsCookies.heading"
 msgid "This site requires sign-in"
@@ -2608,8 +2608,8 @@ msgid "Playlist probe limit: {{count}} items"
 msgstr "Batas pemeriksaan daftar putar: item {{count}}"
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
-msgstr "Menggunakan mode daftar putar yt-dlp dan mengambil hingga batas pemeriksaan daftar putar Anda sebelum menampilkan alat pilih."
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Memuat daftar putar, hingga batas pemeriksaan daftar putar Anda, sebelum menampilkan alat pilih."
 
 msgctxt "wizard.mixedPrompt.quickBody"
 msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
@@ -2636,8 +2636,8 @@ msgid "Download whole playlist"
 msgstr "Unduh seluruh daftar putar"
 
 msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
-msgstr "Menggunakan mode video tunggal yt-dlp sehingga playlist yang dilampirkan ke URL ini diabaikan."
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Hanya memuat video ini. Daftar putar yang terlampir pada URL ini diabaikan."
 
 msgctxt "wizard.mixedPrompt.singleVideo"
 msgid "Just this one"
@@ -3929,8 +3929,8 @@ msgid "downloads"
 msgstr "unduhan"
 
 msgctxt "wizard.url.cookies.banWarning"
-msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
-msgstr "Situs seperti YouTube mungkin menandai — dan terkadang melarang — akun yang cookie-nya digunakan oleh yt-dlp. Gunakan akun sekali pakai jika memungkinkan."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Situs seperti YouTube mungkin menandai — dan terkadang melarang — akun yang cookie-nya digunakan oleh alat pengunduh seperti Arroxy. Gunakan akun sekali pakai jika memungkinkan."
 
 msgctxt "wizard.url.cookies.browserHelp"
 msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
@@ -4325,8 +4325,8 @@ msgid "{{count}} items"
 msgstr "item {{count}}"
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Memetakan ke yt-dlp --playlist-end: Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
 
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
@@ -4353,8 +4353,8 @@ msgid "Change"
 msgstr "Ubah"
 
 msgctxt "wizard.url.playlistScope.dialogDescription"
-msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
-msgstr "Pilih apa yang diminta Arroxy kepada yt-dlp untuk dimuat dari daftar putar ini."
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Pilih apa yang dimuat Arroxy untuk daftar putar ini."
 
 msgctxt "wizard.url.playlistScope.dialogTitle"
 msgid "Playlist scope"

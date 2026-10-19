@@ -219,16 +219,16 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Овај видео је ограничен по старости и не може се преузети без пријављеног налога."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
-msgstr "Покренута је заштита од ботова. IP адреса коју користиш је највероватније означена (опсег дата центра или прометан VPN излаз). Промени IP адресу или одабери другачији VPN сервер и покушај поново. Ако проблем и даље постоји, можда се ради о привременој промени на страни YouTube-а — Arroxy аутоматски ажурира yt-dlp при покретању, тако да ће исправка стићи аутоматски чим је буде објавио узводни пројекат."
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Покренута је заштита од ботова. IP адреса коју користиш је највероватније означена (опсег дата центра или прометан VPN излаз). Промени IP адресу или одабери другачији VPN сервер и покушај поново. Ако проблем и даље постоји, можда се ради о привременој промени на страни сајта — Arroxy ажурира механизам за преузимање при покретању, тако да ће исправка стићи аутоматски чим буде објављена."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
-msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
-msgstr "Сервер је стално прекидао преузимање насред потока, а yt-dlp се предао после неколико покушаја. Ово се најчешће дешава са највећим видео форматима (4K HDR / VP9 високог битрејта). Покушај поново, промени мрежу или VPN, или изабери формат нижег квалитета."
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Сервер је стално прекидао преузимање насред тока, а Arroxy је одустао после неколико покушаја. Ово се најчешће дешава са највећим видео форматима (4K HDR / VP9 високог битрејта). Покушај поново, промени мрежу или VPN, или изабери формат нижег квалитета."
 
 msgctxt "errors.ytdlp.drmProtected"
-msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
-msgstr "Овај видео је заштићен DRM-ом. yt-dlp не може да уклони DRM, па датотека не може бити преузета."
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Овај видео је заштићен DRM-ом. Arroxy не може да уклони DRM, па датотека не може бити преузета."
 
 msgctxt "errors.ytdlp.geoBlocked"
 msgid "This video is not available in your region."
@@ -243,8 +243,8 @@ msgid "This video needs a signed-in account."
 msgstr "За овај видео је потребан пријављен налог."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
-msgstr "yt-dlp није пронашао ffmpeg или ffprobe. Покрени подешавање поново или подеси локацију FFmpeg-а, па понови преузимање."
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy није пронашао FFmpeg или FFprobe. Покрени подешавање поново или подеси локацију FFmpeg-а, па понови преузимање."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -259,12 +259,12 @@ msgid "Arroxy can't write to the download folder. It may be read-only, on a lock
 msgstr "Arroxy не може да пише у фасциклу за преузимања. Можда је само за читање, на закључаном диску или је блокирана подешавањима приватности система. Изабери другу фасциклу или дозволи приступ, па покушај поново."
 
 msgctxt "errors.ytdlp.parse"
-msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
-msgstr "Није било могуће парсирати одговор сајта. yt-dlp екстрактор је можда застарео. Arroxy аутоматски ажурира yt-dlp при покретању — покушај поново за неколико минута када стигне исправка."
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Није било могуће парсирати одговор сајта. Сајт је можда променио начин на који служи видео снимке. Arroxy ажурира механизам за преузимање при покретању — покушај поново за неколико минута када исправка буде објављена."
 
 msgctxt "errors.ytdlp.postprocessFailure"
-msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
-msgstr "yt-dlp је завршио преузимање, али је накнадна обрада (спајање / mux / конверзија) пропала. Често је ово пролазни проблем са ffmpeg-ом — покушај поново, а ако се настави, испробај другу комбинацију формата."
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Преузимање је завршено, али накнадна обрада (спајање / mux / конверзија) није успела. Често је ово пролазни проблем са ffmpeg-ом — покушај поново, а ако се настави, испробај другу комбинацију формата."
 
 msgctxt "errors.ytdlp.rateLimit"
 msgid "The site is rate-limiting requests from this connection."
@@ -279,8 +279,8 @@ msgid "Download failed. See the raw output below."
 msgstr "Преузимање није успело. Погледај сирови излаз испод."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
-msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "Тај URL није подржан у yt-dlp. Пробајте други линк са било ког сајта који yt-dlp подржава."
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy не подржава ову URL адресу. Пробај везу са другог сајта."
 
 msgctxt "explore.error.loadBody"
 msgid "Check your connection, then try again."
@@ -335,8 +335,8 @@ msgid "Continue"
 msgstr "Настави"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
-msgstr "YouTube може да означи — а понекад и забрани — налоге који се користе са алатима за преузимање као што је yt-dlp. Користи налог који ти није жао да изгубиш, а не главни."
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTube може да означи — а понекад и забрани — налоге који се користе са алатима за преузимање као што је Arroxy. Користи налог који ти није жао да изгубиш, а не главни."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
@@ -1886,8 +1886,8 @@ msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr "Чекање {{seconds}}с да би се избегла ограничења брзине…"
 
 msgctxt "status.startingYtdlp"
-msgid "Starting yt-dlp process…"
-msgstr "Покретање yt-dlp процеса…"
+msgid "Starting the download engine…"
+msgstr "Покретање механизма за преузимање…"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"
@@ -1902,12 +1902,12 @@ msgid "Downloaded with relaxed extractor — set up a cookies.txt for more relia
 msgstr "Преузето са опуштеним ektraktором — подеси cookies.txt за поузданија преузимања"
 
 msgctxt "status.ytdlpExitCode"
-msgid "yt-dlp exited with code {{code}}"
-msgstr "yt-dlp је завршио са кодом {{code}}"
+msgid "The download engine exited with code {{code}}"
+msgstr "Механизам за преузимање је завршио са кодом {{code}}"
 
 msgctxt "status.ytdlpProcessError"
-msgid "yt-dlp process error: {{error}}"
-msgstr "Грешка yt-dlp процеса: {{error}}"
+msgid "Download engine error: {{error}}"
+msgstr "Грешка механизма за преузимање: {{error}}"
 
 msgctxt "theme.dark"
 msgid "Dark mode"
@@ -2448,8 +2448,8 @@ msgid "Cookies are read directly from the browser. If the browser is currently r
 msgstr "Cookies се читају директно из прегледача. Ако је прегледач тренутно покренут, његова база cookies може бити закључана (Chromium породица). Прегледач такође мора бити пријављен на YouTube. Покушај затворити прегледач, пређи на другачији прегледач, пређи у режим „Датотека\" или искључи cookies."
 
 msgctxt "wizard.formats.cookiesError.explanationFile"
-msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
-msgstr "Твоја датотека cookies можда је празна, истекла или у погрешном формату (yt-dlp очекује Netscape cookies.txt). Покушај поново да извезеш cookies, изабери другу датотеку, пређи у режим „Прегледач\" или искључи cookies."
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Твоја датотека cookies можда је празна, истекла или у погрешном формату (Arroxy захтева Netscape cookies.txt датотеку). Покушај поново да извезеш cookies, изабери другу датотеку, пређи у режим „Прегледач“ или искључи cookies."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
@@ -2500,8 +2500,8 @@ msgid "Cookies might be the cause"
 msgstr "Cookies могу бити узрок"
 
 msgctxt "wizard.formats.cookiesError.needsCookies.body"
-msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
-msgstr "yt-dlp није могао да приступи овом видеу без аутентификације. Подеси cookies у напредним подешавањима — одреди прегледач у ком си већ пријављен или увези cookies.txt датотеку."
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy није могао да приступи овом видеу без аутентификације. Подеси cookies у напредним подешавањима — одреди прегледач у ком си већ пријављен или увези cookies.txt датотеку."
 
 msgctxt "wizard.formats.cookiesError.needsCookies.heading"
 msgid "This site requires sign-in"
@@ -2788,8 +2788,8 @@ msgid "Playlist probe limit: {{count}} items"
 msgstr "Limit provere plejliste: {{count}} stavki"
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
-msgstr "Koristi yt-dlp režim plejliste i učitava do vašeg limita pre prikaza birača."
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Учитава плејлисту, до твог ограничења за проверу плејлисте, пре приказа бирача."
 
 msgctxt "wizard.mixedPrompt.quickBody"
 msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
@@ -2816,8 +2816,8 @@ msgid "Download whole playlist"
 msgstr "Преузми целу плејлисту"
 
 msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
-msgstr "Koristi yt-dlp režim za pojedinačni video, pa se plejlista vezana za ovaj URL ignoriše."
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Учитава само овај видео. Плејлиста везана за ову URL адресу се игнорише."
 
 msgctxt "wizard.mixedPrompt.singleVideo"
 msgid "Just this one"
@@ -4239,8 +4239,8 @@ msgid "downloads"
 msgstr "преузимања"
 
 msgctxt "wizard.url.cookies.banWarning"
-msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
-msgstr "YouTube може да означи — а понекад и забрани — налоге чији cookies користи yt-dlp. Ако је могуће, користи привремени налог."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Сајтови као што је YouTube могу да означе — а понекад и забране — налоге чије cookies користе алати за преузимање као што је Arroxy. Ако је могуће, користи привремени налог."
 
 msgctxt "wizard.url.cookies.browserHelp"
 msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
@@ -4635,8 +4635,8 @@ msgid "{{count}} items"
 msgstr "{{count}} ставки"
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Одговара yt-dlp опцији --playlist-end: Arroxy тражи само овај број уноса плејлисте, канала или претраге приликом прављења бирача."
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy тражи само овај број уноса плејлисте, канала или претраге приликом прављења бирача."
 
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
@@ -4663,8 +4663,8 @@ msgid "Change"
 msgstr "Промени"
 
 msgctxt "wizard.url.playlistScope.dialogDescription"
-msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
-msgstr "Изаберите шта Arroxy тражи од yt-dlp да учита за ову плејлисту."
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Изабери шта Arroxy учитава за ову плејлисту."
 
 msgctxt "wizard.url.playlistScope.dialogTitle"
 msgid "Playlist scope"

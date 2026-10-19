@@ -674,7 +674,7 @@ export class ProbeService extends EventEmitter {
 		if (!parseResult.success) {
 			const message = parseResult.error.issues[0]?.message ?? 'yt-dlp output failed schema validation'
 			logger.error('Probe schema validation failed', {attempt, message, url})
-			return {kind: 'failure', error: {kind: 'other', code: 'schema', message: 'Unexpected yt-dlp output shape', details: message} satisfies ProbeError}
+			return {kind: 'failure', error: {kind: 'other', code: 'schema', message: 'Unexpected response from the download engine', details: message} satisfies ProbeError}
 		}
 
 		const info = parseResult.data
