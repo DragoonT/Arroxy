@@ -40,23 +40,42 @@ function takeProgressLogStep(active: ActiveDownload, line: string): boolean {
 }
 
 // A Part of video download is ffmpeg's, which redraws `frame=… size=… time=…`
-// twice a second. Keep the first line of each 10 s of its `elapsed=`. The final
+// twice a second. Start-up is where most failures show, so every line of the
+// first 30 s of its `elapsed=` is kept, then the first of each 10 s. The final
 // summary reads `Lsize=`, so it is not a status line and is always logged.
 const FFMPEG_STATUS_LINE = /^(?:frame=\s*\d+\s.*?)?\bsize=.*\btime=/
-const FFMPEG_ELAPSED = /\belapsed=(\d+):(\d{2}):(\d{2})/
+const FFMPEG_ELAPSED = /\belapsed=(\d+):(\d{2}):(\d{2}(?:\.\d+)?)/
+const FFMPEG_LOG_ALL_SECONDS = 30
 const FFMPEG_LOG_STEP_SECONDS = 10
 
 function takeFfmpegLogStep(active: ActiveDownload, line: string): boolean {
 	const elapsed = FFMPEG_ELAPSED.exec(line)
-	const step = elapsed ? Math.floor((Number(elapsed[1]) * 3600 + Number(elapsed[2]) * 60 + Number(elapsed[3])) / FFMPEG_LOG_STEP_SECONDS) : UNKNOWN_PROGRESS_STEP
-	if (step === active.lastLoggedFfmpegStep) return false
+	const seconds = elapsed ? Number(elapsed[1]) * 3600 + Number(elapsed[2]) * 60 + Number(elapsed[3]) : null
+	const step = seconds === null ? UNKNOWN_PROGRESS_STEP : Math.floor(seconds / FFMPEG_LOG_STEP_SECONDS)
+	const isNewStep = step !== active.lastLoggedFfmpegStep
 	active.lastLoggedFfmpegStep = step
-	return true
+	return isNewStep || (seconds !== null && seconds < FFMPEG_LOG_ALL_SECONDS)
 }
 
-// ffmpeg opens every HLS segment with a line carrying the full signed URL,
-// every few seconds; the `Input #N … from '<url>'` line already names the source.
-const FFMPEG_SEGMENT_OPEN = /^\[[\w#/]+ @ 0x[0-9a-f]+\] Opening '.*' for reading$/
+// ffmpeg opens every HLS segment with a line carrying the full signed URL (the
+// user's IP and signature included). The time between opens is what shows a
+// slow stream, so each is kept as its segment number and host only.
+const FFMPEG_SEGMENT_OPEN = /^(\[[\w#/]+ @ 0x[0-9a-f]+\]) Opening '(.*)' for reading$/
+const SEGMENT_NUMBER = /[/?&](?:go)?sq[/=](\d+)/
+
+function shortSegmentOpen(line: string): string | null {
+	const match = FFMPEG_SEGMENT_OPEN.exec(line)
+	if (!match) return null
+	const [, source, url] = match
+	let host: string
+	try {
+		host = new URL(url ?? '').host
+	} catch {
+		host = 'an unparsable URL'
+	}
+	const segment = SEGMENT_NUMBER.exec(url ?? '')?.[1]
+	return `${source} Opening ${segment === undefined ? '' : `segment ${segment} on `}${host}`
+}
 
 function rememberSubtitlePath(active: ActiveDownload, path: string): void {
 	if (!active.subtitlePaths.includes(path)) active.subtitlePaths.push(path)
@@ -83,8 +102,10 @@ export class ProgressParser {
 				if (takeProgressLogStep(active, line)) logger.debug(line, {jobId, source: 'yt-dlp-progress'})
 			} else if (FFMPEG_STATUS_LINE.test(line)) {
 				if (takeFfmpegLogStep(active, line)) logger.debug(line, {jobId, source: 'yt-dlp-progress'})
-			} else if (!FFMPEG_SEGMENT_OPEN.test(line)) {
-				logger.info(line, {jobId, source: 'yt-dlp-progress'})
+			} else {
+				const segmentOpen = shortSegmentOpen(line)
+				if (segmentOpen !== null) logger.debug(segmentOpen, {jobId, source: 'yt-dlp-progress'})
+				else logger.info(line, {jobId, source: 'yt-dlp-progress'})
 			}
 
 			const event = parseYtDlpOutputLine(line)
