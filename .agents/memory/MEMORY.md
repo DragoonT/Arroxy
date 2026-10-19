@@ -26,3 +26,4 @@
 - [macOS ffmpeg cannot verify HTTPS](macos-ffmpeg-cannot-verify-https.md) — embedded macOS ffmpeg has a dead CA path; fixed via SSL_CERT_FILE; the HTTP-only fixture E2E cannot see TLS bugs, so live-smoke anything where ffmpeg opens a URL.
 - [No betas](no-betas.md) — stable releases only; never gate a rollout on a `-beta.N`, use pre-merge evidence or shadow mode in a normal release.
 - [Probe source fixtures](probe-source-fixtures.md) — real probes of many sites as snapshots and "Real sites" mock scenarios; check Format-screen changes against them first.
+- [Changelog stays laconic](changelog-laconic.md) — CHANGELOG entries: one or two user-facing sentences, no internals, no exact sizes; read before writing release notes.
