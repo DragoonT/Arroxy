@@ -372,6 +372,157 @@ describe('BinaryDownloader', () => {
 		}
 	})
 
+	it('keeps resuming past the retry cap while every attempt adds bytes', async () => {
+		// The cap is for attempts that add nothing. A mobile link that drops every
+		// few minutes but keeps moving forward has to finish, however many drops.
+		const body = Buffer.from(Array.from({length: 4096}, (_, index) => index % 251))
+		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'binary-downloader-'))
+		const destination = path.join(dir, 'flaky.bin')
+		const ranges: Array<string | undefined> = []
+
+		try {
+			await withServer(
+				(req, res) => {
+					ranges.push(req.headers.range)
+					const start = Number(/bytes=(\d+)-/.exec(req.headers.range ?? '')?.[1] ?? 0)
+					const headers = start === 0 ? {'content-length': String(body.length)} : {'content-length': String(body.length - start), 'content-range': `bytes ${start}-${body.length - 1}/${body.length}`}
+					res.writeHead(start === 0 ? 200 : 206, headers)
+					const end = Math.min(start + 512, body.length)
+					if (end === body.length) {
+						res.end(body.subarray(start))
+						return
+					}
+					res.write(body.subarray(start, end))
+					setImmediate(() => res.destroy())
+				},
+				async url => {
+					await downloadFile(url, destination, undefined, {partialRetryLimit: 2})
+				}
+			)
+
+			await expect(fs.readFile(destination)).resolves.toEqual(body)
+			expect(ranges).toHaveLength(8)
+		} finally {
+			await fs.rm(dir, {recursive: true, force: true})
+		}
+	})
+
+	it('keeps the partial file after a cancel so the next try resumes', async () => {
+		const body = Buffer.from(Array.from({length: 4096}, (_, index) => index % 251))
+		const cache = await cacheRoot()
+		const controller = new AbortController()
+		const ranges: Array<string | undefined> = []
+
+		try {
+			await withServer(
+				(req, res) => {
+					ranges.push(req.headers.range)
+					if (!req.headers.range) {
+						res.writeHead(200, {'content-length': String(body.length)})
+						res.write(body.subarray(0, 1024))
+						return
+					}
+					const start = Number(/bytes=(\d+)-/.exec(req.headers.range)?.[1] ?? 0)
+					res.writeHead(206, {'content-length': String(body.length - start), 'content-range': `bytes ${start}-${body.length - 1}/${body.length}`})
+					res.end(body.subarray(start))
+				},
+				async url => {
+					const options = {urls: [url], cacheRoot: cache, key: 'resume-after-cancel', sha256: sha256(body), size: body.length}
+					await expect(
+						downloadArtifactToCache({
+							...options,
+							signal: controller.signal,
+							onProgress: downloaded => {
+								if (downloaded >= 1024) controller.abort(new Error('test abort'))
+							}
+						})
+					).rejects.toThrow()
+
+					const result = await downloadArtifactToCache(options)
+					expect(result.size).toBe(body.length)
+				}
+			)
+
+			expect(ranges).toEqual([undefined, 'bytes=1024-'])
+		} finally {
+			await fs.rm(cache, {recursive: true, force: true})
+		}
+	})
+
+	it('resumes on the next URL from the bytes an earlier URL delivered', async () => {
+		const body = Buffer.from(Array.from({length: 4096}, (_, index) => index % 251))
+		const cache = await cacheRoot()
+		const requests: Array<{url: string | undefined; range: string | undefined}> = []
+
+		try {
+			await withServer(
+				(req, res) => {
+					requests.push({url: req.url, range: req.headers.range})
+					if (req.url === '/dropping') {
+						res.writeHead(200, {'content-length': String(body.length)})
+						res.write(body.subarray(0, 1024))
+						setImmediate(() => res.destroy())
+						return
+					}
+					const start = Number(/bytes=(\d+)-/.exec(req.headers.range ?? '')?.[1] ?? 0)
+					res.writeHead(206, {'content-length': String(body.length - start), 'content-range': `bytes ${start}-${body.length - 1}/${body.length}`})
+					res.end(body.subarray(start))
+				},
+				async url => {
+					const result = await downloadArtifactToCache({urls: [`${url}/dropping`, `${url}/mirror`], cacheRoot: cache, key: 'mirror-resume', sha256: sha256(body), size: body.length, partialRetryLimit: 0})
+					expect(result.size).toBe(body.length)
+				}
+			)
+
+			expect(requests).toEqual([
+				{url: '/dropping', range: undefined},
+				{url: '/mirror', range: 'bytes=1024-'}
+			])
+		} finally {
+			await fs.rm(cache, {recursive: true, force: true})
+		}
+	})
+
+	it('retries a mirror from byte zero when the bytes it resumed onto fail verification', async () => {
+		// The kept partial may hold a bad prefix from an earlier URL. A healthy mirror
+		// must still get a clean try instead of failing on someone else's bytes.
+		const body = Buffer.from(Array.from({length: 4096}, (_, index) => index % 251))
+		const cache = await cacheRoot()
+		const requests: Array<{url: string | undefined; range: string | undefined}> = []
+
+		try {
+			await withServer(
+				(req, res) => {
+					requests.push({url: req.url, range: req.headers.range})
+					if (req.url === '/corrupt') {
+						res.writeHead(200, {'content-length': String(body.length)})
+						res.write(Buffer.alloc(1024, 0xff))
+						setImmediate(() => res.destroy())
+						return
+					}
+					const start = Number(/bytes=(\d+)-/.exec(req.headers.range ?? '')?.[1] ?? 0)
+					const headers = start === 0 ? {'content-length': String(body.length)} : {'content-length': String(body.length - start), 'content-range': `bytes ${start}-${body.length - 1}/${body.length}`}
+					res.writeHead(start === 0 ? 200 : 206, headers)
+					res.end(body.subarray(start))
+				},
+				async url => {
+					const result = await downloadArtifactToCache({urls: [`${url}/corrupt`, `${url}/mirror`], cacheRoot: cache, key: 'mirror-fresh-retry', sha256: sha256(body), size: body.length, partialRetryLimit: 0})
+					const copied = path.join(cache, 'fresh.bin')
+					await copyCachedArtifactToFile(cache, 'mirror-fresh-retry', copied, {integrity: result.integrity, size: body.length})
+					await expect(fs.readFile(copied)).resolves.toEqual(body)
+				}
+			)
+
+			expect(requests).toEqual([
+				{url: '/corrupt', range: undefined},
+				{url: '/mirror', range: 'bytes=1024-'},
+				{url: '/mirror', range: undefined}
+			])
+		} finally {
+			await fs.rm(cache, {recursive: true, force: true})
+		}
+	})
+
 	it('cancels promptly when aborted before the response headers arrive', async () => {
 		// make-fetch-happen retries an AbortError raised during the request phase
 		// like any network failure (its RETRY_ERRORS list has no abort code, and
