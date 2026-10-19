@@ -439,14 +439,26 @@ describe('incomplete cookies config guard', () => {
 		expect(screen.getByTestId('quick-download-cookies-settings')).toBeInTheDocument()
 	})
 
-	it('keeps cookie export help links with the cookies source controls', () => {
+	it('shows cookie export help and the cookies.txt risk only in file mode', () => {
+		resetStore(buildSettings({cookiesMode: 'file'}))
 		render(<StepUrlInput />)
 		openSettingsTab()
 
-		const cookiesSource = screen.getByTestId('cookies-source')
-		expect(within(cookiesSource).getByTestId('cookies-help-link')).toBeInTheDocument()
-		expect(within(cookiesSource).getByTestId('cookies-firefox-link')).toBeInTheDocument()
-		expect(within(cookiesSource).getByTestId('cookies-chrome-link')).toBeInTheDocument()
+		expect(screen.getByTestId('cookies-help-link')).toBeInTheDocument()
+		expect(screen.getByTestId('cookies-firefox-link')).toBeInTheDocument()
+		expect(screen.getByTestId('cookies-chrome-link')).toBeInTheDocument()
+		expect(screen.getByText(/a cookies\.txt contains every logged-in session/)).toBeInTheDocument()
+	})
+
+	it.each(['explore', 'browser', 'off'] as const)('hides cookie export help and the cookies.txt risk in %s mode', cookiesMode => {
+		resetStore(buildSettings({cookiesMode, cookiesBrowser: 'firefox'}))
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		expect(screen.queryByTestId('cookies-help-link')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('cookies-firefox-link')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('cookies-chrome-link')).not.toBeInTheDocument()
+		expect(screen.queryByText(/a cookies\.txt contains every logged-in session/)).not.toBeInTheDocument()
 	})
 
 	it('blocks fetch and opens a modal when file mode has no path', async () => {
