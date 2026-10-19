@@ -85,8 +85,11 @@ function postprocessPhase(line: string): YtDlpPostprocessPhase | null {
 	return null
 }
 
+// Only yt-dlp's own `[download]  42.0% of …` line carries a percent. Other
+// lines may hold a `N%` that is no progress: ffmpeg's banner prints the media
+// URL, whose encoded commas read as one (`met=1792423725%2C`).
 function parsePercentFromLine(line: string): number | undefined {
-	const match = /(\d+(?:\.\d+)?)%/.exec(line)
+	const match = /^\[download\]\s+(\d+(?:\.\d+)?)%/.exec(line)
 	if (!match?.[1]) return undefined
 	const parsed = Number.parseFloat(match[1])
 	return Number.isNaN(parsed) ? undefined : parsed
