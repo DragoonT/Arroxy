@@ -222,3 +222,28 @@ describe('ProgressFormatter', () => {
 		expect(formatter.update(downloadLine('Unknown B/s', 'Unknown'))).toBeNull()
 	})
 })
+
+// A Part of video download is ffmpeg's. Its `speed=0.44x` and `time=` say how
+// fast and how far it writes the part, which means nothing to the user; the row
+// shows what a whole download shows instead: transfer rate and time left.
+describe('ProgressFormatter — Part of video', () => {
+	const PART_SECONDS = 154
+
+	it('shows the transfer rate and the time left of the part', () => {
+		const formatter = new ProgressFormatter(PART_SECONDS)
+		const line = 'frame=  418 fps= 14 q=-1.0 size=   34816KiB time=00:00:12.89 bitrate=22119.8kbits/s speed=0.442x elapsed=0:00:29.17'
+		// 22119.8 kbit/s × 0.442 = 1.17 MiB/s; (154 − 12.89) s / 0.442 = 5:19.
+		expect(formatter.update(line)).toBe('1.17MiB/s • ETA 5:19')
+	})
+
+	it('shows nothing during the pre-roll, before ffmpeg knows its speed', () => {
+		const formatter = new ProgressFormatter(PART_SECONDS)
+		expect(formatter.update('frame=    0 fps=0.0 q=-1.0 size=       1KiB time=-00:00:06.96 bitrate=N/A speed=N/A elapsed=0:00:00.50')).toBeNull()
+	})
+
+	it('keeps the last detail when a line lacks the rate', () => {
+		const formatter = new ProgressFormatter(PART_SECONDS)
+		const first = formatter.update('frame=  418 fps= 14 q=-1.0 size=   34816KiB time=00:00:12.89 bitrate=22119.8kbits/s speed=0.442x elapsed=0:00:29.17')
+		expect(formatter.update('frame=  419 fps= 14 q=-1.0 size=   34816KiB time=00:00:12.93 bitrate=N/A speed=0.44x elapsed=0:00:29.67')).toBe(first)
+	})
+})

@@ -31,6 +31,31 @@ export function formatEta(seconds: number): string {
 	return `${m}:${String(s).padStart(2, '0')}`
 }
 
+// yt-dlp's own spelling (`1.17MiB/s`), so a Part row reads like any other.
+const RATE_UNITS = [
+	['GiB', 1024 ** 3],
+	['MiB', 1024 ** 2],
+	['KiB', 1024]
+] as const
+
+function formatBps(bytesPerSecond: number): string {
+	const [unit, size] = RATE_UNITS.find(([, size]) => bytesPerSecond >= size) ?? ['B', 1]
+	return `${(bytesPerSecond / size).toFixed(2)}${unit}/s`
+}
+
+// One ffmpeg status line of a Part download, as transfer rate and time left.
+// ffmpeg's `speed` is how many seconds of the part it writes per second, and
+// `bitrate` (kbit/s) what one second of it weighs, so their product is the rate.
+function ffmpegPartDetail(line: string, partSeconds: number): string | null {
+	const match = /\btime=(\d+):(\d{2}):(\d{2}(?:\.\d+)?).*?\bbitrate=\s*([\d.]+)kbits\/s.*?\bspeed=\s*([\d.]+)x/.exec(line)
+	if (!match) return null
+	const written = Number(match[1]) * 3600 + Number(match[2]) * 60 + Number(match[3])
+	const speed = Number(match[5])
+	if (!(speed > 0)) return null
+	const bytesPerSecond = (Number(match[4]) * 1000 * speed) / 8
+	return `${formatBps(bytesPerSecond)} • ETA ${formatEta(Math.max(0, partSeconds - written) / speed)}`
+}
+
 const THROTTLE_MS = 1000
 // yt-dlp resets its averaging window at every fragment boundary, producing
 // ~6 lines where speed plummets 50–200× and ETA spikes to hours. Suppress
@@ -45,7 +70,14 @@ export class ProgressFormatter {
 	private lastEmitTime = 0
 	private lastDetail: string | null = null
 
+	// `partSeconds`: the length of the Part of video this job downloads, if any.
+	constructor(private readonly partSeconds: number | null = null) {}
+
 	update(line: string): string | null {
+		if (this.partSeconds !== null && /\btime=-?\d/.test(line)) {
+			this.lastDetail = ffmpegPartDetail(line, this.partSeconds) ?? this.lastDetail
+			return this.lastDetail
+		}
 		const ffmpegRe = /time=(\d{2}:\d{2}:\d{2}).*?speed=\s*(\S+x)/
 		const ffmpegMatch = ffmpegRe.exec(line)
 		// The detail renders beside the translated status badge, so it holds
