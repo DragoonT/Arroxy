@@ -5,7 +5,8 @@ import os from 'node:os'
 import path from 'node:path'
 import {deflateRawSync} from 'node:zlib'
 import {describe, expect, it} from 'vite-plus/test'
-import {ArtifactMaterializeError, RuntimeBinaryMaterializer} from '@main/services/binary/RuntimeBinaryMaterializer.js'
+import {ArtifactMaterializeError} from '@main/services/binary/ArtifactInstall.js'
+import {RuntimeBinaryMaterializer} from '@main/services/binary/RuntimeBinaryMaterializer.js'
 import type {RuntimeBinaryManifestEntry} from '@shared/types.js'
 import {runtimeBinaryCacheKey} from '@shared/runtimeBinaryManifest.js'
 
@@ -201,6 +202,27 @@ describe('RuntimeBinaryMaterializer', () => {
 				requests++
 			}
 		)
+	})
+
+	// The splash treats a download start as "setup is running"; a cache hit
+	// announcing one made every warm launch flash the setup screen.
+	it('announces a download only when it has to download', async () => {
+		const body = Buffer.from('fake ytdlp')
+		await withServer(body, async url => {
+			const root = await cacheRoot()
+			const materializer = new RuntimeBinaryMaterializer()
+			const entry = entryFor(body, {url})
+			const starts: string[] = []
+			const onDownloadStart = (): void => {
+				starts.push('start')
+			}
+
+			await materializer.materialize(entry, {cacheRoot: root, onDownloadStart})
+			await materializer.materialize(entry, {cacheRoot: root, onDownloadStart})
+
+			expect(starts).toEqual(['start'])
+			await fs.rm(root, {recursive: true, force: true})
+		})
 	})
 
 	it('reports extraction before staging a verified artifact', async () => {

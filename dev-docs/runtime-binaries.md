@@ -9,19 +9,50 @@
 | Manifest generator           | `scripts/build/runtimeBinaryManifest.ts`            |
 | Runtime resolver             | `src/main/services/BinaryManager.ts`                |
 | Bundled fallback index       | `src/main/services/binary/BundledRuntimeBinaryIndex.ts` |
+| Approved FFmpeg packages     | `src/main/services/binary/FfmpegPackagePins.ts`     |
 | Local manifest dev wrapper   | `scripts/with-runtime-manifest.sh`                  |
 
-Arroxy owns yt-dlp runtime updates through a signed runtime-binary manifest. The app does not run `yt-dlp --update`, and it does not resolve upstream yt-dlp `latest` release URLs at runtime.
+Arroxy owns yt-dlp and FFmpeg runtime updates through a signed runtime-binary manifest. The app does not run `yt-dlp --update`, and it does not resolve upstream `latest` release URLs at runtime. FFmpeg packages are covered in [`ffmpeg-packages.md`](ffmpeg-packages.md).
+
+## Releases and schedules
+
+Three kinds of release reach users, each on its own trigger:
+
+| Release | Where | Trigger | Carries | Users get it |
+| ------- | ----- | ------- | ------- | ------------ |
+| App (`v*`) | Arroxy | Manual tag ([`release-runbook.md`](release-runbook.md)) | The app only: no FFmpeg, no yt-dlp | Update banner, checked every 6 h |
+| Runtime manifest (`runtime-YYYY.MM.DD.HHMMSS`) | `arroxy-runtime-binaries` | Daily cron at 07:17 UTC, or a manual run | Signed v1 and v2 manifests | Next app launch |
+| FFmpeg packages (`ffmpeg-YYYY.MM.DD`) | `arroxy-runtime-binaries` | Manual, rare ([`ffmpeg-packages.md`](ffmpeg-packages.md)) | The packages, plus their license and source assets | Only once a manifest lists them |
+
+The daily manifest is generated from Arroxy `main`. Its yt-dlp entries follow yt-dlp's own releases with no action from us. Its FFmpeg entries are the pins committed on `main`. So **merging a change to `FfmpegPackagePins.ts` ships that FFmpeg to every user within about 24 hours, with no app release.** Review a pin change as you would a release.
+
+The manifest workflow lives in the other repository (`.github/workflows/publish-runtime-manifest.yml`):
+
+- It signs and validates v2 only when the generator writes one, and expects exactly the files written: 2 or 4.
+- Validating v2 installs and runs the Linux FFmpeg package.
+- A manual run accepts `arroxy_ref` (default `main`), to generate from an Arroxy branch before it merges. Scheduled runs always use `main`.
+- Each run publishes a new release marked latest. A run that fails leaves the previous latest in place.
+
+## Manifest versions
+
+Two manifests are published side by side, signed with the same key:
+
+| File                   | Read by                  | Entries                          |
+| ---------------------- | ------------------------ | -------------------------------- |
+| `runtime-index-v1.json` | Arroxy 0.6.2 and earlier | yt-dlp only                      |
+| `runtime-index-v2.json` | current builds           | yt-dlp, plus the pinned FFmpeg packages |
+
+v1 must never carry anything but yt-dlp: its readers parse entries with a closed schema, so one FFmpeg entry fails the whole manifest and drops them to stale yt-dlp. v2 skips entry kinds it does not recognise, so adding a kind later does not repeat this. Keep publishing v1 for as long as those versions are in use.
 
 ## Update model
 
 Runtime startup resolves the latest Arroxy runtime manifest from:
 
 ```text
-https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v1.json
+https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v2.json
 ```
 
-That `latest` pointer is for Arroxy's manifest only. The manifest contents must list immutable upstream artifact URLs with concrete release versions, sizes, and SHA-256 hashes. Manifest validation rejects artifact URLs that contain `/latest`, requires HTTPS, and allowlists provider hosts.
+That `latest` pointer is for Arroxy's manifest only, which is why FFmpeg package releases in the same repository are published with `--latest=false`. The manifest contents must list immutable upstream artifact URLs with concrete release versions, sizes, and SHA-256 hashes. Manifest validation rejects artifact URLs that contain `/latest`, requires HTTPS, and allowlists provider hosts.
 
 Each `RuntimeBinaryIndexService` instance loads the index once and caches it in memory. A newly published signed remote manifest is therefore picked up by a fresh app/service run, normally after restart, not by polling during an existing session.
 
@@ -63,7 +94,7 @@ The runtime index source order is separate:
 
 Step 2's URLs can be overridden for debugging with `ARROXY_RUNTIME_INDEX_URL` and `ARROXY_RUNTIME_INDEX_SIG_URL`. Setting either to `off` or `0` disables the remote fetch entirely, which drops the chain to the last-known-good manifest when one exists and to the bundled index otherwise — the quickest way to measure how much of startup the remote index fetch accounts for. Measured on macOS arm64 it is worth about 2.0s of the yt-dlp resolve branch.
 
-The bundled fallback index is intentionally narrow: pinned GitHub stable yt-dlp entries only. It exists to keep first-run dependency resolution possible when the remote manifest cannot be fetched or verified.
+The bundled fallback index is intentionally narrow: pinned GitHub stable yt-dlp entries plus the approved FFmpeg packages. It exists to keep first-run dependency resolution possible when the remote manifest cannot be fetched or verified.
 
 ## Startup timing in the log
 
@@ -88,4 +119,4 @@ bun run dev:runtime-manifest
 bun run dev:local-manifest
 ```
 
-Use `dev:local-manifest` when changing generator behavior and testing the app against a freshly generated signed local manifest.
+Use `dev:local-manifest` when changing generator behavior and testing the app against a freshly generated signed local manifest. `generate` writes v1 to `--out` and v2 next to it (`--out-v2` overrides); `local` writes and signs v2, the file current builds read.
