@@ -12,12 +12,14 @@ import type {TokenService} from './TokenService.js'
 
 const logger = log.scope('warmup')
 
-// Cap any single binary resolve at this. Unbounded network retries on a slow
-// CDN can otherwise hang the splash for a very long time — the user has no
-// out without a Cancel button. We allow a long budget because large Windows
-// ffmpeg archives can take several minutes on slow links, and aborting a
-// still-progressing transfer at 90s proved too aggressive in production.
-const PER_BINARY_BUDGET_MS = 30 * 60 * 1000
+// Stop a binary resolve only once it goes quiet for this long. Any progress
+// event — a downloaded chunk or a phase change — restarts the clock. A
+// wall-clock cap (90s, later 30 minutes) killed transfers that were still
+// progressing: both binaries download at once, so below ~0.3 Mbit/s they could
+// not finish in 30 minutes however often the user retried. The downloader
+// already gives up after 60s without bytes per attempt; this is the backstop for
+// a hang its own timers miss, so the splash can never wait forever.
+const BRANCH_IDLE_LIMIT_MS = 10 * 60 * 1000
 
 // The binary downloader reports progress per network chunk — hundreds of events per
 // second on a fast pipe. Without throttling, the IPC fire-hose plus per-event
@@ -115,9 +117,31 @@ export class WarmupService {
 			sendNow(event)
 		}
 
-		// Per-binary budget combined with user-initiated cancel. AbortSignal.any
-		// resolves with whichever fires first.
-		const budgetSignal = (): AbortSignal => AbortSignal.any([userSignal, AbortSignal.timeout(PER_BINARY_BUDGET_MS)])
+		// Runs one resolver branch under the idle limit, combined with the user's
+		// cancel. Each progress event the branch reports re-arms the limit.
+		const watchBranch = async <T>(branch: WarmupBranch, work: (opts: {signal: AbortSignal; onProgress: (event: WarmupProgressEvent) => void}) => Promise<T>): Promise<T> => {
+			const idle = new AbortController()
+			let timer: NodeJS.Timeout | undefined
+			const rearm = (): void => {
+				clearTimeout(timer)
+				timer = setTimeout(() => {
+					logger.warn('Warmup branch made no progress, stopping it', {branch, idleLimitMs: BRANCH_IDLE_LIMIT_MS})
+					idle.abort(new Error(`No ${branch} setup progress for ${BRANCH_IDLE_LIMIT_MS}ms`))
+				}, BRANCH_IDLE_LIMIT_MS)
+			}
+			rearm()
+			try {
+				return await work({
+					signal: AbortSignal.any([userSignal, idle.signal]),
+					onProgress: event => {
+						rearm()
+						emit(event)
+					}
+				})
+			} finally {
+				clearTimeout(timer)
+			}
+		}
 
 		const startedAt = Date.now()
 		const elapsed: Record<WarmupBranch, number> = {ytDlp: 0, ffmpeg: 0, token: 0}
@@ -163,7 +187,16 @@ export class WarmupService {
 				})
 				.catch(err => logger.warn('Token warmup branch bookkeeping failed', {error: unknownToMessage(err)}))
 
-			const [ytDlpDiag, ffmpegPair] = await Promise.all([timed('ytDlp', binaryManager.resolveYtDlp({onProgress: emit, signal: budgetSignal()})), timed('ffmpeg', binaryManager.resolveFFmpegPair({onProgress: emit, signal: budgetSignal()}))])
+			const [ytDlpDiag, ffmpegPair] = await Promise.all([
+				timed(
+					'ytDlp',
+					watchBranch('ytDlp', opts => binaryManager.resolveYtDlp(opts))
+				),
+				timed(
+					'ffmpeg',
+					watchBranch('ffmpeg', opts => binaryManager.resolveFFmpegPair(opts))
+				)
+			])
 
 			// The record type is the enforcement: a DependencyId with no entry here
 			// is a compile error, not a missing splash row.

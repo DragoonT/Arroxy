@@ -101,19 +101,69 @@ describe('WarmupService', () => {
 		expect((bm.resolveYtDlp as ReturnType<typeof vi.fn>).mock.calls.length).toBe(1)
 	})
 
-	it('uses a 30 minute per-binary warmup budget', async () => {
-		const timeoutSpy = vi.spyOn(AbortSignal, 'timeout').mockImplementation(() => new AbortController().signal)
-		const bm = fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable'})
-		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken})
+	describe('per-branch idle limit', () => {
+		afterEach(() => {
+			vi.useRealTimers()
+		})
 
-		await svc.run()
+		// Holds yt-dlp open with the signal and progress callback it was handed, so a
+		// test can feed progress and watch whether the branch gets aborted.
+		function heldYtDlp(): {bm: BinaryManager; branch: () => {signal: AbortSignal; onProgress: (event: WarmupProgressEvent) => void}; finish: () => void} {
+			let captured: {signal: AbortSignal; onProgress: (event: WarmupProgressEvent) => void} | null = null
+			let finish!: () => void
+			const done = new Promise<DependencyDiagnostic>(resolve => {
+				finish = () => resolve(diag('yt-dlp', 'runnable'))
+			})
+			const bm = {
+				invalidateResolved: vi.fn(),
+				resolveYtDlp: vi.fn().mockImplementation((opts: {signal: AbortSignal; onProgress: (event: WarmupProgressEvent) => void}) => {
+					captured = opts
+					return done
+				}),
+				resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})
+			} as unknown as BinaryManager
+			return {
+				bm,
+				branch: () => {
+					if (!captured) throw new Error('resolveYtDlp was not called')
+					return captured
+				},
+				finish
+			}
+		}
 
-		// The token branch is started before the binary resolves, so its 30s budget
-		// is the first timeout created; the two binary budgets follow.
-		expect(timeoutSpy).toHaveBeenCalledTimes(3)
-		expect(timeoutSpy).toHaveBeenNthCalledWith(1, 30_000)
-		expect(timeoutSpy).toHaveBeenNthCalledWith(2, 1_800_000)
-		expect(timeoutSpy).toHaveBeenNthCalledWith(3, 1_800_000)
+		it('never stops a download that keeps receiving bytes, however long it runs', async () => {
+			vi.useFakeTimers()
+			const {bm, branch, finish} = heldYtDlp()
+			const run = new WarmupService({binaryManager: bm, tokenService: noopToken}).run()
+			const {signal, onProgress} = branch()
+
+			for (let minute = 1; minute <= 90; minute++) {
+				await vi.advanceTimersByTimeAsync(60_000)
+				onProgress({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: minute * 1000, totalBytes: 100_000})
+			}
+
+			expect(signal.aborted).toBe(false)
+			finish()
+			await run
+		})
+
+		it('stops a branch after 10 minutes without any progress', async () => {
+			vi.useFakeTimers()
+			const {bm, branch, finish} = heldYtDlp()
+			const run = new WarmupService({binaryManager: bm, tokenService: noopToken}).run()
+			const {signal, onProgress} = branch()
+
+			await vi.advanceTimersByTimeAsync(5 * 60_000)
+			onProgress({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 10, totalBytes: 100})
+			await vi.advanceTimersByTimeAsync(10 * 60_000 - 1)
+			expect(signal.aborted).toBe(false)
+
+			await vi.advanceTimersByTimeAsync(1)
+			expect(signal.aborted).toBe(true)
+			finish()
+			await run
+		})
 	})
 
 	it('logs each branch as it settles so a hung branch is identifiable by omission', async () => {

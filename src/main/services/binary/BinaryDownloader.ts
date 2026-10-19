@@ -438,9 +438,13 @@ export async function downloadFile(url: string, destination: string, onProgress?
 			return downloadFile(url, destination, onProgress, {...options, allowPartialRetry: false})
 		}
 		const partialSize = await fileSize(partPath)
-		if (allowPartialRetry && !signal?.aborted && partialRetryAttempt < partialRetryLimit && partialSize >= startByte && isRetryablePartialDownloadError(retryableError)) {
-			logger.warn('Partial binary download failed, retrying with range resume', {url, destination, startByte, partialSize, attempt: partialRetryAttempt + 1, limit: partialRetryLimit, error: retryableError instanceof Error ? retryableError.message : String(retryableError)})
-			return downloadFile(url, destination, onProgress, {...options, partialRetryAttempt: partialRetryAttempt + 1})
+		// The cap counts retries since the last attempt that added bytes, so a slow
+		// link that keeps dropping but keeps moving forward is never cut off. Each
+		// such attempt grows the partial file, which bounds the loop by the file size.
+		const retryAttempt = (partialSize > startByte ? 0 : partialRetryAttempt) + 1
+		if (allowPartialRetry && !signal?.aborted && retryAttempt <= partialRetryLimit && partialSize >= startByte && isRetryablePartialDownloadError(retryableError)) {
+			logger.warn('Partial binary download failed, retrying with range resume', {url, destination, startByte, partialSize, attempt: retryAttempt, limit: partialRetryLimit, error: retryableError instanceof Error ? retryableError.message : String(retryableError)})
+			return downloadFile(url, destination, onProgress, {...options, partialRetryAttempt: retryAttempt})
 		}
 		if (retryableError instanceof DownloadStalledError) throw retryableError
 		throw err
@@ -476,28 +480,44 @@ export async function downloadArtifactToCache(options: DownloadArtifactToCacheOp
 
 	const partialDir = path.join(options.cacheRoot, 'partials')
 	const downloadPath = path.join(partialDir, `${hashText(options.key)}.bin`)
+	const fetchAndStore = async (url: string): Promise<CachedArtifactResult> => {
+		await downloadFile(url, downloadPath, options.onProgress, {allowPartialRetry: true, signal: options.signal, stallTimeoutMs: options.stallTimeoutMs, maxDurationMs: options.maxDurationMs, partialRetryLimit: options.partialRetryLimit})
+		const stat = await fsPromises.stat(downloadPath)
+		if (options.size !== undefined && stat.size !== options.size) {
+			throw new DownloadSizeMismatchError(`Artifact size mismatch. Expected ${options.size}, got ${stat.size}`, options.size, stat.size)
+		}
+		try {
+			await pipeline(fs.createReadStream(downloadPath), cacache.put.stream(options.cacheRoot, options.key, {integrity, size: options.size ?? stat.size, metadata: options.metadata, memoize: false}))
+		} catch (err) {
+			mapCacheError(err, options.size)
+		}
+		await fsPromises.rm(downloadPath, {force: true})
+		await fsPromises.rm(`${downloadPath}.part`, {force: true})
+		const info = await cacache.get.info(options.cacheRoot, options.key, {memoize: false})
+		return {cacheRoot: options.cacheRoot, key: options.key, integrity, size: info?.size ?? stat.size}
+	}
+
 	let lastError: unknown = null
 	for (const url of options.urls) {
-		try {
-			await downloadFile(url, downloadPath, options.onProgress, {allowPartialRetry: true, signal: options.signal, stallTimeoutMs: options.stallTimeoutMs, maxDurationMs: options.maxDurationMs, partialRetryLimit: options.partialRetryLimit})
-			const stat = await fsPromises.stat(downloadPath)
-			if (options.size !== undefined && stat.size !== options.size) {
-				throw new DownloadSizeMismatchError(`Artifact size mismatch. Expected ${options.size}, got ${stat.size}`, options.size, stat.size)
-			}
+		// A resumed file joins this URL's bytes onto ones kept from an earlier try,
+		// maybe from another URL. If the joined file fails verification, this URL
+		// still gets one clean try from byte zero before the loop moves on.
+		let resumed = (await fileSize(`${downloadPath}.part`)) > 0
+		for (;;) {
 			try {
-				await pipeline(fs.createReadStream(downloadPath), cacache.put.stream(options.cacheRoot, options.key, {integrity, size: options.size ?? stat.size, metadata: options.metadata, memoize: false}))
+				return await fetchAndStore(url)
 			} catch (err) {
-				mapCacheError(err, options.size)
+				lastError = err
+				// Only the finished-but-rejected file goes. The `.part` file stays, so the
+				// next URL, or the next try after a cancel or failure, resumes from the
+				// bytes already on disk; the manifest SHA-256 still checks the whole file.
+				await fsPromises.rm(downloadPath, {force: true})
+				if (options.signal?.aborted) throw err
+				if (!resumed || !(err instanceof DownloadIntegrityError || err instanceof DownloadSizeMismatchError)) break
+				logger.warn('Resumed artifact failed verification, retrying from byte 0', {url, key: options.key, error: err.message})
+				resumed = false
+				await fsPromises.rm(`${downloadPath}.part`, {force: true})
 			}
-			await fsPromises.rm(downloadPath, {force: true})
-			await fsPromises.rm(`${downloadPath}.part`, {force: true})
-			const info = await cacache.get.info(options.cacheRoot, options.key, {memoize: false})
-			return {cacheRoot: options.cacheRoot, key: options.key, integrity, size: info?.size ?? stat.size}
-		} catch (err) {
-			lastError = err
-			await fsPromises.rm(downloadPath, {force: true})
-			await fsPromises.rm(`${downloadPath}.part`, {force: true})
-			if (options.signal?.aborted) throw err
 		}
 	}
 	if (lastError instanceof Error) throw lastError
