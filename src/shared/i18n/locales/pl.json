@@ -552,7 +552,6 @@
 			"rowsHeading": "Wszystko inne",
 			"rows": {"subtitles": "Napisy", "sponsorBlock": "SponsorBlock", "extras": "Dodatki", "saveTo": "Zapisz w", "fileName": "Nazwa pliku"},
 			"value": {"subtitlesOff": "Wyłączone", "sponsorBlockOff": "Wyłączone", "extrasNone": "Brak"},
-			"done": "Gotowe",
 			"changed": "Zmieniono względem {{profile}}: {{areas}}. Dotyczy tylko tego pobrania.",
 			"areas": {"format": "format", "subtitles": "napisy", "sponsorBlock": "SponsorBlock", "extras": "dodatki", "saveTo": "folder", "fileName": "nazwa pliku"},
 			"updateProfile": "Zaktualizuj „{{profile}}” tymi zmianami",

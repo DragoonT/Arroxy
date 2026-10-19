@@ -527,7 +527,6 @@
 			"rowsHeading": "Kan hafe hunda",
 			"rows": {"subtitles": "Axxiinni", "sponsorBlock": "SponsorBlock", "extras": "Dabalataalee", "saveTo": "Kuusi gara", "fileName": "Maqaa faayilii"},
 			"value": {"subtitlesOff": "Dhaabbi", "sponsorBlockOff": "Dhaabbi", "extrasNone": "Homaa"},
-			"done": "Xumurame",
 			"changed": "{{profile}} irraa jijjiirame: {{areas}}. Buufata kanaaf qofa hojiirra oola.",
 			"areas": {"format": "foormaatii", "subtitles": "axxiinni", "sponsorBlock": "SponsorBlock", "extras": "dabalataalee", "saveTo": "foldarii", "fileName": "maqaa faayilii"},
 			"updateProfile": "“{{profile}}” jijjiirama kanaan fooyyessi",

@@ -458,7 +458,6 @@
 			"rowsHeading": "អ្វីៗផ្សេងទៀត",
 			"rows": {"subtitles": "អក្សររត់", "sponsorBlock": "SponsorBlock", "extras": "បន្ថែម", "saveTo": "រក្សាទុកទៅ", "fileName": "ឈ្មោះឯកសារ"},
 			"value": {"subtitlesOff": "បិទ", "sponsorBlockOff": "បិទ", "extrasNone": "គ្មាន"},
-			"done": "រួចរាល់",
 			"changed": "បានផ្លាស់ប្តូរពី {{profile}}៖ {{areas}}។ អនុវត្តចំពោះការទាញយកនេះតែប៉ុណ្ណោះ។",
 			"areas": {"format": "ទម្រង់", "subtitles": "អក្សររត់", "sponsorBlock": "SponsorBlock", "extras": "បន្ថែម", "saveTo": "ថត", "fileName": "ឈ្មោះឯកសារ"},
 			"updateProfile": "ធ្វើបច្ចុប្បន្នភាព “{{profile}}” ដោយការផ្លាស់ប្តូរទាំងនេះ",

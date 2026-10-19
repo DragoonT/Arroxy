@@ -517,7 +517,6 @@
 			"rowsHeading": "Diğer her şey",
 			"rows": {"subtitles": "Altyazılar", "sponsorBlock": "SponsorBlock", "extras": "Ekstralar", "saveTo": "Şuraya kaydet", "fileName": "Dosya adı"},
 			"value": {"subtitlesOff": "Kapalı", "sponsorBlockOff": "Kapalı", "extrasNone": "Yok"},
-			"done": "Tamam",
 			"changed": "Değişenler ({{profile}} profiline göre): {{areas}}. Yalnızca bu indirme için geçerli.",
 			"areas": {"format": "biçim", "subtitles": "altyazılar", "sponsorBlock": "SponsorBlock", "extras": "ekstralar", "saveTo": "klasör", "fileName": "dosya adı"},
 			"updateProfile": "“{{profile}}” profilini bu değişikliklerle güncelle",

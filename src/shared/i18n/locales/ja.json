@@ -491,7 +491,6 @@
 			"rowsHeading": "その他すべて",
 			"rows": {"subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "追加項目", "saveTo": "保存先", "fileName": "ファイル名"},
 			"value": {"subtitlesOff": "オフ", "sponsorBlockOff": "オフ", "extrasNone": "なし"},
-			"done": "完了",
 			"changed": "{{profile}} からの変更: {{areas}}。このダウンロードにのみ適用されます。",
 			"areas": {"format": "形式", "subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "追加項目", "saveTo": "フォルダー", "fileName": "ファイル名"},
 			"updateProfile": "この変更で「{{profile}}」を更新",

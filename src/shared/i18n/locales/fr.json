@@ -540,7 +540,6 @@
 			"rowsHeading": "Tout le reste",
 			"rows": {"subtitles": "Sous-titres", "sponsorBlock": "SponsorBlock", "extras": "Extras", "saveTo": "Dossier", "fileName": "Nom du fichier"},
 			"value": {"subtitlesOff": "Désactivés", "sponsorBlockOff": "Désactivé", "extrasNone": "Aucun"},
-			"done": "Terminé",
 			"changed": "Modifié par rapport à {{profile}} : {{areas}}. S’applique uniquement à ce téléchargement.",
 			"areas": {"format": "format", "subtitles": "sous-titres", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "dossier", "fileName": "nom du fichier"},
 			"updateProfile": "Mettre à jour « {{profile}} » avec ces modifications",

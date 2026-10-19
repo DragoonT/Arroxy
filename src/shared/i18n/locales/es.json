@@ -530,7 +530,6 @@
 			"rowsHeading": "Todo lo demás",
 			"rows": {"subtitles": "Subtítulos", "sponsorBlock": "SponsorBlock", "extras": "Extras", "saveTo": "Guardar en", "fileName": "Nombre de archivo"},
 			"value": {"subtitlesOff": "Desactivados", "sponsorBlockOff": "Desactivado", "extrasNone": "Ninguno"},
-			"done": "Listo",
 			"changed": "Cambios respecto a {{profile}}: {{areas}}. Solo se aplican a esta descarga.",
 			"areas": {"format": "formato", "subtitles": "subtítulos", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "carpeta", "fileName": "nombre de archivo"},
 			"updateProfile": "Actualizar «{{profile}}» con estos cambios",

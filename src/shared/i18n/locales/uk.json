@@ -558,7 +558,6 @@
 			"rowsHeading": "Решта налаштувань",
 			"rows": {"subtitles": "Субтитри", "sponsorBlock": "SponsorBlock", "extras": "Додатково", "saveTo": "Зберегти у", "fileName": "Назва файлу"},
 			"value": {"subtitlesOff": "Вимкнено", "sponsorBlockOff": "Вимкнено", "extrasNone": "Немає"},
-			"done": "Готово",
 			"changed": "Змінено порівняно з {{profile}}: {{areas}}. Стосується лише цього завантаження.",
 			"areas": {"format": "формат", "subtitles": "субтитри", "sponsorBlock": "SponsorBlock", "extras": "додатково", "saveTo": "папка", "fileName": "назва файлу"},
 			"updateProfile": "Оновити «{{profile}}» цими змінами",

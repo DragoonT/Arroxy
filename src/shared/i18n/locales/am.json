@@ -471,7 +471,6 @@
 			"rowsHeading": "ሌላው ሁሉ",
 			"rows": {"subtitles": "ንዑስ ርዕሶች", "sponsorBlock": "SponsorBlock", "extras": "ተጨማሪዎች", "saveTo": "አስቀምጥ ወደ", "fileName": "የፋይል ስም"},
 			"value": {"subtitlesOff": "ጠፍ", "sponsorBlockOff": "ጠፍ", "extrasNone": "ምንም"},
-			"done": "ተጠናቋል",
 			"changed": "ከ{{profile}} ተቀይሯል፦ {{areas}}። ለዚህ ማውረድ ብቻ ይሠራል።",
 			"areas": {"format": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorBlock": "SponsorBlock", "extras": "ተጨማሪዎች", "saveTo": "አቃፊ", "fileName": "የፋይል ስም"},
 			"updateProfile": "“{{profile}}”ን በእነዚህ ለውጦች አዘምን",

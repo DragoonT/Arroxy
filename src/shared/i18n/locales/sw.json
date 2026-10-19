@@ -507,7 +507,6 @@
 			"rowsHeading": "Mengine yote",
 			"rows": {"subtitles": "Manukuu", "sponsorBlock": "SponsorBlock", "extras": "Vya ziada", "saveTo": "Hifadhi kwenye", "fileName": "Jina la faili"},
 			"value": {"subtitlesOff": "Zima", "sponsorBlockOff": "Zima", "extrasNone": "Hakuna"},
-			"done": "Tayari",
 			"changed": "Imebadilishwa kutoka {{profile}}: {{areas}}. Inatumika kwa upakuaji huu tu.",
 			"areas": {"format": "umbizo", "subtitles": "manukuu", "sponsorBlock": "SponsorBlock", "extras": "vya ziada", "saveTo": "folda", "fileName": "jina la faili"},
 			"updateProfile": "Sasisha “{{profile}}” kwa mabadiliko haya",

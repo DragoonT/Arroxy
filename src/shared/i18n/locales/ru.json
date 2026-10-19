@@ -550,7 +550,6 @@
 			"rowsHeading": "Всё остальное",
 			"rows": {"subtitles": "Субтитры", "sponsorBlock": "SponsorBlock", "extras": "Дополнения", "saveTo": "Папка", "fileName": "Имя файла"},
 			"value": {"subtitlesOff": "Выкл", "sponsorBlockOff": "Выкл", "extrasNone": "Нет"},
-			"done": "Готово",
 			"changed": "Изменено относительно {{profile}}: {{areas}}. Действует только для этой загрузки.",
 			"areas": {"format": "формат", "subtitles": "субтитры", "sponsorBlock": "SponsorBlock", "extras": "дополнения", "saveTo": "папка", "fileName": "имя файла"},
 			"updateProfile": "Обновить «{{profile}}» этими изменениями",

@@ -504,7 +504,6 @@
 			"rowsHeading": "Lainnya",
 			"rows": {"subtitles": "Subtitle", "sponsorBlock": "SponsorBlock", "extras": "Tambahan", "saveTo": "Simpan ke", "fileName": "Nama file"},
 			"value": {"subtitlesOff": "Mati", "sponsorBlockOff": "Mati", "extrasNone": "Tidak ada"},
-			"done": "Selesai",
 			"changed": "Diubah dari {{profile}}: {{areas}}. Hanya berlaku untuk unduhan ini.",
 			"areas": {"format": "format", "subtitles": "subtitle", "sponsorBlock": "SponsorBlock", "extras": "tambahan", "saveTo": "folder", "fileName": "nama file"},
 			"updateProfile": "Perbarui “{{profile}}” dengan perubahan ini",

@@ -525,7 +525,6 @@
 			"rowsHeading": "Остало",
 			"rows": {"subtitles": "Титлови", "sponsorBlock": "SponsorBlock", "extras": "Додатно", "saveTo": "Сачувај у", "fileName": "Назив фајла"},
 			"value": {"subtitlesOff": "Искључено", "sponsorBlockOff": "Искључено", "extrasNone": "Ништа"},
-			"done": "Готово",
 			"changed": "Измењено у односу на {{profile}}: {{areas}}. Важи само за ово преузимање.",
 			"areas": {"format": "формат", "subtitles": "титлови", "sponsorBlock": "SponsorBlock", "extras": "додатно", "saveTo": "фасцикла", "fileName": "назив фајла"},
 			"updateProfile": "Ажурирај „{{profile}}” овим изменама",

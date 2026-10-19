@@ -458,7 +458,6 @@
 			"rowsHeading": "其他设置",
 			"rows": {"subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "附加项", "saveTo": "保存位置", "fileName": "文件名"},
 			"value": {"subtitlesOff": "关闭", "sponsorBlockOff": "关闭", "extrasNone": "无"},
-			"done": "完成",
 			"changed": "与 {{profile}} 相比有更改：{{areas}}。仅应用于本次下载。",
 			"areas": {"format": "格式", "subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "附加项", "saveTo": "文件夹", "fileName": "文件名"},
 			"updateProfile": "用这些更改更新“{{profile}}”",

@@ -458,7 +458,6 @@
 			"rowsHeading": "อื่น ๆ ทั้งหมด",
 			"rows": {"subtitles": "คำบรรยาย", "sponsorBlock": "SponsorBlock", "extras": "ส่วนเสริม", "saveTo": "บันทึกไปยัง", "fileName": "ชื่อไฟล์"},
 			"value": {"subtitlesOff": "ปิด", "sponsorBlockOff": "ปิด", "extrasNone": "ไม่มี"},
-			"done": "เสร็จแล้ว",
 			"changed": "เปลี่ยนจาก {{profile}}: {{areas}} ใช้กับการดาวน์โหลดนี้เท่านั้น",
 			"areas": {"format": "รูปแบบ", "subtitles": "คำบรรยาย", "sponsorBlock": "SponsorBlock", "extras": "ส่วนเสริม", "saveTo": "โฟลเดอร์", "fileName": "ชื่อไฟล์"},
 			"updateProfile": "อัปเดต “{{profile}}” ด้วยการเปลี่ยนแปลงเหล่านี้",

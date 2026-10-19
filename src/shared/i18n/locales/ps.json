@@ -517,7 +517,6 @@
 			"rowsHeading": "نور هرڅه",
 			"rows": {"subtitles": "ژباړلیکونه", "sponsorBlock": "SponsorBlock", "extras": "اضافي", "saveTo": "خوندي کولو ځای", "fileName": "د دوتنې نوم"},
 			"value": {"subtitlesOff": "بند", "sponsorBlockOff": "بند", "extrasNone": "هیڅ"},
-			"done": "بشپړ",
 			"changed": "له {{profile}} څخه بدل شو: {{areas}}. یوازې پر دې ښکته کولو پلي کیږي.",
 			"areas": {"format": "بڼه", "subtitles": "ژباړلیکونه", "sponsorBlock": "SponsorBlock", "extras": "اضافي", "saveTo": "پوښۍ", "fileName": "د دوتنې نوم"},
 			"updateProfile": "“{{profile}}” په دې بدلونونو تازه کړئ",

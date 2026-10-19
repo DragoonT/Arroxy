@@ -495,7 +495,6 @@
 			"rowsHeading": "Everything else",
 			"rows": {"subtitles": "Subtitles", "sponsorBlock": "SponsorBlock", "extras": "Extras", "saveTo": "Save to", "fileName": "File name"},
 			"value": {"subtitlesOff": "Off", "sponsorBlockOff": "Off", "extrasNone": "None"},
-			"done": "Done",
 			"changed": "Changed from {{profile}}: {{areas}}. Applies to this download only.",
 			"areas": {"format": "format", "subtitles": "subtitles", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "folder", "fileName": "file name"},
 			"updateProfile": "Update “{{profile}}” with these changes",

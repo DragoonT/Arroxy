@@ -511,7 +511,6 @@
 			"rowsHeading": "باقی سب کچھ",
 			"rows": {"subtitles": "سب ٹائٹلز", "sponsorBlock": "SponsorBlock", "extras": "اضافی", "saveTo": "محفوظ کریں", "fileName": "فائل نام"},
 			"value": {"subtitlesOff": "بند", "sponsorBlockOff": "بند", "extrasNone": "کوئی نہیں"},
-			"done": "ہو گیا",
 			"changed": "{{profile}} سے تبدیل: {{areas}}۔ صرف اس ڈاؤن لوڈ پر لاگو ہوتا ہے۔",
 			"areas": {"format": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorBlock": "SponsorBlock", "extras": "اضافی", "saveTo": "فولڈر", "fileName": "فائل نام"},
 			"updateProfile": "“{{profile}}” کو ان تبدیلیوں سے اپ ڈیٹ کریں",

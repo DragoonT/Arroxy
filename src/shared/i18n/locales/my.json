@@ -474,7 +474,6 @@
 			"rowsHeading": "အခြားအားလုံး",
 			"rows": {"subtitles": "စာတန်းထိုး", "sponsorBlock": "SponsorBlock", "extras": "အပို", "saveTo": "ဤနေရာတွင်သိမ်းမည်", "fileName": "ဖိုင်အမည်"},
 			"value": {"subtitlesOff": "ပိတ်ထားမည်", "sponsorBlockOff": "ပိတ်ထားမည်", "extrasNone": "မရှိ"},
-			"done": "ပြီးပြီ",
 			"changed": "{{profile}} မှ ပြောင်းလဲထားသည်: {{areas}}။ ဤဒေါင်းလုဒ်တစ်ခုတည်းတွင်သာ သက်ရောက်သည်။",
 			"areas": {"format": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorBlock": "SponsorBlock", "extras": "အပို", "saveTo": "ဖိုလ်ဒါ", "fileName": "ဖိုင်အမည်"},
 			"updateProfile": "ဤပြောင်းလဲမှုများဖြင့် “{{profile}}” ကို အပ်ဒိတ်လုပ်ရန်",

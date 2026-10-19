@@ -49,12 +49,11 @@ function FileNameFields(): ReactNode {
 interface ReviewRowItemProps {
 	row: ReviewRow
 	value: string
-	onDone: () => void
 	children: ReactNode
 }
 
 // One Review row: label and current value; opens its editor in place.
-function ReviewRowItem({row, value, onDone, children}: ReviewRowItemProps): ReactNode {
+function ReviewRowItem({row, value, children}: ReviewRowItemProps): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<AccordionItem value={row} className="data-open:bg-primary/5" data-testid={`review-row-${row}`}>
@@ -64,14 +63,7 @@ function ReviewRowItem({row, value, onDone, children}: ReviewRowItemProps): Reac
 					<span className="min-w-0 flex-1 truncate font-normal text-muted-foreground">{value}</span>
 				</Hint>
 			</AccordionTrigger>
-			<AccordionContent className="flex flex-col gap-3 px-4 pt-1 pb-4">
-				{children}
-				<div className="flex justify-end">
-					<Button type="button" variant="outline" size="sm" onClick={onDone} data-testid={`review-row-${row}-done`}>
-						{t('wizard.review.done')}
-					</Button>
-				</div>
-			</AccordionContent>
+			<AccordionContent className="flex flex-col gap-3 px-4 pt-1 pb-4">{children}</AccordionContent>
 		</AccordionItem>
 	)
 }
@@ -170,7 +162,7 @@ export function StepReview(): ReactNode {
 				<Card className="gap-0 overflow-hidden py-0">
 					<Accordion<ReviewRow> value={wizardReviewRow ? [wizardReviewRow] : []} onValueChange={next => openRow(next[0] ?? null)}>
 						{rows.map(({row, value, fields}) => (
-							<ReviewRowItem key={row} row={row} value={value} onDone={() => openRow(null)}>
+							<ReviewRowItem key={row} row={row} value={value}>
 								{fields}
 							</ReviewRowItem>
 						))}

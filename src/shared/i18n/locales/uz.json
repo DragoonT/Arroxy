@@ -532,7 +532,6 @@
 			"rowsHeading": "Qolgan hamma narsa",
 			"rows": {"subtitles": "Subtitrlar", "sponsorBlock": "SponsorBlock", "extras": "Qo'shimchalar", "saveTo": "Saqlash joyi", "fileName": "Fayl nomi"},
 			"value": {"subtitlesOff": "O'chirilgan", "sponsorBlockOff": "O'chirilgan", "extrasNone": "Yo'q"},
-			"done": "Tayyor",
 			"changed": "{{profile}} dan o'zgartirilgan: {{areas}}. Faqat shu yuklab olish uchun amal qiladi.",
 			"areas": {"format": "format", "subtitles": "subtitrlar", "sponsorBlock": "SponsorBlock", "extras": "qo'shimchalar", "saveTo": "papka", "fileName": "fayl nomi"},
 			"updateProfile": "“{{profile}}” ni shu o'zgarishlar bilan yangilash",
