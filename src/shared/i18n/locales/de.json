@@ -434,6 +434,7 @@
 			"noAudio": "Kein Audio",
 			"withAudio": "mit Audio",
 			"resolutionUnknown": "Unbekannte Auflösung",
+			"bitrateValue": "Bitrate: {{bitrate}}",
 			"marker": {"aiUpscaled": "KI-hochskaliert", "aiDubbed": "KI-synchronisiert", "audioDescription": "Audiodeskription", "spatialAudio": "Raumklang", "vr": "360° / VR", "enhancedBitrate": "Erhöhte Bitrate", "damaged": "Beschädigt", "watermarked": "Mit Wasserzeichen"},
 			"keepAudio": "So belassen",
 			"keepAudioMeta": "Integriertes Audio",

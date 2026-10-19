@@ -437,6 +437,7 @@
 			"noAudio": "Sagalee hin jiru",
 			"withAudio": "sagalee wajjin",
 			"resolutionUnknown": "Ifa bal'ina hin beekamne",
+			"bitrateValue": "Saaffata bitii {{bitrate}}",
 			"marker": {"aiUpscaled": "AI'n guddifame", "aiDubbed": "AI'n hiikame", "audioDescription": "Ibsa sagaleen", "spatialAudio": "Sagalee iddoo", "vr": "360° / VR", "enhancedBitrate": "Bitrate fooyya'e", "damaged": "Miidhame", "watermarked": "Mallattoo bishaanii qaba"},
 			"keepAudio": "Akka jirutti eegi",
 			"keepAudioMeta": "Sagalee keessoo",

@@ -400,6 +400,7 @@
 			"noAudio": "অডিও নেই",
 			"withAudio": "অডিওসহ",
 			"resolutionUnknown": "রেজোলিউশন অজানা",
+			"bitrateValue": "বিটরেট {{bitrate}}",
 			"marker": {"aiUpscaled": "AI আপস্কেল", "aiDubbed": "AI ডাব করা", "audioDescription": "অডিও বর্ণনা", "spatialAudio": "স্পেশিয়াল অডিও", "vr": "360° / VR", "enhancedBitrate": "উন্নত বিটরেট", "damaged": "ক্ষতিগ্রস্ত", "watermarked": "ওয়াটারমার্কযুক্ত"},
 			"keepAudio": "যেমন আছে রাখুন",
 			"keepAudioMeta": "বিল্ট-ইন অডিও",

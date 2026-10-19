@@ -2217,6 +2217,10 @@ msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "सिर्फ़ ऑडियो"
 
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "बिटरेट {{bitrate}}"
+
 msgctxt "wizard.formats.botWall.bodyDisabled"
 msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
 msgstr "कुकी कॉन्फ़िगर हैं लेकिन बंद हैं। पूरी सूची पाने के लिए उन्हें चालू करके पुनः प्रयास करें, या नेटवर्क बदलकर पुनः प्रयास करें।"

@@ -2127,6 +2127,10 @@ msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "เฉพาะเสียง"
 
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "บิตเรต {{bitrate}}"
+
 msgctxt "wizard.formats.botWall.bodyDisabled"
 msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
 msgstr "ตั้งค่าคุกกี้ไว้แต่ปิดอยู่ เปิดใช้แล้วลองใหม่เพื่อรับรายการทั้งหมด หรือเปลี่ยนเครือข่ายแล้วลองใหม่"

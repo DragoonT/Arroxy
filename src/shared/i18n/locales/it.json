@@ -433,6 +433,7 @@
 			"noAudio": "Nessun audio",
 			"withAudio": "con audio",
 			"resolutionUnknown": "Risoluzione sconosciuta",
+			"bitrateValue": "Bitrate {{bitrate}}",
 			"marker": {"aiUpscaled": "Ingrandito con IA", "aiDubbed": "Doppiato con IA", "audioDescription": "Audiodescrizione", "spatialAudio": "Audio spaziale", "vr": "360° / VR", "enhancedBitrate": "Bitrate migliorato", "damaged": "Danneggiato", "watermarked": "Con filigrana"},
 			"keepAudio": "Mantieni invariato",
 			"keepAudioMeta": "Audio incorporato",

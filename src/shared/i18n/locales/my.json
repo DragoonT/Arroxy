@@ -385,6 +385,7 @@
 			"noAudio": "အသံမပါ",
 			"withAudio": "အသံပါ",
 			"resolutionUnknown": "ရင်းမြစ်ကြည်လင်ပြတ်သားမှု မသိ",
+			"bitrateValue": "Bitrate {{bitrate}}",
 			"marker": {"aiUpscaled": "AI ချဲ့ထားသည်", "aiDubbed": "AI အသံသွင်း", "audioDescription": "အသံဖြင့် ဖော်ပြချက်", "spatialAudio": "Spatial အသံ", "vr": "360° / VR", "enhancedBitrate": "မြှင့်ထားသော bitrate", "damaged": "ပျက်စီးနေသည်", "watermarked": "Watermark ပါသည်"},
 			"keepAudio": "မပြောင်းဘဲ ထားမည်",
 			"keepAudioMeta": "ပါဝင်သောအသံ",

@@ -415,6 +415,7 @@
 			"noAudio": "Tidak ada audio",
 			"withAudio": "dengan audio",
 			"resolutionUnknown": "Resolusi tidak diketahui",
+			"bitrateValue": "Kecepatan bit {{bitrate}}",
 			"marker": {"aiUpscaled": "Upscale AI", "aiDubbed": "Sulih suara AI", "audioDescription": "Deskripsi audio", "spatialAudio": "Audio spasial", "vr": "360° / VR", "enhancedBitrate": "Bitrate ditingkatkan", "damaged": "Rusak", "watermarked": "Bertanda air"},
 			"keepAudio": "Tetap apa adanya",
 			"keepAudioMeta": "Audio bawaan",

@@ -421,6 +421,7 @@
 			"noAudio": "کوئی آڈیو نہیں",
 			"withAudio": "آڈیو کے ساتھ",
 			"resolutionUnknown": "ریزولوشن نامعلوم",
+			"bitrateValue": "بٹ ریٹ {{bitrate}}",
 			"marker": {"aiUpscaled": "AI اپ اسکیل شدہ", "aiDubbed": "AI ڈب شدہ", "audioDescription": "صوتی وضاحت", "spatialAudio": "اسپیشل آڈیو", "vr": "360° / VR", "enhancedBitrate": "بہتر بٹ ریٹ", "damaged": "خراب", "watermarked": "واٹرمارک والا"},
 			"keepAudio": "جیسا ہے ویسا رکھیں",
 			"keepAudioMeta": "بلٹ اِن آڈیو",

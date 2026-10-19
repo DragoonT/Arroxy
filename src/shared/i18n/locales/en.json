@@ -405,6 +405,7 @@
 			"noAudio": "No audio",
 			"withAudio": "with audio",
 			"resolutionUnknown": "Unknown resolution",
+			"bitrateValue": "Bitrate {{bitrate}}",
 			"marker": {"aiUpscaled": "AI upscaled", "aiDubbed": "AI dubbed", "audioDescription": "Audio description", "spatialAudio": "Spatial audio", "vr": "360° / VR", "enhancedBitrate": "Enhanced bitrate", "damaged": "Damaged", "watermarked": "Watermarked"},
 			"keepAudio": "Keep as-is",
 			"keepAudioMeta": "Built-in audio",

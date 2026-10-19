@@ -460,6 +460,7 @@
 			"noAudio": "Bez dźwięku",
 			"withAudio": "z dźwiękiem",
 			"resolutionUnknown": "Nieznana rozdzielczość",
+			"bitrateValue": "Przepływność: {{bitrate}}",
 			"marker": {"aiUpscaled": "Przeskalowany przez AI", "aiDubbed": "Dubbing AI", "audioDescription": "Audiodeskrypcja", "spatialAudio": "Dźwięk przestrzenny", "vr": "360° / VR", "enhancedBitrate": "Wyższa przepływność", "damaged": "Uszkodzony", "watermarked": "Ze znakiem wodnym"},
 			"keepAudio": "Pozostaw bez zmian",
 			"keepAudioMeta": "Wbudowany dźwięk",

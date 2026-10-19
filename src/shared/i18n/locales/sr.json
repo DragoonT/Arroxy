@@ -434,6 +434,7 @@
 			"noAudio": "Без звука",
 			"withAudio": "са звуком",
 			"resolutionUnknown": "Непозната величина",
+			"bitrateValue": "Битрејт {{bitrate}}",
 			"marker": {"aiUpscaled": "AI увећано", "aiDubbed": "AI синхронизација", "audioDescription": "Аудио-опис", "spatialAudio": "Просторни звук", "vr": "360° / VR", "enhancedBitrate": "Повећан битрејт", "damaged": "Оштећено", "watermarked": "Са воденим жигом"},
 			"keepAudio": "Задржи као јесте",
 			"keepAudioMeta": "Уграђени звук",

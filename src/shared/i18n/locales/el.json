@@ -430,6 +430,7 @@
 			"noAudio": "Χωρίς ήχο",
 			"withAudio": "με ήχο",
 			"resolutionUnknown": "Άγνωστο μέγεθος",
+			"bitrateValue": "Ρυθμός bit {{bitrate}}",
 			"marker": {"aiUpscaled": "Αναβάθμιση ΤΝ", "aiDubbed": "Μεταγλώττιση ΤΝ", "audioDescription": "Ηχητική περιγραφή", "spatialAudio": "Χωρικός ήχος", "vr": "360° / VR", "enhancedBitrate": "Βελτιωμένο bitrate", "damaged": "Κατεστραμμένο", "watermarked": "Με υδατογράφημα"},
 			"keepAudio": "Διατήρηση ως έχει",
 			"keepAudioMeta": "Ενσωματωμένος ήχος",

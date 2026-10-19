@@ -380,6 +380,7 @@
 			"noAudio": "គ្មានសំឡេង",
 			"withAudio": "មានសំឡេង",
 			"resolutionUnknown": "មិនដឹងគុណភាពបង្ហាញ",
+			"bitrateValue": "Bitrate {{bitrate}}",
 			"marker": {"aiUpscaled": "ពង្រីកដោយ AI", "aiDubbed": "បញ្ចូលសំឡេងដោយ AI", "audioDescription": "ការពិពណ៌នាជាសំឡេង", "spatialAudio": "សំឡេងលំហ", "vr": "360° / VR", "enhancedBitrate": "Bitrate ប្រសើរជាង", "damaged": "ខូច", "watermarked": "មានវ៉ាត់ម៉ាក"},
 			"keepAudio": "រក្សាដដែល",
 			"keepAudioMeta": "សំឡេងមានស្រាប់",

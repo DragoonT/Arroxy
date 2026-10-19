@@ -442,6 +442,7 @@
 			"noAudio": "Audio yo'q",
 			"withAudio": "audio bilan",
 			"resolutionUnknown": "O'lcham noma'lum",
+			"bitrateValue": "Bit tezligi {{bitrate}}",
 			"marker": {"aiUpscaled": "SI kattalashtirgan", "aiDubbed": "SI dublyaji", "audioDescription": "Audio tavsif", "spatialAudio": "Fazoviy ovoz", "vr": "360° / VR", "enhancedBitrate": "Yuqori bitreyt", "damaged": "Shikastlangan", "watermarked": "Suv belgili"},
 			"keepAudio": "O'zgartirishsiz saqlash",
 			"keepAudioMeta": "Ichki audio",

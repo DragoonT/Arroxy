@@ -369,7 +369,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		const fps = rawFormat?.fps ?? null
 		const dynamicRange = rawFormat?.dynamicRange ?? null
 		const fpsTag = fps !== null && fps !== commonFps ? `${fps} fps` : null
-		const bitrate = rawFormat?.tbr ? humanBitrate(rawFormat.tbr, state.language) : null
+		const bitrate = rawFormat?.tbr ? i18next.t('wizard.formats.bitrateValue', {bitrate: humanBitrate(rawFormat.tbr, state.language)}) : null
 		const hint = compact([codec ? ext : null, fps !== null && !fpsTag ? `${fps} fps` : null, bitrate]).join(' · ')
 		return {
 			filesize,

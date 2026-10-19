@@ -427,6 +427,7 @@
 			"noAudio": "Ses yok",
 			"withAudio": "sesli",
 			"resolutionUnknown": "Boyut bilinmiyor",
+			"bitrateValue": "Bit hızı {{bitrate}}",
 			"marker": {"aiUpscaled": "YZ ile büyütüldü", "aiDubbed": "YZ dublajı", "audioDescription": "Sesli betimleme", "spatialAudio": "Uzamsal ses", "vr": "360° / VR", "enhancedBitrate": "Gelişmiş bit hızı", "damaged": "Hasarlı", "watermarked": "Filigranlı"},
 			"keepAudio": "Olduğu gibi tut",
 			"keepAudioMeta": "Yerleşik ses",

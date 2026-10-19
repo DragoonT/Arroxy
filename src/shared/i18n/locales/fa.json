@@ -405,6 +405,7 @@
 			"noAudio": "بدون صدا",
 			"withAudio": "همراه صدا",
 			"resolutionUnknown": "وضوح نامشخص",
+			"bitrateValue": "نرخ بیت {{bitrate}}",
 			"marker": {"aiUpscaled": "ارتقا با هوش مصنوعی", "aiDubbed": "دوبله با هوش مصنوعی", "audioDescription": "توصیف صوتی", "spatialAudio": "صدای فضایی", "vr": "360° / VR", "enhancedBitrate": "نرخ بیت بهبودیافته", "damaged": "آسیب‌دیده", "watermarked": "واترمارک‌دار"},
 			"keepAudio": "بدون تغییر نگه‌دار",
 			"keepAudioMeta": "صدای داخلی",

@@ -484,6 +484,7 @@
 			"noAudio": "بدون صوت",
 			"withAudio": "مع صوت",
 			"resolutionUnknown": "دقة غير معروفة",
+			"bitrateValue": "معدل البت {{bitrate}}",
 			"marker": {"aiUpscaled": "مُكبَّر بالذكاء الاصطناعي", "aiDubbed": "مدبلج بالذكاء الاصطناعي", "audioDescription": "وصف صوتي", "spatialAudio": "صوت مكاني", "vr": "360° / VR", "enhancedBitrate": "معدل بت محسّن", "damaged": "تالف", "watermarked": "بعلامة مائية"},
 			"keepAudio": "إبقاؤه كما هو",
 			"keepAudioMeta": "الصوت المضمّن",

@@ -2217,6 +2217,10 @@ msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "Μόνο ήχος"
 
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Ρυθμός bit {{bitrate}}"
+
 msgctxt "wizard.formats.botWall.bodyDisabled"
 msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
 msgstr "Τα cookies είναι ρυθμισμένα αλλά απενεργοποιημένα. Ενεργοποίησέ τα και δοκίμασε ξανά για πλήρη λίστα, ή άλλαξε δίκτυο."

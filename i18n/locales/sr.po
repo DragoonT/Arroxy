@@ -2307,6 +2307,10 @@ msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "Само звук"
 
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Битрејт {{bitrate}}"
+
 msgctxt "wizard.formats.botWall.bodyDisabled"
 msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
 msgstr "Cookies су подешени али искључени. Укључи их и покушај поново за потпун списак, или промени мрежу и покушај поново."

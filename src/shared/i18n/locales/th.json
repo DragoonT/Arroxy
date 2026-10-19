@@ -380,6 +380,7 @@
 			"noAudio": "ไม่มีเสียง",
 			"withAudio": "มีเสียง",
 			"resolutionUnknown": "ไม่ทราบความละเอียด",
+			"bitrateValue": "บิตเรต {{bitrate}}",
 			"marker": {"aiUpscaled": "อัปสเกลด้วย AI", "aiDubbed": "พากย์ด้วย AI", "audioDescription": "เสียงบรรยายภาพ", "spatialAudio": "เสียงรอบทิศทาง", "vr": "360° / VR", "enhancedBitrate": "บิตเรตที่ปรับปรุงแล้ว", "damaged": "เสียหาย", "watermarked": "มีลายน้ำ"},
 			"keepAudio": "คงไว้ตามเดิม",
 			"keepAudioMeta": "เสียงในตัว",
