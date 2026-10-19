@@ -39,6 +39,25 @@ function takeProgressLogStep(active: ActiveDownload, line: string): boolean {
 	return true
 }
 
+// A Part of video download is ffmpeg's, which redraws `frame=… size=… time=…`
+// twice a second. Keep the first line of each 10 s of its `elapsed=`. The final
+// summary reads `Lsize=`, so it is not a status line and is always logged.
+const FFMPEG_STATUS_LINE = /^(?:frame=\s*\d+\s.*?)?\bsize=.*\btime=/
+const FFMPEG_ELAPSED = /\belapsed=(\d+):(\d{2}):(\d{2})/
+const FFMPEG_LOG_STEP_SECONDS = 10
+
+function takeFfmpegLogStep(active: ActiveDownload, line: string): boolean {
+	const elapsed = FFMPEG_ELAPSED.exec(line)
+	const step = elapsed ? Math.floor((Number(elapsed[1]) * 3600 + Number(elapsed[2]) * 60 + Number(elapsed[3])) / FFMPEG_LOG_STEP_SECONDS) : UNKNOWN_PROGRESS_STEP
+	if (step === active.lastLoggedFfmpegStep) return false
+	active.lastLoggedFfmpegStep = step
+	return true
+}
+
+// ffmpeg opens every HLS segment with a line carrying the full signed URL,
+// every few seconds; the `Input #N … from '<url>'` line already names the source.
+const FFMPEG_SEGMENT_OPEN = /^\[[\w#/]+ @ 0x[0-9a-f]+\] Opening '.*' for reading$/
+
 function rememberSubtitlePath(active: ActiveDownload, path: string): void {
 	if (!active.subtitlePaths.includes(path)) active.subtitlePaths.push(path)
 }
@@ -62,7 +81,9 @@ export class ProgressParser {
 				logger.warn(line, {jobId, source: 'yt-dlp-progress'})
 			} else if (PROGRESS_LINE.test(line)) {
 				if (takeProgressLogStep(active, line)) logger.debug(line, {jobId, source: 'yt-dlp-progress'})
-			} else {
+			} else if (FFMPEG_STATUS_LINE.test(line)) {
+				if (takeFfmpegLogStep(active, line)) logger.debug(line, {jobId, source: 'yt-dlp-progress'})
+			} else if (!FFMPEG_SEGMENT_OPEN.test(line)) {
 				logger.info(line, {jobId, source: 'yt-dlp-progress'})
 			}
 
@@ -74,6 +95,7 @@ export class ProgressParser {
 				const kind = isSubtitleFile(path) ? 'subtitle' : 'media'
 				active.currentFileKind = kind
 				active.lastLoggedProgressStep = undefined
+				active.lastLoggedFfmpegStep = undefined
 				if (kind === 'subtitle') {
 					rememberSubtitlePath(active, path)
 				} else {
