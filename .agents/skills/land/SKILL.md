@@ -10,7 +10,7 @@ One pass from report to merged PR. This skill is the order of operations; the ru
 - `AGENTS.md`: Post-Task Checks, "One concern per PR"; `dev-docs/fixture-e2e.md`: "Choosing the right test".
 - `.agents/memory/MEMORY.md`, especially `finish-before-pr`, `coderabbit-review-workflow`, `ship-means-merge-not-release`, `no-ai-attribution`, `review-learnings`.
 
-"Land" stops at the merge. Release only when the user explicitly says "release" (`ship-means-merge-not-release`), then follow `dev-docs/release-runbook.md`.
+"Land" stops at the merge. Release only when the user explicitly says "release" (`ship-means-merge-not-release`), then follow `dev-docs/release-runbook.md`. Never ask or offer to release: no question, button or closing line about it.
 
 ## Model tiers
 
@@ -87,7 +87,7 @@ git branch -D <branch>                       # the squash merge leaves the local
 git worktree prune
 ```
 
-The same goes for any scratch worktree the run made (a docs commit to `main`, a reproduction): remove it as soon as its commit is pushed. If auto-merge is still waiting on checks when you finish, the merge will not wake you; remove the worktree when the next event or session shows the PR merged, and say so in the report. Then report the PR, the dual-review outcome, backlog entries filed, and anything deliberately left out, and ask whether to release.
+The same goes for any scratch worktree the run made (a docs commit to `main`, a reproduction): remove it as soon as its commit is pushed. If auto-merge is still waiting on checks when you finish, the merge will not wake you; remove the worktree when the next event or session shows the PR merged, and say so in the report. Then report the PR, the dual-review outcome, backlog entries filed, and anything deliberately left out. Do not ask whether to release.
 verify: `git worktree list` no longer shows the run's worktrees, and `git branch --list <branch>` prints nothing.
 
 ## Stop and ask

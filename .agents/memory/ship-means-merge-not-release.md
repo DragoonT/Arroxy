@@ -1,6 +1,6 @@
 ---
 name: ship-means-merge-not-release
-description: "Ship" or "land" means fix → PR → merge; release only on an explicit "release", stable only, never a -beta.N. Releases are immutable and fan out to five channels.
+description: "Ship" or "land" means fix → PR → merge; release only on an explicit "release", stable only, never a -beta.N, and never ask or offer to release. Releases are immutable and fan out to five channels.
 metadata:
   type: feedback
 ---
@@ -22,7 +22,10 @@ version had to skip 0.4.26), Scoop and Homebrew needed reverts, the Winget PR ha
 to be closed, and the Flatpak repo on Pages could not be rolled back at all. The
 beta rule came from a plan that gated the PO-token change on a beta.
 
+**Never ask about releasing** ("never ask me about release", 2026-10-20). After
+a merge, report the PR and stop: no "release it?" question, button or closing
+line. Antonio decides when to release and says so.
+
 **How to apply:** the `land` skill stops at the merge; releasing follows
-`dev-docs/release-runbook.md` only on request.
-After merging, report the PR and ask whether to release. Related:
+`dev-docs/release-runbook.md` only on request. Related:
 [[finish-before-pr]], [[coderabbit-review-workflow]].
