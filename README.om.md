@@ -15,7 +15,12 @@ Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi s
 
 [![Hawaasa Discord itti makami](https://img.shields.io/badge/Hawaasa%20Discord%20itti%20makami-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" width="720" />
+<table>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" /></td>
+  </tr>
+</table>
 
 Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 

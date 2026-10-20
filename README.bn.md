@@ -15,7 +15,12 @@
 
 [![Discord কমিউনিটিতে যোগ দিন](https://img.shields.io/badge/Discord%20%E0%A6%95%E0%A6%AE%E0%A6%BF%E0%A6%89%E0%A6%A8%E0%A6%BF%E0%A6%9F%E0%A6%BF%E0%A6%A4%E0%A7%87%20%E0%A6%AF%E0%A7%8B%E0%A6%97%20%E0%A6%A6%E0%A6%BF%E0%A6%A8-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" width="720" />
+<table>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" /></td>
+  </tr>
+</table>
 
 Arroxy যদি আপনার সময় বাঁচায়, তাহলে একটি ⭐ অন্যদের খুঁজে পেতে সাহায্য করে।
 

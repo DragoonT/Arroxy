@@ -15,7 +15,12 @@ Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **Y
 
 [![Tham gia cộng đồng Discord](https://img.shields.io/badge/Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" width="720" />
+<table>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" /></td>
+  </tr>
+</table>
 
 Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp người khác tìm thấy nó.
 
