@@ -116,6 +116,17 @@ describe('AudioColumn', () => {
 		expect(screen.queryByTestId('audio-copy-note')).not.toBeInTheDocument()
 	})
 
+	it('offers keep as-is in audio mode on a site with only combined files', () => {
+		const onSelect = vi.fn()
+		const combined: FormatOption = {formatId: '18', label: '360p', ext: 'mp4', resolution: '640x360', isVideoOnly: false, isAudioOnly: false, audioCodec: 'mp4a.40.2'}
+		const audioSelection: AudioSelection = {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}
+		const view = selectView({selectedVideoFormatId: '', audioSelection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [combined]})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={onSelect} />)
+
+		fireEvent.click(screen.getByRole('radio', {name: /^Keep as-is/}))
+		expect(onSelect).toHaveBeenCalledWith({kind: 'extract', formatId: '18'})
+	})
+
 	// One language: the bridge picks the source, unless the DRC switch names its DRC master.
 	it('names the DRC stream for a conversion on a single-language video when DRC is switched on', () => {
 		const formats: FormatOption[] = [audio('251', '', 'opus', 'webm', 130), audio('251-drc', '', 'opus', 'webm', 131, true), audio('140', '', 'mp4a.40.2', 'm4a', 129)]
