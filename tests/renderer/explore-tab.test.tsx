@@ -29,7 +29,7 @@ function activeProfileName(): string {
 	return resolveActiveDownloadProfile(useAppStore.getState().settings?.profiles).profile.name
 }
 
-type ExploreCommon = Pick<AppSettings['common'], 'exploreEnabled' | 'exploreNoticeSeen' | 'exploreModeAutoSwitched' | 'exploreModeNudgeDismissedFor' | 'cookiesMode' | 'exploreAdBlock' | 'exploreCompactChrome'>
+type ExploreCommon = Pick<AppSettings['common'], 'exploreEnabled' | 'exploreNoticeSeen' | 'exploreModeAutoSwitched' | 'exploreModeNudgeDismissedFor' | 'cookiesMode' | 'exploreAdBlock' | 'exploreCompactChrome' | 'exploreZoom'>
 
 let stateListener: ((state: ExploreViewState) => void) | null = null
 let viewportRect = {x: 24, y: 180, width: 640, height: 360}
@@ -287,6 +287,156 @@ describe('Explore cookie mode', () => {
 
 		expect(screen.getByTestId('explore-notice')).toBeInTheDocument()
 		expect(screen.queryByTestId('explore-mode-nudge')).not.toBeInTheDocument()
+	})
+})
+
+describe('Explore page zoom', () => {
+	beforeEach(() => {
+		echoSettingsWrites()
+		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore'})
+	})
+
+	function openZoom(): void {
+		fireEvent.click(screen.getByTestId('explore-zoom-toggle'))
+	}
+
+	it('keeps the controls out of the way until the icon is pressed, and the page visible once they are', () => {
+		renderExplore()
+		expect(screen.queryByTestId('explore-zoom-controls')).not.toBeInTheDocument()
+
+		openZoom()
+
+		expect(screen.getByTestId('explore-zoom-controls')).toBeInTheDocument()
+		expect(screen.getByTestId('explore-zoom-input')).toHaveValue('100%')
+		// Not a dialog: a popup would hide the native view, and the page must stay visible to show the zoom.
+		expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+	})
+
+	it('zooms in and out by presets and saves each step', async () => {
+		renderExplore()
+		openZoom()
+
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		await waitFor(() => expect(screen.getByTestId('explore-zoom-input')).toHaveValue('110%'))
+		expect(settingsWrites()).toContainEqual({common: {exploreZoom: 1.1}})
+
+		fireEvent.click(screen.getByTestId('explore-zoom-out'))
+		fireEvent.click(screen.getByTestId('explore-zoom-out'))
+		await waitFor(() => expect(screen.getByTestId('explore-zoom-input')).toHaveValue('90%'))
+		expect(settingsWrites()).toContainEqual({common: {exploreZoom: 0.9}})
+	})
+
+	it('adds up fast clicks while earlier saves are still answering', async () => {
+		// Each save answers late, with the zoom it carried, as main's response does.
+		const answers: Array<() => void> = []
+		vi.mocked(window.appApi.settings.update).mockImplementation(
+			(patch: SettingsPatch) =>
+				new Promise(resolve => {
+					answers.push(() => {
+						const current = useAppStore.getState().settings ?? defaultAppSettings('/tmp')
+						resolve(ok({...current, common: {...current.common, ...patch.common}}))
+					})
+				})
+		)
+		renderExplore()
+		openZoom()
+
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		await waitFor(() => expect(answers).toHaveLength(1))
+		await act(async () => answers[0]?.())
+		// The first answer put 110% back; the third click still steps from 125%.
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+
+		// Saves run one at a time; answer each as it arrives, so none is left holding the queue.
+		for (let answered = 1; answered < 3; answered++) {
+			await waitFor(() => expect(answers).toHaveLength(answered + 1))
+			act(() => answers[answered]?.())
+		}
+
+		await waitFor(() => expect(screen.getByTestId('explore-zoom-input')).toHaveValue('150%'))
+		expect(settingsWrites().map(patch => patch.common?.exploreZoom)).toEqual([1.1, 1.25, 1.5])
+	})
+
+	it('keeps following the last request when an earlier save asked for the same value', async () => {
+		const answers: Array<() => void> = []
+		vi.mocked(window.appApi.settings.update).mockImplementation(
+			(patch: SettingsPatch) =>
+				new Promise(resolve => {
+					answers.push(() => {
+						const current = useAppStore.getState().settings ?? defaultAppSettings('/tmp')
+						resolve(ok({...current, common: {...current.common, ...patch.common}}))
+					})
+				})
+		)
+		renderExplore()
+		openZoom()
+
+		// 110%, back to 100%, 110% again: the first and third asked for the same value.
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		fireEvent.click(screen.getByTestId('explore-zoom-out'))
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		for (let answered = 0; answered < 2; answered++) {
+			await waitFor(() => expect(answers).toHaveLength(answered + 1))
+			await act(async () => answers[answered]?.())
+		}
+		// The third save is still pending: the next step goes from 110%, not from the 100% the second answer restored.
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		await waitFor(() => expect(answers).toHaveLength(3))
+		await act(async () => answers[2]?.())
+		await waitFor(() => expect(answers).toHaveLength(4))
+		await act(async () => answers[3]?.())
+
+		await waitFor(() => expect(screen.getByTestId('explore-zoom-input')).toHaveValue('125%'))
+		expect(settingsWrites().map(patch => patch.common?.exploreZoom)).toEqual([1.1, 1, 1.1, 1.25])
+	})
+
+	it('presses a zoom button on Enter instead of swallowing the key', () => {
+		renderExplore()
+		openZoom()
+		const press = new KeyboardEvent('keydown', {key: 'Enter', bubbles: true, cancelable: true})
+
+		screen.getByTestId('explore-zoom-in').dispatchEvent(press)
+
+		expect(press.defaultPrevented).toBe(false)
+	})
+
+	it('sets a typed percent on Enter and clamps it to the range', async () => {
+		renderExplore()
+		openZoom()
+		const input = screen.getByTestId('explore-zoom-input')
+
+		fireEvent.change(input, {target: {value: '150'}})
+		fireEvent.keyDown(input, {key: 'Enter'})
+		await waitFor(() => expect(settingsWrites()).toContainEqual({common: {exploreZoom: 1.5}}))
+
+		fireEvent.change(input, {target: {value: '9999'}})
+		fireEvent.keyDown(input, {key: 'Enter'})
+		await waitFor(() => expect(settingsWrites()).toContainEqual({common: {exploreZoom: 5}}))
+	})
+
+	it('puts the current zoom back when the text is no number', () => {
+		renderExplore()
+		openZoom()
+		const input = screen.getByTestId('explore-zoom-input')
+
+		fireEvent.change(input, {target: {value: 'abc'}})
+		fireEvent.blur(input)
+
+		expect(input).toHaveValue('100%')
+		expect(settingsWrites()).toEqual([])
+	})
+
+	it('resets to 100% and disables the reset there', async () => {
+		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreZoom: 1.5})
+		renderExplore()
+		openZoom()
+		expect(screen.getByTestId('explore-zoom-input')).toHaveValue('150%')
+
+		fireEvent.click(screen.getByTestId('explore-zoom-reset'))
+
+		await waitFor(() => expect(screen.getByTestId('explore-zoom-reset')).toBeDisabled())
+		expect(settingsWrites()).toContainEqual({common: {exploreZoom: 1}})
 	})
 })
 

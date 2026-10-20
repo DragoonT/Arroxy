@@ -44,7 +44,8 @@ function makeHost() {
 		destroy: vi.fn(),
 		applyProxySetting: vi.fn().mockResolvedValue(undefined),
 		applyAdBlockSetting: vi.fn().mockResolvedValue(undefined),
-		applyIdleUnloadSetting: vi.fn()
+		applyIdleUnloadSetting: vi.fn(),
+		applyZoomSetting: vi.fn()
 	}
 }
 
@@ -366,6 +367,14 @@ describe('settings update applies a toggled ad blocker to the Explore view', () 
 		const host = setup()
 		await invoke(IPC_CHANNELS.settingsUpdate, {common: {proxyUrl: ''}})
 		expect(host.applyAdBlockSetting).not.toHaveBeenCalled()
+	})
+
+	it('applies the page zoom when the patch sets exploreZoom, and only then', async () => {
+		const host = setup()
+		expect((await invoke(IPC_CHANNELS.settingsUpdate, {common: {exploreZoom: 1.5}})).ok).toBe(true)
+		expect(host.applyZoomSetting).toHaveBeenCalledOnce()
+		await invoke(IPC_CHANNELS.settingsUpdate, {common: {proxyUrl: ''}})
+		expect(host.applyZoomSetting).toHaveBeenCalledOnce()
 	})
 
 	it.each([true, false])('applies idle unload when the patch sets exploreIdleUnload to %s', async exploreIdleUnload => {
