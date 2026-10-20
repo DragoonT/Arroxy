@@ -20,6 +20,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - **Switching profile keeps your edits.** Arroxy asks whether to keep your changes or reset to the new profile.
 - **Video, no audio.** The Format screen offers Video + audio, Video, no audio, Audio only and Subtitles only, like the profile editor.
 - **Every codec at every resolution.** Each resolution lists AV1, VP9 and H.264 side by side, so you can pick H.264 even when your profile prefers AV1.
+- **Profiles can prefer VP9 or H.264.** A new **Video codec** setting in the profile editor's Advanced section takes either first, without giving up resolution or HDR.
 - **Stream tags.** The Format screen marks AI-upscaled, AI-dubbed, enhanced-bitrate, 360°, damaged and watermarked streams.
 - **Profiles skip AI-upscaled streams.** A setting in the profile editor's Advanced section allows them.
 - **Arrange the Downloads table.** Drag a header to move or resize its column, or use the keyboard. **Reset columns** in the columns menu puts them back.
@@ -28,10 +29,15 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## Fixes
 
-- Converting to MP3, M4A, Opus or WAV uses the audio language you chose.
+- Converting to MP3, M4A, Opus or WAV uses the audio language you chose, and starts from a stream already in that format when there is one. Arroxy says when the audio is copied as it is rather than re-encoded.
+- Converting a Dolby surround track to Opus no longer fails.
+- **Audio only** downloads give an audio file on sites whose streams all carry video, such as Twitch clips and Dailymotion, instead of the whole video.
 - Switching from Audio only back to video picks what your profile would, not the largest stream.
 - Sizes show for sites that don't report them, such as Instagram and Facebook, and each resolution is listed once. Facebook's HD and SD files are listed separately.
 - Streams without a resolution are listed as "Unknown resolution".
+- Vimeo's audio streams are listed once each, by quality, instead of as identical copies.
+- The "This video only goes up to…" notice no longer shows for ultra-wide videos that meet your profile's resolution.
+- A playlist row assigned to a profile you later hid shows that profile, which is the one it downloads with.
 - Format chip hints show the video bitrate and open as soon as you hover.
 - A slow format lookup can be cancelled.
 - A site whose stream list is gone no longer triggers a second lookup.
@@ -49,6 +55,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - First-time setup no longer gives up on slow connections, and **Try again** resumes instead of starting over.
 - The hotkey recorder accepts Shift and Option combinations, arrows, punctuation and the numpad.
 - The Download menu and the Downloads column picker work with the keyboard.
+- In a small window, the footer's links shrink to icons so the language and theme settings stay visible.
 - A busy download queue no longer slows the app down.
 - Logs and feedback diagnostics no longer include signed stream URLs or YouTube tokens.
 - The Vimeo OTT title lookup can no longer reach addresses on your local network.

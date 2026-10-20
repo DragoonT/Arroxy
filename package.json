@@ -1,6 +1,6 @@
 {
 	"name": "arroxy",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"private": true,
 	"description": "Arroxy - YouTube downloader app",
 	"license": "GPL-3.0-or-later",
