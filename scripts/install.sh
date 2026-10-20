@@ -5,10 +5,11 @@
 #   wget -qO- https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 #
 # Options go after `sh -s --`, needed because the script arrives on stdin:
+#   curl -fsSL <url> | sh -s -- --appimage     install the AppImage (the default)
 #   curl -fsSL <url> | sh -s -- --flatpak      install the Flatpak instead
 #   curl -fsSL <url> | sh -s -- --uninstall    remove the AppImage install
 #
-# By default: downloads the latest AppImage, verifies it against the release's
+# --appimage, or no option: downloads the latest AppImage, verifies it against the release's
 # published SHA256SUMS, and adds a desktop entry so Arroxy shows up in the
 # applications menu. Everything lands under $HOME — no sudo, no system paths.
 #
@@ -53,10 +54,10 @@ uninstall() {
 
 mode=appimage
 case "${1:-}" in
-  "") ;;
+  ""|--appimage) ;;
   --uninstall) uninstall ;;
   --flatpak) mode=flatpak ;;
-  *) die "Unknown option: $1 (expected --flatpak or --uninstall)" ;;
+  *) die "Unknown option: $1 (expected --appimage, --flatpak or --uninstall)" ;;
 esac
 
 # --- environment checks ------------------------------------------------------
