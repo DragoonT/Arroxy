@@ -1,5 +1,6 @@
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {randomUUID} from 'node:crypto'
+import {mkdir} from 'node:fs/promises'
 import log from 'electron-log/main.js'
 import {spawnYtDlp} from '@main/utils/process.js'
 import {accountCookiesRejected, classifyYtDlpStderr, extractLastError, rateLimitEvidence, rateLimitLine} from 'ytdlp-errors'
@@ -45,7 +46,8 @@ export type YtDlpRequest = ProbeWorkflowInput | CallerMediaWorkflowInput | Calle
 
 export interface YtDlpSignal {
 	onMinting?: (attempt: 0 | 1) => void
-	onSpawn?: (proc: ChildProcessWithoutNullStreams) => void
+	// `cwd`: the folder the run executes in, which the paths it prints are relative to.
+	onSpawn?: (proc: ChildProcessWithoutNullStreams, cwd: string | undefined) => void
 	onStdout?: (chunk: string) => void
 	onStderr?: (chunk: string) => void
 	// Caller-driven cancellation. When aborted, in-flight yt-dlp processes are
@@ -136,6 +138,7 @@ interface InvokeOptions {
 	jsRuntime: YtDlpJsRuntime | null
 	e2eMode?: E2eHarnessMode
 	args: string[]
+	cwd?: string
 	tokenService: TokenService
 	cookies?: ResolvedCookies | null
 	sessionJars?: SessionCookieJarPort
@@ -187,6 +190,21 @@ function rateLimitOverBotWall(result: YtDlpResult): YtDlpResult {
 function heldByCooldown(site: string, until: number): YtDlpResult {
 	ytDlpLog.info('run held: the site is rate-limiting this connection', {site, until: new Date(until).toISOString()})
 	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: ''}
+}
+
+// A run executes inside its plan's folder, which a subtitles-only job has not
+// created yet. Spawning in a missing folder fails with ENOENT, which would read
+// as a missing yt-dlp binary, so the folder is made right before the spawn (a
+// run stopped earlier leaves none behind) and a failure is the folder's.
+async function ensureRunFolder(cwd: string): Promise<YtDlpResult | null> {
+	try {
+		await mkdir(cwd, {recursive: true})
+		return null
+	} catch (error) {
+		const code = error instanceof Error && 'code' in error ? error.code : undefined
+		ytDlpLog.warn('run folder could not be created', {code: typeof code === 'string' ? code : null})
+		return {kind: 'exit-error', exitCode: -1, errorKind: code === 'ENOSPC' ? 'outOfDiskSpace' : 'outputNotWritable', rawError: unknownToMessage(error), stdout: '', stderr: ''}
+	}
 }
 
 function probeTimedOut(): YtDlpResult {
@@ -284,16 +302,20 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 	const jsRuntimeSummary = summarizeYtDlpJsRuntimeForLog(opts.jsRuntime)
 	opts.onInvocation?.({ytDlpPath: opts.ytDlpPath, ffmpegPath: opts.ffmpegPath, args: redactArgs(args), jsRuntime: jsRuntimeSummary, attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : null})
 
-	ytDlpLog.info('spawn', {attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : undefined, binary: opts.ytDlpPath, ffmpeg: opts.ffmpegPath, ...jsRuntimeSummary, cookies: opts.cookies?.kind ?? null, proxy: opts.proxyForLog ?? null, args: redactArgs(args)})
+	ytDlpLog.info('spawn', {attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : undefined, binary: opts.ytDlpPath, ffmpeg: opts.ffmpegPath, ...jsRuntimeSummary, cookies: opts.cookies?.kind ?? null, proxy: opts.proxyForLog ?? null, cwd: opts.cwd ?? null, args: redactArgs(args)})
 
 	const abortSignal = opts.signal?.abortSignal
 	// The token mint above can take a while; a pause landing during it stops the run here.
 	if (stoppedBeforeSpawn(opts.signal)) {
 		return Promise.resolve(cancelledResult())
 	}
+	if (opts.cwd !== undefined) {
+		const unusable = await ensureRunFolder(opts.cwd)
+		if (unusable) return unusable
+	}
 	const runtime = opts.jsRuntime
 	return new Promise<YtDlpResult>(resolve => {
-		const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath, opts.e2eMode, runtime ? env => applyJsRuntimeEnv(env, runtime) : undefined)
+		const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath, {e2eMode: opts.e2eMode, ...(runtime ? {transformEnv: env => applyJsRuntimeEnv(env, runtime)} : {}), ...(opts.cwd === undefined ? {} : {cwd: opts.cwd})})
 		let stdout = ''
 		let stderr = ''
 		let settled = false
@@ -368,7 +390,7 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 		const onAbort = abortSignal ? (): void => stop(() => ({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout, stderr})) : null
 		if (abortSignal && onAbort) abortSignal.addEventListener('abort', onAbort, {once: true})
 
-		opts.signal?.onSpawn?.(proc)
+		opts.signal?.onSpawn?.(proc, opts.cwd)
 
 		proc.stdout.on('data', (chunk: Buffer) => {
 			const {text, lines} = stdoutReader.push(chunk)
@@ -646,6 +668,7 @@ export class YtDlp {
 				jsRuntime: this._jsRuntime,
 				e2eMode: this.opts.e2eMode,
 				args: options.finalPathFile ? [...finalPathPrintArgs(options.finalPathFile), ...plan.args] : plan.args,
+				...(plan.cwd === undefined ? {} : {cwd: plan.cwd}),
 				tokenService: this.tokenService,
 				cookies,
 				sessionJars: this.opts.sessionJars,
