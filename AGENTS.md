@@ -1,4 +1,6 @@
-# General
+# Arroxy
+
+Arroxy's coding standards, commands and gotchas, for anyone working in this repository — human or agent.
 
 ## Engineering Principles
 
@@ -8,10 +10,7 @@ The defaults below apply to every change in this codebase.
 - **Validate at trust transitions.** Data received from IPC, persistence, external processes, network responses, environment/configuration, browser evaluation, and untyped framework APIs enters as `unknown` when its runtime shape is not guaranteed. Convert it through an owned parser or normalizer into a named trusted type before domain logic consumes it. Parsers may accept `unknown` and use runtime checks. Runtime narrowing remains valid for typed unions, optional values, capability detection, and error normalization. Prefer schemas, type guards, contextual typing, and discriminated unions over assertions. A necessary assertion must be supported by a locally visible check or a precise documented invariant.
 - **Clean architecture.** Keep concerns separated, dependencies pointing inward, business logic decoupled from frameworks and I/O. The renderer shouldn't know how the main process fetches; the main process shouldn't know which component renders.
 - **Prefer mature libraries over bespoke code.** For validation, HTTP, ORM, auth, logging, and similar plumbing, reach for the production-proven, widely-adopted package before writing your own. If a mature library solves the problem, use it.
-- **Push back when something looks wrong.** Don't defer to the user reflexively. If a proposal looks incorrect, incomplete, or inconsistent with the codebase, name the specific reason rather than agreeing. Agreement-by-default is a failure mode.
-- **Verify before you act on uncertainty.** When you're not confident about a fact, an API surface, a library's behavior, or how a piece of this codebase works, check it — read the source, check the docs, run a quick test. Assumed knowledge is the most common source of bugs.
 - **Reuse the domain glossary** in `GLOSSARY.md` — the canonical naming reference for the architecture. Use those terms exactly when extending or refactoring; add new entries when extracting modules instead of letting parallel vocabularies sprout.
-- Don’t fight errors! Whenever you encounter the same error 3 times, research the web (and github using gh api) and find 3-5 possible ways to fix it. Then choose the most efficient solution and implement it or stop to notify user that there is no clean fix at this point.
 
 ---
 
@@ -33,6 +32,21 @@ bun run bridge:check   # yt-dlp-bridge: builds ytdlp-errors first, then the same
 ```
 
 Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*` and `ytdlp-errors-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
+
+---
+
+## Related repositories
+
+Arroxy spans several repositories. This repo is the hub: the others consume what it builds or publishes, and none of them is a source for app code.
+
+| Repository | Owns | Connection to this repo |
+| --- | --- | --- |
+| `arroxy-web` | Landing site, blog, download picker, landing-page copy in every locale | Its `release-manifest` workflow refreshes download metadata from this repo's latest release; the `notify-web-release-manifest` job here dispatches `arroxy-release` to trigger it |
+| `arroxy-runtime-binaries` | Signed runtime manifests (yt-dlp, FFmpeg packages) and FFmpeg package releases | Its scheduled workflow checks out this repo and runs the manifest generator from `main`, so pin changes merged here ship without an app release |
+| `arroxy-internal` (private) | Unbuilt plans, research records, maintainer notes | Linked as `.internal/`; see below |
+| `scoop-bucket`, `homebrew-arroxy`, `winget-pkgs` fork | Package-manager manifests | Written only by the release pipeline here; never edit them by hand |
+
+The Flatpak repo is not a separate repository: the release pipeline publishes it to this repo's GitHub Pages. Each repo's own `AGENTS.md` covers its conventions, which differ from these (for example, `arroxy-web` commits straight to `main` and opens no PRs).
 
 ---
 
@@ -60,8 +74,6 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 
 **Translation workflow.** Use the `translate-arroxy-i18n` project skill for app locale changes, PO/POT sync, generated locale JSON, and i18n audits.
 
-**Session scope.** Treat every agent session as scoped to the task context it was given. Other agents may be working in parallel on the same branch, so do not repair, reformat, revert, or restructure files outside your current scope just because you notice a problem there.
-
 **One concern per PR.** Each PR makes one reviewable change and passes `bun run check` on its own, so every review reads a single idea.
 
 - **Split along seams:** a `packages/*` change apart from the app change that uses it; a behaviour-free refactor or rename before the feature that needs it; mechanical churn (formatting, licence headers, dependency bumps, locale sync, regenerated files) apart from logic; independent features or modules as separate PRs off `main`.
@@ -76,35 +88,6 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 - **ship-fix** — runs the end-to-end flow for a bug fix: worktree, test-first fix, PR, CodeRabbit, CI validation, squash-merge, version bump and release, with cheaper subagents for mechanical work. Entry point: `.agents/skills/ship-fix/SKILL.md`.
 
 ---
-
-## Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-
-- State assumptions explicitly. Ask if uncertain.
-- Multiple interpretations? Present them — don't pick silently.
-- Simpler approach exists? Say so. Push back when warranted.
-- Unclear? Stop. Name what's confusing. Ask.
-
-## Goal-Driven Execution
-
-**Define success criteria. Loop until verified.** Transform tasks into verifiable goals: "Add validation" → tests for invalid inputs, then make them pass. "Fix the bug" → reproduce-test, then make it pass. "Refactor X" → tests pass before and after. For multi-step tasks, state a brief plan with a `verify:` line per step.
-
-For multi-step tasks, use this shape:
-
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-
-Strong success criteria let you loop independently. Weak criteria like "make it work" require constant clarification.
-
-**Simplify aggressively.** If you write 200 lines and it could be 50, rewrite it. Ask: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
----
-
-# Project-Scoped
 
 ## Memory storage — project-scoped, not user-scoped
 
@@ -143,8 +126,6 @@ bun run check   # vp check (format + lint + types + import cycles) + tests + kni
 ```
 
 Do not skip. A change in one file can break types, introduce dead code, or create circular imports elsewhere.
-
-If `bun run check`, lint, typecheck, or tests report an unexpected failure that is not clearly attributable to your current task, do not try to fix it opportunistically. Capture the relevant failure, state that it appears outside the current session scope, and leave it alone so a parallel agent's in-progress work is not disrupted. Only touch unrelated files when the user explicitly expands the scope or when you can show the failure is a direct consequence of your edits.
 
 ### Fast static check
 
