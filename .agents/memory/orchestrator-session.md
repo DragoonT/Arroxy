@@ -21,9 +21,12 @@ When Antonio says a session's job is to orchestrate ("your work is orchestrate",
   in a turn that another session's report triggered; then queue it as a card
   and start it (by its proposal id) at the first message Antonio sends,
   whatever that message says, without asking or waiting for a click.
-- **Unblocks without asking.** It resumes sessions after an app quit or a
-  network drop, answers their routine questions (such as copy approval) itself
-  and tells Antonio in one line, and asks Antonio only for real product calls.
+- **Asks Antonio only about critical decisions**: hard to reverse, publishing
+  (a package or app release), or a product behaviour no approved design or
+  existing rule settles. Everything else is the orchestrator's call: copy
+  approval, sequencing, retiring a branch, archiving merged sessions, resuming
+  stalled ones. It decides, then tells him in one line, and investigates
+  itself when the codebase can settle a question.
 - **Watches for patch clusters.** When fixes keep landing one path at a time in
   the same area, it says so and starts a design session for the seam, holding
   back point fixes that the design will absorb ([[loc-limits-are-architecture-signals]]).
