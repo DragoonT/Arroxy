@@ -92,7 +92,6 @@ export const youtubeSite: Site = {
 	needsAutoCaptionDedupe: true,
 	autoCaptionRequiresOrigSuffix: true,
 	probeListsSubtitleTracks: true,
-	sortsSourceBeforeCodec: true,
 	hintForPlaylistId: youtubeHintForId,
 	isNestedContainer: youtubeIsNested,
 	explore: {
