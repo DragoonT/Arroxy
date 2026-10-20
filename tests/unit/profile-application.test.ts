@@ -163,6 +163,45 @@ describe('profileFromWizard', () => {
 		expect(save(manualOnly, snapshot => ({...snapshot, subtitleLanguages: ['en', 'ja-orig']})).subtitles).toMatchObject({languages: ['en', 'ja'], source: 'manual-first'})
 	})
 
+	// Picks [en, en-orig] used to save as manual-first, which brings back only the uploaded English.
+	it('saves manual and automatic tracks of one language as manual-and-auto', () => {
+		const ctx = {...context, automaticCaptions: {'en-orig': [{ext: 'vtt'}]}}
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en', 'de', 'en-orig']}), FORMATS, ctx).subtitles).toMatchObject({enabled: true, languages: ['en', 'de'], source: 'manual-and-auto'})
+		const both = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['en'], source: 'manual-and-auto' as const}}
+		expect(save(both, snapshot => ({...snapshot, subtitleLanguages: ['en']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'manual-first'})
+	})
+
+	// The saved source must give back, per language, the kind of track the user kept.
+	it('saves a caption picked over its uploaded twin as auto-only', () => {
+		const ctx = {...context, automaticCaptions: {'en-orig': [{ext: 'vtt'}]}}
+		const both = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['en'], source: 'manual-and-auto' as const}}
+		expect(save(both, snapshot => ({...snapshot, subtitleLanguages: ['en-orig']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'auto-only'})
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en-orig']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'auto-only'})
+	})
+
+	// One source covers every language: when none gives back the picks exactly,
+	// the one that keeps them all wins over one that drops a track.
+	it('keeps every picked track when no single source matches them exactly', () => {
+		const ctx = {...context, automaticCaptions: {'en-orig': [{ext: 'vtt'}], 'de-orig': [{ext: 'vtt'}]}}
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en', 'en-orig', 'de']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en', 'de'], source: 'manual-and-auto'})
+		// A regional variant the profile's code also matches is no reason to change the source.
+		const regional = {...context, subtitles: {...MANUAL, 'de-DE': [{ext: 'vtt'}]}}
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['de']}), FORMATS, regional).subtitles).toMatchObject({languages: ['de'], source: 'manual-first'})
+	})
+
+	// Every picked track must come back, not just a track of the same kind.
+	it('never lets a regional caption stand in for the picked one', () => {
+		const ctx = {...context, automaticCaptions: {'en-orig': [{ext: 'vtt'}], 'en-US-orig': [{ext: 'vtt'}]}}
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en', 'en-orig']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'manual-and-auto'})
+	})
+
+	// Off YouTube both maps can key a track `en`; the picker lists it as the uploaded one.
+	it('tells an uploaded track from an automatic one that shares its key', () => {
+		const ctx = {...context, subtitles: {en: [{ext: 'vtt'}]}, automaticCaptions: {en: [{ext: 'vtt'}]}}
+		const autoOnly = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['ja'], source: 'auto-only' as const}}
+		expect(save(autoOnly, snapshot => ({...snapshot, subtitleLanguages: ['en']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'manual-first'})
+	})
+
 	it('saves audio conversions, folder and file name', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, outputDir: '/music', filenameTemplate: '{title}'}))
 		expect(saved.media).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 320}})
