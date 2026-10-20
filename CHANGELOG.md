@@ -8,6 +8,8 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.7.0-beta.1
+
 ## Highlights
 
 - **Explore opens any site.** Type an address or follow any link, and sign in to other sites there; downloads from those sites use that sign-in when they need it. Plain text in the address bar searches with the **Search engine** you pick in Settings.
