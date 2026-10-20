@@ -190,7 +190,7 @@ brew install --cask antonio-orionus/arroxy/arroxy
 AppImage:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --appimage
 ```
 
 Flatpak:
