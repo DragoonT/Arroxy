@@ -15,7 +15,7 @@
 
 ## Releases and packaging
 
-- [Winget license after relicense](winget-license-after-relicense.md) — the 0.7.1 Winget PR copies `License: MIT`; fix it to GPL-3.0-or-later by hand, then delete this entry.
+- [Winget PR copies the merged manifest](winget-pr-copies-merged-manifest.md) — fix licence, descriptions and tags in each release's Winget PR until a corrected manifest merges; quote values with ": ".
 - [Dependabot never bumps overrides](dependabot-never-bumps-overrides.md) — stale `overrides` pins become the vulnerable versions; app.asar ships no node_modules.
 - [macOS Gatekeeper quarantine](macos-gatekeeper-quarantine.md) — builds are ad-hoc signed ("could not verify", not "damaged"); the cask strips quarantine in `postflight_steps`.
 
