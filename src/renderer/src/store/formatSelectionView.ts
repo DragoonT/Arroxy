@@ -1,3 +1,4 @@
+import {extractSelection} from '@shared/audioConversionSource.js'
 import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {useMemo} from 'react'
@@ -136,6 +137,10 @@ export interface FormatSelectionView {
 		// The source's own default (or original) language, where the list opens
 		// when no stream is picked yet: never an AI dub just because it is listed first.
 		defaultTrack: string | null
+		// Audio mode on a site with only combined files: "Keep as-is" extracts their audio.
+		extractOffered: boolean
+		// The combined file it extracts: the one yt-dlp would pick.
+		extractFormatId: string | null
 		// The best native bitrate, which a lossy conversion cannot improve on.
 		sourceKbps: number | null
 		// The probe's own yt-dlp formats, which say which stream a conversion starts from.
@@ -471,6 +476,8 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]
 	const convertTargets = convertDisabled ? [] : AUDIO_CONVERT_TARGETS.map(spec => spec.target)
+	const conversionSelection = state.formatSelection ?? selectionSourceFromOptions(wizardFormats)
+	const extractOffered = isAudioOnly && !hasSeparableAudio && wizardFormats.some(f => !f.isVideoOnly)
 
 	return {
 		mode,
@@ -487,7 +494,9 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, namedTracks) : null,
 			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
-			conversionSelection: state.formatSelection ?? selectionSourceFromOptions(wizardFormats),
+			extractOffered,
+			extractFormatId: extractOffered ? (extractSelection(conversionSelection).formatId ?? null) : null,
+			conversionSelection,
 			convertTargets,
 			noAudioDisabled,
 			selectedVideoIsMuxed,
