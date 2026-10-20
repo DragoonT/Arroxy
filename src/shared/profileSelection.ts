@@ -76,6 +76,9 @@ function codecRank(format: FormatOption): number {
 	return index < 0 ? VIDEO_CODEC_RANK.length : index
 }
 
+// yt-dlp's value for a stream whose site sets no `source_preference`.
+const DEFAULT_SOURCE_PREFERENCE = -1
+
 // The ranks after resolution compare streams of one height, best first.
 function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order: SelectionOrder): number {
 	switch (rank.kind) {
@@ -85,6 +88,8 @@ function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order:
 			const hdrFirst = Number(b.dynamicRange !== undefined) - Number(a.dynamicRange !== undefined)
 			return order.hdr.preference === 'hdr' ? hdrFirst : -hdrFirst
 		}
+		case 'source':
+			return (b.sourcePreference ?? DEFAULT_SOURCE_PREFERENCE) - (a.sourcePreference ?? DEFAULT_SOURCE_PREFERENCE)
 		case 'codec':
 			return codecRank(a) - codecRank(b)
 		case 'size':
@@ -174,6 +179,13 @@ function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; b
 	return nativeAudio(audioFormats, preference)
 }
 
+// The order shown as "Why this one" drops the source rank when no stream of
+// this video carries one (any site but YouTube): every copy ties on it there.
+function forThisVideo(order: SelectionOrder, videos: readonly FormatOption[]): SelectionOrder {
+	if (videos.some(f => f.sourcePreference !== undefined)) return order
+	return {...order, video: order.video.filter(rank => rank.kind !== 'source')}
+}
+
 function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {media: MediaSelection; order: SelectionOrder | null} {
 	const {profile, formats, nativeAudioPreference} = input
 	const media = profile.media
@@ -183,7 +195,7 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 	if (media.kind === 'subtitles-only') return {media: {kind: 'subtitles', videoFormatId: '', audioSelection: NO_AUDIO}, order: null}
 	if (media.kind === 'audio-only') return {media: {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection(media.audio, audioFormats, nativeAudioPreference)}, order: null}
 
-	const order = selectionOrder(media, nativeAudioPreference, input.hdrPreference)
+	const order = forThisVideo(selectionOrder(media, nativeAudioPreference, input.hdrPreference), videos)
 	if (input.isAudioOnlySource || videos.length === 0) {
 		notices.push({kind: 'no-video'})
 		return {media: {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection({format: 'best'}, audioFormats, nativeAudioPreference)}, order}
