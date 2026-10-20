@@ -167,4 +167,45 @@ describe('AudioColumn', () => {
 
 		expect(screen.queryByText(/^Source is/)).not.toBeInTheDocument()
 	})
+
+	// A conversion that names no stream converts the default track: the controls show that one.
+	it("follows an unnamed conversion's own source, not the language shown before", () => {
+		const formats = FORMATS.map(format => (format.audioTrackLabel === 'English' ? {...format, isDefaultAudio: true} : format))
+		const view = (selection: AudioSelection): ReturnType<typeof selectView>['audio'] => selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats}).audio
+		const spanish: AudioSelection = {kind: 'native', formatId: '251-es'}
+		const {rerender} = render(<AudioColumn view={view(spanish)} mode="audio-only" audioSelection={spanish} onSelect={vi.fn()} />)
+		expect(screen.getByTestId('audio-language')).toHaveTextContent('Spanish')
+
+		const conversion: AudioSelection = {kind: 'convert-lossy', target: 'opus', bitrateKbps: 192}
+		rerender(<AudioColumn view={view(conversion)} mode="audio-only" audioSelection={conversion} onSelect={vi.fn()} />)
+		expect(screen.getByTestId('audio-language')).toHaveTextContent('English')
+	})
+
+	it("follows a conversion's source to its DRC master, twin or not", () => {
+		const formats = FORMATS.map(format => (format.audioTrackLabel === 'English' ? {...format, isDefaultAudio: true} : format))
+		const view = (selection: AudioSelection): ReturnType<typeof selectView>['audio'] => selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats}).audio
+		const drcPick: AudioSelection = {kind: 'native', formatId: '251-en-drc'}
+		const {rerender} = render(<AudioColumn view={view(drcPick)} mode="audio-only" audioSelection={drcPick} onSelect={vi.fn()} />)
+		expect(screen.getByRole('switch', {name: /Even out loudness/})).toBeChecked()
+
+		// An unnamed M4A conversion converts the plain AAC 140, which has no DRC twin.
+		const conversion: AudioSelection = {kind: 'convert-lossy', target: 'm4a', bitrateKbps: 192}
+		rerender(<AudioColumn view={view(conversion)} mode="audio-only" audioSelection={conversion} onSelect={vi.fn()} />)
+		expect(screen.getByRole('switch', {name: /Even out loudness/})).not.toBeChecked()
+	})
+
+	it('sets DRC when a conversion takes over the same stream a native pick had', () => {
+		const formats = FORMATS.map(format => (format.audioTrackLabel === 'English' ? {...format, isDefaultAudio: true} : format))
+		const view = (selection: AudioSelection): ReturnType<typeof selectView>['audio'] => selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats}).audio
+		const drcPick: AudioSelection = {kind: 'native', formatId: '251-en-drc'}
+		const {rerender} = render(<AudioColumn view={view(drcPick)} mode="audio-only" audioSelection={drcPick} onSelect={vi.fn()} />)
+		// The unpaired AAC 140 leaves the switch as it was.
+		const aac: AudioSelection = {kind: 'native', formatId: '140-en'}
+		rerender(<AudioColumn view={view(aac)} mode="audio-only" audioSelection={aac} onSelect={vi.fn()} />)
+		expect(screen.getByRole('switch', {name: /Even out loudness/})).toBeChecked()
+
+		const conversion: AudioSelection = {kind: 'convert-lossy', target: 'm4a', bitrateKbps: 192}
+		rerender(<AudioColumn view={view(conversion)} mode="audio-only" audioSelection={conversion} onSelect={vi.fn()} />)
+		expect(screen.getByRole('switch', {name: /Even out loudness/})).not.toBeChecked()
+	})
 })
