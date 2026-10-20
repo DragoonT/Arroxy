@@ -69,7 +69,7 @@ Push and `gh pr create` with: problem, root cause, fix, tests, and a "Review" li
 verify: PR open, both greps clean.
 
 ### 8. CodeRabbit, when it is worth a trigger
-Follow `coderabbit-review-workflow`: only behaviour-changing PRs, one trigger on the final head, never push while it runs. Skip it, and say so in the PR, when the hourly quota is spent and the change is low-risk, or the PR has over 100 files. Check each finding against the code like any other; answer refuted ones in their thread with evidence and add recurring false alarms to `review-learnings.md`.
+Follow `coderabbit-review-workflow`: only behaviour-changing PRs, one trigger on the final head once CI is green, never push while it runs. A refused trigger gets one retry after the cooldown it names; refused again, merge on the local reviews. Skip it, and say so in the PR, when the hourly quota is spent and the change is low-risk, or the PR has over 100 files. Check each finding against the code like any other; answer refuted ones in their thread with evidence and add recurring false alarms to `review-learnings.md`.
 verify: the review covered the head commit, or the skip is stated with its reason.
 
 ### 9. Merge

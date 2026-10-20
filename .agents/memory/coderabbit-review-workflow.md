@@ -1,6 +1,6 @@
 ---
 name: coderabbit-review-workflow
-description: CodeRabbit is a scarce repo-wide quota (2 reviews/hour, 100 files/PR) with automatic reviews OFF; trigger only behaviour-changing PRs, once, on a final head; never push mid-review; read outcomes from issues/<N>/comments; a green CodeRabbit check proves nothing.
+description: CodeRabbit is a scarce, adaptive repo-wide quota (2 reviews/hour, 100 files/PR) with automatic reviews OFF; trigger only behaviour-changing PRs, once, on a final head after CI is green, one retry at most; never push mid-review; read outcomes from issues/<N>/comments; a green CodeRabbit check proves nothing.
 metadata:
   type: feedback
 ---
@@ -32,8 +32,17 @@ the `land` skill) has already checked every PR before it opens.
 
 ## When to trigger
 
-- **Last, on a final head.** Run every local review and gate first, push the
-  fixes, then trigger once.
+- **Last, on a final head, after CI is green.** Run every local review and gate
+  first, push the fixes, wait for CI, then trigger once. A review spent on a head
+  CI then fails is wasted: the fix needs a new head anyway.
+- **No retry loops.** The limit is adaptive: every trigger, refused ones
+  included, and every push or rebase on a PR counts as a review, and heavy use
+  drops the allowance (CodeRabbit's rate-limit docs). On 2026-10-20 watchers
+  re-triggering after every cooldown spent 47 triggers for 13 reviews (33
+  refused), and median CodeRabbit wait was 27 minutes. A refused trigger gets one
+  retry, after the cooldown the refusal names; refused again, merge on the local
+  reviews and say so in the PR. Never run a `--auto-retry` watcher on several PRs
+  at once.
 - **Never push while a review runs.** CodeRabbit drops the review when the head
   moves ("Action not completed — Head commit changed") and the trigger is spent
   (PR #334 lost its whole first review to a fix pushed two minutes later). Hold
@@ -43,9 +52,9 @@ the `land` skill) has already checked every PR before it opens.
   It is needed then: reviews are incremental and do not pick up later commits
   with auto reviews off (PR #220 merged-ready with its fix commit unreviewed).
   Two per PR is the ceiling.
-- A refused trigger ("rate limited") is never retried by the bot; re-trigger
-  after the window the refusal names ("Next included review available in N
-  minutes").
+- A refused trigger ("rate limited") is never retried by the bot. The one
+  retry above waits for the window the refusal names ("Next included review
+  available in N minutes").
 - **The first reply can flip.** On PR #386 (2026-10-20) the trigger reply read
   "Review triggered", then edited itself to "Action not completed — Review rate
   limited" seconds later. Wait ~30 s before reading it, and treat the review as
