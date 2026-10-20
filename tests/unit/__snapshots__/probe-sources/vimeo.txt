@@ -10,6 +10,7 @@ Video (picked for Balanced 720p •):
 
 Audio:
 MP4: High quality no size • | Low quality no size
+convert from: mp3 ← hls-fastly_skyfire-audio-high-English re-encode · m4a ← hls-fastly_skyfire-audio-high-English re-encode · opus ← hls-fastly_skyfire-audio-high-English re-encode · wav ← hls-fastly_skyfire-audio-high-English re-encode
 
 Profile picks:
 balanced: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
