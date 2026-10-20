@@ -74,7 +74,7 @@ verify: the review covered the head commit, or the skip is stated with its reaso
 
 ### 9. Merge
 Once the last review is through, turn on auto-merge (squash) rather than waiting for green and merging by hand; required checks still gate it. A green CodeRabbit check alone proves nothing.
-A stacked PR whose base merged is moved onto `main` without running `main`'s required checks, so it shows every check green yet stays blocked: merge `origin/main` into it and push, then turn on auto-merge. Until its base is `main`, leave auto-merge off, or it merges into the parent's branch.
+Don't stack PRs (`AGENTS.md`, "Don't stack PRs"). A PR stacked anyway keeps auto-merge off until GitHub moves it onto `main` after its base merges, or it merges into the parent's branch. Then turn auto-merge on, merging `origin/main` in first only if it conflicts.
 verify: `gh pr view <N> --json state` reports `MERGED` (or auto-merge is enabled and waiting on checks).
 
 ### 10. Close out
