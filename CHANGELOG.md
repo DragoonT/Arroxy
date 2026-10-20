@@ -8,7 +8,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.7.0-beta.1
+## 0.7.0
 
 ## Highlights
 
