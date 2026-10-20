@@ -62,6 +62,8 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 
 **Session scope.** Treat every agent session as scoped to the task context it was given. Other agents may be working in parallel on the same branch, so do not repair, reformat, revert, or restructure files outside your current scope just because you notice a problem there.
 
+**One concern per PR.** Split work into PRs that each make one reviewable change and pass `bun run check` on their own, so every review reads a single idea. Split along these seams: a `packages/*` change apart from the app change that uses it; a refactor or rename that changes no behaviour, landed before the feature that needs it; mechanical churn (formatting, licence headers, dependency bumps, locale sync, regenerated files) apart from logic; and independent features or modules, one PR each, based on `main`. Keep tests in the PR of the code they cover, and never split by layer (a code PR followed by a "tests and docs" PR). Keep one PR when the pieces cannot each be green alone, and say why in its body. CodeRabbit reviews are a scarce shared quota, so a mechanical PR gets Codex and the gates but no CodeRabbit trigger, and each logic PR keeps the usual budget (see memory `coderabbit-review-workflow`). Docs-only changes skip the PR and go straight to `main` (memory `readme-edits-skip-pr`).
+
 ### Agent Skills
 
 - **translate-arroxy-i18n** — manages app locale updates, gettext PO/POT sync, runtime locale JSON generation, and i18n audit commands. Entry point: `.agents/skills/translate-arroxy-i18n/SKILL.md`.
