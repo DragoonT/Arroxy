@@ -17,6 +17,10 @@ When Antonio says a session's job is to orchestrate ("your work is orchestrate",
   they report bugs they notice in their final message, and the orchestrator
   files and dispatches them. An entry moves to `## Fixed` only after its PR
   actually merged (check `gh pr view`), never on a session's say-so.
+- **Starts sessions itself, never asks Antonio to.** The app refuses a start
+  in a turn that another session's report triggered; then queue it as a card
+  and start it (by its proposal id) at the first message Antonio sends,
+  whatever that message says, without asking or waiting for a click.
 - **Unblocks without asking.** It resumes sessions after an app quit or a
   network drop, answers their routine questions (such as copy approval) itself
   and tells Antonio in one line, and asks Antonio only for real product calls.
