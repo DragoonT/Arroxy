@@ -2,6 +2,8 @@ import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
 import {videoCodecName} from '@shared/fileTypeFit.js'
+import {selectedConversionSource} from '@shared/audioConversionSource.js'
+import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import type {AudioSelection} from './types.js'
 
 export interface GroupedVideoFormat {
@@ -33,13 +35,19 @@ export function buildAudioConvertPayload(audioSelection: AudioSelection): AudioC
 
 // Selected audio → human label. Used by buildFormatLabel (queue item) and
 // StepConfirm (preview row) so they can't drift.
-export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: FormatOption[]): string {
+// `formatSelection`: the probe's own yt-dlp formats, which say which stream a conversion starts from.
+export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: FormatOption[], formatSelection: FormatSelectionSource): string {
 	if (audioSelection.kind === 'none') return i18next.t('wizard.formats.noAudio')
 	if (audioSelection.kind === 'convert-lossless') return i18next.t('wizard.formats.convert.wavLabel')
 	if (audioSelection.kind === 'convert-lossy') {
 		// i18next typed-resource inference doesn't always pick up placeholders in
 		// every locale variant — cast through `unknown` like formatStatus does.
-		return (i18next.t as (k: string, opts?: Record<string, unknown>) => string)('wizard.formats.convert.lossyLabel', {target: audioSelection.target.toUpperCase(), bitrate: audioSelection.bitrateKbps})
+		const t = i18next.t as (k: string, opts?: Record<string, unknown>) => string
+		const target = audioSelection.target.toUpperCase()
+		// A source already in the target codec is copied: the chosen bitrate doesn't apply.
+		const source = selectedConversionSource(formatSelection, audioSelection.target, audioSelection.sourceFormatId)
+		if (source?.copies) return source.kbps ? t('wizard.formats.convert.copyLabel', {target, bitrate: Math.round(source.kbps)}) : t('wizard.formats.convert.copyLabelNoBitrate', {target})
+		return t('wizard.formats.convert.lossyLabel', {target, bitrate: audioSelection.bitrateKbps})
 	}
 	const audioFmt = audioFormats.find(f => f.formatId === audioSelection.formatId)
 	return audioFmt?.label ?? i18next.t('formatLabel.audioFallback')
@@ -53,8 +61,8 @@ export function resolveVideoResolution(selectedVideoFormatId: string, formats: F
 	return formats.find(f => f.formatId === selectedVideoFormatId && !f.isAudioOnly)?.resolution ?? selectedVideoFormatId
 }
 
-export function buildFormatLabel(videoFormatId: string, videoResolution: string, audioSelection: AudioSelection, audioFormats: FormatOption[]): string {
-	const audioLabel = resolveAudioLabel(audioSelection, audioFormats)
+export function buildFormatLabel(videoFormatId: string, videoResolution: string, audioSelection: AudioSelection, audioFormats: FormatOption[], formatSelection: FormatSelectionSource): string {
+	const audioLabel = resolveAudioLabel(audioSelection, audioFormats, formatSelection)
 	if (videoFormatId === '') return i18next.t('formatLabel.audioOnlyDot', {audio: audioLabel})
 	return i18next.t('formatLabel.videoDot', {resolution: videoResolution, audio: audioLabel})
 }
