@@ -6,7 +6,7 @@
 - [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, locales, README, CHANGELOG) before proposing a PR.
 - [No AI attribution](no-ai-attribution.md) — never add Co-Authored-By or "Generated with" lines to commits or PRs.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
-- [CodeRabbit review workflow](coderabbit-review-workflow.md) — triggers are a scarce shared quota (2/hour, 100 files/PR, auto reviews off): run Codex and the gates first, trigger once on a final head, never push mid-review ("Head commit changed" burns the trigger); poll `issues/<N>/comments` for all three outcomes.
+- [CodeRabbit review workflow](coderabbit-review-workflow.md) — triggers are a scarce shared quota (2/hour, 100 files/PR, auto reviews off): only behaviour-changing PRs get one, riskiest first; run Codex and the gates first, trigger once on a final head, never push mid-review ("Head commit changed" burns the trigger); poll `issues/<N>/comments` for all three outcomes.
 - [Renderer test & UI API gotchas](renderer-test-and-ui-api-gotchas.md) — base-nova takes a `render` prop, never Radix `asChild`; `@testing-library/user-event` is not installed, use `fireEvent`.
 - [TypeScript & oxlint boundary gates](typescript-and-oxlint-boundary-gates.md) — `"types": []` does not block explicit electron imports; oxlint restricted-import globs need `**`.
 - [Windows VM testing](windows-vm-testing.md) — ssh into the local Win11 ARM64 VM to run `dist:win:dir` + `verify:startup` directly; gotchas: bash on PATH, x64-only inherited asset, node-not-bun for `_electron.launch`.
