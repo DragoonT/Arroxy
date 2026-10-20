@@ -11,6 +11,7 @@ import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {SubtitleOptions} from '@shared/preparedJob.js'
 import {resolveProfileSelection} from '@shared/profileSelection.js'
 import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
+import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
 import type {DownloadProfile, DownloadProfileSubtitleSource, QueueItem, VideoProbeResult} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
 import {probeSourceResult} from '@renderer/dev/probeSources/index.js'
@@ -81,7 +82,15 @@ function quickJob(probe: VideoProbeResult, profile: DownloadProfile): SubtitleOp
 }
 
 function interactiveJob(probe: VideoProbeResult, profile: DownloadProfile): SubtitleOptions | undefined {
-	const probeFields = {settings: defaultAppSettings('/downloads'), wizardFormats: probe.formats, wizardSubtitles: probe.subtitles, wizardAutomaticCaptions: probe.automaticCaptions, wizardIsAudioOnlySource: probe.isAudioOnlySource, wizardOutputDir: '/downloads'}
+	const probeFields = {
+		settings: defaultAppSettings('/downloads'),
+		wizardFormats: probe.formats,
+		wizardFormatSelection: probe.formatSelection ?? EMPTY_FORMAT_SELECTION,
+		wizardSubtitles: probe.subtitles,
+		wizardAutomaticCaptions: probe.automaticCaptions,
+		wizardIsAudioOnlySource: probe.isAudioOnlySource,
+		wizardOutputDir: '/downloads'
+	}
 	const applied = profilePatch(profile, probeFields)
 	const state = {
 		...probeFields,
@@ -105,7 +114,15 @@ describe('subtitle tracks: Quick Download vs the Format screen', () => {
 			for (const source of SUBTITLE_SOURCES)
 				for (const languages of LANGUAGE_SETS) {
 					const profile = profileFor(media, languages, source)
-					const picked = resolveProfileSelection({profile, formats: probe.formats, subtitles: probe.subtitles, automaticCaptions: probe.automaticCaptions, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: DEFAULTS.nativeAudioPreference}).subtitleLanguages
+					const picked = resolveProfileSelection({
+						profile,
+						formats: probe.formats,
+						selection: probe.formatSelection ?? EMPTY_FORMAT_SELECTION,
+						subtitles: probe.subtitles,
+						automaticCaptions: probe.automaticCaptions,
+						isAudioOnlySource: probe.isAudioOnlySource,
+						nativeAudioPreference: DEFAULTS.nativeAudioPreference
+					}).subtitleLanguages
 					// A subtitles-only profile with no track on this video has nothing for the Format screen to queue.
 					if (media === 'subtitles-only' && picked.length === 0) continue
 					it(`${id} · ${media} · ${source} · ${languages.join('+')}`, () => {
