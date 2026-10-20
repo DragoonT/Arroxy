@@ -123,6 +123,15 @@ watch sat on the wrong endpoint).
 Any wait loop must therefore treat all three as terminal, so silence is never
 mistaken for progress.
 
+**Read the state for the current head, not from the latest message about it.**
+The desktop app's Auto-fix wakes a session on new CodeRabbit comments, and a
+wake-up can carry a reply written for an earlier head — a refusal, or a
+"review finished" from before a push. Twice on 2026-10-20 a session acted on
+such a relay (re-triggering a review that had already finished, and reporting
+one as still running). Before deciding anything, read the outcome table above
+against the PR's current head and its `coveredCommitId` (below); a status
+script that does this, where your setup has one, beats reading comments by eye.
+
 **Never filter by `created_at`.** The walkthrough carrying `No actionable
 comments` is the summary comment CodeRabbit posted when the PR opened, edited
 in place when the review finishes — its `created_at` predates your trigger and
