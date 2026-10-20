@@ -26,6 +26,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - **Arrange the Downloads table.** Drag a header to move or resize its column, or use the keyboard. **Reset columns** in the columns menu puts them back.
 - **Put your profiles in order.** Drag profiles on the Profiles tab, or move them with the keyboard. Every profile picker follows your order.
 - **Free memory while away.** A new Explore setting (off by default) closes the Explore page when you leave it and restores it when you come back.
+- **Zoom in Explore.** The zoom button in Explore's toolbar makes pages larger or smaller, and Arroxy remembers your zoom.
 
 ## Fixes
 
