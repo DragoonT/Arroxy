@@ -358,6 +358,24 @@ _Avoid_: theme, skin, look, visual mode
 Light, dark, or following the system. Chosen independently of the style.
 _Avoid_: theme, mode, sky (sky is design-doc shorthand for one style in one scheme)
 
+### Outside control
+
+**Control API**:
+The one way programs outside the Arroxy window use the app: add a link, read the queue and download profiles, and pause, resume, cancel or retry. It is versioned, separate from the window's own private connection to the app, and never asks a question: anything that needs a decision, such as a row that needs your choice, becomes state the client reads and answers.
+_Avoid_: remote API, agent API, MCP (one way of speaking it), public IPC
+
+**Client**:
+A program outside the Arroxy window that the user has allowed to use the Control API, such as a paired phone, an AI agent or a script. Each one has its own identity, shows in the user's list of devices and apps, and stops working the moment it is removed.
+_Avoid_: integration, consumer, connected app, remote
+
+**Entry point**:
+A way work reaches Arroxy: inside the window (the link field, a copied link, Explore, the global hotkey) or from outside it (a phone, the local connection agents and scripts use, an `arroxy://` link). An outside entry point only checks who is calling and passes the Control API message on; it decides nothing itself.
+_Avoid_: adapter (a shell's answer to a port), endpoint, transport, integration
+
+**Intake handle**:
+What a client gets back the instant it hands Arroxy a link, before the probe has answered, to ask about that link later. It ends as queued items, a row that needs your choice, a failed probe, nothing new, or cancelled; it names the link's intake rather than a queue item, because one link can become many queue items or none. A mixed URL means its video unless the client asks for the playlist, as with the global hotkey.
+_Avoid_: job id (no job exists yet), ticket, request id
+
 ### Architecture
 
 **Core**:
