@@ -76,4 +76,14 @@ describe('Save edits after a download', () => {
 		const saved = savedCustomProfiles().find(profile => profile.name?.endsWith('(edited)'))
 		expect(saved?.name?.length).toBeLessThanOrEqual(DOWNLOAD_PROFILE_NAME_MAX)
 	})
+
+	it('does not say the profile was saved when the settings write fails', async () => {
+		vi.mocked(window.appApi.settings.update).mockResolvedValue(fail({code: 'unknown', message: 'disk full'}))
+
+		await downloadWithEditsAndSave(hd1080())
+
+		expect(notices.find(notice => notice.id === 'settings-save')?.level).toBe('error')
+		expect(notices.filter(notice => notice.id === 'profile-saved')).toEqual([])
+		expect(savedCustomProfiles()).toEqual([])
+	})
 })
