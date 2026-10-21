@@ -10,6 +10,7 @@ import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {bindCopiedLinks} from './wizard/copiedLinkIntake.js'
 import {notify} from '../lib/notify.js'
 import {EMPTY_WARMUP_DOWNLOADS, trackWarmupDownloads} from './warmupDownloads.js'
+import {recordStartupPick, takeStartupPicks, watchStartupPicks} from './startupPicks.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
@@ -303,10 +304,15 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			const graphicsPolicyPromise = window.appApi.app.getGraphicsPolicy()
 			const warmUpPromise = window.appApi.app.warmUp()
 			const snapshotPromise = window.appApi.queue.cmd.getSnapshot()
+			// The native menu works over the splash: a language, theme or style
+			// picked during these reads is newer than what they return.
+			watchStartupPicks()
 			const [settingsResult, graphicsPolicyResult] = await Promise.all([settingsPromise, graphicsPolicyPromise])
+			const picked = takeStartupPicks()
 
 			if (settingsResult.ok) {
-				const common = settingsResult.data.common ?? ({} as AppSettings['common'])
+				const settings: AppSettings = {...settingsResult.data, common: {...settingsResult.data.common, ...picked}}
+				const common = settings.common
 				const zoom = common.uiZoom ?? DEFAULTS.uiZoom
 				const theme = common.uiTheme ?? DEFAULTS.uiTheme
 				const persistedLang = common.language
@@ -320,7 +326,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({settings: settingsResult.data, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
+				set({settings, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
 				if (common.hotkeyEnabled) void refreshHotkeyRegistration(get, set)
 				else ++hotkeyStatusRequest
 			}
@@ -522,6 +528,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		},
 
 		setLanguage: lang => {
+			recordStartupPick({language: lang})
 			set({language: lang})
 			document.documentElement.lang = lang
 			document.documentElement.dir = isRtl(lang) ? 'rtl' : 'ltr'
