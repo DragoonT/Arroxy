@@ -77,7 +77,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ko/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>다크 또는 라이트, 글래스 또는 솔리드</b><br/>고를 수 있는 네 가지 룩: 움직이는 하늘 위의 유리 패널 또는 차분한 솔리드 화면, 각각 다크와 라이트 지원</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ko/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>재생목록 항목별 프로필</b><br/>각 동영상에 개별 프로필을 지정해 일부는 4K로, 나머지는 MP3로 저장</sub></td>

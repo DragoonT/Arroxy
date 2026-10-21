@@ -77,7 +77,7 @@
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>มืดหรือสว่าง กระจกหรือเรียบ</b><br/>สี่รูปลักษณ์ให้เลือก: แผงกระจกบนท้องฟ้าที่เคลื่อนไหว หรือพื้นผิวเรียบสงบ ทั้งแบบมืดและสว่าง</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="ปุ่มลัดดาวน์โหลดทั่วระบบของ Arroxy — Ctrl+Shift+D บน Windows และ Linux, Cmd+Shift+D บน macOS เพื่อส่งลิงก์ที่คัดลอกเข้าคิวโดยตรง" width="760" /></picture><br/><sub><b>ปุ่มลัดดาวน์โหลดทั่วระบบ</b><br/>คัดลอกลิงก์ที่ไหนก็ได้ กดครั้งเดียว แล้วลิงก์จะเข้าคิวและเริ่มดาวน์โหลด</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="ปุ่มลัดดาวน์โหลดทั่วระบบของ Arroxy — Ctrl+Shift+D บน Windows และ Linux, Cmd+Shift+D บน macOS เพื่อส่งลิงก์ที่คัดลอกเข้าคิวโดยตรง" width="760" /></picture><br/><sub><b>ปุ่มลัดดาวน์โหลดทั่วระบบ</b><br/>คัดลอกลิงก์ที่ไหนก็ได้ กดครั้งเดียว แล้วลิงก์จะเข้าคิวและเริ่มดาวน์โหลด</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>โปรไฟล์แยกต่อรายการเพลย์ลิสต์</b><br/>ให้แต่ละวิดีโอใช้โปรไฟล์ของตัวเอง — เก็บบางรายการเป็น 4K และที่เหลือเป็น MP3</sub></td>

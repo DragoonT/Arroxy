@@ -77,7 +77,7 @@
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>כהה או בהיר, זכוכית או אחיד</b><br/>ארבעה מראות לבחירה: לוחות זכוכית מעל שמיים נעים או משטחים אחידים ושקטים, כל אחד בכהה ובבהיר</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="מקש קיצור גלובלי להורדה ב-Arroxy — Ctrl+Shift+D ב-Windows וב-Linux, Cmd+Shift+D ב-macOS, ששולח את הקישור שהועתק ישירות לתור ההורדות" width="760" /></picture><br/><sub><b>מקש קיצור גלובלי להורדה</b><br/>העתיקו קישור בכל מקום, הקישו פעם אחת — הוא נוסף לתור ומתחיל להיות מורד</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="מקש קיצור גלובלי להורדה ב-Arroxy — Ctrl+Shift+D ב-Windows וב-Linux, Cmd+Shift+D ב-macOS, ששולח את הקישור שהועתק ישירות לתור ההורדות" width="760" /></picture><br/><sub><b>מקש קיצור גלובלי להורדה</b><br/>העתיקו קישור בכל מקום, הקישו פעם אחת — הוא נוסף לתור ומתחיל להיות מורד</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>פרופילים לכל פריט ברשימת השמעה</b><br/>תנו לכל סרטון פרופיל משלו — ארכבו חלק ב-4K והורידו את השאר כ-MP3</sub></td>

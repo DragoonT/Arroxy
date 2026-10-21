@@ -77,7 +77,7 @@
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hi/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>डार्क या लाइट, ग्लास या सॉलिड</b><br/>चुनने के लिए चार लुक: चलते आसमान पर काँच के पैनल या शांत सॉलिड सतहें, दोनों डार्क और लाइट में</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy की ग्लोबल डाउनलोड हॉटकी — Windows और Linux पर Ctrl+Shift+D, macOS पर Cmd+Shift+D, कॉपी किया गया लिंक सीधे डाउनलोड कतार में भेजती है" width="760" /></picture><br/><sub><b>ग्लोबल डाउनलोड हॉटकी</b><br/>कहीं भी लिंक कॉपी करें, एक बार दबाएँ — वह कतार में आकर डाउनलोड होने लगता है</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy की ग्लोबल डाउनलोड हॉटकी — Windows और Linux पर Ctrl+Shift+D, macOS पर Cmd+Shift+D, कॉपी किया गया लिंक सीधे डाउनलोड कतार में भेजती है" width="760" /></picture><br/><sub><b>ग्लोबल डाउनलोड हॉटकी</b><br/>कहीं भी लिंक कॉपी करें, एक बार दबाएँ — वह कतार में आकर डाउनलोड होने लगता है</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hi/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>प्लेलिस्ट के हर आइटम के लिए प्रोफ़ाइल</b><br/>हर वीडियो को उसकी अपनी प्रोफ़ाइल दें — कुछ को 4K में सहेजें, बाकी को MP3 के रूप में लें</sub></td>

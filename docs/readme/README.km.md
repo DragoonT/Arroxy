@@ -75,7 +75,7 @@
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/km/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ងងឹត ឬភ្លឺ កញ្ចក់ ឬរាបស្មើ</b><br/>រូបរាងបួនឲ្យជ្រើសរើស៖ ផ្ទាំងកញ្ចក់លើមេឃដែលកំពុងរំកិល ឬផ្ទៃរាបស្មើស្ងប់ស្ងាត់ ម្យ៉ាងៗមានទាំងងងឹត និងភ្លឺ</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="គ្រាប់ចុចផ្លូវកាត់ទាញយកសកលរបស់ Arroxy — Ctrl+Shift+D លើ Windows និង Linux, Cmd+Shift+D លើ macOS ផ្ញើតំណដែលបានចម្លងដោយផ្ទាល់ទៅជួរទាញយក" width="760" /></picture><br/><sub><b>គ្រាប់ចុចផ្លូវកាត់ទាញយកសកល</b><br/>ចម្លងតំណពីកន្លែងណាក៏ដោយ ចុចម្តង — វាចូលជួរ ហើយចាប់ផ្តើមទាញយក</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="គ្រាប់ចុចផ្លូវកាត់ទាញយកសកលរបស់ Arroxy — Ctrl+Shift+D លើ Windows និង Linux, Cmd+Shift+D លើ macOS ផ្ញើតំណដែលបានចម្លងដោយផ្ទាល់ទៅជួរទាញយក" width="760" /></picture><br/><sub><b>គ្រាប់ចុចផ្លូវកាត់ទាញយកសកល</b><br/>ចម្លងតំណពីកន្លែងណាក៏ដោយ ចុចម្តង — វាចូលជួរ ហើយចាប់ផ្តើមទាញយក</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/km/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>ប្រវត្តិរូបបញ្ជីចាក់តាមធាតុនីមួយៗ</b><br/>ផ្តល់ប្រវត្តិរូបផ្ទាល់ខ្លួនដល់វីដេអូនីមួយៗ — រក្សាទុកខ្លះជា 4K យកនៅសល់ជា MP3</sub></td>

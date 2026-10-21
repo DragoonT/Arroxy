@@ -5,7 +5,7 @@
 //
 // Usage: `node readme-src/build.mjs` (or `npm run build:readme`).
 
-import { existsSync } from "node:fs";
+import { existsSync, realpathSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -82,11 +82,27 @@ function rootPrefix(filename) {
 }
 
 const RELATIVE_LINK_RE = /(\]\(|(?:src|href)=")(?![a-z][a-z0-9+.-]*:|#|\/)([^)"\s]+)/gi;
+const NOT_RELATIVE_RE = /^(?:[a-z][a-z0-9+.-]*:|#|\/)/i;
 
-function rebaseRelativeLinks(text, filename) {
+// A srcset is a list of candidates, each a URL plus optional descriptors
+// ("a.png 1x, a@2x.png 2x"). As in the HTML spec, a URL runs to the next
+// whitespace and only its trailing commas separate candidates, so a comma
+// inside a URL (a data: URI) stays part of it.
+const SRCSET_RE = /(srcset=")([^"]*)/gi;
+const SRCSET_URL_RE = /(^|,)(\s*)(\S+?)(?=,*(?:\s|$))/g;
+
+function rebaseSrcset(list, prefix) {
+  return list.replace(SRCSET_URL_RE, (match, sep, space, url) =>
+    NOT_RELATIVE_RE.test(url) ? match : sep + space + posix.join(prefix, url),
+  );
+}
+
+export function rebaseRelativeLinks(text, filename) {
   const prefix = rootPrefix(filename);
   if (!prefix) return text;
-  return text.replace(RELATIVE_LINK_RE, (_, lead, target) => lead + posix.join(prefix, target));
+  return text
+    .replace(RELATIVE_LINK_RE, (_, lead, target) => lead + posix.join(prefix, target))
+    .replace(SRCSET_RE, (_, lead, list) => lead + rebaseSrcset(list, prefix));
 }
 
 // Screenshots are taken in every UI language (`bun run screenshots:readme`) into
@@ -181,8 +197,15 @@ async function main() {
   console.log(`\nBuilt ${LOCALES.length} READMEs.${strict ? " (strict)" : ""}`);
 }
 
-// Run only as a script, so tests can import `localizeScreenshots`.
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+// Run only as a script, so tests can import its helpers. Both sides
+// are realpaths: a module URL resolves symlinks, argv[1] does not, and a
+// mismatch would skip the build without a word.
+export function isScriptEntry(argv1, moduleUrl) {
+  if (!argv1) return false;
+  return realpathSync(argv1) === realpathSync(fileURLToPath(moduleUrl));
+}
+
+if (isScriptEntry(process.argv[1], import.meta.url)) {
   main().catch((err) => {
     console.error(err);
     process.exit(1);

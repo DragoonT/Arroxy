@@ -75,7 +75,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/am/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ጨለማ ወይም ብርሃን፣ መስታወት ወይም ጠንካራ</b><br/>የሚመረጡ አራት ገጽታዎች፦ በሚንቀሳቀስ ሰማይ ላይ የመስታወት ፓነሎች ወይም ጸጥ ያሉ ጠንካራ ገጽታዎች፣ እያንዳንዳቸው በጨለማና በብርሃን</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="የArroxy አጠቃላይ የማውረድ አቋራጭ — በWindows እና Linux ላይ Ctrl+Shift+D፣ በmacOS ላይ Cmd+Shift+D፣ የተቀዳውን አገናኝ በቀጥታ ወደ ማውረጃ ወረፋ ይልካል" width="760" /></picture><br/><sub><b>አጠቃላይ የማውረድ አቋራጭ</b><br/>የትም ቦታ አገናኝ ይቅዱ፣ አንድ ጊዜ ይጫኑ — ወደ ወረፋ ገብቶ ማውረድ ይጀምራል</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="የArroxy አጠቃላይ የማውረድ አቋራጭ — በWindows እና Linux ላይ Ctrl+Shift+D፣ በmacOS ላይ Cmd+Shift+D፣ የተቀዳውን አገናኝ በቀጥታ ወደ ማውረጃ ወረፋ ይልካል" width="760" /></picture><br/><sub><b>አጠቃላይ የማውረድ አቋራጭ</b><br/>የትም ቦታ አገናኝ ይቅዱ፣ አንድ ጊዜ ይጫኑ — ወደ ወረፋ ገብቶ ማውረድ ይጀምራል</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/am/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>ለእያንዳንዱ ንጥል የአጫዋች ዝርዝር መገለጫዎች</b><br/>ለእያንዳንዱ ቪዲዮ የራሱን መገለጫ ይስጡ — አንዳንዶቹን በ4K ያከማቹ፣ ቀሪዎቹን እንደ MP3 ይያዙ</sub></td>

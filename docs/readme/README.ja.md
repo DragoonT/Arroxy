@@ -77,7 +77,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ja/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ダークかライトか、ガラスかソリッドか</b><br/>選べる4つのデザイン：動く空に浮かぶガラスのパネル、または落ち着いたソリッドな画面。それぞれダークとライトに対応</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy のグローバルダウンロードホットキー — Windows と Linux では Ctrl+Shift+D、macOS では Cmd+Shift+D で、コピーしたリンクをそのままダウンロードキューへ送ります" width="760" /></picture><br/><sub><b>グローバルダウンロードホットキー</b><br/>どこでもリンクをコピーして一度押すだけ——キューに入りダウンロードが始まります</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy のグローバルダウンロードホットキー — Windows と Linux では Ctrl+Shift+D、macOS では Cmd+Shift+D で、コピーしたリンクをそのままダウンロードキューへ送ります" width="760" /></picture><br/><sub><b>グローバルダウンロードホットキー</b><br/>どこでもリンクをコピーして一度押すだけ——キューに入りダウンロードが始まります</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ja/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>プレイリストの動画ごとのプロファイル</b><br/>各動画に個別のプロファイルを指定——一部は4Kで保存し、残りはMP3で取得</sub></td>
