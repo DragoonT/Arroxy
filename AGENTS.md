@@ -31,6 +31,8 @@ bun run bridge:check   # yt-dlp-bridge: builds ytdlp-errors first, then the same
 
 Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*` and `ytdlp-errors-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
 
+A PR that changes a package never edits that package's changelog. Only the `release(packages): <pkg> <version>` PR writes the version's section, so feature PRs never conflict over it or claim a version number before the release picks one.
+
 ## Related repositories
 
 Arroxy spans several repositories. This repo is the hub: the others consume what it builds or publishes, and none of them is a source for app code.
@@ -65,6 +67,8 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 
 **TDD for non-trivial changes.** Write failing tests first, implement minimally, then refactor. Skip only for typo fixes and single-line edits.
 
+**Prototype UI before testing it.** While a UI or UX flow is still being chosen, iterate visually first (mock → Antonio picks → build → screenshot → he approves), then write the tests and run the gates: tests for a design he throws away are wasted, and long test runs delay the next visual round. Logic and bug fixes stay test-first.
+
 **`bunx`, never `npx`.** Run one-off package CLIs with `bunx` (e.g. `bunx skills find <query>`, `bunx skills add <owner/repo@skill>`), even when a skill or upstream doc says `npx`. Inside this checkout `npx` fails with `EOVERRIDE` (`Override for @types/react@… conflicts with direct dependency`) because the root `overrides` apply to npm's package runner; `bunx` ignores them. `check:tooling-contract` already rejects npm-family commands in tracked tooling and docs.
 
 **Translation workflow.** A fix or feature PR changes English only: `en.json` (keys sorted, one per line) and `readme-src/locales/en.mjs`, never `i18n/**`, non-English locale JSON or other README locales. Keep the key when the meaning stays the same; give a string a new key when its meaning or a placeholder changes. Every other locale is translated in one sync PR, the first step of a release (ADR 0017). Use the `translate-arroxy-i18n` project skill for that sync, catalog changes and i18n audits.
@@ -80,7 +84,7 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 
 ## Agent setup
 
-- **Memory** lives in `.agents/memory/`: read `MEMORY.md` before working, and write new memories there with the same frontmatter, never in user-scoped or tool-specific memory. Deep-dive references live there too, not in this file.
+- **Memory** lives in `.agents/memory/`: read `MEMORY.md` before working, and write new memories there with the same frontmatter, never in a tool's own memory. Route by audience: maintainer-only plans and notes go to `.internal/` (then `bun run internal:save`), personal or cross-repo preferences to `~/.agents/AGENTS.md`, and everything else to `.agents/memory/`. Deep-dive references live there too, not in this file.
 - **Private maintainer docs** live in the private `arroxy-internal` repo, linked as a gitignored `.internal/` by `bun run bootstrap` (or `bun run internal:sync`) when you have access. If it exists, read `.internal/README.md` too. After editing there, run `bun run internal:save`: it is a separate repo, so those edits never ride along in a PR. Tracked files never link into `.internal/`; give a one-line summary instead.
 - **Agent config** is edited only in the shared sources (`AGENTS.md`, `GLOSSARY.md`, `.agents/`, `skills-lock.json`); `bun run agents:sync` generates every per-tool adapter. Install third-party skills through the Skills CLI (`bun run agents:skills:restore` after a fresh clone) and never commit their source or `.claude/skills/`. Tracked files never depend on a harness plugin (`superpowers:*`, `feature-dev:*`). Layers, and how to add a tool, skill or MCP server: [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md).
 

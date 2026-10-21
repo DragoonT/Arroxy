@@ -26,6 +26,7 @@ combined into missing strings (#431 + #432).
   so locales fall back to English instead of showing the old meaning or an
   unfilled `{{placeholder}}`.
 - When dispatching implementers, tell them to edit English only.
-- "Release X" starts with the sync PR; land it, then changelog, bump and tag.
+- "Release X" runs in this order: land the sync PR, bump `package.json`, run
+  `bun run changelog:assemble`, run the checks, commit `release: X`, then tag.
 
 Related: [[finish-before-pr]], [[ship-means-merge-not-release]].
