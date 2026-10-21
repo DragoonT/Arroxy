@@ -142,7 +142,7 @@ Jos Arroxy säästää aikaasi, ⭐ auttaa muita löytämään sen.
 - **50 kieltä** — tunnistaa järjestelmän kielen automaattisesti, vaihdettavissa milloin tahansa
 - **Soittolistan synkronointi** — tarkista soittolista uudelleen paikallista kansiota vasten ohittaaksesi jo ladatut videot; luo `.m3u`-soittolistatiedoston, jota päivitetään kunkin videon latautuessa
 - **Nopeuden ja tahdistuksen hallinta** — rajoita latauksen kaistanleveyttä, aseta kuinka monta videon osaa ladataan kerralla ja lisää pyyntöviiveitä esiasetuksilla (*Pois · Tasapainoinen · Varovainen · Mukautettu*)
-- **Tiedostonimen mallit** — nimeä lataukset haluamallasi tavalla tunnisteilla `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ja `{playlist_index}`, yleisesti tai latausprofiilikohtaisesti
+- **Tiedostonimen mallit** — nimeä lataukset haluamallasi tavalla tunnisteilla `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ja `{playlist_index}`, yleisesti tai latausprofiilikohtaisesti
 - **Lataukset kerralla ja automaattinen uudelleenyritys** — valitse, kuinka monta jonossa olevaa latausta ajetaan samanaikaisesti, ja anna Arroxyn yrittää uudelleen latausta, joka kohtasi verkko- tai palvelinongelman, odottaen pidempään ennen jokaista yritystä
 - **Soittolistan kohdekohtaiset profiilit** — anna jokaiselle soittolistan videolle oma latausprofiilinsa koko listan yhden asetuksen sijaan, jolloin yhdellä kerralla voi arkistoida osan täydellä laadulla ja ladata loput MP3:na
 - **Pikalataus toimii taustalla** — linkki ilmestyy heti Lataukset-näkymään ja valmistuu siellä, **Näytä**-ilmoitus vahvistaa sen ja URL-kenttä tyhjenee seuraavaa linkkiä varten. Aloita niin monta kuin haluat, kun aiemmat valmistuvat

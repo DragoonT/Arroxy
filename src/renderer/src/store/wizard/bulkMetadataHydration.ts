@@ -118,6 +118,8 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 							videoId: probe.videoId ?? entry.videoId,
 							uploader: probe.uploader ?? entry.uploader,
 							uploadDate: probe.uploadDate ?? entry.uploadDate,
+							// Field by field: a tag only the listing supplied survives a probe that lacks it.
+							mediaTags: probe.mediaTags || entry.mediaTags ? {...entry.mediaTags, ...probe.mediaTags} : undefined,
 							timestamp: probe.timestamp ?? entry.timestamp,
 							...(probe.probeInfoJsonRef ? {probeInfoJsonRef: probe.probeInfoJsonRef} : {}),
 							...(probe.auth ? {auth: probe.auth} : {}),

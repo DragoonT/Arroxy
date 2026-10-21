@@ -142,7 +142,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 - **50 keelt** — tuvastab süsteemi lokaadi automaatselt, vahetatav igal ajal
 - **Esitusloendi sünkroonimine** — skannige esitusloend kohaliku kausta vastu uuesti, et juba allalaaditud videod vahele jätta; loob `.m3u` esitusloendifaili, mida uuendatakse iga video allalaadimisel
 - **Kiiruse ja tempo juhtimine** — piirake allalaadimise ribalaiust, määrake, mitu video osa laaditakse korraga, ning lisage päringutele viiteid eelseadistustega (*Väljas · Tasakaalustatud · Ettevaatlik · Kohandatud*)
-- **Failinime mallid** — nimetage allalaadimised oma viisil sümbolitega `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ja `{playlist_index}`, globaalselt või allalaadimisprofiili kohta
+- **Failinime mallid** — nimetage allalaadimised oma viisil sümbolitega `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ja `{playlist_index}`, globaalselt või allalaadimisprofiili kohta
 - **Allalaadimisi korraga ja automaatne uuesti proovimine** — valige, mitu järjekorras allalaadimist töötab samal ajal, ning laske Arroxyl proovida uuesti allalaadimist, mis sattus võrgu- või serveriprobleemi otsa, oodates enne iga katset kauem
 - **Esitusloendi üksuste profiilid** — määrake iga esitusloendi videole oma allalaadimisprofiil kogu loendi ühe sätte asemel, et ühe läbimisega saaks mõne arhiveerida täiskvaliteediga ja ülejäänud MP3-na kätte saada
 - **Kiirallalaadimine töötab taustal** — link ilmub kohe Allalaadimistesse ja valmistatakse seal ette, märge nupuga **Kuva** kinnitab seda ja URL-väli tühjeneb järgmise lingi jaoks. Alustage nii palju, kui soovite, kuni varasemaid ette valmistatakse

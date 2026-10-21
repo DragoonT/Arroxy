@@ -142,7 +142,7 @@ Hvis Arroxy sparer deg tid, hjelper en ⭐ andre med å finne det.
 - **50 språk** — oppdager systemspråket automatisk, kan byttes når som helst
 - **Spillelistesynkronisering** — skann en spilleliste på nytt mot en lokal mappe for å hoppe over videoer som allerede er lastet ned; lager en `.m3u`-spillelistefil som oppdateres etter hvert som hver video lastes ned
 - **Kontroller for hastighet og tempo** — begrens nedlastingsbåndbredden, angi hvor mange deler av en video som lastes ned samtidig, og legg til forsinkelser mellom forespørsler med forhåndsvalg (*Av · Balansert · Forsiktig · Egendefinert*)
-- **Filnavnmaler** — navngi nedlastinger på din måte med `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` og `{playlist_index}`, globalt eller per nedlastingsprofil
+- **Filnavnmaler** — navngi nedlastinger på din måte med `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` og `{playlist_index}`, globalt eller per nedlastingsprofil
 - **Samtidige nedlastinger og automatisk nytt forsøk** — velg hvor mange nedlastinger i køen som kjører samtidig, og la Arroxy prøve en nedlasting på nytt som støtte på et nettverks- eller serverproblem, med lengre ventetid før hvert forsøk
 - **Profiler per spillelisteelement** — gi hver video i en spilleliste sin egen nedlastingsprofil i stedet for én innstilling for hele listen, slik at du i én omgang kan arkivere noen i full kvalitet og hente resten som MP3
 - **Hurtignedlasting jobber i bakgrunnen** — lenken dukker opp i Nedlastinger med en gang og klargjøres der, et varsel med **Vis** bekrefter det, og nettadressefeltet tømmes for neste lenke. Start så mange du vil mens tidligere klargjøres

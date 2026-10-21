@@ -140,7 +140,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - **50 languages** — auto-detects system locale, switchable any time
 - **Playlist sync** — re-scan a playlist against a local folder to skip already-downloaded videos; generates an `.m3u` playlist file updated as each video downloads
 - **Speed and pacing controls** — cap download bandwidth, set how many parts of a video download at once, and add request delays with presets (*Off · Balanced · Careful · Custom*)
-- **Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}`, globally or per download profile
+- **Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}`, and `{playlist_index}`, globally or per download profile
 - **Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt
 - **Per-item playlist profiles** — assign each video in a playlist its own download profile instead of one setting for the whole list, so a single pass can archive some at full quality and grab the rest as MP3
 - **Quick Download works in the background** — the link shows up in Downloads right away and prepares there, a note with **View** confirms it, and the URL field clears for the next link. Start as many as you like while earlier ones prepare
