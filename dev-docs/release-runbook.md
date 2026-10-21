@@ -119,17 +119,21 @@ Release graph summary: `release.yml` runs `verify-version` -> `quality-gate` -> 
 
 Cut a beta only on an explicit request for one; no release plan or rollout depends on it. A `-beta.N` tag publishes a GitHub pre-release that skips Scoop, Homebrew, Winget and the Flatpak repo and never auto-updates installed copies ([`release-pipeline.md`](release-pipeline.md#pre-release-flow-test-pipeline-wo-auto-updating-users)).
 
+Land the translation sync first ([step 0](#0-translation-sync)): `release:beta` runs `check:i18n:complete` on the commit it tags, as a stable release does, and refuses an untranslated one.
+
 ```bash
 git checkout main
 git pull origin main
 
-# edit package.json: 0.3.1 -> 0.3.2-beta.1; optionally add `## 0.3.2-beta.1` to CHANGELOG.md by hand.
+# edit package.json: 0.3.1 -> 0.3.2-beta.1
 # Leave the fragments in changelog.d/ for the stable release to assemble.
-bun run check
+bun run check && bun run check:i18n:complete
 git commit -am "release: 0.3.2-beta.1"
 git push origin main
 bun run release:beta
 ```
+
+Do not add a `## 0.3.2-beta.1` section to `CHANGELOG.md`: the stable release assembles the same fragments into `## 0.3.2`, so the changelog would list every entry twice. Without a section, the beta's release notes fall back to the PR titles, with a `::warning::` in the workflow log.
 
 The beta pushes `main` and its tag together, atomically. If the push is rejected (main moved), the script deletes the local tag again: `git pull --rebase origin main` and run `release:beta` again.
 
