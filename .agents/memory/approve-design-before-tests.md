@@ -21,4 +21,4 @@ changes too (new buttons, dialogs, callouts), not only visual restyles.
 AGENTS.md TDD default until the user approves. For redesign, UX-flow or "make it look better" requests, the loop is
 mock → user picks → build → screenshot → user approves → then TDD hardening
 and gates per AGENTS.md. The TDD rule still holds for logic and bug fixes, and
-for the design itself once it is approved. Related: [[translate-at-final-stage]].
+for the design itself once it is approved. Related: [[english-only-prs]].

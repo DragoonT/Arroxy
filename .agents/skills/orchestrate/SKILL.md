@@ -113,7 +113,7 @@ verify: every "done" in your status table is backed by one of these commands.
 
 ### 7. Incidents
 
-- **`main` goes red because two PRs crossed** (each passed on an older `main`, e.g. new strings plus new locales). The session that owns the missing piece fixes it as a top-priority light PR. Every other open PR runs `gh pr update-branch <N>` after the fix merges. A merge queue isn't available because the repo is user-owned. "Require up to date" would stall auto-merge after every merge, so it's not an option either.
+- **`main` goes red because two PRs crossed** (each passed on an older `main`, e.g. a renamed type plus a new caller of the old name). The session that owns the missing piece fixes it as a top-priority light PR. Every other open PR runs `gh pr update-branch <N>` after the fix merges. A merge queue isn't available because the repo is user-owned. "Require up to date" would stall auto-merge after every merge, so it's not an option either.
 - **Merged work gets reverted.** Confirm it yourself (phase 6). The lane that owns the damaged area repairs it with an exact list of files to restore and files to keep. The session that caused it traces the root cause. Then start a guard session against the whole class, and record the lesson in memory.
 - **Reviews ran degraded** (Codex out of quota). Once the reviewer is back, start a read-only retro review over the PRs that merged in the meantime, verify each finding, and group the confirmed ones by file into new sessions.
 

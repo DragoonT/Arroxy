@@ -48,6 +48,10 @@ See [`ffmpeg-packages.md`](ffmpeg-packages.md).
 - Every release is a stable tag cut straight from `main`. There is no beta step and no standing pre-release line: `package.json` on `main` holds the last released version until the next `release: X.Y.Z` commit.
 - Feature work happens on short-lived branches merged into `main` in small PRs. Work meant for a later release merges behind a release flag ([`release-flags.md`](release-flags.md)), off in every release build, rather than waiting on a long-lived branch. De-risk a risky change before it merges (live smoke comparisons, fixture E2E, log-only shadow mode), not with a beta.
 
+## 0. Translation sync
+
+PRs change English only (ADR 0017), so a release starts with one sync PR that translates everything open. `bun run i18n:status` shows what is open; when it lists nothing, skip to step 1. Otherwise run the sync (`translate-arroxy-i18n` skill), open `i18n: sync translations` and land it. `scripts/release.sh` and the `quality-gate` job both run `bun run check:i18n:complete` and refuse an untranslated release.
+
 ## 1. Bump `main` to the release version
 
 ```bash
@@ -56,7 +60,7 @@ git pull origin main
 
 # edit package.json: 0.3.1 -> 0.3.2
 bun run changelog:assemble   # writes ## 0.3.2 from changelog.d/; read it over
-bun run check
+bun run check && bun run check:i18n:complete
 git commit -am "release: 0.3.2"
 git push origin main
 ```

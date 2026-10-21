@@ -416,4 +416,4 @@ itself, Windows players, TVs, editors, Macs without AV1 hardware.
    the Saves as choice on Format and its line on Review, conflict
    warnings, E2E.
 
-Translations happen once, right before PR 2 and PR 3.
+Each PR changes English only; the release sync translates (ADR 0017).
