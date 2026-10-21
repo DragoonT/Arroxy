@@ -15,3 +15,4 @@ come back on the next change; keep each one line with its reason.
 - Do not flag untranslated keys in non-English locales during development: copy is translated once, right before the PR, and `check:i18n` failing on new keys is accepted until then.
 - Do flag `ELECTRON_RUN_AS_NODE` reaching anything but the yt-dlp child environment (`process.env`, persisted config, other children): the packaged Electron is yt-dlp's Node runtime only.
 - Do flag a raised LOC cap or `--max` override: the cap is an architecture signal, and the fix is extracting a concern.
+- Do not flag a filename-template folder that collapses for flat playlist entries because the flat listing lacks the field (`{categories}`, `{album}`, `{track}`, or `{artist}` filing under the uploader): yt-dlp fills the filename at download time, and fetching every entry's full metadata was ruled out as too slow (2026-10-21).
