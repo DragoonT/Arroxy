@@ -8,6 +8,7 @@
 #   - version/mode mismatch (beta tag w/o -, stable tag with -)
 #   - duplicate tag (local or remote)
 #   - stable release whose changelog fragments were not assembled into CHANGELOG.md
+#   - a locale left untranslated (the release starts with the i18n sync PR)
 #   - lightweight tag (always uses -a, annotated)
 #   - stale local tags riding along (pushes only the branch and this tag)
 #
@@ -132,6 +133,24 @@ if [[ "$MODE" == "stable" ]]; then
   TIMEOUT="${RELEASE_CHECKS_TIMEOUT_MINUTES:-60}"
   if [[ "$VERIFY_ONLY" == true ]]; then TIMEOUT=0; fi
   bun "$SCRIPT_DIR/release-gate.ts" checks --commit "$TARGET" --timeout-minutes "$TIMEOUT"
+fi
+
+# 6b. every locale translated in the commit being tagged: PRs change English
+#     only (ADR 0017), and the release starts with the translation sync PR.
+#     The checkout may differ from $TARGET, so a different tree is checked in
+#     a temporary worktree. release.yml checks it again.
+echo "Checking translation completeness on $(git rev-parse --short "$TARGET")…"
+GATE_DIR="$PWD"
+if ! git diff --quiet "$TARGET" HEAD --; then
+  GATE_DIR=$(mktemp -d)
+  trap 'git worktree remove --force "$GATE_DIR" >/dev/null 2>&1 || true' EXIT
+  git worktree add --quiet --detach "$GATE_DIR" "$TARGET"
+  ln -s "$PWD/node_modules" "$GATE_DIR/node_modules"
+fi
+if ! (cd "$GATE_DIR" && bun run --silent check:i18n:complete); then
+  echo "ERR: the translation completeness gate failed (output above). If it lists open entries, run the i18n sync first" >&2
+  echo "     (translate-arroxy-i18n skill; bun run i18n:status shows what is open), land its PR, then release." >&2
+  exit 1
 fi
 
 if [[ "$VERIFY_ONLY" == true ]]; then
