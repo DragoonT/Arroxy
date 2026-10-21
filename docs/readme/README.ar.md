@@ -75,7 +75,7 @@
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ar/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>داكن أو فاتح، زجاجي أو صلب</b><br/>أربعة أشكال للاختيار: ألواح زجاجية فوق سماء متحركة أو أسطح صلبة هادئة، كلٌّ منها بالوضع الداكن والفاتح</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="اختصار التنزيل العام في Arroxy — Ctrl+Shift+D على Windows وLinux، وCmd+Shift+D على macOS، يرسل الرابط المنسوخ مباشرة إلى طابور التنزيل" width="760" /></picture><br/><sub><b>اختصار تنزيل عام</b><br/>انسخ رابطاً في أي مكان واضغط مرة واحدة — يدخل الطابور ويبدأ التنزيل</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="اختصار التنزيل العام في Arroxy — Ctrl+Shift+D على Windows وLinux، وCmd+Shift+D على macOS، يرسل الرابط المنسوخ مباشرة إلى طابور التنزيل" width="760" /></picture><br/><sub><b>اختصار تنزيل عام</b><br/>انسخ رابطاً في أي مكان واضغط مرة واحدة — يدخل الطابور ويبدأ التنزيل</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ar/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>ملفات تعريف لكل عنصر في قائمة التشغيل</b><br/>امنح كل فيديو ملف تعريف خاصًا به — احفظ بعضها بدقة 4K وخذ الباقي بصيغة MP3</sub></td>
