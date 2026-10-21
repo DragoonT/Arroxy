@@ -76,6 +76,8 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 **One concern per PR.** Each PR makes one reviewable change and passes `bun run check` on its own, so every review reads a single idea.
 
 - **Split along seams:** a `packages/*` change apart from the app change that uses it; a behaviour-free refactor or rename before the feature that needs it; mechanical churn (formatting, licence headers, dependency bumps, locale sync, regenerated files) apart from logic; independent features or modules as separate PRs off `main`.
+- **A concern can be several tasks.** One plan built in one branch, task by task (an implementer and then a reviewer per task), is one PR: the rule is one idea per review, not one task per PR.
+- **Same-kind mechanical changes may share a PR** when each is a few lines and none changes behaviour, such as several `ci:` or tooling tweaks. It gets the light review, and a behaviour change never rides along. On 2026-10-21, 36 of 172 PRs were under 50 lines, each paying a full CI and review cycle.
 - **Tests stay with their code.** Never split by layer (a code PR, then a "tests and docs" PR).
 - **Keep one PR** when the pieces cannot each be green alone, and say why in its body.
 - **Don't stack PRs.** Every PR branches from `main`. When one piece needs another that hasn't merged, keep both in one PR with a commit each (and say why), or start the second once the first merges. Each merge in a stack makes the next PR take `main` again, rerun CI and have its auto-merge turned on by hand, and nothing wakes anyone when its base merges.
