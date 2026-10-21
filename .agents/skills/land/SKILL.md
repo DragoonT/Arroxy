@@ -27,7 +27,7 @@ Work in an isolated worktree on `fix/<slug>` or `feat/<slug>` from a fresh `orig
 verify: `git status` clean and `HEAD` equals `origin/main` before the first change.
 
 ### 3. Implement, test first
-Write the failing test at the layer that owns the behaviour, make it pass with the smallest change, and finish everything `finish-before-pr` lists (locales last, per `translate-at-final-stage`). A bug found by using the app belongs in Fixture Product E2E (`bun run build`, then `ARROXY_E2E_HEADLESS=1`).
+Write the failing test at the layer that owns the behaviour, make it pass with the smallest change, and finish everything `finish-before-pr` lists. Copy changes are English only (`english-only-prs`): no locale step. A bug found by using the app belongs in Fixture Product E2E (`bun run build`, then `ARROXY_E2E_HEADLESS=1`).
 verify: the new test failed before the fix and passes after.
 
 ### 4. Gate

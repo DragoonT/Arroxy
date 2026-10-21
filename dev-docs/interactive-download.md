@@ -300,8 +300,7 @@ removed settings.
    the package is a separate release. Then probe chapters, job field,
    VideoPhase mapping, UI, E2E.
 
-Translations happen once, right before each PR (English only while
-building).
+Each PR changes English only; the release sync translates (ADR 0017).
 
 ## Out of scope
 
