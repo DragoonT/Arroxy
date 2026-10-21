@@ -47,12 +47,14 @@ const GIT_ENV = {GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_NOSYSTEM: '1', GIT_A
 
 // Every commit carries CHANGELOG.md with a section for its version, the way a
 // `release: X` commit assembles it, unless `notes` is false. `fragment` adds an
-// unassembled changelog.d/ fragment.
+// unassembled changelog.d/ fragment. `i18nComplete: false` makes its translation
+// completeness gate fail.
 interface CommitOptions {
 	version?: string
 	cwd?: string
 	notes?: boolean
 	fragment?: string
+	i18nComplete?: boolean
 }
 
 interface Fixture {
@@ -86,11 +88,13 @@ async function fixture(): Promise<Fixture> {
 	git(clone, 'checkout', '--quiet', '-B', 'main')
 
 	const versions = new Map<string, string>()
+	// Each commit's package.json carries the translation completeness gate the
+	// release script runs on the commit it tags: passing unless told otherwise.
 	const commit = async (subject: string, options: CommitOptions = {}): Promise<string> => {
 		const cwd = options.cwd ?? clone
 		const version = options.version ?? versions.get(cwd) ?? '1.2.2'
 		versions.set(cwd, version)
-		await fs.writeFile(path.join(cwd, 'package.json'), `${JSON.stringify({name: 'fixture', version}, null, 2)}\n`)
+		await fs.writeFile(path.join(cwd, 'package.json'), `${JSON.stringify({name: 'fixture', version, scripts: {'check:i18n:complete': options.i18nComplete === false ? 'echo open entries; exit 1' : 'true'}}, null, 2)}\n`)
 		await fs.writeFile(path.join(cwd, 'CHANGELOG.md'), options.notes === false ? '# Changelog\n' : `# Changelog\n\n---\n\n## ${version}\n\n## Fixes\n\n- A fix in ${version}.\n`)
 		if (options.fragment !== undefined) {
 			await fs.mkdir(path.join(cwd, 'changelog.d'), {recursive: true})
@@ -140,6 +144,22 @@ describe.skipIf(process.platform === 'win32')('release.sh stable', () => {
 		expect(f.git(f.origin, 'rev-parse', 'v1.2.3^{commit}')).toBe(releaseCommit)
 		expect(f.git(f.origin, 'cat-file', '-t', 'v1.2.3')).toBe('tag')
 		expect(f.git(f.origin, 'rev-parse', 'main')).toBe(later)
+	})
+
+	it('refuses a release commit that is not fully translated, judged by its own tree', async () => {
+		const f = await fixture()
+		const releaseCommit = await f.commit('release: 1.2.3', {version: '1.2.3', i18nComplete: false})
+		const later = await f.commit('i18n: sync translations (#10)')
+		await f.setCheck(releaseCommit, 'completed', 'success')
+		await f.setCheck(later, 'completed', 'success')
+
+		const {status, output} = f.release('stable')
+
+		expect(status).toBe(1)
+		expect(output).toContain('open entries')
+		expect(output).toContain('run the i18n sync first')
+		expect(f.git(f.origin, 'tag', '--list')).toBe('')
+		expect(f.git(f.clone, 'worktree', 'list').split('\n')).toHaveLength(1)
 	})
 
 	it('refuses a release commit whose fragments were not assembled, and tags nothing', async () => {
@@ -290,7 +310,7 @@ describe.skipIf(process.platform === 'win32')('release.sh beta', () => {
 	it('tags HEAD and pushes it with the branch, without checking GitHub', async () => {
 		const f = await fixture()
 		await f.commit('release: 1.2.3-beta.1', {version: '1.2.3-beta.1'})
-		await fs.writeFile(path.join(f.clone, 'package.json'), `${JSON.stringify({name: 'fixture', version: '1.2.3-beta.2'}, null, 2)}\n`)
+		await fs.writeFile(path.join(f.clone, 'package.json'), `${JSON.stringify({name: 'fixture', version: '1.2.3-beta.2', scripts: {'check:i18n:complete': 'true'}}, null, 2)}\n`)
 		f.git(f.clone, 'commit', '--quiet', '-am', 'release: 1.2.3-beta.2')
 		const head = f.git(f.clone, 'rev-parse', 'HEAD')
 
