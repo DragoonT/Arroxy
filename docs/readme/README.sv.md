@@ -142,7 +142,7 @@ Om Arroxy sparar tid åt dig hjälper en ⭐ andra att hitta det.
 - **50 språk** — identifierar systemets språk automatiskt, kan bytas när som helst
 - **Spellistesynkronisering** — skanna en spellista mot en lokal mapp för att hoppa över redan hämtade videor; skapar en `.m3u`-spellistefil som uppdateras allteftersom varje video hämtas
 - **Kontroll av hastighet och tempo** — begränsa bandbredden, ange hur många delar av en video som hämtas samtidigt och lägg till fördröjningar mellan förfrågningar med förinställningar (*Av · Balanserad · Försiktig · Anpassad*)
-- **Filnamnsmallar** — namnge hämtningar på ditt sätt med `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` och `{playlist_index}`, globalt eller per hämtningsprofil
+- **Filnamnsmallar** — namnge hämtningar på ditt sätt med `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` och `{playlist_index}`, globalt eller per hämtningsprofil
 - **Samtidiga hämtningar och automatiska nya försök** — välj hur många köade hämtningar som körs samtidigt, och låt Arroxy försöka igen med en hämtning som drabbats av ett nätverks- eller serverproblem, med längre väntetid före varje försök
 - **Profiler per spellisteobjekt** — tilldela varje video i en spellista en egen hämtningsprofil i stället för en inställning för hela listan, så att du i ett svep kan arkivera vissa i full kvalitet och hämta resten som MP3
 - **Snabbhämtning fungerar i bakgrunden** — länken dyker upp i Hämtningar direkt och förbereds där, en notis med **Visa** bekräftar det och webbadressfältet töms för nästa länk. Starta så många du vill medan tidigare förbereds

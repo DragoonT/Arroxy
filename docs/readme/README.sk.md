@@ -142,7 +142,7 @@ Ak vám Arroxy ušetrí čas, ⭐ pomôže ostatným, aby ho našli.
 - **50 jazykov** — automaticky rozpozná jazyk systému, kedykoľvek sa dá prepnúť
 - **Synchronizácia zoznamu skladieb** — znova prehľadá zoznam skladieb oproti lokálnemu priečinku a preskočí už stiahnuté videá; vytvorí súbor zoznamu skladieb `.m3u`, ktorý sa aktualizuje po stiahnutí každého videa
 - **Ovládanie rýchlosti a oneskorenia** — obmedzte šírku pásma sťahovania, nastavte, koľko častí videa sa sťahuje naraz, a pridajte oneskorenia požiadaviek pomocou predvolieb (*Vypnuté · Vyvážené · Opatrné · Vlastné*)
-- **Šablóny názvov súborov** — pomenujte sťahovania po svojom pomocou `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` a `{playlist_index}`, globálne alebo pre každý profil sťahovania
+- **Šablóny názvov súborov** — pomenujte sťahovania po svojom pomocou `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` a `{playlist_index}`, globálne alebo pre každý profil sťahovania
 - **Súčasné sťahovania a automatické opakovanie** — vyberte, koľko sťahovaní v rade beží naraz, a nechajte Arroxy zopakovať sťahovanie, ktoré narazilo na problém so sieťou alebo serverom, pričom pred každým pokusom čaká dlhšie
 - **Profily pre jednotlivé položky zoznamu skladieb** — priraďte každému videu v zozname skladieb vlastný profil sťahovania namiesto jedného nastavenia pre celý zoznam, takže jedným prechodom môžete niektoré archivovať v plnej kvalite a ostatné stiahnuť ako MP3
 - **Rýchle sťahovanie funguje na pozadí** — odkaz sa hneď zobrazí v Sťahovaniach a pripravuje sa tam, poznámka s možnosťou **Zobraziť** to potvrdí a pole adresy URL sa vyčistí pre ďalší odkaz. Spustite ich, koľko chcete, kým sa predchádzajúce pripravujú

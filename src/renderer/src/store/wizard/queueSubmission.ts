@@ -31,7 +31,7 @@ import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, r
 import {resolveOutputContainer} from './resolveContainer.js'
 import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import {resolvePlaylistDir} from './playlistDir.js'
-import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, playlistSelectionInFlight, profileInFlight, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
+import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, playlistSelectionInFlight, profileInFlight, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs, videoProbeTemplateMeta} from './outputTemplates.js'
 import {sortPlaylistEntries} from './playlistSort.js'
 import {playlistTitleFallback} from './playlistTitle.js'
 import {wizardVideoPart} from './videoPart.js'
@@ -453,9 +453,11 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 
 	if (probe.kind === 'video') {
 		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
-		const templateMeta = {title: probe.title, id: probe.videoId, uploader: probe.uploader, uploadDate: probe.uploadDate}
+		const url = probe.webpageUrl || source.url
+		// {site} comes from the link that is queued, which falls back to the source.
+		const templateMeta = videoProbeTemplateMeta({...probe, webpageUrl: url})
 		const item = buildProfileEntryQueueItem({
-			entry: {url: probe.webpageUrl || source.url, title: probe.title, thumbnail: probe.thumbnail},
+			entry: {url, title: probe.title, thumbnail: probe.thumbnail},
 			probeInfoJsonRef: probe.probeInfoJsonRef,
 			auth: probe.auth,
 			outputDir: templateOutputDir(singleOutputDir, template, templateMeta),
