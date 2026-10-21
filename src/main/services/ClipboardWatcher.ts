@@ -44,6 +44,9 @@ export function watcherWindowFromBrowserWindow(win: BrowserWindow): WatcherWindo
 export class ClipboardWatcher {
 	private timer: NodeJS.Timeout | null = null
 	private lastSeen = ''
+	// Set when the marking read of ignoreCurrentClipboard failed: the next
+	// successful poll only records the clipboard instead of offering it.
+	private baselineMissing = false
 	private enabled = false
 	private listening = false
 	// Clipboard reads are async. Each polling session gets a generation so a
@@ -68,6 +71,25 @@ export class ClipboardWatcher {
 		} else {
 			this.stop()
 			this.detachAttention()
+		}
+	}
+
+	// An arroxy:// link the user just opened outranks whatever the clipboard
+	// held before it. Bringing the window forward restarts polling, which would
+	// otherwise offer that older copy and replace the opened link.
+	async ignoreCurrentClipboard(): Promise<void> {
+		// Watching is off, so the clipboard is not read. Turning it on later offers
+		// the clipboard as enabling always does: the user asked for that copy.
+		if (!this.enabled) return
+		// Drop a read already in flight: it may return the older copy.
+		this.generation++
+		this.reading = false
+		try {
+			this.lastSeen = await this.reader.readText()
+			this.baselineMissing = false
+		} catch {
+			// Unreadable: whatever the clipboard holds now is still older than the link.
+			this.baselineMissing = true
 		}
 	}
 
@@ -101,13 +123,20 @@ export class ClipboardWatcher {
 		this.reading = true
 		const generation = this.generation
 		let text: string
+		let readable = true
 		try {
 			text = await this.reader.readText()
 		} catch {
 			text = ''
+			readable = false
 		}
 		if (generation !== this.generation) return
 		this.reading = false
+		if (this.baselineMissing && readable) {
+			this.baselineMissing = false
+			this.lastSeen = text
+			return
+		}
 		if (!text || text === this.lastSeen) return
 		this.lastSeen = text
 		if (classifyClipboardText(text).kind === 'none') return

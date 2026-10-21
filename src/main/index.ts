@@ -66,6 +66,8 @@ import {applyNativeThemeSource, resolveMainWindowBackgroundColor, watchSystemThe
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
 import {registerResponsivenessDiagnostics} from '@main/windowResponsiveness.js'
 import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
+import {attachLinkInbox} from '@main/linkScheme/attachLinkInbox.js'
+import {registerLinkScheme} from '@main/linkScheme/registerLinkScheme.js'
 import {watchInitialGpuInfoUpdate} from '@main/gpuInfoReadiness.js'
 import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime, chromiumSwitchLogSummary} from '@main/chromiumSwitches.js'
 import contextMenu from 'electron-context-menu'
@@ -188,6 +190,21 @@ const hasSingleInstanceLock = app.requestSingleInstanceLock()
 if (!hasSingleInstanceLock) {
 	app.quit()
 }
+
+// Listens before `ready`: macOS sends the link that launched the app early,
+// and a second launch can arrive while startup still awaits its reads.
+const linkInbox = hasSingleInstanceLock
+	? registerLinkScheme({
+			onOpenUrl: listener =>
+				app.on('open-url', (event, url) => {
+					event.preventDefault()
+					listener(url)
+				}),
+			onSecondInstance: listener => app.on('second-instance', (_event, argv) => listener(argv)),
+			argv: process.argv,
+			log
+		})
+	: null
 
 const GPU_INFO_BUDGET_MS = 2_500
 const HEARTBEAT_CHECK_INTERVAL_MS = 60 * 60 * 1000
@@ -579,6 +596,7 @@ if (hasSingleInstanceLock) {
 
 		const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow))
 		clipboardWatcher.setEnabled(initialSettings.common.clipboardWatchEnabled)
+		if (linkInbox) attachLinkInbox(linkInbox, mainWindow, {clipboard: clipboardWatcher, headless: isHeadlessWindowRequested(process.env)})
 
 		// `tray` is assigned further down, so read it lazily rather than capturing
 		// the null it holds right now.
