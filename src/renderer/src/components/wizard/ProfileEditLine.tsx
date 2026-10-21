@@ -19,8 +19,8 @@ import {Hint} from '../shared/Hint.js'
 import {FilenameTemplateErrorText} from '../shared/FilenameTemplateField.js'
 import {AREA_LABEL_KEYS} from '../../lib/changedAreaLabels.js'
 import {editedProfileName, useProfileDisplayName} from '@renderer/lib/profileName.js'
-import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
-import {formatList} from '@renderer/lib/subtitleLabel.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
+import {formatList} from '@shared/listFormat.js'
 
 function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
 	const {t} = useTranslation()

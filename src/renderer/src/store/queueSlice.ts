@@ -19,7 +19,7 @@ import {configuredCookiesRetryMode} from './wizard/probeErrorExperience.js'
 import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
 import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
-import {forgetAllPlaceholders, forgetPlaceholder, settlePlaceholder} from './quickDownload/quickDownloadPipeline.js'
+import {settlePlaceholder} from './quickDownload/quickDownloadPipeline.js'
 import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
 function errorMessage(error: unknown): string {
@@ -71,7 +71,6 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 			return
 		}
 		const result = await submitPreparedQueueSubmission(prepared, reviewSourceRowId)
-		if (result.ok && reviewSourceRowId !== null) forgetPlaceholder(reviewSourceRowId)
 		if (!result.ok) {
 			set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: result.error}, wizardErrorOrigin: null})
 			return
@@ -120,7 +119,6 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
 		cancelItemDownload: async itemId => {
 			await window.appApi.queue.cmd.cancel({itemId})
-			forgetPlaceholder(itemId)
 		},
 
 		pauseItemDownload: async itemId => {
@@ -133,7 +131,6 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
 		removeQueueItem: async itemId => {
 			await window.appApi.queue.cmd.remove({itemId})
-			forgetPlaceholder(itemId)
 		},
 
 		retryQueueItem: async itemId => {
@@ -148,9 +145,7 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 		},
 
 		applyQueueSelectionAction: async (action, itemIds) => {
-			const result = await window.appApi.queue.cmd.applySelectionAction({action, itemIds})
-			if (action === 'cancel' || action === 'remove') for (const itemId of itemIds) forgetPlaceholder(itemId)
-			return result
+			return window.appApi.queue.cmd.applySelectionAction({action, itemIds})
 		},
 
 		changeQueueOutputTarget: async (itemIds, outputDir) => {
@@ -174,8 +169,6 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
 		cancelAll: async () => {
 			await window.appApi.queue.cmd.cancel({itemId: null})
-			// Cancel-all removes every placeholder row, and with it every open choice.
-			forgetAllPlaceholders()
 		},
 
 		openItemFolder: async itemId => {

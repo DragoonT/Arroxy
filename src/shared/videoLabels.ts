@@ -1,6 +1,6 @@
 import type {ParseKeys} from 'i18next'
-import type {AiUpscaled} from '@shared/schemas.js'
-import type {HdrSetting, NativeAudioPreference, VideoCodecPreference, VideoFileType} from '@shared/types.js'
+import type {AiUpscaled} from './schemas.js'
+import type {HdrSetting, NativeAudioPreference, VideoCodecPreference, VideoFileType} from './types.js'
 
 // The words for a profile's video settings, shared by the editor's controls and
 // every summary of a profile.

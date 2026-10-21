@@ -377,6 +377,8 @@ export interface QueueItem {
 	// The count the user chose for a placeholder's collection, kept through Retry and restart.
 	probeTake?: QuickProbeTake
 	choice?: import('./schemas.js').QueueChoice
+	pinnedProfile?: import('./intake/intakeSchemas.js').PinnedDownloadProfile
+	origin?: import('./intake/intakeSchemas.js').IntakeOrigin
 	job: PreparedJob
 }
 
