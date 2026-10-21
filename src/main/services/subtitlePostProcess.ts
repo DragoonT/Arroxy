@@ -5,7 +5,7 @@
 // the ffmpeg child if a cancel lands mid-mux).
 
 import {extname} from 'node:path'
-import {access, readFile, rename, unlink, writeFile} from 'node:fs/promises'
+import {readFile, rename, unlink, writeFile} from 'node:fs/promises'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import log from 'electron-log/main.js'
 import {dedupeSrt} from './srtDedupe.js'
@@ -14,37 +14,9 @@ import {normalizeCueOverlaps} from './cueOverlap.js'
 import {runFfmpeg} from './ffmpegRun.js'
 import {EMBED_SUBTITLE_CONTAINER_EXT} from 'yt-dlp-bridge'
 import {siteForJob} from '@shared/sites/index.js'
-import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
 import {buildCoverExtractArgs, buildSubtitleEmbedArgs, type SubtitleEmbedTrack} from './subtitleEmbedArgs.js'
 
 export const logger = log.scope('subs')
-
-// yt-dlp's `--convert-subs` writes `<stem>.<format>` and deletes the original
-// without printing either path, so the paths scraped from its output still name
-// the deleted pre-conversion file. Point each missing path at the sibling that
-// exists, trying the requested format first.
-export async function resolveConvertedSubtitlePaths(paths: readonly string[], requestedFormat: SubtitleFormat): Promise<string[]> {
-	const formats = [requestedFormat, ...SUBTITLE_FORMATS.filter(format => format !== requestedFormat)]
-	const resolved = await Promise.all(
-		paths.map(async path => {
-			if (await fileExists(path)) return path
-			const stem = path.slice(0, path.length - extname(path).length)
-			for (const format of formats) {
-				const candidate = `${stem}.${format}`
-				if (await fileExists(candidate)) return candidate
-			}
-			return path
-		})
-	)
-	return [...new Set(resolved)]
-}
-
-function fileExists(path: string): Promise<boolean> {
-	return access(path).then(
-		() => true,
-		() => false
-	)
-}
 
 // Post-process the auto-caption files phase 2 wrote. Two passes, in order:
 //
@@ -63,7 +35,9 @@ function fileExists(path: string): Promise<boolean> {
 // Failures are logged and swallowed: a post-process glitch must never lose a
 // video. The per-file outcome is logged either way — a silent skip here used to
 // be indistinguishable from a pass that ran and found nothing to do.
-export async function postProcessSubtitleFiles(paths: readonly string[], opts: {extractor: string; url: string; jobId: string; shouldAbort: () => boolean}): Promise<void> {
+// `rollingDedupe`: the files of automatic captions, the only ones whose cues
+// roll; overlaps are clamped in every file.
+export async function postProcessSubtitleFiles(paths: readonly string[], opts: {extractor: string; url: string; jobId: string; shouldAbort: () => boolean; rollingDedupe: readonly string[]}): Promise<void> {
 	const site = siteForJob(opts.extractor, opts.url)
 	const {jobId} = opts
 	await Promise.all(
@@ -77,13 +51,14 @@ export async function postProcessSubtitleFiles(paths: readonly string[], opts: {
 			}
 			try {
 				const original = await readFile(path, 'utf8')
-				const deduped = site.needsAutoCaptionDedupe ? dedupe(original) : original
+				const rolling = site.needsAutoCaptionDedupe && opts.rollingDedupe.includes(path)
+				const deduped = rolling ? dedupe(original) : original
 				const {content, clamped} = normalizeCueOverlaps(deduped)
 				const changed = content !== original
 				if (changed && !opts.shouldAbort()) {
 					await writeFile(path, content, 'utf8')
 				}
-				logger.info('subtitle post-process', {jobId, path, site: site.id, rollingDedupe: site.needsAutoCaptionDedupe, overlapsClamped: clamped, changed})
+				logger.info('subtitle post-process', {jobId, path, site: site.id, rollingDedupe: rolling, overlapsClamped: clamped, changed})
 			} catch (err) {
 				logger.warn('subtitle post-process failed', {jobId, path, site: site.id, message: err instanceof Error ? err.message : String(err)})
 			}
