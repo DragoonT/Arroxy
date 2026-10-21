@@ -14,15 +14,14 @@ Arroxy uses a single long-lived branch, **`main`**. Open contributor PRs against
 
 1. Fork the repo.
 2. Create a feature branch in your fork.
-3. Open a PR into `main`.
-4. Wait for CI and maintainer review.
+3. Change English copy only: `src/shared/i18n/locales/en.json` and `readme-src/locales/en.mjs`. Every other locale is translated in one sync PR at release time ([ADR 0017](docs/adr/0017-prs-change-english-only.md)).
+4. Open a PR into `main`.
+5. Wait for CI and maintainer review.
 
 ### Maintainer release flow
 
-1. Contributor work lands on `main`.
-2. Maintainers cut `vX.Y.Z-beta.N` tags from `main` for validation. Pre-release tags are auto-marked `prerelease: true` on GitHub and do not auto-update existing user installs.
-3. After validation, bump `package.json` to the stable version on `main`.
-4. Cut `vX.Y.Z` from `main`; stable package-manager publishing (Scoop, Homebrew, Winget) only happens for these stable tags.
+Releases are cut straight from `main`: the translation sync PR, then the version bump and the assembled changelog, then the tag.
+The steps, the optional beta path and the manual fallback are in [`dev-docs/release-runbook.md`](dev-docs/release-runbook.md).
 
 ### Registry package flows
 
@@ -145,7 +144,7 @@ For a fresh-Windows-box bootstrap, see `scripts/build/build-windows.ps1`.
 
 ## Coding conventions
 
-- **TypeScript-strict.** No `any` / `unknown` without justification.
+- **TypeScript-strict.** No `any`. Data from outside the process (IPC, files, child processes, the network) enters as `unknown` and is parsed into a named type before anything uses it.
 - **Naming.** Reuse the domain glossary in [`GLOSSARY.md`](GLOSSARY.md). Don't introduce parallel vocabularies.
 - **Architecture.** Renderer should not know how main fetches; main should not know which component renders. IPC channel names live in `src/shared/ipc.ts`; payload types live in `src/shared/types.ts`.
 - **Comments.** Don't restate what code already says. Comment when WHY is non-obvious — a hidden constraint, an OS-specific quirk, a workaround for a specific bug.
@@ -157,7 +156,7 @@ For a fresh-Windows-box bootstrap, see `scripts/build/build-windows.ps1`.
 - **Conventional Commits.** Subject ≤ ~70 chars: `fix(scope): …`, `feat(scope): …`, `refactor: …`, `build: …`, `docs: …`. Body explains the _why_, not the _what_.
 - **No AI attribution.** Do **not** add `Co-Authored-By: Claude …` trailers or `🤖 Generated with …` footers to commits or PR bodies. Write as if authored solely by yourself.
 - **A changelog fragment, not a `CHANGELOG.md` edit.** A user-facing change adds one `changelog.d/<slug>.<kind>.md` file ([`changelog.d/README.md`](changelog.d/README.md)); the release assembles them.
-- **Small, separable commits.** If your PR has two unrelated concerns, make them two commits — reviewers may take one and not the other.
+- **One concern per PR.** Two unrelated changes are two PRs, each passing `bun run check` on its own; a package change goes apart from the app change that uses it.
 - **Sign your commits** if your Git identity is set up for it. Not required.
 
 ### PR policy
