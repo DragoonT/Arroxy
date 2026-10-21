@@ -11,7 +11,7 @@ import {Panel} from '../shared/Panel.js'
 import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
 import {ProfileSelect} from './ProfileSelect.js'
 import type {SelectOption} from './profileSelectOptions.js'
-import {SUBTITLE_SOURCE_LABEL_KEYS} from '@renderer/lib/subtitleLabel.js'
+import {SUBTITLE_SOURCE_LABEL_KEYS} from '@shared/subtitleTrackLabel.js'
 
 // Reuses the wizard's subtitle vocabulary — these are the same three delivery
 // modes, and describing them differently in two screens invites confusion.

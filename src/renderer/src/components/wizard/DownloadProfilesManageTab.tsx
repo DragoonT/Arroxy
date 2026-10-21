@@ -19,7 +19,7 @@ import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {Hint} from '../shared/Hint.js'
 import {ProfileSummaryContent} from './ProfileSummaryContent.js'
-import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 
 interface ProfilesManageTabProps {
 	activeProfile: DownloadProfile

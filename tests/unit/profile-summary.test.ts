@@ -1,6 +1,7 @@
 import {createInstance} from 'i18next'
 import {describe, expect, it} from 'vite-plus/test'
-import {profileFormatLabel, profileSummaryRows} from '@renderer/lib/profileSummary.js'
+import {profileSummaryRows} from '@renderer/lib/profileSummary.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfile} from '@shared/types.js'

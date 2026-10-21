@@ -11,11 +11,12 @@
 // mutation goes back through the injected commit callbacks.
 
 import log from 'electron-log/main.js'
+import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './queueAdmission.js'
-import type {JobAuth, QueueChoice} from '@shared/schemas.js'
+import type {JobAuth, QueueChoice, QuickProbeTake} from '@shared/schemas.js'
 import type {LocalizedError, QueueItem} from '@shared/types.js'
 
 const logger = log.scope('queue')
@@ -23,12 +24,14 @@ const logger = log.scope('queue')
 export interface QueueProbeLifecycleDeps {
 	items: () => readonly QueueItem[]
 	patch: (itemId: string, reason: string, patcher: (item: QueueItem) => QueueItem) => void
-	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth} | {kind: 'needs-choice'; choice: QueueChoice; title: string} | {kind: 'probe-restarted'}) => void
+	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth} | {kind: 'needs-choice'; choice: QueueChoice; title: string} | {kind: 'probe-restarted'; probeTake?: QuickProbeTake}) => void
 	abortProbe: (itemId: string) => void
 	// Raw commit seams for the atomic swap: remove + add run back-to-back with
 	// no await between them, so no other command can interleave.
 	commitRemove: (itemId: string) => void
 	commitAdd: (items: QueueItem[]) => void
+	// How many rows one intake may become, by who took it in; null for no limit.
+	rowsPerIntake: (origin: IntakeOrigin) => number | null
 }
 
 export class QueueProbeLifecycle {
@@ -45,12 +48,13 @@ export class QueueProbeLifecycle {
 	}
 
 	// Back to `probing` so the renderer can run the probe again: a Retry on a
-	// probe-error row, or a choice that needs a fresh probe.
-	reprobe(itemId: string): Result<void> {
+	// probe-error row, or a choice that needs a fresh probe. A choice's answer
+	// (`take`) is stored on the row, so a Retry and a restart keep to it.
+	reprobe(itemId: string, take?: QuickProbeTake): Result<void> {
 		const item = this.find(itemId)
 		const restartable = item?.status === QUEUE_STATUS.needsChoice || (item?.status === QUEUE_STATUS.error && item.job.kind === 'unresolved')
 		if (!restartable) return fail(createAppError('validation', `queue item ${itemId} has no probe to restart`))
-		this.deps.commitEvent(itemId, {kind: 'probe-restarted'})
+		this.deps.commitEvent(itemId, {kind: 'probe-restarted', ...(take ? {probeTake: take} : {})})
 		return ok(undefined)
 	}
 
@@ -96,6 +100,8 @@ export class QueueProbeLifecycle {
 	// record is read in the same tick as the swap, and counted: an overlapping
 	// playlist prepared at the same time still queues its new entries. Only a
 	// batch with nothing new is refused as a conflict, keeping the placeholder.
+	// Every row the placeholder becomes carries its intake origin, and a batch
+	// over the intake's admission limit is refused before anything is committed.
 	replaceProbing(itemId: string, items: QueueItem[]): Result<{ids: string[]; skippedAlreadyQueued: number}> {
 		const placeholder = this.find(itemId)
 		if (placeholder?.status !== QUEUE_STATUS.probing && placeholder?.status !== QUEUE_STATUS.needsChoice) {
@@ -109,9 +115,12 @@ export class QueueProbeLifecycle {
 		)
 		if (!admission.ok) return admission
 		const {admitted, skippedAlreadyQueued} = admission.data
+		const {origin} = placeholder
+		const limit = origin ? this.deps.rowsPerIntake(origin) : null
+		if (limit !== null && admitted.length > limit) return fail(createAppError('limit', `intake ${origin?.intakeId} may add at most ${limit} rows, not ${admitted.length}`))
 		this.deps.commitRemove(itemId)
 		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued})
-		const queued = withPlaceholderId(itemId, items, admitted)
+		const queued = withPlaceholderId(itemId, items, origin ? admitted.map(item => ({...item, origin})) : admitted)
 		this.deps.commitAdd(queued)
 		logger.info('replaceProbing', {itemId, replacedBy: queued.map(i => i.id), skippedAlreadyQueued})
 		return ok({ids: queued.map(i => i.id), skippedAlreadyQueued})

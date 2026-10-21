@@ -19,7 +19,7 @@ import {Hint} from '../shared/Hint.js'
 import type {ProfilePickerOption} from './profilePickerOptions.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {ProfileSummaryContent} from './ProfileSummaryContent.js'
-import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 
 export type ProfilePickerLayout = 'grid' | 'list'
 export type ProfilePickerTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizard' | 'playlist' | 'playlist-row' | 'kit'

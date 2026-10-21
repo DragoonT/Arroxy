@@ -4,11 +4,12 @@
 // only in how a link is taken in and how the user hears about it.
 
 import {classifyUrlIntent} from '@shared/urlIntent.js'
-import type {QueueChoice, QuickProbeTake} from '@shared/schemas.js'
+import type {PinnedDownloadProfile} from './intakeSchemas.js'
+import {PLAYLIST_PROBE_LIMIT_MAX, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
-import type {LocalizedError, PlaylistProbeResult, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
-import {preparePinnedProfileQueueSubmission, type PinnedDownloadProfile, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
-import {DownloadProfileOutputMissingError} from '../downloadProfiles.js'
+import type {LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
+import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
+import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
 export type QuickProbeResolution =
 	| {kind: 'queue'; prepared: PreparedQueueSubmission}
@@ -18,6 +19,11 @@ export type QuickProbeResolution =
 	| {kind: 'needs-choice'; choice: QueueChoice; capped: boolean; title: string; probe: PlaylistProbeResult}
 	// `probeError` is null when the probe succeeded and preparing the rows failed.
 	| {kind: 'failed'; error: LocalizedError; probeError: ProbeError | null}
+
+// How far a probe looks for a take: exactly N, or as wide as the load ceiling.
+export function scopeForTake(take: QuickProbeTake): PlaylistScope {
+	return {items: {kind: 'first', count: take.kind === 'first' ? take.count : PLAYLIST_PROBE_LIMIT_MAX}}
+}
 
 export interface QuickProbeContext {
 	// The row's link: names the video when the probe gives no page, and with

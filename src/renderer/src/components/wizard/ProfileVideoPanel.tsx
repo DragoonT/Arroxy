@@ -17,7 +17,7 @@ import {OptionCard} from '../shared/OptionCard.js'
 import {Panel} from '../shared/Panel.js'
 import {ProfileSelect} from './ProfileSelect.js'
 import type {SelectOption} from './profileSelectOptions.js'
-import {AI_UPSCALED_LABEL_KEYS, FILE_TYPE_LABEL_KEYS, HDR_LABEL_KEYS, NATIVE_AUDIO_LABEL_KEYS, VIDEO_CODEC_LABEL_KEYS} from '@renderer/lib/videoLabels.js'
+import {AI_UPSCALED_LABEL_KEYS, FILE_TYPE_LABEL_KEYS, HDR_LABEL_KEYS, NATIVE_AUDIO_LABEL_KEYS, VIDEO_CODEC_LABEL_KEYS} from '@shared/videoLabels.js'
 
 // Each goal is a plain name, a technical tag and a tooltip with the reason and
 // the catch (the Two-Audience Rule in DESIGN.md).

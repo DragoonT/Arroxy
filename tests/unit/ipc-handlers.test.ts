@@ -43,10 +43,7 @@ function makeDeps() {
 	const mainWindow = {isDestroyed: vi.fn().mockReturnValue(false), webContents: {send: vi.fn()}, minimize: vi.fn(), maximize: vi.fn(), unmaximize: vi.fn(), close: vi.fn(), isMaximized: vi.fn().mockReturnValue(false)}
 	const queueService = Object.assign(new EventEmitter(), {
 		add: vi.fn().mockReturnValue({ok: true, data: {ids: []}}),
-		probeFailed: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		replaceProbing: vi.fn((input: {items: {id: string}[]}) => ({ok: true, data: {ids: input.items.map(item => item.id)}})),
-		needsChoice: vi.fn().mockReturnValue({ok: true, data: undefined}),
-		reprobe: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		onProbeAbort: vi.fn(),
 		setTitleBackfillProbe: vi.fn(),
 		start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -70,6 +67,7 @@ function makeDeps() {
 	const languageRef: {current: string} = {current: 'en'}
 	const clipboardWatcher = {setEnabled: vi.fn(), dispose: vi.fn()}
 	const hotkeyService = {apply: vi.fn(), dispose: vi.fn(), getState: vi.fn().mockReturnValue({accelerator: null, registered: false})}
+	const intakeService = {add: vi.fn().mockResolvedValue({kind: 'added', itemId: 'p1', title: 'Video'}), retry: vi.fn().mockReturnValue({ok: true, data: undefined}), choose: vi.fn().mockReturnValue({ok: true, data: undefined}), keptProbe: vi.fn().mockReturnValue(null), setWindowContext: vi.fn()}
 	return {
 		mainWindow: mainWindow as never,
 		downloadService: downloadService as never,
@@ -94,7 +92,8 @@ function makeDeps() {
 		exploreView: {navigate: vi.fn(), setBounds: vi.fn(), setVisible: vi.fn(), setActive: vi.fn(), signOut: vi.fn(), getState: vi.fn(), destroy: vi.fn(), applyProxySetting: vi.fn(), applyAdBlockSetting: vi.fn(), applyIdleUnloadSetting: vi.fn(), applyZoomSetting: vi.fn()} as never,
 		siteRequests: {snapshot: vi.fn().mockReturnValue([]), allowOnce: vi.fn(), onChange: vi.fn().mockReturnValue(() => undefined)} as never,
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {webglBlocked: false, softwareWebglAllowed: false}}),
-		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}
+		intakeService: intakeService as never,
+		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher, intakeService}
 	}
 }
 
@@ -352,28 +351,91 @@ describe('registerIpcHandlers', () => {
 			expect(deps._raw.queueService.add).toHaveBeenCalledOnce()
 		})
 
-		it('queue:cmd:needsChoice forwards a valid choice and refuses an unknown one', async () => {
+		it('intake:cmd:choose forwards a valid answer from the window and refuses an unknown one', async () => {
 			const deps = makeDeps()
 			registerIpcHandlers(deps)
 
-			const handler = findCall(IPC_CHANNELS.queueCmdNeedsChoice)!.fn
-			const valid = (await handler(null, {itemId: 'p1', choice: {kind: 'playlist-cap', loaded: 100}, title: 'Mix'})) as {ok: boolean}
+			const handler = findCall(IPC_CHANNELS.intakeCmdChoose)!.fn
+			const valid = (await handler(null, {requestId: 'r1', itemId: 'p1', take: 'first'})) as {ok: boolean}
 			expect(valid.ok).toBe(true)
-			expect(deps._raw.queueService.needsChoice).toHaveBeenCalledWith('p1', {kind: 'playlist-cap', loaded: 100}, 'Mix')
+			expect(deps._raw.intakeService.choose).toHaveBeenCalledWith({requestId: 'r1', itemId: 'p1', take: 'first', origin: 'window'})
 
-			const invalid = (await handler(null, {itemId: 'p1', choice: {kind: 'everything'}, title: 'Mix'})) as {ok: boolean}
+			const invalid = (await handler(null, {requestId: 'r1', itemId: 'p1', take: 'review'})) as {ok: boolean}
 			expect(invalid.ok).toBe(false)
-			expect(deps._raw.queueService.needsChoice).toHaveBeenCalledOnce()
+			expect(deps._raw.intakeService.choose).toHaveBeenCalledOnce()
 		})
 
-		it('queue:cmd:reprobe forwards the row id', async () => {
+		it('intake:cmd:add takes a web link in from the window and refuses anything else', async () => {
 			const deps = makeDeps()
 			registerIpcHandlers(deps)
 
-			const handler = findCall(IPC_CHANNELS.queueCmdReprobe)!.fn
-			const result = (await handler(null, {itemId: 'p1'})) as {ok: boolean}
+			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
+			const added = (await handler(null, {requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video'})) as {ok: boolean; data: unknown}
+			expect(added).toEqual({ok: true, data: {kind: 'added', itemId: 'p1', title: 'Video'}})
+			expect(deps._raw.intakeService.add).toHaveBeenCalledWith({requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', origin: {kind: 'window'}})
+
+			const refused = (await handler(null, {requestId: 'r2', url: 'file:///etc/passwd', playlistMode: 'video'})) as {ok: boolean}
+			expect(refused.ok).toBe(false)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledOnce()
+		})
+
+		it('intake:cmd:retry forwards the row id', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdRetry)!.fn
+			const result = (await handler(null, {requestId: 'r1', itemId: 'p1'})) as {ok: boolean}
 			expect(result.ok).toBe(true)
-			expect(deps._raw.queueService.reprobe).toHaveBeenCalledWith('p1')
+			expect(deps._raw.intakeService.retry).toHaveBeenCalledWith({requestId: 'r1', itemId: 'p1', origin: 'window'})
+		})
+
+		it("intake:cmd:add passes on the window's active profile", async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
+			const added = (await handler(null, {requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', profile: {kind: 'builtin', id: 'audio-only'}})) as {ok: boolean}
+			expect(added.ok).toBe(true)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledWith({requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', profile: {kind: 'builtin', id: 'audio-only'}, origin: {kind: 'window'}})
+		})
+
+		it('intake:cmd:add passes on the count the user chose, and refuses one out of range', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
+			const mixed = 'https://www.youtube.com/watch?v=abc&list=PLtest'
+			const added = (await handler(null, {requestId: 'r1', url: mixed, playlistMode: 'playlist', take: {kind: 'first', count: 25}})) as {ok: boolean}
+			expect(added.ok).toBe(true)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledWith({requestId: 'r1', url: mixed, playlistMode: 'playlist', take: {kind: 'first', count: 25}, origin: {kind: 'window'}})
+
+			const refused = (await handler(null, {requestId: 'r2', url: mixed, playlistMode: 'playlist', take: {kind: 'first', count: 0}})) as {ok: boolean}
+			expect(refused.ok).toBe(false)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledOnce()
+		})
+
+		// A page title is only a hint until the probe knows the real one: a long
+		// one is cut, never a reason to refuse the link.
+		it('intake:cmd:add takes a link in with a very long title, cut to 2048 characters', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
+			const added = (await handler(null, {requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', title: 'a'.repeat(3000)})) as {ok: boolean}
+			expect(added.ok).toBe(true)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledWith(expect.objectContaining({title: 'a'.repeat(2048)}))
+		})
+
+		it('intake:cmd:keptProbe forwards the row id and answers with the kept probe', async () => {
+			const deps = makeDeps()
+			const kept = {kind: 'playlist', entries: []}
+			deps._raw.intakeService.keptProbe.mockReturnValue(kept)
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdKeptProbe)!.fn
+			const result = await handler(null, {itemId: 'p1'})
+			expect(result).toEqual({ok: true, data: kept})
+			expect(deps._raw.intakeService.keptProbe).toHaveBeenCalledWith('p1')
 		})
 
 		it('queue:cmd:applySelectionAction accepts a valid action and selected item ids', async () => {
