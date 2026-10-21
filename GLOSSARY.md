@@ -293,11 +293,11 @@ The single file a user saves from Settings to attach to a bug report: a snapshot
 _Avoid_: log bundle, crash report, support dump
 
 **Warmup**:
-The readiness check that verifies the dependencies are present and working — fetching any that are missing — and runs at startup and again on demand from the repair flow. The media dependencies (the downloader and the media tools) gate downloads; the token warm-up is best-effort and never blocks. Verification means actually running each dependency; a passing verdict is remembered for up to seven days, as long as the file it was checked against hasn't changed.
+The readiness check that verifies the dependencies are present and working — fetching any that are missing — and runs at startup and again on demand from the repair flow. The media dependencies (the downloader and the media tools) gate downloads; the token warm-up is best-effort and never blocks. Verification means actually running each dependency; a passing verdict is remembered for several days, as long as the file it was checked against hasn't changed.
 _Avoid_: bootstrap, init, preflight
 
 **Quality limit**:
-A download that finished below both the quality its profile asked for and 720p because the video platform withheld the higher formats for that session, rather than because the video lacks them.
+A download that finished below both the quality its profile asked for and the HD floor because the video platform withheld the higher formats for that session, rather than because the video lacks them.
 _Avoid_: low quality, degraded download, SABR error
 
 **Cookieless retry**:

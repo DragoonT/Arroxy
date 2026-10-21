@@ -31,7 +31,7 @@ verify: each entry has a state (open, half fixed with its remainder, fixed by a 
 ### 2. Triage and grouping
 
 - **Group by file ownership.** At any time, only one session writes to a given set of files. Entries that share a file go to the same session, either in one PR or in a sequence. Otherwise one waits for the other's merge. Keep sessions out of files that an open PR touches, and name those files in the brief.
-- **Split by review kind.** Behaviour changes get a full review plus CodeRabbit. Behaviour-free refactors, tooling and mechanical churn get `--light` and no CodeRabbit trigger. CodeRabbit allows 2 reviews an hour for the whole repo, so behaviour PRs will queue for it, but they don't block each other.
+- **Split by review kind.** Behaviour changes get a full review plus CodeRabbit. Behaviour-free refactors, tooling and mechanical churn get `--light` and no CodeRabbit trigger. CodeRabbit's budget is shared by the whole repo (memory `coderabbit-review-workflow`), so behaviour PRs queue for it, but they don't block each other.
 - **Package changes stand apart.** A `packages/*` change is a separate PR from the app change that uses it. Bridge PRs run one at a time across all sessions, because they share the bridge's files and its next version.
 - **Park items deliberately.** Hold an item when nobody has hit it yet, when it needs a package release first, or when a design in flight will absorb it. Note the reason in the backlog entry.
 - **Look for patch clusters before dispatching** (phase 5). A cluster turns several point fixes into a single design.
