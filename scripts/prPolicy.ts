@@ -7,14 +7,29 @@ import {releaseSectionBody} from './changelogFragments.js'
 // AGENTS.md states each one as a working convention; this makes them checks.
 // Every rule has an opt-out: a `<key>: <reason>` line in the PR body.
 
-export const POLICY_RULES = ['changelog-fragment', 'released-changelog', 'english-only', 'package-scope', 'base-branch', 'ai-attribution'] as const
+export const POLICY_RULES = ['changelog-fragment', 'released-changelog', 'english-only', 'package-scope', 'package-changelog', 'base-branch', 'ai-attribution'] as const
 export type PolicyRule = (typeof POLICY_RULES)[number]
 
 /** The PR body line that waives each rule, followed by `: <reason>`. */
-export const OPT_OUT_KEYS: Readonly<Record<PolicyRule, string>> = {'changelog-fragment': 'No changelog', 'released-changelog': 'Released changelog edit', 'english-only': 'Translation change', 'package-scope': 'Package and app together', 'base-branch': 'Stacked PR', 'ai-attribution': 'Attribution false positive'}
+export const OPT_OUT_KEYS: Readonly<Record<PolicyRule, string>> = {
+	'changelog-fragment': 'No changelog',
+	'released-changelog': 'Released changelog edit',
+	'english-only': 'Translation change',
+	'package-scope': 'Package and app together',
+	'package-changelog': 'Package changelog edit',
+	'base-branch': 'Stacked PR',
+	'ai-attribution': 'Attribution false positive'
+}
 
 /** The title the release translation sync PR opens with (translate-arroxy-i18n skill). */
 export const TRANSLATION_SYNC_TITLE = 'i18n: sync translations'
+
+/** A package release PR's title: `release(packages): <pkg> <version>`, one pair per package it releases. */
+const PACKAGE_RELEASE_TITLE = /^release\(packages\):/i
+const RELEASED_PACKAGE = /\b([a-z0-9][a-z0-9-]*)\s+v?\d+\.\d+\.\d+\S*/gi
+
+/** The packages a `release(packages): …` title releases; empty for any other title. */
+const releasedPackages = (title: string): Set<string> => (PACKAGE_RELEASE_TITLE.test(title.trim()) ? new Set([...title.matchAll(RELEASED_PACKAGE)].map(([, name = '']) => name.toLowerCase())) : new Set())
 
 export interface ChangedFile {
 	/** The status letter of `git diff --name-status --no-renames`: A, M, D or T. */
@@ -40,6 +55,8 @@ export interface PullRequestFacts {
 	 * CHANGELOG.md alone.
 	 */
 	changelog: {base: string; head: string; releasedVersion: string} | null
+	/** Every changed `packages/<pkg>/README.md` at the merge base and at the head. */
+	packageReadmes: readonly {path: string; base: string; head: string}[]
 }
 
 export interface PolicyFailure {
@@ -155,6 +172,30 @@ function packageScope(input: PullRequestFacts): string | null {
 	return 'packages/ and src/ change in separate PRs: a package publishes on its own tag (AGENTS.md, "One concern per PR").'
 }
 
+// The "What changed in X" sections of a package README, which are that
+// package's changelog, up to the next heading of the same level.
+function whatChangedSections(readme: string): string {
+	const kept: string[] = []
+	let inside = false
+	for (const line of readme.split(/\r?\n/)) {
+		if (/^##\s/.test(line)) inside = /^##\s+What changed\b/i.test(line)
+		if (inside) kept.push(line.trimEnd())
+	}
+	return kept.join('\n').trim()
+}
+
+// A package's changelog is written once, by the PR that releases it, from the
+// commits since its last tag; a feature PR leaves it alone.
+function packageChangelog(input: PullRequestFacts): string | null {
+	const released = releasedPackages(input.title)
+	const unreleased = (path: string): boolean => !released.has(path.split('/')[1]?.toLowerCase() ?? '')
+	const changelogs = input.files.map(file => file.path).filter(path => /^packages\/[^/]+\/CHANGELOG\.md$/.test(path) && unreleased(path))
+	const readmes = input.packageReadmes.filter(readme => unreleased(readme.path) && whatChangedSections(readme.base) !== whatChangedSections(readme.head)).map(readme => `the "What changed" sections of ${readme.path}`)
+	const edited = [...changelogs, ...readmes]
+	if (edited.length === 0) return null
+	return `Only the "release(packages): <pkg> <version>" PR writes a package's changelog. This PR edits ${edited.join(' and ')}.`
+}
+
 function baseBranch(input: PullRequestFacts): string | null {
 	if (input.baseRef === input.defaultBranch) return null
 	return `The PR targets ${input.baseRef}; every PR branches from ${input.defaultBranch} (AGENTS.md, "Don't stack PRs").`
@@ -192,6 +233,7 @@ export function checkPullRequest(input: PullRequestFacts): PolicyResult {
 	report('released-changelog', releasedChangelog(input))
 	report('english-only', englishOnly(input, translationSync))
 	report('package-scope', packageScope(input))
+	report('package-changelog', packageChangelog(input))
 	report('base-branch', baseBranch(input))
 	// The body may quote the pattern on purpose; a commit message never may,
 	// since it outlives the PR in main's history.
