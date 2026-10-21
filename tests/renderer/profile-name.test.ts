@@ -22,6 +22,13 @@ describe('editedProfileName', () => {
 		expect(name).toBe(`${'a'.repeat(65)}… (edited)`)
 	})
 
+	it('never cuts an emoji in half when the cut falls inside it', () => {
+		const name = editedProfileName(`${'a'.repeat(69)}😀${'b'.repeat(20)}`)
+
+		expect(name).toBe(`${'a'.repeat(69)}… (edited)`)
+		expect(name).not.toMatch(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])/)
+	})
+
 	it('keeps a name that fits exactly as it is', () => {
 		const profile = 'a'.repeat(DOWNLOAD_PROFILE_NAME_MAX - ' (edited)'.length)
 
