@@ -33,7 +33,7 @@ Each tool wires plugins its own way, so install separately in every tool you use
 | Plugin | Claude Code | Codex CLI | OpenCode |
 | --- | --- | --- | --- |
 | Superpowers | `/plugin install superpowers@claude-plugins-official` | `/plugins` → search `superpowers` → Install | add `"superpowers@git+https://github.com/obra/superpowers.git"` to `plugin` in `~/.config/opencode/opencode.json` |
-| CodeGraph prompt hook | `UserPromptSubmit` hook running `codegraph prompt-hook` in `.claude/settings.json` (local) | none — rely on the CodeGraph section of `AGENTS.md` | none — same |
+| CodeGraph prompt hook | `UserPromptSubmit` hook running `codegraph prompt-hook` in `.claude/settings.json` (local) | none — the CodeGraph guidance in `.claude/CLAUDE.md` is Claude-only | none — same |
 
 Current install steps: [Superpowers README](https://github.com/obra/superpowers#installation).
 

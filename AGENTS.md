@@ -57,7 +57,7 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 
 ## Working Conventions
 
-**No backward compatibility** — Do not prioritize migration paths, backward compatibility shims, or preserving existing implementations. Existing code can be discarded or restructured without ceremony. Skip any "keep for compat" hedging. Delete old types, old components, old state fields without re-exporting or aliasing. Refactor aggressively. No deprecation notices or transitional layers.
+**No backward compatibility** — Do not prioritize migration paths, backward compatibility shims, or preserving existing implementations. Existing code can be discarded or restructured without ceremony. Skip any "keep for compat" hedging. Delete old types, old components, old state fields without re-exporting or aliasing. Refactor aggressively. No deprecation notices or transitional layers. The one exception is data on users' machines (settings, the saved queue, profiles): when its shape changes, migrate it on load rather than dropping it.
 
 **schemas.ts is SSOT for all enum types.** Pattern: `z.enum([...])` → `type Foo = z.infer<…>` → `const FOOS = fooSchema.options`. Don't redeclare as TS union literals. `QUEUE_STATUS` / `STATUS_KEY` live in `schemas.ts` (not `constants.ts`). `DEFAULTS` lives in `constants.ts`.
 
@@ -75,7 +75,7 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 - **Tests stay with their code.** Never split by layer (a code PR, then a "tests and docs" PR).
 - **Keep one PR** when the pieces cannot each be green alone, and say why in its body.
 - **Don't stack PRs.** Every PR branches from `main`. When one piece needs another that hasn't merged, keep both in one PR with a commit each (and say why), or start the second once the first merges: a session parks a background wait on `gh pr view <N> --json state` rather than waiting on Antonio. Each merge in a stack makes the next PR take `main` again, rerun CI and have its auto-merge turned on by hand, and nothing wakes anyone when its base merges.
-- **Review by kind:** every PR gets the local dual review before it opens (`bun run review:dual`: Claude and Codex cross-check each other on the subscriptions, no API keys; the `land` skill runs it; with Codex unavailable it skips Codex and has a second Claude pass check the findings, and says so in its report). Mechanical PRs and behaviour-free refactors or renames get `--light` and the gates, no CodeRabbit trigger, so a split spends a trigger only on the PR that changes behaviour. A logic PR then gets the CodeRabbit budget in memory `coderabbit-review-workflow` (2 reviews an hour, shared by the whole repo).
+- **Review by kind:** every PR gets the local dual review before it opens (`bun run review:dual`: Claude and Codex cross-check each other on the subscriptions, no API keys; the `land` skill runs it; with Codex unavailable it skips Codex and has a second Claude pass check the findings, and says so in its report). Mechanical PRs and behaviour-free refactors or renames get `--light` and the gates, no CodeRabbit trigger, so a split spends a trigger only on the PR that changes behaviour. A logic PR then gets a CodeRabbit trigger within the shared, adaptive budget in memory `coderabbit-review-workflow`.
 - **Docs-only changes skip the PR** and go straight to `main` (memory `readme-edits-skip-pr`).
 
 ## Agent setup
