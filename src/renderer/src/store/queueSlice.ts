@@ -28,8 +28,8 @@ function errorMessage(error: unknown): string {
 
 async function saveEditedProfile(get: GetState, profile: DownloadProfile): Promise<void> {
 	try {
-		await get().saveDownloadProfile(profile, false)
-		notify.profileSaved(profileDisplayName(profile))
+		// A failed write resolves false: the settings are rolled back and the user told, so no success here.
+		if (await get().saveDownloadProfile(profile, false)) notify.profileSaved(profileDisplayName(profile))
 	} catch (error) {
 		notify.profileSaveFailed(error)
 	}
