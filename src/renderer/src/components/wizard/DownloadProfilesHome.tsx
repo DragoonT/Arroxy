@@ -8,6 +8,7 @@ import {classifyPastedText} from '@shared/clipboardLinks.js'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {notify} from '@renderer/lib/notify.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useDownloadHomeView, type DownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -206,7 +207,8 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 function DownloadMascotHeader({view}: {view: DownloadHomeView}): ReactNode {
 	const {t} = useTranslation()
 	const {activeProfile, hasActiveDownloads, hasInput, inputType, quickDownloadStatus} = view
-	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
+	const nameOf = useProfileDisplayName()
+	const mascotHelp = downloadMascotHelp({activeProfileName: nameOf(activeProfile), hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
 	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
 	const mascotHeaderBody = showMascotHelp ? mascotHelp.body : t('wizard.url.quickSingleOnly')
 	const mascotHeaderImage = showMascotHelp ? mascotHelp.image : hiImg

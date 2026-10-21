@@ -7,7 +7,7 @@ import {SettingsStore} from '@main/stores/SettingsStore.js'
 import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {appSettingsSchema, UI_STYLES, updateSettingsSchema} from '@shared/schemas.js'
-import type {AppSettings} from '@shared/types.js'
+import type {AppSettings, DownloadProfile} from '@shared/types.js'
 import {z} from 'zod'
 
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : false
@@ -487,6 +487,85 @@ describe('settings and recent stores', () => {
 			await fs.writeFile(path.join(userData, 'settings.json'), savedWithoutIt({hdrPreference: 'sdr'}), 'utf-8')
 
 			expect(new SettingsStore(userData, baseDefaults).getSync().common.hdrPreference).toBe('sdr')
+		})
+	})
+
+	describe('built-in profile names', () => {
+		// Every English name each built-in shipped with, from the history of its catalog.
+		const SHIPPED_NAMES: Record<string, string[]> = {
+			'best-quality': ['Best quality', 'Best available'],
+			'best-2160': ['2160p', '4K UHD 2160p'],
+			'best-1440': ['1440p', 'QHD 1440p'],
+			'hd-1080': ['HD 1080p', 'Full HD 1080p'],
+			balanced: ['Balanced', 'Balanced 720p'],
+			'small-file': ['Small file', 'Small file 480p'],
+			'mp4-1080': ['MP4 1080p', 'Smart TV MP4 Full HD', 'Smart TV MP4 Full HD 1080p', 'Smart TV H.264 MP4 1080p', 'Smart TV 1080p'],
+			'mp4-720': ['Smart TV MP4 HD', 'Smart TV MP4 HD 720p', 'Smart TV H.264 MP4 720p', 'Smart TV 720p'],
+			'mp4-480': ['Smart TV MP4 SD', 'Smart TV MP4 SD 480p', 'Smart TV H.264 MP4 480p', 'Smart TV 480p'],
+			'audio-only': ['Audio only'],
+			'subtitles-only': ['Subtitles only'],
+			'low-240': ['Low data 240p'],
+			'low-144': ['Lowest 144p']
+		}
+		const override = (id: string, name: string): DownloadProfile => ({...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === id)!, name})
+
+		it('turns every name a built-in shipped with into its own name, shown in the app language', async () => {
+			for (const [id, names] of Object.entries(SHIPPED_NAMES)) {
+				for (const name of names) {
+					const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-'))
+					await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [override(id, name)]}}), 'utf-8')
+					const [migrated] = new SettingsStore(userData, baseDefaults).getSync().profiles.overrides
+					expect(migrated, `${id}: ${name}`).toBeDefined()
+					expect(migrated?.name, `${id}: ${name}`).toBeUndefined()
+				}
+			}
+		})
+
+		it('keeps a name the user typed, and every custom profile name', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-typed-'))
+			const custom = {...override('balanced', 'Balanced 720p'), id: 'copy-of-balanced'}
+			// Another built-in's name is a name the user typed for this one.
+			const overrides = [override('balanced', 'Lectures'), override('hd-1080', 'Balanced 720p')]
+			await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [custom], overrides}}), 'utf-8')
+			const {profiles} = new SettingsStore(userData, baseDefaults).getSync()
+			expect(profiles.overrides.map(profile => [profile.id, profile.name])).toEqual([
+				['balanced', 'Lectures'],
+				['hd-1080', 'Balanced 720p']
+			])
+			expect(profiles.custom.map(profile => profile.name)).toEqual(['Balanced 720p'])
+		})
+
+		it('drops shipped names once, so a later rename to an old name stays', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-once-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [override('balanced', 'Balanced 720p')]}}), 'utf-8')
+			const store = new SettingsStore(userData, baseDefaults)
+			expect(store.getSync().profiles.overrides[0]?.name).toBeUndefined()
+
+			await store.update({profiles: {overrides: [override('balanced', 'Balanced')]}})
+			expect(new SettingsStore(userData, baseDefaults).getSync().profiles.overrides[0]?.name).toBe('Balanced')
+		})
+
+		it('drops a custom profile without a name and keeps a built-in edit without one', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-missing-'))
+			const {name: _name, ...nameless} = override('balanced', 'unused')
+			await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [{...nameless, id: 'nameless'}], overrides: [nameless]}}), 'utf-8')
+			const {profiles} = new SettingsStore(userData, baseDefaults).getSync()
+			expect(profiles.custom).toEqual([])
+			expect(profiles.overrides.map(profile => profile.id)).toEqual(['balanced'])
+			expect(updateSettingsSchema.safeParse({profiles: {custom: [{...nameless, id: 'nameless'}]}}).success).toBe(false)
+			expect(updateSettingsSchema.safeParse({profiles: {overrides: [nameless]}}).success).toBe(true)
+		})
+
+		it('keeps the settings file as it was before dropping shipped names, once', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-backup-'))
+			const original = JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [override('balanced', 'Balanced 720p')]}})
+			await fs.writeFile(path.join(userData, 'settings.json'), original, 'utf-8')
+			new SettingsStore(userData, baseDefaults)
+			expect(await fs.readFile(path.join(userData, 'settings.before-profile-names.json'), 'utf-8')).toBe(original)
+
+			const rewritten = await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')
+			new SettingsStore(userData, baseDefaults)
+			expect(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')).toBe(rewritten)
 		})
 	})
 
