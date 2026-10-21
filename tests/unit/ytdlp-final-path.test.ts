@@ -19,19 +19,7 @@ vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
 import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import {YtDlp} from '@main/services/YtDlp.js'
-import {clearFinalPathFile, finalPathPrintArgs, parseFinalPath, readFinalPathFile} from '@main/services/ytDlpFinalPath.js'
-
-describe('finalPathPrintArgs', () => {
-	it('asks for the path after the move', () => {
-		expect(finalPathPrintArgs('/dl/.arroxy-temp/ab/final.txt')).toEqual(['--print-to-file', 'after_move:filepath', '/dl/.arroxy-temp/ab/final.txt'])
-	})
-
-	// FILE is an output template: a bare `%` would start a field. `$` is left
-	// as it is, since `--paths` expands it unescaped too.
-	it('doubles the % an output template would read as a field', () => {
-		expect(finalPathPrintArgs('/dl/100% $ %APPDATA%/f.txt')[2]).toBe('/dl/100%% $ %%APPDATA%%/f.txt')
-	})
-})
+import {clearFinalPathFile, parseFinalPath, readFinalPathFile} from '@main/services/ytDlpFinalPath.js'
 
 describe('parseFinalPath', () => {
 	it('takes the last path printed', () => {
@@ -93,7 +81,11 @@ describe('YtDlp.run — finalPathFile', () => {
 		return new YtDlp(binaryManager as never, tokenService as never, {get: vi.fn().mockResolvedValue({})})
 	}
 
+	// A run makes its plan's folder before it spawns, so the folders are real.
+	let root: string
+
 	beforeEach(() => {
+		root = mkdtempSync(join(tmpdir(), 'arroxy-final-path-run-'))
 		vi.clearAllMocks()
 		vi.mocked(probeElectronNodeRuntime).mockResolvedValue({ok: true, runtime: {kind: 'electron-node', executablePath: '/mock/Arroxy', version: '24.16.0'}, output: 'v24.16.0'})
 		vi.mocked(spawnYtDlp).mockImplementation(() => {
@@ -103,17 +95,32 @@ describe('YtDlp.run — finalPathFile', () => {
 		})
 	})
 
-	const request = {kind: 'media', url: 'https://example.com/v/1', output: {directory: '/dl', tempDirectory: '/dl/.arroxy-temp/ab'}, selection: {remuxVideo: 'mkv'}} as const
+	afterEach(() => {
+		rmSync(root, {recursive: true, force: true})
+	})
 
-	it('passes the print-to-file request when asked', async () => {
-		await makeYtDlp().run(request, undefined, {finalPathFile: '/dl/.arroxy-temp/ab/final.txt'})
+	function request(directory = join(root, 'dl')) {
+		return {kind: 'media', url: 'https://example.com/v/1', output: {directory, tempDirectory: join(directory, '.arroxy-temp', 'ab')}, selection: {remuxVideo: 'mkv'}} as const
+	}
+
+	// The file is the bridge's report, relative to the folder yt-dlp runs in, so
+	// a folder named `$HOME` cannot send it elsewhere.
+	it('passes the print-to-file request when asked, relative to the folder', async () => {
+		await makeYtDlp().run(request(), undefined, {finalPathFile: join(root, 'dl', '.arroxy-temp', 'ab', 'final.txt')})
 		const args = vi.mocked(spawnYtDlp).mock.calls[0]?.[1] ?? []
 		const at = args.indexOf('--print-to-file')
-		expect(args.slice(at, at + 3)).toEqual(['--print-to-file', 'after_move:filepath', '/dl/.arroxy-temp/ab/final.txt'])
+		expect(args.slice(at, at + 3)).toEqual(['--print-to-file', 'after_move:filepath', '.arroxy-temp/ab/final.txt'])
+	})
+
+	it('keeps a folder that names a variable out of argv', async () => {
+		const dir = join(root, '$HOME %APPDATA% ')
+		await makeYtDlp().run(request(dir), undefined, {finalPathFile: join(dir, '.arroxy-temp', 'ab', 'final.txt')})
+		const args = vi.mocked(spawnYtDlp).mock.calls[0]?.[1] ?? []
+		expect(args.filter(arg => arg.includes('$HOME') || arg.includes('APPDATA'))).toEqual([])
 	})
 
 	it('passes none otherwise', async () => {
-		await makeYtDlp().run(request)
+		await makeYtDlp().run(request())
 		expect(vi.mocked(spawnYtDlp).mock.calls[0]?.[1]).not.toContain('--print-to-file')
 	})
 })

@@ -12,6 +12,12 @@ import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {audioConversionSourceSelector} from '../shared/nativeAudioSelectors.js'
 
+// A run makes its plan's folder before it spawns; the folders here are names only.
+vi.mock('node:fs/promises', async importOriginal => {
+	const actual = await importOriginal<typeof import('node:fs/promises')>()
+	return {...actual, mkdir: vi.fn(async () => undefined)}
+})
+
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
 	return {...actual, spawnYtDlp: vi.fn()}
@@ -308,18 +314,18 @@ describe('YtDlp — filenameTemplate', () => {
 		await makeYtDlp().run(mediaRequest({filenameTemplate: '01 - %(title)s.%(ext)s'}))
 		const args = getArgs()
 		const oArg = args[args.indexOf('-o') + 1]
-		expect(oArg).toBe(`${OUTPUT_DIR}/01 - %(title)s.%(ext)s`)
+		expect(oArg).toBe('01 - %(title)s.%(ext)s')
 	})
 
 	it('subtitle kind: filenameTemplate honored', async () => {
 		await makeYtDlp().run(subtitleRequest({subtitleLanguages: ['en'], subtitleFormat: 'srt', filenameTemplate: '07 - %(title)s.%(ext)s'}))
 		const args = getArgs()
 		const oArg = args[args.indexOf('-o') + 1]
-		expect(oArg).toBe(`${OUTPUT_DIR}/07 - %(title)s.%(ext)s`)
+		expect(oArg).toBe('07 - %(title)s.%(ext)s')
 	})
 
 	it('video kind: tempDir + filenameTemplate keeps -o template-only', async () => {
-		await makeYtDlp().run(mediaRequest({tempDir: '/tmp/dl', filenameTemplate: '02 - %(title)s.%(ext)s'}))
+		await makeYtDlp().run(mediaRequest({tempDir: `${OUTPUT_DIR}/.arroxy-temp/dl`, filenameTemplate: '02 - %(title)s.%(ext)s'}))
 		const args = getArgs()
 		expect(args[args.indexOf('-o') + 1]).toBe('02 - %(title)s.%(ext)s')
 		expect(args).toContain('--paths')
@@ -328,7 +334,7 @@ describe('YtDlp — filenameTemplate', () => {
 	it('video kind: omitting filenameTemplate keeps default %(title).200B.%(ext)s', async () => {
 		await makeYtDlp().run(mediaRequest())
 		const args = getArgs()
-		expect(args[args.indexOf('-o') + 1]).toBe(`${OUTPUT_DIR}/%(title).200B.%(ext)s`)
+		expect(args[args.indexOf('-o') + 1]).toBe('%(title).200B.%(ext)s')
 	})
 })
 
@@ -375,12 +381,12 @@ describe('YtDlp — video args', () => {
 		expect(getArgs()).not.toContain('--continue')
 	})
 
-	it('output template contains outputDir, url is last', async () => {
+	it('output template is relative to the output folder, url is last', async () => {
 		await makeYtDlp().run(mediaRequest())
 		const args = getArgs()
 		const oIdx = args.indexOf('-o')
 		expect(oIdx).toBeGreaterThan(-1)
-		expect(args[oIdx + 1]).toContain(OUTPUT_DIR)
+		expect(args.some(arg => arg.includes(OUTPUT_DIR))).toBe(false)
 		expect(args[args.length - 1]).toBe(URL)
 	})
 })
@@ -500,14 +506,13 @@ describe('YtDlp — subtitle args', () => {
 	it('subtitleMode=subfolder → output path under <dir>/subtitles/', async () => {
 		await makeYtDlp().run(subtitleRequest({subtitleLanguages: ['en'], subtitleFormat: 'srt', subtitleMode: 'subfolder'}))
 		const args = getArgs()
-		expect(args[args.indexOf('-o') + 1]).toContain(`${OUTPUT_DIR}/subtitles`)
+		expect(args[args.indexOf('-o') + 1]).toBe('subtitles/%(title).200B.%(ext)s')
 	})
 
 	it('subtitleMode=sidecar → output path is directly in outputDir (no subfolder)', async () => {
 		await makeYtDlp().run(subtitleRequest({subtitleLanguages: ['en'], subtitleFormat: 'srt', subtitleMode: 'sidecar'}))
 		const oArg = getArgs()[getArgs().indexOf('-o') + 1]
-		expect(oArg).not.toContain('/subtitles')
-		expect(oArg).toContain(OUTPUT_DIR)
+		expect(oArg).toBe('%(title).200B.%(ext)s')
 	})
 
 	it('ass + writeAutoSubs → coerced to srt in args, effectiveSubtitleFormat=srt on result', async () => {
