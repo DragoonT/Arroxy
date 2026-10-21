@@ -10,7 +10,7 @@ Shipping reference for the in-app **Share** feature: dialog, all entry points, p
 - `src/renderer/src/App.tsx` — footer button + dialog mount
 - `src/renderer/src/components/system/AboutDialog.tsx` — about-dialog button
 - `src/shared/i18n/locales/*.json` — generated runtime locale resources
-- `i18n/locales/*.po` — agent-edited translation catalogs
+- `i18n/locales/*.po` — translation catalogs, edited only by the release translation sync
 
 ---
 

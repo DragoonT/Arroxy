@@ -385,3 +385,15 @@ _Avoid_: container, factory, bootstrap, entry point
 **Release flag**:
 A switch that keeps unfinished work out of what users install while it is built in small steps on the main line. It hides only the ways in, never the work behind them. It is on wherever the work is developed and tested and off in every release, until the work ships; one release later the switch is removed.
 _Avoid_: feature flag, feature toggle, experiment, kill switch
+
+**Release commit**:
+The one commit on the main line that turns pending work into a version: it sets the version number and writes that version's release notes. The release is cut from this commit, not from whatever the main line holds when publishing starts, so work merged after it waits for the next release.
+_Avoid_: release branch, version bump, tag commit
+
+**Translation sync**:
+The single change, made as the first step of every release, that brings every language up to date with the English text. Everyday changes write English only; a language shows English for new text until the next sync, and no release ships with a language left behind.
+_Avoid_: translation pass, locale update, i18n PR
+
+**Changelog fragment**:
+One change's own release-notes entry, written alongside the change and held apart until a release gathers every pending fragment into that version's notes. A change users cannot reach yet, because a release flag hides it, has none; the change that turns the flag on writes it.
+_Avoid_: changelog entry, release note, news item

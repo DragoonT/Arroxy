@@ -5,7 +5,7 @@ description: Persists a durable Arroxy lesson — a gotcha, user preference, wor
 
 # Remember
 
-Arroxy's knowledge lives in tracked files, never in a tool's private or user-scoped memory, so every agent (Claude Code, Codex, OpenCode, …) and every clone sees the same thing.
+Arroxy's knowledge lives in tracked files, never in a tool's own private memory, so every agent (Claude Code, Codex, OpenCode, …) and every clone sees the same thing. Two kinds of lesson belong outside this repo: maintainer-only material goes to the private `.internal/` docs, and personal or cross-repo preferences go to `~/.agents/AGENTS.md`.
 
 ## Gate
 
@@ -25,6 +25,8 @@ One-off task state, anything already written down, and generic language knowledg
 | Hard-to-reverse design choice with a real trade-off | `docs/adr/NNNN-slug.md` |
 | Feature/system explanation that outlives the work | `dev-docs/<topic>.md` |
 | Gotcha, preference, symptom→cause map, external reference | `.agents/memory/<slug>.md` |
+| Maintainer-only plan, research or note | `.internal/<doc>.md`, then `bun run internal:save` (never a backlog file another session owns) |
+| Personal or cross-repo preference (how to work with Antonio, machine facts) | `~/.agents/AGENTS.md` |
 
 Prefer updating an existing entry over adding a new one. Delete memories that turn out to be wrong.
 
