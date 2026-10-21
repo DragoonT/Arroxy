@@ -8,6 +8,57 @@ Unreleased changes are not written here: each PR adds a fragment to [`changelog.
 
 ---
 
+## 0.7.3
+
+Arroxy's website has a new address: **https://arroxy.com/**. The About, Share and update "Download" links open it.
+
+## Highlights
+
+- **19 new languages.** Arroxy now speaks Basque, Bulgarian, Catalan, Croatian, Czech, Danish, Dutch, Estonian, Finnish, Galician, Hebrew, Hungarian, Latvian, Lithuanian, Norwegian, Romanian, Slovak, Slovenian and Swedish, and opens in them on first launch when your system uses them. The feedback form is translated into each of them too.
+- **Paste button.** The empty URL field has a Paste button that puts in the link you copied, even one Arroxy already filled in earlier. Several copied links open Bulk URLs.
+- **More filename tokens.** Name files and folders after `{year}`, `{site}`, `{categories}`, `{artist}`, `{album}` and `{track}`, for example `{artist}/{album}/{track} [{id}]`.
+
+## Fixes
+
+- A download folder named like `$HOME` or `%USERPROFILE%`, or ending in a space, now gets the files, instead of a folder elsewhere with the name expanded.
+- Playlist subtitles, and subtitles from sites other than YouTube, are the exact tracks you asked for, never a machine translation. A subtitles-only download is named after its video.
+- With Explore's ad blocker on, YouTube results and grids show view counts and upload dates again.
+- Signing in to Facebook, Instagram or Threads in Explore works with the ad blocker on, instead of returning to the login page or stopping at a security check.
+- The feedback form opens in full over Explore, instead of being hidden behind the page.
+- File and folder names keep `$`, `%` and `~` as in the title, instead of look-alike characters.
+- On first launch, Arroxy opens in your system language even when it is Khmer, Burmese, Uzbek, Pashto or Oromo, instead of English. If you prefer a language Arroxy lacks, it takes the next one in your system's list.
+- When a video no longer offers the format you picked, Arroxy says so and asks you to pick again, instead of calling the video private, deleted or region-locked.
+- Your own yt-dlp settings no longer change Arroxy's downloads: a yt-dlp config file or plugin you set up for yt-dlp on its own, or a `yt-dlp.conf` left in your download folder, is now ignored.
+- Videos added several links at a time keep more of a long title in their file name. A long-titled playlist video from Vimeo no longer fails with "File name too long".
+- Embedded subtitles carry their track's name, such as "English (United Kingdom)", so players list them by name rather than by a bare language code.
+- A subtitles-only download whose video has none of the chosen languages now fails and names them, instead of finishing with nothing saved. A video download says which subtitle languages the video lacks.
+- The URL tab's hints, profile summary and save location show in your language instead of English.
+- A profile that saves video without audio as MP4 or MKV can embed the thumbnail as cover art.
+- A video-only download that could not have its sound removed now says so in the queue instead of finishing as a plain success.
+- YouTube show links (`youtube.com/show/…`) download as the playlist they are, with its real name and every video, and Explore offers to download them.
+- The file name on the Review step now has the same token buttons, preview and error messages as profiles, and Download waits until the name is valid.
+- The subtitle picker names every language in the app's language, so uploaded subtitles and automatic captions no longer mix English and translated names.
+- Cancelling a download on Windows now stops it right away instead of letting it finish in the background.
+- The audio language list names every language in the app's language and marks the original track, instead of showing YouTube's English labels or bare language codes.
+- Explore no longer shows a stale or blank page after unloading while you were away or when a page closes itself.
+- The subtitle language picker in playlists and download profiles starts every language name with a capital letter, as the subtitle list does.
+- Cancelling a download on macOS and Linux no longer leaves a large temporary folder behind.
+- A link with a comma or semicolon in it is no longer cut short when copied, pasted or added in Bulk URLs, and Bulk URLs skips links that aren't valid.
+- The QuickTime warning for VP9 or AV1 in an MP4 now shows only on a Mac, and the AV1 one no longer shows on Macs that play AV1.
+- Built-in download profiles show their names in the app's language, including ones you edited without renaming them.
+- Tooltips no longer get in the way: they close as soon as the pointer leaves what they describe, never catch the pointer or select their text, and match the light or dark theme instead of showing white in dark mode.
+- Lists of languages and extras read naturally in every language ("English and German"), "1 item" is no longer "1 items", and the playlist limit dialog is translated.
+- A new download profile starts with an empty name and asks for subtitles in the app's language, and a profile whose folder isn't set explains the problem in the app's language.
+- Profile lists show just the names; hover a profile to see what it does, in your language. Downloads list a profile's format in your language too.
+- On a link to a video inside a playlist, the dialog now starts on just that video, names the kind of list (album, uploads, Watch later and more), and keeps the number of videos you chose when you retry.
+- Download kind labels read the same everywhere in each language, and the playlist quality options sit under a "Quality" heading.
+- Saving a codec, HDR or audio choice back to a profile is offered as an update, and a profile's hint and download rows name those settings when the profile overrides them.
+- When a profile can't be saved, from the Format step, the Profiles tab or a playlist, the editor stays open with your changes and says so, and nothing switches to the unsaved profile.
+- Clicking Save profile twice in quick succession no longer creates the same profile twice.
+- Saving a download's edited settings as a profile no longer reports success when the settings couldn't be written, and works when the profile it started from has a long name.
+- A link sent to Downloads keeps the profile and folder it was added with, even if the window reloads or Arroxy restarts before it is ready.
+- The global hotkey's follow-up notification still arrives if the window reloads while the link is being prepared.
+
 ## 0.7.2
 
 ## Highlights
