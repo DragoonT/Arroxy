@@ -2,7 +2,7 @@ import {useCallback, useId, useRef, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import {previewFilenameTemplate, templateHasId, type FilenameTemplateFailure} from '@shared/filenameTemplate.js'
-import {FILENAME_TOKENS} from '@shared/schemas.js'
+import {FILENAME_TOKENS, PLAYLIST_FILENAME_TOKENS, type FilenameToken} from '@shared/schemas.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldLabel} from '../ui/field.js'
 import {Input} from '../ui/input.js'
@@ -29,11 +29,17 @@ export interface FilenameTemplateFieldProps {
 	description: string
 	placeholder?: string
 	testId?: string
+	// For a template that only ever names one video: no playlist tokens, no
+	// playlist preview, and no {id} warning, which is about playlist sync.
+	singleVideo?: boolean
 }
 
-function FilenameTemplateError({error}: {error: FilenameTemplateFailure}): ReactNode {
+const playlistTokens: readonly FilenameToken[] = PLAYLIST_FILENAME_TOKENS
+const SINGLE_VIDEO_TOKENS = FILENAME_TOKENS.filter(token => !playlistTokens.includes(token))
+
+function FilenameTemplateError({id, error}: {id: string; error: FilenameTemplateFailure}): ReactNode {
 	return (
-		<p className="text-caption text-destructive" data-testid="filename-template-error">
+		<p id={id} className="text-caption text-destructive" data-testid="filename-template-error">
 			<FilenameTemplateErrorText error={error} />
 		</p>
 	)
@@ -47,10 +53,10 @@ export function FilenameTemplateErrorText({error}: {error: FilenameTemplateFailu
 }
 
 // Rendered only for a valid template.
-function FilenameTemplatePreview({value}: {value: string}): ReactNode {
+function FilenameTemplatePreview({value, singleVideo}: {value: string; singleVideo: boolean}): ReactNode {
 	const {t} = useTranslation()
 	const preview = previewFilenameTemplate(value, 'video')
-	const playlistPreview = previewFilenameTemplate(value, 'playlist')
+	const playlistPreview = singleVideo ? null : previewFilenameTemplate(value, 'playlist')
 	// A template can resolve differently in the two cases — folders built from
 	// playlist metadata collapse for a single video. Showing both is the only way
 	// the user sees that before downloading, so label them only when they differ.
@@ -73,13 +79,14 @@ function FilenameTemplatePreview({value}: {value: string}): ReactNode {
 }
 
 /**
- * Shared editor for a filename template — used by the global setting and by the
- * per-profile override. Token chips insert at the caret so most users never
- * type a brace.
+ * Shared editor for a filename template — used by the global setting, the
+ * per-profile override and the single-video Review step. Token chips insert at
+ * the caret so most users never type a brace.
  */
-export function FilenameTemplateField({value, onChange, error, label, description, placeholder, testId}: FilenameTemplateFieldProps): React.JSX.Element {
+export function FilenameTemplateField({value, onChange, error, label, description, placeholder, testId, singleVideo = false}: FilenameTemplateFieldProps): React.JSX.Element {
 	const {t} = useTranslation()
 	const inputId = useId()
+	const errorId = useId()
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const insertToken = useCallback(
@@ -106,7 +113,8 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 
 	// Only warn once the template is otherwise valid — an error message plus a
 	// warning about the same input is noise.
-	const showIdWarning = !error && value.trim() !== '' && !templateHasId(value)
+	const showIdWarning = !singleVideo && !error && value.trim() !== '' && !templateHasId(value)
+	const tokens = singleVideo ? SINGLE_VIDEO_TOKENS : FILENAME_TOKENS
 
 	return (
 		<Field className="gap-2">
@@ -115,17 +123,17 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 				<FieldDescription>{description}</FieldDescription>
 			</FieldContent>
 
-			<Input id={inputId} ref={inputRef} value={value} placeholder={placeholder} onChange={event => onChange(event.target.value)} spellCheck={false} autoComplete="off" className="font-mono text-xs" data-testid={testId} aria-invalid={error !== null} />
+			<Input id={inputId} ref={inputRef} value={value} placeholder={placeholder} onChange={event => onChange(event.target.value)} spellCheck={false} autoComplete="off" className="font-mono text-xs" data-testid={testId} aria-invalid={error !== null} aria-describedby={error ? errorId : undefined} />
 
 			<div className="flex flex-wrap gap-1">
-				{FILENAME_TOKENS.map(token => (
+				{tokens.map(token => (
 					<Button key={token} type="button" variant="outline" size="xs" className="font-mono" onClick={() => insertToken(token)} data-testid={`filename-token-${token}`}>
 						{`{${token}}`}
 					</Button>
 				))}
 			</div>
 
-			{error ? <FilenameTemplateError error={error} /> : <FilenameTemplatePreview value={value} />}
+			{error ? <FilenameTemplateError id={errorId} error={error} /> : <FilenameTemplatePreview value={value} singleVideo={singleVideo} />}
 
 			{showIdWarning ? (
 				<p className="flex items-start gap-1.5 text-caption text-subtle-foreground" data-testid="filename-template-id-warning">
