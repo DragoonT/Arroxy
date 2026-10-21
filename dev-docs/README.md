@@ -18,7 +18,7 @@ The public site (arroxy.com) lives in a separate repo, `arroxy-site`. Don't put 
 
 ## Index
 
-- [agent-setup.md](agent-setup.md) — Tool-neutral agent config: shared `.agents/` sources, `bun run agents:sync` adapters for Claude Code / Codex / OpenCode, and per-tool plugin installs (Superpowers, CodeGraph hook).
+- [agent-setup.md](agent-setup.md) — Tool-neutral agent config: shared `.agents/` sources, `bun run agents:sync` adapters for Claude Code / Codex / OpenCode, and why nothing may depend on a harness plugin.
 - [binary-distribution.md](binary-distribution.md) — How ffmpeg/ffprobe (a managed FFmpeg package, ADR 0010) and yt-dlp (fetched at runtime, ADR 0003) reach the app, the Electron-as-Node rule, dev binaries, license attribution, and the upstream-source smoke scripts.
 - [ci-cd-strategy.md](ci-cd-strategy.md) — Single source of truth for CI/CD: every workflow with trigger and ownership, the startup-verification tiers, and `main`'s branch-protection contract.
 - [dependabot-triage.md](dependabot-triage.md) — Algorithm for handling Dependabot PRs. Decision tree, light vs deep review steps, local Claude Code only (no API billing), comment cheatsheet.
@@ -28,7 +28,7 @@ The public site (arroxy.com) lives in a separate repo, `arroxy-site`. Don't put 
 - [fixture-e2e.md](fixture-e2e.md) — Which test layer owns a behavior and how to choose it, then how to write Fixture Product E2E scenarios: risk groups, what each scenario declares, milestones and oracles, anti-patterns.
 - [ffmpeg-packages.md](ffmpeg-packages.md) — FFmpeg packages: what one is, the version policy, approval, publishing to `arroxy-runtime-binaries`, and the v1/v2 manifests. Pin changes ship without an app release.
 - [flatpak-repo.md](flatpak-repo.md) — Arroxy's own Flatpak repo on GitHub Pages: how releases sign and publish it, the bundle that carries it, the signing key (never rotate casually), and how the banner and `flatpak update` use it.
-- [heartbeat.md](heartbeat.md) — Anonymous daily heartbeat to a self-hosted Counterscale on Cloudflare: what is sent, how app fields map onto the dashboard, deploy steps, and the local end-to-end test.
+- [heartbeat.md](heartbeat.md) — Anonymous daily heartbeat to a self-hosted Counterscale on Cloudflare: what is sent, how app fields map onto the dashboard, and the local end-to-end test.
 - [in-app-browser-spec.md](in-app-browser-spec.md) — Explore tab: embedded browser with YouTube sign-in whose session cookies yt-dlp uses only when a job needs an account. Covers the non-negotiable user-agent rule, per-spawn cookie handoff, the measured cross-platform sign-in matrix and cookie-freshness results, and design decisions D1–D6 (on-demand escalation, inline sign-in, on-by-default rollout, `explore` cookie mode, site-adapter seam).
 - [in-app-updates.md](in-app-updates.md) — Update banner: the launch and periodic checks, the per-install-channel action table, IPC and types, and how Flatpak and tar.gz installs get past electron-updater's AppImage gate.
 - [interactive-download.md](interactive-download.md) — Decided spec for single-video Interactive Download: two screens (Format, Review) pre-selected from the active profile, presets retired, "part of video" clips, the must-keep regression checklist, tests and the two-PR delivery.

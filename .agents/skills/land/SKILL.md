@@ -55,7 +55,7 @@ After fixing, run one more round on the fix commits only: `bun run review:dual -
 
 A run that exits 0 or 1 records the branch's diff against main as reviewed (in this worktree's git dir). Phase 7 pushes only that diff: any later edit or squash that changes it needs another round. A clean rebase or a merge of main does not.
 
-**Squash safely.** To fold the branch into one commit, use `git reset --soft $(git merge-base origin/main HEAD)` then `git commit`, or `git commit --amend`. Never `git reset --soft origin/main`. Once main has moved, that re-parents the stale index onto the new main, and the commit reverts everything merged in between (PR #430, memory `squash-onto-merge-base`). Squash before the review, not after.
+**Squash safely.** To fold the branch into one commit, use `git reset --soft $(git merge-base origin/main HEAD)` then `git commit`, or `git commit --amend`. Never `git reset --soft origin/main`. Once main has moved, that re-parents the stale index onto the new main, and the commit reverts everything merged in between (PR #430). Squash before the review, not after.
 verify: every "fix" and "uncertain" entry is fixed or answered with a reason, and `bun run check` passes again.
 
 ### 6. Backlog
