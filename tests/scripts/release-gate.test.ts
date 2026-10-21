@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {evaluateRequiredChecks, findReleaseCommit, waitForRequiredChecks, type CheckRun} from '../../scripts/releaseGate.js'
+import {evaluateRequiredChecks, findReleaseCommit, pushOfCommit, waitForRequiredChecks, type CheckRun, type RepoActivity} from '../../scripts/releaseGate.js'
 
 // GitHub numbers check runs in creation order, so a later attempt has a higher id.
 function run(name: string, status: string, conclusion: string | null = null, id = 1): CheckRun {
@@ -14,11 +14,11 @@ describe('findReleaseCommit', () => {
 	]
 
 	it('finds the release commit for the version, whatever merged after it', () => {
-		expect(findReleaseCommit(log, '0.6.3')).toEqual({kind: 'found', sha: 'c2'})
+		expect(findReleaseCommit(log, '0.6.3')).toEqual({kind: 'found', sha: 'c2', superseded: []})
 	})
 
 	it('accepts a release commit that came through a squash-merged pull request', () => {
-		expect(findReleaseCommit([{sha: 'c9', subject: 'release: 0.6.4 (#480)'}], '0.6.4')).toEqual({kind: 'found', sha: 'c9'})
+		expect(findReleaseCommit([{sha: 'c9', subject: 'release: 0.6.4 (#480)'}], '0.6.4')).toEqual({kind: 'found', sha: 'c9', superseded: []})
 	})
 
 	it('does not match another version that shares a prefix', () => {
@@ -30,8 +30,39 @@ describe('findReleaseCommit', () => {
 		expect(findReleaseCommit(log, '0.6.4')).toEqual({kind: 'missing'})
 	})
 
-	it('refuses to choose between two release commits for one version', () => {
-		expect(findReleaseCommit([...log, {sha: 'c0', subject: 'release: 0.6.3'}], '0.6.3')).toEqual({kind: 'ambiguous', shas: ['c2', 'c0']})
+	// A release commit whose checks failed is redone with a new `release: X`
+	// commit on top of the fix; the version is not tagged until one passes.
+	it('takes the newest of several release commits for one version', () => {
+		expect(findReleaseCommit([{sha: 'c4', subject: 'release: 0.6.3'}, ...log, {sha: 'c0', subject: 'release: 0.6.3 (#470)'}], '0.6.3')).toEqual({kind: 'found', sha: 'c4', superseded: ['c2', 'c0']})
+	})
+})
+
+describe('pushOfCommit', () => {
+	// A linear history c1 <- c2 <- c3 <- c4, as `git merge-base --is-ancestor`
+	// sees it: null for a commit git does not know.
+	const order = ['c1', 'c2', 'c3', 'c4']
+	const isAncestor = (ancestor: string, descendant: string): boolean | null => (order.includes(ancestor) && order.includes(descendant) ? order.indexOf(ancestor) <= order.indexOf(descendant) : null)
+	const push = (before: string, after: string, activity_type = 'push'): RepoActivity => ({before, after, activity_type})
+
+	it('finds a commit that was the head of its own push', () => {
+		expect(pushOfCommit([push('c2', 'c4'), push('c1', 'c2')], 'c2', isAncestor)).toEqual({kind: 'head'})
+		expect(pushOfCommit([push('c1', 'c2', 'pr_merge')], 'c2', isAncestor)).toEqual({kind: 'head'})
+	})
+
+	it('finds a commit pushed under later commits, which GitHub runs no push workflows on', () => {
+		expect(pushOfCommit([push('c3', 'c4'), push('c1', 'c3')], 'c2', isAncestor)).toEqual({kind: 'buried', head: 'c3'})
+		expect(pushOfCommit([push('0000000', 'c3', 'branch_creation')], 'c2', isAncestor)).toEqual({kind: 'buried', head: 'c3'})
+	})
+
+	it('does not blame a later push whose range starts at or after the commit', () => {
+		expect(pushOfCommit([push('c2', 'c4')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
+		expect(pushOfCommit([push('c3', 'c4')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
+	})
+
+	it('cannot tell when no recorded push carried the commit, or git does not know a push', () => {
+		expect(pushOfCommit([], 'c2', isAncestor)).toEqual({kind: 'unknown'})
+		expect(pushOfCommit([push('gone', 'c4')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
+		expect(pushOfCommit([push('c1', 'gone')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
 	})
 })
 
