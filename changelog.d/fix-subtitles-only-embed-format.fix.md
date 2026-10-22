@@ -1,1 +1,0 @@
-Subtitles-only and audio-only profiles no longer offer Embed, so the profile editor always shows the subtitle format they save. Ones saved with Embed switch to saving subtitles in the download folder, which is what they already did.

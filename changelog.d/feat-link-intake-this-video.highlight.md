@@ -1,1 +1,0 @@
-**This video, or the whole list.** A link to a video in a playlist, Mix or album now offers This video beside the list on the URL tab, in the Explore toolbar and in its right-click menu, while the list's dialog still offers Just this video. A Mix can be downloaded as a list too, and a video the global hotkey took from a list offers the rest of the list in Downloads.
