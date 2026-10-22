@@ -20,6 +20,7 @@
 ## Test machines and environment
 
 - [Windows VM testing](windows-vm-testing.md) — ssh into the Win11 ARM64 VM for `dist:win:dir` + `verify:startup`; bash on PATH, x64-only assets, node not bun.
+- [Live YouTube request budget](live-youtube-request-budget.md) — ~40 fresh-profile loads in an hour got Antonio's IP a 429 captcha; a handful of loads, one persistent profile, stop at the first captcha.
 - [Linux VM testing](linux-vm-testing.md) — Ubuntu ARM64 guest for Linux/Electron/GPU checks; `scripts/vm/ubu-*` launch over ssh; never log the session out.
 - [Inherited ELECTRON_RUN_AS_NODE](electron-run-as-node-leak.md) — agent shells can carry it; hand-launched Electron then fails on `BrowserWindow`. Strip it.
 - [macOS 26 Electron Audio Service](macos-26-electron-audio-service.md) — Electron (seen on 42) can crash-loop `audio.mojom.AudioService`; disabled out of process on Darwin 25+.
