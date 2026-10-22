@@ -24,7 +24,7 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 	// Non-video results and blank titles resolve nothing — the row keeps its flag.
 	// Always anonymous: a cosmetic title lookup never spends the Explore session.
 	queueService.setTitleBackfillProbe(async url => {
-		const result = await probeService.probe(url, {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS, escalate: false})
+		const result = await probeService.probe(url, {kind: 'backfill', playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS, escalate: false})
 		if (!result.ok || result.data.kind !== 'video') return null
 		const title = result.data.title.trim()
 		return title === '' ? null : title

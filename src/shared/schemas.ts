@@ -2,7 +2,7 @@ import {z} from 'zod'
 import {validateUaToken} from './exploreUserAgent.js'
 import {EXPLORE_ZOOM_MAX, EXPLORE_ZOOM_MIN} from './exploreZoom.js'
 import {isValidSubfolder, SUBFOLDER_NAME_MAX} from './subfolder.js'
-import {autoRetryAttemptsSchema, concurrentDownloadsSchema, downloadConnectionsSchema, pacingSleepSecondsSchema} from './settingLimits.js'
+import {autoRetryAttemptsSchema, concurrentDownloadsSchema, concurrentProbesSchema, downloadConnectionsSchema, pacingSleepSecondsSchema} from './settingLimits.js'
 import {AUDIO_CONVERT_TARGETS, type AudioConvertTarget} from './audioTargets.js'
 import {SUPPORTED_LANG_CODES} from './i18n/supportedLangCodes.js'
 import {RATE_LIMIT_EVIDENCE, YT_DLP_ERROR_KINDS, type RateLimitEvidence, type YtDlpErrorKind} from 'ytdlp-errors'
@@ -589,6 +589,13 @@ const probeTimeoutMsSchema = z.number().int().min(1000).max(300_000)
 export const probePlaylistModeSchema = z.enum(['auto', 'video', 'playlist'])
 export type ProbePlaylistMode = z.infer<typeof probePlaylistModeSchema>
 
+// Who asked for a probe, which decides its probe slot (ProbeSlots): the
+// window's own probe goes first; a placeholder row's (intake) and a title
+// lookup's (backfill) are background probes that wait their turn.
+export const probeKindSchema = z.enum(['interactive', 'intake', 'backfill'])
+export type ProbeKind = z.infer<typeof probeKindSchema>
+export const PROBE_KINDS = probeKindSchema.options
+
 // What a YouTube `list=` id names, read from its prefix.
 export const listKindSchema = z.enum(['playlist', 'mix', 'album', 'uploads', 'watch-later', 'liked'])
 export type ListKind = z.infer<typeof listKindSchema>
@@ -695,6 +702,7 @@ const commonSettingsSchema = z.object({
 	pacingSleepSubtitles: pacingSleepSecondsSchema.optional(),
 	downloadConnections: downloadConnectionsSchema.optional(),
 	concurrentDownloads: concurrentDownloadsSchema.optional(),
+	concurrentProbes: concurrentProbesSchema.optional(),
 	autoRetryAttempts: autoRetryAttemptsSchema.optional(),
 	autoRemoveCompleted: z.boolean().optional(),
 	clipboardWatchEnabled: z.boolean(),
