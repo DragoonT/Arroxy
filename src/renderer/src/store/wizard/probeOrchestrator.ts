@@ -200,13 +200,15 @@ async function submitWizardUrl(origin: WizardOrigin, set: SetState, get: GetStat
 	if (!cleaned) return
 	set({wizardOrigin: origin})
 	const action = policyForUrlIntent(classifyUrlIntent(cleaned), 'interactive-submit')
-	if (action.kind === 'show-mixed-prompt') {
+	// A retry of a video-in-a-list link was already answered: it reloads what the run loaded.
+	if (action.kind === 'show-mixed-prompt' && !sameRun) {
 		set({wizardUrl: cleaned, ...mixedUrlPromptPatch(cleaned, 'wizard')})
 		return
 	}
 	if (action.kind === 'ask-on-row' || action.kind === 'show-label') return
 	if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
-	await runProbe(cleaned, action.playlistMode, set, get, !sameRun)
+	const playlistMode: ProbePlaylistMode = action.kind === 'show-mixed-prompt' ? (get().wizardMode === 'playlist' ? 'playlist' : 'video') : action.playlistMode
+	await runProbe(cleaned, playlistMode, set, get, !sameRun)
 }
 
 async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get: GetState): Promise<void> {
