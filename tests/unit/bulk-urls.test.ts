@@ -71,6 +71,24 @@ describe('parseBulkUrls', () => {
 		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2', 'https://c.test/3', 'https://d.test/4'])
 	})
 
+	it('ends a link at an apostrophe that opens text after it', () => {
+		const result = parseBulkUrls("['https://a.test/1','title'] and check https://b.test/2's review")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2'])
+	})
+
+	it('ends a YouTube link at an apostrophe, which its ids never hold', () => {
+		const result = parseBulkUrls("Watch https://www.youtube.com/watch?v=dQw4w9WgXcQ's intro")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/watch?v=dQw4w9WgXcQ'])
+	})
+
+	it('drops a ! or ? after closing punctuation, even after a query value', () => {
+		const result = parseBulkUrls("Seen this (https://vimeo.com/search?q=cats)? and 'https://a.test/?a=b'! and https://b.test/?id=5.!")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://vimeo.com/search?q=cats', 'https://a.test/?a=b', 'https://b.test/?id=5'])
+	})
+
 	it('dedupes the same link joined by a comma', () => {
 		const result = parseBulkUrls('https://vimeo.com/12345,https://vimeo.com/12345')
 
