@@ -57,6 +57,12 @@ describe('location', () => {
 		}
 	})
 
+	it('accepts a root dotfile or a known root file without an extension', () => {
+		for (const body of ['See `.gitignore:1`.', 'See `.node-version:1`.', 'See `.npmrc:2`.', 'See `.env:1`.', 'See `Makefile:3`.', 'See `Dockerfile:7`.']) {
+			expect(failedRules(facts({body}))).toEqual([])
+		}
+	})
+
 	it('does not count a host and port as a location', () => {
 		expect(failedRules(facts({body: 'The dev server on `localhost:8080` stops.'}))).toEqual(['location'])
 	})

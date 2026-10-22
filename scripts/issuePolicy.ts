@@ -35,9 +35,10 @@ export interface IssueResult {
 }
 
 // A file and a line (or range), in code formatting: a path with a folder
-// (`.github/CODEOWNERS:1`) or a name with an extension (`package.json:12`),
-// so a host and port like `localhost:8080` doesn't count.
-const LOCATION = /`(?:[\w.@-]+(?:\/[\w.@-]+)+|[\w.@-]+\.[A-Za-z0-9]+):\d+(?:-\d+)?`/
+// (`.github/CODEOWNERS:1`), a name with an extension (`package.json:12`), a
+// dotfile (`.gitignore:3`) or a root file known to have no extension
+// (`Makefile:3`), so a host and port like `localhost:8080` doesn't count.
+const LOCATION = /`(?:[\w.@-]+(?:\/[\w.@-]+)+|[\w.@-]+\.[A-Za-z0-9]+|\.[\w@-][\w.@-]*|Makefile|Dockerfile|Justfile|Procfile|Brewfile|Gemfile|Rakefile):\d+(?:-\d+)?`/
 // The private maintainer docs: the `.internal/` folder or the repo behind it.
 const PRIVATE_DOCS = /(?:^|[\s`(/])\.internal\b|arroxy-internal/i
 
