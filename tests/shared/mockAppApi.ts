@@ -121,7 +121,13 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			onPointerInView: vi.fn().mockReturnValue(() => undefined),
 			onLinkAction: vi.fn().mockReturnValue(() => undefined)
 		},
-		siteRequests: {getCooldowns: vi.fn().mockResolvedValue({ok: true, data: []}), tryNow: vi.fn().mockResolvedValue({ok: true, data: undefined}), onCooldownsChanged: vi.fn().mockReturnValue(() => undefined)},
+		siteRequests: {
+			getCooldowns: vi.fn().mockResolvedValue({ok: true, data: []}),
+			tryNow: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+			onCooldownsChanged: vi.fn().mockReturnValue(() => undefined),
+			getHeldProbes: vi.fn().mockResolvedValue({ok: true, data: []}),
+			onHeldProbesChanged: vi.fn().mockReturnValue(() => undefined)
+		},
 		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue({ok: true})},
 		diagnostics: {logWizardStep: vi.fn()},
 		playlist: {scanFolder: vi.fn().mockResolvedValue(ok({matchedIds: [] as string[]})), registerManifest: vi.fn().mockResolvedValue(ok(undefined))}

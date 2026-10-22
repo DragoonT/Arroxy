@@ -31,6 +31,7 @@ import type {
 	ProbeInfoJsonRef,
 	ProbeDegradationReason,
 	SiteCooldown,
+	HeldProbe,
 	JobAuth,
 	QueueItem,
 	QueueLane,
@@ -582,6 +583,8 @@ export interface SystemSlice {
 export interface SiteCooldownSlice {
 	// The current network route's running rate-limit cooldowns, as main last reported them.
 	siteCooldowns: SiteCooldown[]
+	// The Downloads rows whose probe main holds for a cooldown, by row id (ProbeSlots).
+	heldProbes: HeldProbe[]
 	bindSiteCooldowns: () => void
 	// "Try now": the next request to `site` goes through its cooldown once. The
 	// caller then makes that request (its usual retry).

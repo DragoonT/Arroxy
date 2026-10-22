@@ -59,7 +59,7 @@ function makeDeps() {
 		pauseAll: vi.fn().mockResolvedValue({scheduler: 'paused', done: ['b'], failed: [{itemId: 'a', error: {code: 'ipc', message: 'pause failed'}}]}),
 		resumeAll: vi.fn().mockResolvedValue({scheduler: 'running', done: ['a', 'b'], failed: []})
 	})
-	const probeSlots = {setBackgroundLimit: vi.fn()}
+	const probeSlots = {setBackgroundLimit: vi.fn(), heldProbes: vi.fn().mockReturnValue([]), onHeldChange: vi.fn().mockReturnValue(() => undefined)}
 	const settingsStore = {
 		get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, playlist: {}}),
 		getSync: vi.fn().mockReturnValue({common: {cookiesMode: 'off'}, profiles: {active: {kind: 'builtin', id: 'balanced'}}}),

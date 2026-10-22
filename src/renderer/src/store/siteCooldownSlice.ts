@@ -1,29 +1,56 @@
+import type {Result} from '@shared/result.js'
 import type {GetState, SetState, SiteCooldownSlice} from './types.js'
 
 let unbindSiteCooldowns: (() => void) | null = null
 let siteCooldownBinding = 0
 
-// Mirrors main's rate-limit cooldowns (SiteRequestState): main decides when a
-// site may be asked again; the renderer only shows it and asks for "Try now".
+// Follows a list main pushes: a pushed list always wins over the initial read,
+// which may answer late. Returns the unsubscribe.
+function follow<T>(subscribe: (listener: (value: T) => void) => () => void, read: () => Promise<Result<T>>, apply: (value: T) => void, binding: number, what: string): () => void {
+	let pushed = false
+	const unsubscribe = subscribe(value => {
+		pushed = true
+		apply(value)
+	})
+	read().then(
+		result => {
+			if (result.ok && binding === siteCooldownBinding && !pushed) apply(result.data)
+		},
+		(err: unknown) => console.warn(`[site-requests] initial ${what} read failed`, err)
+	)
+	return unsubscribe
+}
+
+// Mirrors main's rate-limit cooldowns (SiteRequestState) and the probes they
+// hold (ProbeSlots): main decides when a site may be asked again; the renderer
+// only shows it and asks for "Try now".
 export function createSiteCooldownSlice(set: SetState, _get: GetState): SiteCooldownSlice {
 	return {
 		siteCooldowns: [],
+		heldProbes: [],
 
 		bindSiteCooldowns: () => {
 			unbindSiteCooldowns?.()
 			const binding = ++siteCooldownBinding
-			let pushed = false
-			unbindSiteCooldowns = window.appApi.siteRequests.onCooldownsChanged(cooldowns => {
-				pushed = true
-				set({siteCooldowns: cooldowns})
-			})
-			// A pushed list always wins over the initial read, which may answer late.
-			window.appApi.siteRequests.getCooldowns().then(
-				result => {
-					if (result.ok && binding === siteCooldownBinding && !pushed) set({siteCooldowns: result.data})
-				},
-				(err: unknown) => console.warn('[site-requests] initial cooldown read failed', err)
+			const {siteRequests} = window.appApi
+			const unbindCooldowns = follow(
+				listener => siteRequests.onCooldownsChanged(listener),
+				() => siteRequests.getCooldowns(),
+				siteCooldowns => set({siteCooldowns}),
+				binding,
+				'cooldown'
 			)
+			const unbindHeld = follow(
+				listener => siteRequests.onHeldProbesChanged(listener),
+				() => siteRequests.getHeldProbes(),
+				heldProbes => set({heldProbes}),
+				binding,
+				'held probe'
+			)
+			unbindSiteCooldowns = () => {
+				unbindCooldowns()
+				unbindHeld()
+			}
 		},
 
 		tryRateLimitedSiteNow: async site => {

@@ -78,7 +78,8 @@ function wired() {
 	vi.useFakeTimers()
 	const siteRequests = new SiteRequestState({random: () => 0})
 	const {ytDlp, spawned, answer} = gatedYtDlp(siteRequests)
-	const probeService = new ProbeService(ytDlp, false, undefined, {slots: new ProbeSlots({backgroundLimit: 2, cooldown: siteRequests})})
+	const slots = new ProbeSlots({backgroundLimit: 2, cooldown: siteRequests})
+	const probeService = new ProbeService(ytDlp, false, undefined, {slots})
 	const store = {load: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: true})), save: vi.fn().mockResolvedValue(ok(undefined))} as unknown as QueueStore
 	const queueService = new QueueService(store, Object.assign(new EventEmitter(), {start: vi.fn(), cancel: vi.fn(), pause: vi.fn(), resume: vi.fn()}) as unknown as DownloadService)
 	void queueService.pauseAll()
@@ -95,7 +96,7 @@ function wired() {
 	intake.setWindowContext({currentOutputDir: '/wizard-folder', displayShowsHdr: false})
 	const status = (url: string): string | undefined => queueService.snapshot().find(item => item.url === url)?.status
 	const rowId = (url: string): string => queueService.snapshot().find(item => item.url === url)?.id ?? ''
-	return {siteRequests, probeService, intake, spawned, answer, status, rowId}
+	return {siteRequests, slots, probeService, intake, spawned, answer, status, rowId}
 }
 
 describe('probe slots and the rate-limit cooldown', () => {
@@ -170,6 +171,8 @@ describe('probe slots and the rate-limit cooldown', () => {
 			await settle()
 			expect(settled).toBe(false)
 			expect(h.spawned).toEqual([SHORT])
+			// Its row waits on YouTube, not on the site of its link (#664).
+			expect(h.slots.heldProbes()).toEqual([{owner: 'row-1', site: 'youtube'}])
 
 			await vi.advanceTimersByTimeAsync(60_000)
 			await settle()
