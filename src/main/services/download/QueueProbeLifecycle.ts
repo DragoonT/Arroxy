@@ -87,12 +87,14 @@ export class QueueProbeLifecycle {
 		return ok(undefined)
 	}
 
-	// A `probing` item never survived a restart (its probe died with the
-	// previous process). Promote to a probe-error row the user can retry or
-	// remove — no silent drop, no surprise auto-reprobe on boot.
+	// A `probing` row's probe died with the previous process. A placeholder
+	// (an unresolved job with its probe mode) stays probing: intake resumes its
+	// probe at launch, paced by the probe slots, so a quit mid-batch leaves no
+	// pile of error rows to retry one by one. Anything else probing cannot be
+	// resumed and becomes a probe-error row the user can retry or remove.
 	promoteStaleProbes(items: readonly QueueItem[]): void {
 		for (const item of items) {
-			if (item.status !== QUEUE_STATUS.probing) continue
+			if (item.status !== QUEUE_STATUS.probing || isResumablePlaceholder(item)) continue
 			this.deps.patch(item.id, 'boot:stale-probe', prev => ({...prev, status: QUEUE_STATUS.error, error: {kind: 'unknown', raw: 'App restarted while fetching video details'}}))
 		}
 	}
@@ -151,4 +153,9 @@ function withPlaceholderId(itemId: string, items: readonly QueueItem[], admitted
 	const [first, ...rest] = admitted
 	if (!first || admitted.some(item => item.id === itemId) || !items.some(item => item.id === itemId)) return admitted
 	return [{...first, id: itemId}, ...rest]
+}
+
+// A placeholder whose probe can start again as it was taken in.
+function isResumablePlaceholder(item: QueueItem): boolean {
+	return item.status === QUEUE_STATUS.probing && item.job.kind === 'unresolved' && item.probeMode !== undefined
 }

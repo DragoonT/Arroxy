@@ -607,6 +607,9 @@ if (hasSingleInstanceLock) {
 			mainWindow,
 			hotkeyFeedback: event => routeHotkeyOutcome(event, {lang: languageRef.current, window: hotkeyWindow, osNotifier: hotkeyOsNotifier, rendererReady: hotkeyService.isRendererReady()})
 		})
+		// Placeholder rows still probing when the app quit probe again, paced by
+		// the probe slots, once the window has reported its screen and folder.
+		void intakeService.resumePlaceholderProbes()
 		const hotkeyService = new HotkeyService(hotkeyWindow, hotkeyIntake, electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
 		// A future main-frame navigation/reload destroys the renderer listener.
