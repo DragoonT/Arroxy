@@ -181,6 +181,36 @@ describe('ProbeSlots — headroom', () => {
 	})
 })
 
+describe('ProbeSlots — admission at grant time', () => {
+	it('runs nothing and frees the slot when the caller declines once the slot is granted', async () => {
+		const slots = new ProbeSlots({backgroundLimit: 1})
+		const first = deferred<string>()
+		void slots.run({kind: 'intake', site: 'youtube'}, new AbortController().signal, () => first.promise)
+		let downloading = false
+		const task = vi.fn(async () => 'ran')
+		const backfill = slots.run({kind: 'backfill', site: 'youtube'}, new AbortController().signal, task, {admit: () => !downloading})
+		const next = vi.fn(async () => 'next')
+		const behind = slots.run({kind: 'backfill', site: 'youtube'}, new AbortController().signal, next)
+		await settle()
+		// A download started while the backfill waited for its slot.
+		downloading = true
+		first.resolve('first')
+		await settle()
+
+		expect(await backfill).toEqual({kind: 'deferred'})
+		expect(task).not.toHaveBeenCalled()
+		expect(await behind).toEqual({kind: 'ran', value: 'next'})
+		expect(slots.snapshot().running.backfill).toBe(0)
+	})
+
+	it('runs the task when the caller still agrees at grant time', async () => {
+		const slots = new ProbeSlots({backgroundLimit: 1})
+		const admit = vi.fn(() => true)
+		expect(await slots.run({kind: 'backfill', site: 'youtube'}, new AbortController().signal, async () => 'ran', {admit})).toEqual({kind: 'ran', value: 'ran'})
+		expect(admit).toHaveBeenCalledOnce()
+	})
+})
+
 describe('ProbeSlots — order', () => {
 	it('starts intake waiters in arrival order, and backfill only when no intake waits', async () => {
 		const h = harness({limit: 1})

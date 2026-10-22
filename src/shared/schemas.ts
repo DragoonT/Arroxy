@@ -386,7 +386,8 @@ export type BulkMetadataItemStatus = z.infer<typeof bulkMetadataItemStatusSchema
 export const bulkMetadataCancelReasonSchema = z.enum(['queue-submit', 'reset', 'back-to-url', 'start-new-bulk'])
 export type BulkMetadataCancelReason = z.infer<typeof bulkMetadataCancelReasonSchema>
 
-export const probeOtherErrorCodeSchema = z.enum(['cancelled', 'cookies_config', 'invalid_url', 'no_formats', 'parse', 'playlist_empty', 'redirect_loop', 'schema', 'unknown'])
+// `deferred`: the caller declined its probe slot once granted (ProbeSlots); nothing spawned.
+export const probeOtherErrorCodeSchema = z.enum(['cancelled', 'cookies_config', 'deferred', 'invalid_url', 'no_formats', 'parse', 'playlist_empty', 'redirect_loop', 'schema', 'unknown'])
 export type ProbeOtherErrorCode = z.infer<typeof probeOtherErrorCodeSchema>
 
 // `limit`: refused by an admission limit (an intake's rows), not by the input.
