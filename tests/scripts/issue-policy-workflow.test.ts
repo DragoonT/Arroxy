@@ -69,6 +69,11 @@ describe('issue policy workflow', () => {
 		expect(String(flag.run)).toContain('gh issue comment')
 	})
 
+	it('posts the report before adding the label, so a failed comment leaves the issue unflagged for the next run', () => {
+		const run = String(step('Flag the issue').run)
+		expect(run.indexOf('gh issue comment')).toBeLessThan(run.indexOf('--add-label needs-triage'))
+	})
+
 	it('removes needs-triage once the issue passes', () => {
 		const clear = step('Clear the flag')
 		expect(clear.if).toBe("${{ steps.check.outputs.verdict == 'pass' && steps.check.outputs.flagged == 'true' }}")
