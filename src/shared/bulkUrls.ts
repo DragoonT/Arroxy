@@ -1,7 +1,7 @@
 import {cleanUrl} from './cleanUrl.js'
 import type {BulkUrlKind, BulkUrlRejectReason} from './schemas.js'
 import {isYouTubeHostname} from './sites/youtubeHost.js'
-import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
+import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, isYouTubeSearchLink, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
 
 export interface BulkUrlAccepted {
 	url: string
@@ -93,24 +93,34 @@ const OBVIOUS_NON_MEDIA_FILE_EXTENSIONS = new Set([
 	'zip'
 ])
 
-// A query, no fragment after it, and an `=` in its last parameter.
+// A query, no fragment after it, and an `=` in its last parameter. A YouTube
+// search's parameters part only at `&`, as URLSearchParams reads them: a `;` in
+// its query is text.
 function endsInQueryValue(url: string): boolean {
 	const queryStart = url.indexOf('?')
 	if (queryStart < 0 || url.includes('#', queryStart)) return false
 	const query = url.slice(queryStart + 1)
-	const lastParameter = query.slice(Math.max(query.lastIndexOf('&'), query.lastIndexOf(';')) + 1)
-	return lastParameter.includes('=')
+	const separator = isYouTubeSearchLink(url) ? query.lastIndexOf('&') : Math.max(query.lastIndexOf('&'), query.lastIndexOf(';'))
+	return query.slice(separator + 1).includes('=')
 }
 
 // A YouTube link other than a search, whose query is free text: its ids and
 // values never hold an apostrophe nor end in `!` or `?`.
 function isYouTubeIdLink(url: string): boolean {
 	try {
-		const parsed = new URL(url)
-		return isYouTubeHostname(parsed.hostname) && parsed.pathname !== '/results'
+		return isYouTubeHostname(new URL(url).hostname) && !isYouTubeSearchLink(url)
 	} catch {
 		return false
 	}
+}
+
+// A final `'s` is the sentence's possessive, except in a YouTube search's query
+// value (`?search_query=it's`).
+function trimPossessive(token: string): string {
+	const possessive = TRAILING_POSSESSIVE_RE.exec(token)
+	if (!possessive) return token
+	const rest = token.slice(0, possessive.index)
+	return isYouTubeSearchLink(rest) && endsInQueryValue(rest) && !TRAILING_PUNCTUATION_RE.test(rest) ? token : rest
 }
 
 // A `!` or `?` run after a link is the sentence's, unless it ends a query value
@@ -123,16 +133,17 @@ function trimSentenceMarks(token: string): string {
 	return endsInQueryValue(rest) && !TRAILING_PUNCTUATION_RE.test(rest) && !isYouTubeIdLink(rest) ? token : rest
 }
 
-// An apostrophe ends a YouTube link other than a search.
+// An apostrophe ends a YouTube link other than a search. The whole token decides
+// whether it is a search: its `search_query=` may follow the apostrophe.
 function cutYouTubeAtApostrophe(token: string): string {
 	const apostrophe = token.indexOf("'")
-	return apostrophe >= 0 && isYouTubeIdLink(token.slice(0, apostrophe)) ? token.slice(0, apostrophe) : token
+	return apostrophe >= 0 && isYouTubeIdLink(token.slice(0, apostrophe)) && !isYouTubeSearchLink(token) ? token.slice(0, apostrophe) : token
 }
 
 function trimUrlToken(token: string): string {
 	let trimmed = cutYouTubeAtApostrophe(token)
 	for (;;) {
-		const next = trimSentenceMarks(trimmed.replace(TRAILING_PUNCTUATION_RE, '').replace(TRAILING_POSSESSIVE_RE, ''))
+		const next = trimSentenceMarks(trimPossessive(trimmed.replace(TRAILING_PUNCTUATION_RE, '')))
 		if (next === trimmed) return trimmed
 		trimmed = next
 	}
