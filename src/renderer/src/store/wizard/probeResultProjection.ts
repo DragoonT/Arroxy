@@ -83,6 +83,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			playlistId: '',
 			playlistIsMultiVideo: false,
 			playlistLikelyCapped: false,
+			playlistLoadedLimit: null,
 			playlistProbeProgress: null,
 			playlistScopeReloading: false,
 			bulkMetadataStatus: 'idle',
@@ -179,10 +180,11 @@ function visiblePlaylistProbeLimit(state: Pick<AppState, 'playlistScope' | 'sett
 	return resolvePlaylistProbeLimit(state.settings?.common)
 }
 
-// `playlistLimit` defaults to the limit a probe now would be taken with; a kept
-// probe passes the one it was taken with.
-export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, state: AppState, firstProbe: boolean, playlistLimit = visiblePlaylistProbeLimit(state)): Partial<AppState> {
+// `keptLimit`: the load limit a kept probe was taken with; any other probe is
+// read against the limit a probe now would be taken with.
+export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, state: AppState, firstProbe: boolean, keptLimit?: number): Partial<AppState> {
 	const settings = state.settings
+	const playlistLimit = keptLimit ?? visiblePlaylistProbeLimit(state)
 	const hasSentinel = probe.entries.length > playlistLimit
 	const playlistLikelyCapped = hasSentinel && state.playlistScope.items.kind === 'app-limit'
 	// Entries carry their own `auth`: main stamps it on those that need the
@@ -209,6 +211,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		playlistId: probe.playlistId,
 		playlistIsMultiVideo: probe.isMultiVideo,
 		playlistLikelyCapped,
+		playlistLoadedLimit: keptLimit ?? null,
 		playlistScopeError: null,
 		playlistProbeLoading: false,
 		playlistProbeProgress: null,
@@ -324,6 +327,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			playlistId: 'bulk',
 			playlistIsMultiVideo: false,
 			playlistLikelyCapped: false,
+			playlistLoadedLimit: null,
 			playlistProbeProgress: null,
 			bulkMetadataStatus,
 			bulkMetadataCompleted: seededCount,
