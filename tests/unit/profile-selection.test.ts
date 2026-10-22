@@ -355,13 +355,86 @@ describe('resolveProfileSelection: selection order and file type', () => {
 	})
 
 	// X/Twitter's extractor sorts `proto:m3u8`: HLS first, so "direct downloads first" would be wrong there.
-	// yt-dlp's `res` is the smaller side, which `-S res:1080` caps on: an
-	// ultra-wide 2560x1080 is a 1080 stream to it, though its row reads 1440p.
-	it("says nothing about the tier for a stream yt-dlp's res counts as that tier, though its row reads 1440p", () => {
-		const raw = [rawVideo('wide', 1080, {width: 2560, resolution: '2560x1080'}), rawAudio('140')]
-		const {media, notices} = resolveRaw(builtin('hd-1080'), raw)
-		expect(media.videoFormatId).toBe('wide')
+	// The row names a stream's tier, for picks and notices alike: an ultra-wide
+	// 2560x1080 reads 1440p, though yt-dlp's `res` counts it as 1080.
+	it('names an ultra-wide stream by its row, taking the 1080p row beside it', () => {
+		const wide = rawVideo('wide', 1080, {width: 2560, resolution: '2560x1080'})
+		const alone = resolveRaw(builtin('hd-1080'), [wide, rawAudio('140')])
+		expect(alone.media.videoFormatId).toBe('wide')
+		expect(alone.notices).toEqual([{kind: 'video-tier-fallback', wanted: '1080', picked: 1440}])
+		const ladder = resolveRaw(builtin('hd-1080'), [wide, rawVideo('810', 810, {width: 1920, resolution: '1920x810'}), rawVideo('720', 720), rawAudio('140')])
+		expect(ladder.media.videoFormatId).toBe('810')
+		expect(ladder.notices).toEqual([])
+	})
+
+	// The site's preference still comes first: a damaged copy at the tier
+	// never wins over a healthy stream above it.
+	it('keeps a damaged copy at the tier behind a healthy stream above it', () => {
+		const raw = [rawVideo('damaged', 480, {width: 854, resolution: '854x480', preference: -10, format_note: '480p, DAMAGED'}), rawVideo('healthy', 720), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw).media.videoFormatId).toBe('healthy')
+	})
+
+	// A site may give a stream's height alone; yt-dlp's `res` reads it from that.
+	it('keeps a stream that names its height but not its width in its tier', () => {
+		const raw = [{format_id: 'h480', ext: 'mp4', height: 480, vcodec: 'avc1.4d401e', acodec: 'none', protocol: 'https'}, rawVideo('360', 360, {width: 640, resolution: '640x360'}), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw, []).media.videoFormatId).toBe('h480')
+	})
+
+	// Smart TV takes H.264 first at any height, as before tiers were bounded.
+	it('takes H.264 above the tier for Smart TV over another codec at it', () => {
+		const raw = [rawVideo('vp9', 480, {width: 854, resolution: '854x480', vcodec: 'vp9', ext: 'webm'}), rawVideo('h264', 720), rawAudio('140')]
+		const {media, notices} = resolveRaw(builtin('mp4-480'), raw)
+		expect(media.videoFormatId).toBe('h264')
+		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720, passedOver: 'profile'}])
+	})
+
+	// The notice says why a stream at the profile's tier was left: not H.264,
+	// or AI-upscaled, rather than that the video has none.
+	it('says the tier was passed over when the video has it AI-upscaled only', () => {
+		const raw = [rawVideo('136-sr', 720, {format_note: '720p, AI-upscaled'}), rawVideo('397', 480, {width: 640, resolution: '640x480'}), rawAudio('140')]
+		const {media, notices} = resolveRaw(builtin('balanced'), raw)
+		expect(media.videoFormatId).toBe('397')
+		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'ai-upscaled'}])
+	})
+
+	// A reason is named only when it holds for the tier and the pick alike.
+	it('says the tier did not fit the profile when no one reason explains it', () => {
+		const mixed = [rawVideo('vp9-720', 720, {vcodec: 'vp9', ext: 'webm'}), rawVideo('136-sr', 720, {format_note: '720p, AI-upscaled'}), rawVideo('135', 480, {width: 854, resolution: '854x480'}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-720'), mixed).notices).toEqual([{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'profile'}])
+		const allUpscaled = [rawVideo('vp9-720-sr', 720, {vcodec: 'vp9', ext: 'webm', format_note: '720p, AI-upscaled'}), rawVideo('135-sr', 480, {width: 854, resolution: '854x480', format_note: '480p, AI-upscaled'}), rawAudio('140')]
+		// The 480p pick is upscaled too, so the notice names the codec, never an "original".
+		expect(resolveRaw(builtin('mp4-720'), allUpscaled).notices).toContainEqual({kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'h264'})
+		// A stream that names no codec may be H.264, so the codec is no reason.
+		const unnamed = [rawVideo('720', 720, {vcodec: undefined}), rawVideo('135', 480, {width: 854, resolution: '854x480'}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-720'), unnamed).notices).toEqual([{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'profile'}])
+		// A pick above the tier leaves the smaller streams, not the tier itself.
+		const smallerVp9 = [rawVideo('vp9-360', 360, {width: 640, resolution: '640x360', vcodec: 'vp9', ext: 'webm'}), rawVideo('h264-720', 720), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-480'), smallerVp9).notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720, passedOver: 'profile'}])
+	})
+
+	// A profile takes every stream its tier names on the Format screen (#657):
+	// a 960x540 row is 480p, though yt-dlp's `res` counts it as 540.
+	it('takes the top of its tier as the rows name it, not only what res counts under the tier', () => {
+		const raw = [rawVideo('540', 540, {width: 960, resolution: '960x540'}), rawVideo('360', 360, {width: 640, resolution: '640x360'}), rawAudio('140')]
+		const {media, notices} = resolveRaw(builtin('small-file'), raw)
+		expect(media.videoFormatId).toBe('540')
 		expect(notices).toEqual([])
+	})
+
+	it('keeps a widescreen stream the rows put in the next tier out of a lower tier', () => {
+		const raw = [rawVideo('640', 640, {width: 1280, resolution: '1280x640'}), rawVideo('480', 480, {width: 854, resolution: '854x480'}), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw).media.videoFormatId).toBe('480')
+	})
+
+	// A stream with no size passes yt-dlp's `res` limit; a profile with sized streams to choose from takes one of those (#654).
+	it('takes a stream of known size over a file of unknown size', () => {
+		const unknown = {format_id: 'hd', ext: 'mp4', protocol: 'https'}
+		const raw = [unknown, rawVideo('540v', 960, {width: 540, height: 960, resolution: '540x960', vcodec: 'av01.0.04M.08'}), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw, []).media.videoFormatId).toBe('540v')
+		const low = resolveRaw(builtin('low-240'), raw, [])
+		expect(low.media.videoFormatId).toBe('540v')
+		expect(low.notices).toEqual([{kind: 'video-tier-fallback', wanted: '240', picked: 480}])
+		expect(resolveRaw(builtin('small-file'), [unknown, rawAudio('140')], []).media.videoFormatId).toBe('hd')
 	})
 
 	it('still says so when the video only goes lower', () => {

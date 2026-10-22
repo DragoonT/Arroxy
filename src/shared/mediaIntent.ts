@@ -4,6 +4,7 @@ import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
 import {containerArgsFor, formatSortFor, selectionOrder, type AudioRank, type SelectionOrder} from './selectionOrder.js'
 import {canHoldEmbeddedThumbnail} from './thumbnailEmbed.js'
+import {tierCeiling} from './videoTier.js'
 
 export interface MediaIntentSpec {
 	formatSelector?: string
@@ -169,7 +170,8 @@ function withoutAiUpscaled(selector: string): string {
 // extractors name as marked down: YouTube's DAMAGED (truncated, -10) and
 // TikTok's watermarked (-2). One marked down without such a note can still
 // win there over a stream of another codec.
-const H264_VIDEO = "[vcodec~='(?i)^(?:[hx]264|avc)'][format_note!~=?'(?i)\\b(?:damaged|watermarked)\\b']"
+const NOT_MARKED_DOWN = "[format_note!~=?'(?i)\\b(?:damaged|watermarked)\\b']"
+const H264_VIDEO = `[vcodec~='(?i)^(?:[hx]264|avc)']${NOT_MARKED_DOWN}`
 const MP4_VIDEO = '[ext=mp4]'
 
 function preferredFirst(selector: string, order: SelectionOrder): string {
@@ -184,11 +186,34 @@ function preferredFirst(selector: string, order: SelectionOrder): string {
 		.join('/')
 }
 
+// A tiered profile takes what its tier names on the Format screen (videoTier).
+// `-S res:` caps the short side at the tier's ceiling (selectionOrder), and
+// each alternative is tried in three layers: on streams whose long side keeps
+// them at or under the tier, then on any stream of known size, then as it is.
+// The first keeps out a widescreen stream the rows put in the next tier
+// (1280x640 is 720p) and lets in one that names its height alone; the second
+// keeps out a file with no size, which passes any `res` limit and would win
+// over sized streams above the tier (Facebook's `hd`). Layering each
+// alternative, not the whole selector, keeps Smart TV's H.264 ahead of the tier.
+// Both layers leave out the copies the site marks down, as the H.264 tiers do,
+// so a damaged copy at the tier never wins over a healthy stream above it.
+const VIDEO_ATOM = /^best(?:video)?\*?/
+
+function withinTier(selector: string, order: SelectionOrder): string {
+	const ceiling = order.tier === 'best' ? null : tierCeiling(Number(order.tier))
+	if (!ceiling) return selector
+	const filtered = (alternative: string, filter: string): string => alternative.replace(VIDEO_ATOM, atom => `${atom}${filter}`)
+	return selector
+		.split('/')
+		.flatMap(alternative => [filtered(alternative, `[width<=?${ceiling.longSide}][height<=${ceiling.longSide}]${NOT_MARKED_DOWN}`), filtered(alternative, '[height>0]'), alternative])
+		.join('/')
+}
+
 function videoIntentSpec(intent: VideoMediaIntent, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): MediaIntentSpec {
 	const order = selectionOrder(intent, nativeAudioPreference, hdrPreference)
 	const audio = order.audio?.[0]
 	const container = containerArgsFor(order)
-	const selector = preferredFirst(videoSelector(order, audio), order)
+	const selector = withinTier(preferredFirst(videoSelector(order, audio), order), order)
 	return {formatSelector: order.skipAiUpscaled ? withoutAiUpscaled(selector) : selector, formatSort: formatSortFor(order), ...container, fileType: order.fileType, producesVideo: true, producesAudio: audio !== undefined}
 }
 

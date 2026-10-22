@@ -31,13 +31,26 @@ const isStoryboard = (format: RawFormat): boolean => format.ext === 'mhtml'
 const hasVideo = (format: RawFormat): boolean => format.vcodec !== 'none' && !isStoryboard(format)
 const isAudioOnly = (format: RawFormat): boolean => format.vcodec === 'none' && format.acodec !== undefined && format.acodec !== 'none'
 const isUpscaled = (format: RawFormat): boolean => format.format_id.endsWith('-sr')
+// A copy the site marks down (YouTube's DAMAGED, TikTok's watermarked), which profiles leave for others.
+const isMarkedDown = (format: RawFormat): boolean => /\b(?:damaged|watermarked)\b/i.test(format.format_note ?? '')
+
+// The streams a built-in profile chooses among, in the order it ranks them:
+// the site's preference first (copies not marked down, if any), then
+// originals over AI-upscaled ones (if any). Codec and size come after.
+function preferredVideo(raw: readonly RawFormat[]): RawFormat[] {
+	const video = raw.filter(hasVideo)
+	const healthy = video.filter(format => !isMarkedDown(format))
+	const pool = healthy.length > 0 ? healthy : video
+	const originals = pool.filter(format => !isUpscaled(format))
+	return originals.length > 0 ? originals : pool
+}
 const isH264 = (format: RawFormat): boolean => /^(?:avc1|h264)/i.test(format.vcodec ?? '')
 // The tier a stream sits in, as profiles and the Format screen name it (GLOSSARY: Tier).
-const tierOf = (format: RawFormat): number | null => (format.width && format.height ? tierHeightOf(format.width, format.height) : null)
-// A stream meets a tier when either measure the app uses says so: the row's
-// tier label, or its short side, which yt-dlp's `res` counts (a 2560x1080
-// ultra-wide is 1080p though its label says 1440p).
-const meetsTier = (format: RawFormat, tier: number): boolean => tierOf(format) === tier || (format.width !== undefined && format.height !== undefined && Math.min(format.width, format.height) === tier)
+// A stream that names its height alone is labelled by that height, as the
+// app labels it ("540p").
+const tierOf = (format: RawFormat): number | null => (format.width && format.height ? tierHeightOf(format.width, format.height) : (format.height ?? null))
+// A stream meets a tier when its row names that tier, as the app judges it.
+const meetsTier = (format: RawFormat, tier: number): boolean => tierOf(format) === tier
 
 const VIDEO_PROFILES = BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.media.kind === 'video-audio')
 
@@ -94,7 +107,7 @@ export const RULES: Record<string, Rule> = {
 	'Best available picks the top tier': (probe, raw) => {
 		const best = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')
 		if (!best) throw new Error('best-quality built-in missing')
-		const tiers = raw.filter(format => hasVideo(format) && !isUpscaled(format)).map(tierOf)
+		const tiers = preferredVideo(raw).map(tierOf)
 		if (tiers.length === 0 || tiers.some(tier => tier === null)) return []
 		const top = Math.max(...tiers.map(Number))
 		const picked = raw.find(format => format.format_id === pick(best, probe).media.videoFormatId)
@@ -115,17 +128,32 @@ export const RULES: Record<string, Rule> = {
 			// A stream the site gives no size for says nothing about the tier, so
 			// it is no pick for a size limit while sized streams exist.
 			if (pickedTier === null) return raw.some(format => hasVideo(format) && tierOf(format) !== null) ? [`${profile.id} picks ${picked.format_id}, of unknown size, over sized streams`] : []
-			const takeable = raw.some(format => hasVideo(format) && !isUpscaled(format) && meetsTier(format, wanted) && (!smartTv || isH264(format)))
+			const takeable = preferredVideo(raw).some(format => meetsTier(format, wanted) && (!smartTv || isH264(format)))
 			const onTier = meetsTier(picked, wanted)
 			if (!onTier && takeable) return [`${profile.id} picks ${pickedTier}p though a ${wanted}p stream it can take exists`]
 			if (!onTier && !fellBack) return [`${profile.id} picks ${pickedTier}p and says nothing`]
 			if (onTier && fellBack) return [`${profile.id} picks ${wanted}p yet says it fell back`]
+			// The notice is a claim about the video: that it has no stream at the
+			// tier, or only ones the profile leaves (another codec, AI-upscaled).
+			const notice = notices.find(candidate => candidate.kind === 'video-tier-fallback')
+			if (notice?.kind !== 'video-tier-fallback') return []
+			// What the notice would deny: streams at the tier for a pick below it,
+			// at or under the tier for a pick above it.
+			const above = pickedTier > wanted
+			const left = raw.filter(format => {
+				const tier = hasVideo(format) ? tierOf(format) : null
+				return tier !== null && (above ? tier <= wanted : tier === wanted)
+			})
+			if (notice.passedOver === undefined && left.length > 0) return [`${profile.id} says the video has nothing ${above ? 'that small' : `at ${wanted}p`} though it lists ${left.map(format => format.format_id).join(', ')}`]
+			if (notice.passedOver !== undefined && left.length === 0) return [`${profile.id} says streams were passed over, but the video lists none`]
+			if (notice.passedOver === 'h264' && (above || left.some(format => !format.vcodec || isH264(format)) || !isH264(picked))) return [`${profile.id} says the video has ${wanted}p only in other codecs and picks H.264`]
+			if (notice.passedOver === 'ai-upscaled' && (above || !left.every(isUpscaled) || isUpscaled(picked))) return [`${profile.id} says the video's ${wanted}p is only AI-upscaled and picks an original`]
 			return []
 		}),
 
 	'Smart TV picks H.264 when there is any, and says so when there is none': (probe, raw) => {
 		if (!raw.some(hasVideo)) return []
-		const anyH264 = raw.some(format => hasVideo(format) && isH264(format))
+		const anyH264 = preferredVideo(raw).some(isH264)
 		const codecsNamed = raw.filter(hasVideo).every(format => format.vcodec !== undefined)
 		return VIDEO_PROFILES.flatMap(profile => {
 			if (profile.media.kind !== 'video-audio' || profile.media.goal !== 'smart-tv') return []
@@ -134,7 +162,7 @@ export const RULES: Record<string, Rule> = {
 			const saysUnavailable = notices.some(notice => notice.kind === 'mp4-unavailable')
 			if (anyH264 && picked && !isH264(picked)) return [`${profile.id} picks ${picked.vcodec ?? 'an unnamed codec'} though H.264 exists`]
 			if (picked && isH264(picked) && saysUnavailable) return [`${profile.id} picks H.264 yet says MP4 is unavailable`]
-			if (codecsNamed && !anyH264 && !saysUnavailable) return [`${profile.id} has no H.264 to take and says nothing`]
+			if (codecsNamed && !anyH264 && !(picked && isH264(picked)) && !saysUnavailable) return [`${profile.id} has no H.264 to take and says nothing`]
 			return []
 		})
 	},

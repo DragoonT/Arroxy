@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {parseSampleArgs, sampleId} from '../../scripts/probe-intent/sampleArgs.js'
 import {RULES} from '../../scripts/probe-intent/rules.js'
-import {probeSourceResult} from '@renderer/dev/probeSources/index.js'
+import {probeResultFromFixture, probeSourceResult} from '@renderer/dev/probeSources/index.js'
 
 describe('probe-intent:sample arguments', () => {
 	it('keeps every URL, with or without --keep', () => {
@@ -33,13 +33,50 @@ describe('a sampled video’s id', () => {
 })
 
 describe('the tier rule', () => {
-	// The app takes a 2560x1080 ultra-wide stream as 1080p by its short side
-	// (yt-dlp's `res`), though its 16:9 label is 1440p.
-	it('accepts a pick that meets the tier by either measure, as the app does', () => {
+	// An ultra-wide 2560x1080 sits in the 1440p row, though yt-dlp's `res`
+	// counts it as 1080, so a 1080p profile that takes it must say so.
+	it('judges a pick by the row that names it', () => {
 		const probe = probeSourceResult('youtube-2014')
 		const rule = RULES['a tiered profile picks its tier, or says what it picked instead']
 		if (!rule) throw new Error('tier rule missing')
 		const raw = probe.formats.filter(format => !format.isAudioOnly).map(format => ({format_id: format.formatId, vcodec: format.videoCodec ?? 'avc1', acodec: format.isVideoOnly ? 'none' : 'mp4a', width: 2560, height: 1080}))
-		expect(rule(probe, raw).filter(line => line.startsWith('hd-1080 '))).toEqual([])
+		expect(rule(probe, raw)).toContain('hd-1080 picks 1440p and says nothing')
+	})
+	// A notice is a claim about the video, so the rule checks it too.
+	it('flags a notice that says the video has no stream at the tier when it has one', () => {
+		const probe = probeSourceResult('youtube-2014')
+		const rule = RULES['a tiered profile picks its tier, or says what it picked instead']
+		if (!rule) throw new Error('tier rule missing')
+		const raw = [...probe.formats.filter(format => !format.isAudioOnly).map(format => ({format_id: format.formatId, vcodec: 'avc1', acodec: format.isVideoOnly ? 'none' : 'mp4a', width: 640, height: 360})), {format_id: 'extra-480', vcodec: 'vp9', acodec: 'none', width: 854, height: 480}]
+		expect(rule(probe, raw).some(line => line.startsWith('small-file ') && line.includes('480p'))).toBe(true)
+	})
+	// A copy the site marks down is no stream a profile can take at its tier.
+	it('does not count a damaged copy at the tier as one the profile can take', () => {
+		const formats = [
+			{format_id: 'damaged', ext: 'mp4', width: 854, height: 480, vcodec: 'avc1.4d401e', acodec: 'none', preference: -10, format_note: '480p, DAMAGED', protocol: 'https'},
+			{format_id: 'healthy', ext: 'mp4', width: 1280, height: 720, vcodec: 'avc1.4d401f', acodec: 'none', protocol: 'https'},
+			{format_id: 'audio', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 128, protocol: 'https'}
+		]
+		const info = {_type: 'video', id: 'damaged', title: 'Damaged', extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.test/v', formats}
+		const rule = RULES['a tiered profile picks its tier, or says what it picked instead']
+		if (!rule) throw new Error('tier rule missing')
+		expect(rule(probeResultFromFixture({info}, 'damaged'), formats).filter(line => line.startsWith('small-file '))).toEqual([])
+	})
+	// Site preference comes first for every profile, so no rule asks a profile to take a marked-down copy.
+	it('asks neither Best available nor Smart TV to take a marked-down copy', () => {
+		const audio = {format_id: 'audio', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 128, protocol: 'https'}
+		const top = [{format_id: 'damaged-1080', ext: 'mp4', width: 1920, height: 1080, vcodec: 'vp9', acodec: 'none', preference: -10, format_note: '1080p, DAMAGED', protocol: 'https'}, {format_id: 'healthy-720', ext: 'mp4', width: 1280, height: 720, vcodec: 'vp9', acodec: 'none', protocol: 'https'}, audio]
+		const h264 = [{format_id: 'damaged-h264', ext: 'mp4', width: 1280, height: 720, vcodec: 'avc1.4d401f', acodec: 'none', preference: -10, format_note: '720p, DAMAGED', protocol: 'https'}, {format_id: 'healthy-vp9', ext: 'webm', width: 1280, height: 720, vcodec: 'vp9', acodec: 'none', protocol: 'https'}, audio]
+		const probeOf = (formats: unknown[]) => probeResultFromFixture({info: {_type: 'video', id: 'v', title: 'V', extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.test/v', formats}}, 'v')
+		const best = RULES['Best available picks the top tier']
+		const smartTv = RULES['Smart TV picks H.264 when there is any, and says so when there is none']
+		if (!best || !smartTv) throw new Error('rule missing')
+		expect(best(probeOf(top), top)).toEqual([])
+		expect(smartTv(probeOf(h264), h264)).toEqual([])
+		// Marked down or AI-upscaled is still taken when nothing else is there.
+		const loneDamaged = [{...h264[0], format_id: 'lone-damaged'}, audio]
+		expect(smartTv(probeOf(loneDamaged), loneDamaged)).toEqual([])
+		const upscaledH264 = [{format_id: '136-sr', ext: 'mp4', width: 1280, height: 720, vcodec: 'avc1.4d401f', acodec: 'none', format_note: '720p, AI-upscaled', protocol: 'https'}, {format_id: 'original-vp9', ext: 'webm', width: 854, height: 480, vcodec: 'vp9', acodec: 'none', protocol: 'https'}, audio]
+		expect(smartTv(probeOf(upscaledH264), upscaledH264)).toEqual([])
 	})
 })

@@ -40,7 +40,12 @@ export interface MediaSelection {
 	audioSelection: AudioSelection
 }
 
-export type FitNotice = {kind: 'video-tier-fallback'; wanted: Exclude<PlaylistVideoTier, 'best'>; picked: number} | {kind: 'mp4-unavailable'} | {kind: 'webm-unavailable'; blocker: string} | {kind: 'no-video'} | {kind: 'subtitle-languages-missing'; languages: string[]}
+export type TierPassedOver = 'h264' | 'ai-upscaled' | 'profile'
+
+// `passedOver`: the video has the wanted tier, but in streams the profile
+// leaves: none H.264 for Smart TV ('h264'), all AI-upscaled ('ai-upscaled'),
+// or for no one reason that also holds for the pick ('profile').
+export type FitNotice = {kind: 'video-tier-fallback'; wanted: Exclude<PlaylistVideoTier, 'best'>; picked: number; passedOver?: TierPassedOver} | {kind: 'mp4-unavailable'} | {kind: 'webm-unavailable'; blocker: string} | {kind: 'no-video'} | {kind: 'subtitle-languages-missing'; languages: string[]}
 
 export interface ProfileSelection {
 	media: MediaSelection
@@ -105,6 +110,26 @@ function forThisVideo(order: SelectionOrder, sortFields: readonly string[]): Sel
 	return {...order, video: order.video.filter(rank => (rank.kind !== 'source' || named('source')) && (rank.kind !== 'protocol' || named('proto')))}
 }
 
+// Why a pick left the profile's tier when the video has streams the notice
+// would otherwise deny: at the tier for a pick below it, at or under the tier
+// for a pick above it. A reason is named only when it holds for the pick too:
+// an H.264 pick for "only in other codecs" (and only when every stream left
+// names its codec), an original one for "AI-upscaled".
+function tierPassedOver(formats: readonly FormatOption[], tier: number, order: SelectionOrder, picked: FormatOption): TierPassedOver | undefined {
+	const pickedAbove = videoHeight(picked.resolution) > tier
+	const left = formats.filter(format => {
+		if (format.isAudioOnly) return false
+		const height = videoHeight(format.resolution)
+		return height !== 0 && (pickedAbove ? height <= tier : height === tier)
+	})
+	if (left.length === 0) return undefined
+	if (pickedAbove) return 'profile'
+	const upscaled = (format: FormatOption): boolean => format.markers?.includes('ai-upscaled') === true
+	if (order.skipAiUpscaled && left.every(upscaled) && !upscaled(picked)) return 'ai-upscaled'
+	if (order.goal === 'smart-tv' && left.every(format => format.videoCodec !== undefined && format.videoCodec !== '' && !isH264(format)) && isH264(picked)) return 'h264'
+	return 'profile'
+}
+
 function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {media: MediaSelection; order: SelectionOrder | null} {
 	const {profile, formats, nativeAudioPreference} = input
 	const media = profile.media
@@ -122,16 +147,14 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 	const {video, audio} = pickedOptions(picked, formats)
 	if (!video) return {media: {kind: 'video', videoFormatId: '', audioSelection: NO_AUDIO}, order}
 	if (order.goal === 'smart-tv' && !isH264(video)) notices.push({kind: 'mp4-unavailable'})
-	// A stream meets the tier when either measure says so: the row's label
-	// (a 1280x640 trailer reads 720p) or the tier as `-S res:N` counts it,
-	// yt-dlp's `res`, the smaller side (an ultra-wide 2560x1080 is 1080 though
-	// its row reads 1440p). A stream whose site gives no size (0) says nothing.
+	// A stream meets the tier its row names (videoTier): a 1280x640 trailer
+	// reads 720p, an ultra-wide 2560x1080 1440p. A stream whose site gives no
+	// size (0) says nothing.
 	const pickedHeight = videoHeight(video.resolution)
-	const raw = picked?.formats.find(format => format.format_id === video.formatId)
-	const sides = [raw?.height, raw?.width].filter((side): side is number => side !== undefined && side > 0)
-	const res = sides.length > 0 ? Math.min(...sides) : pickedHeight
-	const meetsTier = (height: number): boolean => height === Number(order.tier)
-	if (order.tier !== 'best' && pickedHeight !== 0 && !meetsTier(pickedHeight) && !meetsTier(res)) notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight})
+	if (order.tier !== 'best' && pickedHeight !== 0 && pickedHeight !== Number(order.tier)) {
+		const passedOver = tierPassedOver(formats, Number(order.tier), order, video)
+		notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight, ...(passedOver ? {passedOver} : {})})
+	}
 	return {media: {kind: 'video', videoFormatId: video.formatId, audioSelection: audio ? {kind: 'native', formatId: audio.formatId} : NO_AUDIO}, order}
 }
 
