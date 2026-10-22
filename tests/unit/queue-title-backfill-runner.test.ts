@@ -192,7 +192,8 @@ describe('QueueTitleBackfill', () => {
 	})
 
 	it('asks the probe to start only while no download runs', async () => {
-		const harness = track(makeHarness(async () => found('Real Title'), [flagged('a')]))
+		// The lookup is still waiting for its slot when the check is asked.
+		const harness = track(makeHarness(() => new Promise<TitleLookup>(() => undefined), [flagged('a')]))
 
 		harness.backfill.enqueueForItems(harness.items)
 		await vi.waitFor(() => expect(harness.probeTitle).toHaveBeenCalledTimes(1))
@@ -234,5 +235,47 @@ describe('QueueTitleBackfill', () => {
 		await vi.waitFor(() => expect(harness.patched).toEqual([{itemId: 'b', reason: 'title-backfill'}]))
 		expect(logger.info).toHaveBeenCalledWith(expect.stringContaining('cancelled'), expect.objectContaining({itemId: 'a'}))
 		expect(harness.items[0]?.titleIsPlaceholder).toBe(true)
+	})
+
+	it('asks the probe to start only while its row is still there and untitled', async () => {
+		// The lookup is still waiting for its slot when the check is asked.
+		const harness = track(makeHarness(() => new Promise<TitleLookup>(() => undefined), [flagged('a')]))
+
+		harness.backfill.enqueueForItems(harness.items)
+		await vi.waitFor(() => expect(harness.probeTitle).toHaveBeenCalledTimes(1))
+		const admit = harness.probeTitle.mock.calls[0]?.[1]
+		expect(admit?.()).toBe(true)
+		const row = harness.items[0]
+		if (row) harness.items[0] = {...row, title: 'Artifact Title', titleIsPlaceholder: undefined}
+		expect(admit?.()).toBe(false)
+		harness.items.splice(0, 1)
+		expect(admit?.()).toBe(false)
+	})
+
+	it.each([
+		['removed', (items: QueueItem[]) => void items.splice(0, 1)],
+		['titled by its file', (items: QueueItem[]) => void (items[0] = {...items[0], title: 'Artifact Title', titleIsPlaceholder: undefined})]
+	])('drops a lookup declined because its row was %s while it waited, and goes on', async (_case, change) => {
+		const harness = track(
+			makeHarness(
+				async url => {
+					if (url.endsWith('/a')) {
+						// The row went while the lookup waited; its probe declined the slot.
+						change(harness.items)
+						return {kind: 'deferred'}
+					}
+					return found('Title B')
+				},
+				[flagged('a'), flagged('b')],
+				// A requeue would wait this long before `b`; a dropped lookup goes straight on.
+				60_000
+			)
+		)
+
+		harness.backfill.enqueueForItems(harness.items)
+
+		await vi.waitFor(() => expect(harness.patched).toEqual([{itemId: 'b', reason: 'title-backfill'}]))
+		await new Promise(resolve => setTimeout(resolve, 30))
+		expect(harness.probeTitle.mock.calls.map(call => call[0])).toEqual(['https://example.com/a', 'https://example.com/b'])
 	})
 })
