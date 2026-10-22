@@ -18,7 +18,7 @@ import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import type {PlaylistManifestPayload} from '@shared/queueSubmission.js'
 import {fail, type Result} from '@shared/result.js'
-import type {IntakeOrigin, IntakeOriginKind, IntakeTake, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
+import type {IntakeCaller, IntakeOrigin, IntakeOriginKind, IntakeTake, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type JobAuth, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
 import type {AppSettings, DownloadProfile, DownloadProfileRef, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
 import {createAppError} from '@main/utils/errorFactory.js'
@@ -77,7 +77,7 @@ export interface IntakeAddRequest {
 	// Mixed URL prompt's list answer). Kept on the row, so a Retry and a
 	// restart keep to it and nothing asks "how many?" again.
 	take?: QuickProbeTake
-	origin: {kind: IntakeOriginKind; clientId?: string}
+	origin: IntakeCaller
 }
 
 export interface IntakeCall {
@@ -263,6 +263,12 @@ export class IntakeService {
 					this.kept.forget(itemId)
 					const urls = new Set(items.map(item => item.url))
 					tell({kind: 'already-queued', itemId: this.deps.queue.snapshot().find(item => item.id !== itemId && isLiveQueueItem(item) && urls.has(item.url))?.id ?? null})
+					return
+				}
+				if (replaced.error.code === 'limit') {
+					// More rows than the caller may add from one link: no Retry can fix that.
+					const failed = this.deps.queue.probeFailed(itemId, {kind: 'unknown', raw: replaced.error.message})
+					if (failed.ok) tell({kind: 'failed', itemId, title, probeError: null, overRowLimit: true})
 					return
 				}
 				await this.write(itemId, title, {kind: 'failed', error: {kind: 'unknown', raw: replaced.error.message}, probeError: null}, caller)
