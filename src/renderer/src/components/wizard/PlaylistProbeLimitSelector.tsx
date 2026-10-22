@@ -101,7 +101,8 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 		if (customInvalid) return
 		await persistLimit(parsedCustom)
 		const persistedLimit = resolvePlaylistProbeLimit(useAppStore.getState().settings?.common)
-		if (persistedLimit === parsedCustom) setCustomOpen(false)
+		// The list already loaded with it: nothing to save or reload.
+		if (persistedLimit === parsedCustom || parsedCustom === loadedLimit) setCustomOpen(false)
 	}
 
 	return (
