@@ -13,7 +13,7 @@ Arroxy's issues live on GitHub at `antonio-orionus/Arroxy`. Use the `gh` CLI on 
 
 ## Pull requests as a triage surface
 
-**PRs as a request surface: yes.** The `triage` skill treats an external PR as an issue with attached code, with the same state labels. External means the author isn't a maintainer (`author_association` other than `OWNER`, `MEMBER` or `COLLABORATOR`); bots' dependency PRs aren't triage work. On a PR, the states mean:
+**PRs as a request surface: yes.** The `triage` skill treats an external PR as an issue with attached code, with the same state labels. External means the author isn't a maintainer (`author_association` other than `OWNER`, `MEMBER` or `COLLABORATOR`); bots' dependency PRs aren't triage work. A PR that fixes an open issue gets no state label: the issue keeps the state, the PR is code attached to it, and whoever takes the issue finishes or absorbs the PR. Only a PR with no issue behind it carries a state label, and then the states mean:
 
 - `ready-for-agent`: worth having, and an agent finishes it as below.
 - `ready-for-human`: the maintainer decides, for a design or scope call, or a diff an agent must not take (below).
