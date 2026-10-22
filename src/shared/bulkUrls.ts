@@ -26,10 +26,12 @@ export interface BulkUrlParseResult {
 
 // `,` and `;` are valid inside a URL, so they end a link only where the next
 // link starts; one that ends a link in prose is trimmed as trailing punctuation.
-// An apostrophe is valid too (`John's-video.mp4`); a quote around a link is
-// trimmed from its end, and a quote opening the next link still splits there.
-const URL_RE = /https?:\/\/(?:[^\s,;|<>"`]|[,;](?!\s*['"]?https?:\/\/))+/gi
+// An apostrophe is valid too (`John's-video.mp4`), but only with more of the
+// link after it: one before a space, a closer or a separator ends the link
+// (`'https://a','title'`), and a possessive `'s` ending it is the sentence's.
+const URL_RE = /https?:\/\/(?:[^\s,;|<>"'`]|'(?=[^\s,;|<>"'`)\]])|[,;](?!\s*['"]?https?:\/\/))+/gi
 const TRAILING_PUNCTUATION_RE = /[)\].,;:']+$/
+const TRAILING_POSSESSIVE_RE = /'s$/i
 // `!` and `?` end a sentence, but also a query value (`?token=abc!`).
 const TRAILING_SENTENCE_MARKS_RE = /[!?]+$/
 const OBVIOUS_NON_MEDIA_FILE_EXTENSIONS = new Set([
@@ -109,19 +111,26 @@ function isYouTubeLink(url: string): boolean {
 }
 
 // A `!` or `?` run after a link is the sentence's, unless it ends a query value
-// (`?q=what?`). YouTube's ids and values never end in one, so after a YouTube
-// link it is always the sentence's.
+// (`?q=what?`) right after the value itself, not after a closing `)` or quote.
+// YouTube's ids and values never end in one, so after a YouTube link it is
+// always the sentence's.
 function trimSentenceMarks(token: string): string {
 	const marks = TRAILING_SENTENCE_MARKS_RE.exec(token)
 	if (!marks) return token
 	const rest = token.slice(0, marks.index)
-	return endsInQueryValue(rest) && !isYouTubeLink(rest) ? token : rest
+	return endsInQueryValue(rest) && !TRAILING_PUNCTUATION_RE.test(rest) && !isYouTubeLink(rest) ? token : rest
+}
+
+// YouTube's ids and values never hold an apostrophe either: one ends the link.
+function cutYouTubeAtApostrophe(token: string): string {
+	const apostrophe = token.indexOf("'")
+	return apostrophe >= 0 && isYouTubeLink(token.slice(0, apostrophe)) ? token.slice(0, apostrophe) : token
 }
 
 function trimUrlToken(token: string): string {
-	let trimmed = token
+	let trimmed = cutYouTubeAtApostrophe(token)
 	for (;;) {
-		const next = trimSentenceMarks(trimmed.replace(TRAILING_PUNCTUATION_RE, ''))
+		const next = trimSentenceMarks(trimmed.replace(TRAILING_PUNCTUATION_RE, '').replace(TRAILING_POSSESSIVE_RE, ''))
 		if (next === trimmed) return trimmed
 		trimmed = next
 	}
