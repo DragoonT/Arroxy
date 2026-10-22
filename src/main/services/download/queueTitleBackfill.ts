@@ -8,7 +8,8 @@
 // until the lane clears. Its probes are background ones (ProbeSlots): each
 // waits behind every placeholder row's probe and out of its site's cooldown,
 // and asks again when its slot is granted: a download that started meanwhile
-// defers the lookup, which goes back to the front and waits for the lane.
+// defers the lookup, which goes back to the front and waits for the lane; a
+// row removed or titled meanwhile is dropped.
 //
 // Follows the QueueProbeLifecycle host-interface pattern: no queue state here,
 // every read and mutation goes back through the injected deps. ProbeService
@@ -71,6 +72,10 @@ export class QueueTitleBackfill {
 		this.pending.length = 0
 	}
 
+	private stillUntitled(itemId: string): boolean {
+		return this.deps.items().find(item => item.id === itemId)?.titleIsPlaceholder === true
+	}
+
 	private hasActiveDownload(): boolean {
 		return this.deps.items().some(item => item.status === QUEUE_STATUS.running)
 	}
@@ -94,14 +99,15 @@ export class QueueTitleBackfill {
 				}
 				const target = this.pending.shift()
 				if (!target) return
-				const current = this.deps.items().find(item => item.id === target.itemId)
-				if (!current || current.titleIsPlaceholder !== true) continue
+				if (!this.stillUntitled(target.itemId)) continue
 				let lookup: TitleLookup = {kind: 'none'}
 				try {
-					lookup = await this.deps.probeTitle(target.url, () => !this.hasActiveDownload())
+					lookup = await this.deps.probeTitle(target.url, () => !this.hasActiveDownload() && this.stillUntitled(target.itemId))
 				} catch (err) {
 					logger.debug('Title backfill probe failed — leaving row for the artifact backstop', {itemId: target.itemId, error: err instanceof Error ? err.message : String(err)})
 				}
+				// Declined at its slot: a row gone or titled meanwhile is dropped; one held back by a download waits first in line.
+				if (lookup.kind === 'deferred' && !this.stillUntitled(target.itemId)) continue
 				if (lookup.kind === 'deferred') {
 					this.pending.unshift(target)
 					this.scheduleRetry()
@@ -112,8 +118,7 @@ export class QueueTitleBackfill {
 				const realTitle = lookup.title
 				// Re-check: the artifact backstop may have resolved the row
 				// while the probe was in flight — never overwrite a real title.
-				const latest = this.deps.items().find(item => item.id === target.itemId)
-				if (!latest || latest.titleIsPlaceholder !== true) continue
+				if (!this.stillUntitled(target.itemId)) continue
 				this.deps.patch(target.itemId, 'title-backfill', prev => (prev.titleIsPlaceholder === true ? withBackfilledTitle(prev, realTitle) : prev))
 				logger.info('Title backfilled', {itemId: target.itemId, title: realTitle})
 			}
