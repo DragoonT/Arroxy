@@ -179,6 +179,10 @@ test('profile scenarios render their seeded browser-mock states', async ({page})
 	await openScenario(page, 'profiles-bulk')
 	await expect(page.getByTestId('bulk-url-dialog')).toBeVisible()
 
+	// Settings opens at the global hotkey, which another app owns.
+	await openScenario(page, 'hotkey-conflict')
+	await expect(page.getByTestId('profiles-settings-hotkey-conflict')).toBeVisible()
+
 	// A quick download's failure lands on its row in Downloads, with the guidance.
 	await openWithParams(page, 'probeError=botBlock&probeErrorTarget=quick-download')
 	await page.getByRole('tab', {name: /^downloads/i}).click()
