@@ -244,7 +244,10 @@ export class QueueService extends EventEmitter {
 		if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
 
 		if (item.status === QUEUE_STATUS.pending) {
-			this.commit({kind: 'event', itemId, evt: {kind: 'paused-held'}})
+			// A row Resume All left waiting for a slot still has its job parked: it
+			// goes back to paused-active, so a resume continues that job.
+			if (item.lastJobId && !this.spawning.has(itemId)) this.commit({kind: 'patch', itemId, reason: 'pause:parkedPending', patcher: prev => ({...prev, status: QUEUE_STATUS.pausedActive})})
+			else this.commit({kind: 'event', itemId, evt: {kind: 'paused-held'}})
 			return ok(undefined)
 		}
 
@@ -298,8 +301,9 @@ export class QueueService extends EventEmitter {
 			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'retry-reset'}})
 		}
 		for (const item of pausedActive) {
-			// Patch (not transition) — keep tempDir + lastJobId so the upcoming
-			// spawn picks up the .part files. retry-reset would wipe both. Going
+			// Patch (not transition) — keep lastJobId so the upcoming spawn resumes
+			// the parked job, and tempDir for a start after a restart, when no job is
+			// parked any more. retry-reset would wipe both. Going
 			// through `pending` instead of `running` is critical: it routes the
 			// spawn through recomputeSchedule, which enforces the cap. Calling
 			// `resume(id)` per item instead bypasses the cap and spawns all
@@ -419,7 +423,8 @@ export class QueueService extends EventEmitter {
 		if (!item || this.probeLifecycle.discard(item, 'cancelled')) return ok(undefined)
 		this.autoRetry.clear(itemId)
 
-		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
+		// A pending or held row with a job id still has a job parked or starting.
+		if ((item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) && !item.lastJobId) {
 			await this.artifactCleanup.cleanup(item)
 			this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 			return ok(undefined)
@@ -505,7 +510,7 @@ export class QueueService extends EventEmitter {
 		if (item.status === QUEUE_STATUS.running) {
 			return fail(createAppError('validation', 'cannot remove a running item — cancel it first'))
 		}
-		if (item.status === QUEUE_STATUS.pausedActive && item.lastJobId) {
+		if ((item.status === QUEUE_STATUS.pausedActive || item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) && item.lastJobId) {
 			const cancelResult = await this.downloadService.cancel(item.lastJobId)
 			if (!cancelResult.ok) return fail(cancelResult.error)
 			this.forgetProgressState(item.lastJobId)

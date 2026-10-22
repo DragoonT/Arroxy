@@ -93,3 +93,94 @@ describe('Pause All while a download is still starting', () => {
 		await queue.cancel(null)
 	})
 })
+
+describe('Resume All', () => {
+	it('resumes the parked job, keeping its limited-quality state, instead of starting a new one', async () => {
+		vi.useFakeTimers()
+		const {queue, downloads, internals} = makeServices()
+		queue.add([await itemIn('a')])
+		await vi.waitFor(() => expect(queue.snapshot()[0]?.status).toBe('running'))
+		const jobId = queue.snapshot()[0]?.lastJobId
+		expect(jobId).toBeDefined()
+
+		await queue.pauseAll()
+		expect(queue.snapshot()[0]?.status).toBe('paused-active')
+		// A download limited to a lower quality (it needed sign-in) parks with that limit.
+		const parked = internals.pausedJobs.get(jobId ?? '')
+		expect(parked).toBeDefined()
+		if (parked) internals.pausedJobs.set(parked.job.id, {...parked, qualityLimit: {height: 360}, formatsWithheld: true})
+
+		const start = vi.spyOn(downloads, 'start')
+		await queue.resumeAll()
+		await vi.waitFor(() => expect(queue.snapshot()[0]?.status).toBe('running'))
+
+		expect(start).not.toHaveBeenCalled()
+		expect(downloads.pausedCount).toBe(0)
+		expect(queue.snapshot()[0]?.lastJobId).toBe(jobId)
+		const active = internals.activeJobs.get(jobId ?? '')
+		expect(active?.qualityLimit).toEqual({height: 360})
+		expect(active?.formatsWithheld).toBe(true)
+		await queue.cancel(null)
+	})
+
+	it('resumes a download Pause All caught while it was starting', async () => {
+		const binaries = deferred()
+		const {queue, downloads, binaryManager} = makeServices(binaries.promise)
+		queue.add([await itemIn('a')])
+		await vi.waitFor(() => expect(binaryManager.ensureYtDlp).toHaveBeenCalledOnce())
+		await queue.pauseAll()
+		vi.useFakeTimers()
+		binaries.resolve()
+		await vi.waitFor(() => expect(downloads.pausedCount).toBe(1))
+		const jobId = queue.snapshot()[0]?.lastJobId
+
+		const start = vi.spyOn(downloads, 'start')
+		await queue.resumeAll()
+		await vi.waitFor(() => expect(queue.snapshot()[0]?.status).toBe('running'))
+		expect(start).not.toHaveBeenCalled()
+		expect(queue.snapshot()[0]?.lastJobId).toBe(jobId)
+		expect(downloads.pausedCount).toBe(0)
+		await queue.cancel(null)
+	})
+
+	it('leaves no parked job behind for a row paused, cancelled or removed while it waits for a slot', async () => {
+		vi.useFakeTimers()
+		const {queue, downloads} = makeServices()
+		outputDir = await mkdtemp(join(tmpdir(), 'arroxy-queue-pause-'))
+		const dir = outputDir
+		queue.add(['a', 'b', 'c', 'd'].map(id => makeItem({id, status: 'pending', outputDir: dir, lane: 'priority'})))
+		await vi.waitFor(() => expect(queue.snapshot().filter(i => i.status === 'running')).toHaveLength(4))
+		await queue.pauseAll()
+		expect(downloads.pausedCount).toBe(4)
+		const jobB = queue.snapshot().find(i => i.id === 'b')?.lastJobId
+
+		// Only one slot: a resumes, b, c and d wait as pending rows naming their parked jobs.
+		queue.setConcurrentDownloads(1)
+		const start = vi.spyOn(downloads, 'start')
+		await queue.setLane('b', 'normal')
+		await queue.setLane('c', 'normal')
+		await queue.setLane('d', 'normal')
+		await queue.setLane('a', 'normal')
+		await queue.resumeAll()
+		await vi.waitFor(() => expect(queue.snapshot().find(i => i.id === 'a')?.status).toBe('running'))
+		expect(
+			queue
+				.snapshot()
+				.filter(i => i.status === 'pending')
+				.map(i => i.id)
+		).toEqual(['b', 'c', 'd'])
+
+		await queue.pause('b')
+		expect(queue.snapshot().find(i => i.id === 'b')).toMatchObject({status: 'paused-active', lastJobId: jobB})
+		await queue.cancel('c')
+		await queue.remove('d')
+		expect(downloads.pausedCount).toBe(1)
+
+		await queue.resume('b')
+		await vi.waitFor(() => expect(queue.snapshot().find(i => i.id === 'b')?.status).toBe('running'))
+		expect(queue.snapshot().find(i => i.id === 'b')?.lastJobId).toBe(jobB)
+		expect(downloads.pausedCount).toBe(0)
+		expect(start).not.toHaveBeenCalled()
+		await queue.cancel(null)
+	})
+})
