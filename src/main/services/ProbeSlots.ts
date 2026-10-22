@@ -44,7 +44,7 @@ export interface ProbeSlotRunOptions<T> {
 	admit?: () => boolean
 }
 
-export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'wouldAdmit' | 'onChange'>
+export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'wouldAdmit' | 'holdPass' | 'onChange'>
 
 export interface ProbeSlotsOptions {
 	backgroundLimit: number
@@ -149,7 +149,8 @@ export class ProbeSlots {
 	// earliest cooldown still holding a waiter.
 	private pump(): void {
 		let wakeAt: number | null = null
-		for (let i = 0; i < this.waiters.length;) {
+		let i = 0
+		while (i < this.waiters.length) {
 			const waiter = this.waiters[i]
 			if (!waiter) break
 			// Background capacity in use: background probes, and the window's probes beyond their own headroom.
@@ -169,6 +170,8 @@ export class ProbeSlots {
 			this.waiters.splice(i, 1)
 			waiter.grant()
 		}
+		// Waiters left behind a full pool keep their site's Try now pass until they get a slot.
+		for (const waiter of this.waiters.slice(i)) this.cooldown?.holdPass(waiter.request.site)
 		this.schedule(wakeAt)
 	}
 
