@@ -91,7 +91,7 @@ function buildLargeQueueItems(): QueueItem[] {
 	})
 }
 
-// Placeholder rows whose probes wait: three on YouTube, which is cooling down, and one on another site.
+// Placeholder rows fetching details: three on YouTube, which is cooling down (two held, one running), and one on another site.
 function buildProbeWaitingItems(): QueueItem[] {
 	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
 	const placeholder = {thumbnail: '', progressPercent: 0, progressDetail: null, lastStatus: null, writeM3u: false, job: unresolved, status: QUEUE_STATUS.probing, probeMode: 'video'} as const

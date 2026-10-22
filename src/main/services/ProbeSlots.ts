@@ -22,7 +22,7 @@
 
 import log from 'electron-log/main.js'
 import {INTERACTIVE_PROBE_HEADROOM} from '@shared/constants.js'
-import type {ProbeKind} from '@shared/schemas.js'
+import type {HeldProbe, ProbeKind} from '@shared/schemas.js'
 import type {SiteRequestState} from './SiteRequestState.js'
 
 const logger = log.scope('probe-slots')
@@ -31,6 +31,8 @@ export interface ProbeSlotRequest {
 	kind: ProbeKind
 	// The request site of the probed link (requestSiteFor).
 	site: string
+	// The probe's owner key (a Downloads row's id), named while a cooldown holds it.
+	owner?: string
 }
 
 export type ProbeSlotOutcome<T> = {kind: 'ran'; value: T} | {kind: 'cancelled'} | {kind: 'deferred'}
@@ -72,6 +74,8 @@ export class ProbeSlots {
 	private nextSeq = 0
 	private timer: ReturnType<typeof setTimeout> | null = null
 	private timerAt = 0
+	private held: HeldProbe[] = []
+	private readonly heldListeners = new Set<(held: HeldProbe[]) => void>()
 
 	constructor(options: ProbeSlotsOptions) {
 		this.backgroundLimit = options.backgroundLimit
@@ -108,6 +112,16 @@ export class ProbeSlots {
 			request = {...request, site: heldBy}
 			logger.info('Probe held by a cooldown goes back to wait', {kind: request.kind, site: heldBy})
 		}
+	}
+
+	// The background waiters a cooldown holds now, by owner and the site they wait on.
+	heldProbes(): HeldProbe[] {
+		return this.held.map(probe => ({...probe}))
+	}
+
+	onHeldChange(listener: (held: HeldProbe[]) => void): () => void {
+		this.heldListeners.add(listener)
+		return () => this.heldListeners.delete(listener)
 	}
 
 	snapshot(): {running: Record<ProbeKind, number>; waiting: ProbeSlotRequest[]} {
@@ -172,7 +186,16 @@ export class ProbeSlots {
 		}
 		// Waiters left behind a full pool keep their site's Try now pass until they get a slot.
 		for (const waiter of this.waiters.slice(i)) this.cooldown?.holdPass(waiter.request.site)
+		this.publishHeld()
 		this.schedule(wakeAt)
+	}
+
+	// Tells listeners which owned background waiters a cooldown holds, when that changed.
+	private publishHeld(): void {
+		const held = this.waiters.flatMap(({request: {kind, site, owner}}) => (kind !== 'interactive' && owner !== undefined && this.cooldown?.wouldAdmit(site) === false && this.coolingUntil(site) !== null ? [{owner, site}] : []))
+		if (held.length === this.held.length && held.every((probe, index) => probe.owner === this.held[index]?.owner && probe.site === this.held[index]?.site)) return
+		this.held = held
+		for (const listener of this.heldListeners) listener(this.heldProbes())
 	}
 
 	private coolingUntil(site: string): number | null {

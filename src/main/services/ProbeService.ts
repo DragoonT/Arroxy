@@ -443,7 +443,7 @@ export class ProbeService extends EventEmitter {
 			let heldBy: string | null = null
 			const attempt = (): Promise<Result<ProbeResult, ProbeError>> => this.probeNow(url, opts, controller.signal, site => (heldBy = site))
 			const isHeld = (result: Result<ProbeResult, ProbeError>): string | null => (heldByCooldown(result) ? (heldBy ?? requestSiteFor(url)) : null)
-			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url)}, controller.signal, attempt, {isHeld, ...(opts.admit ? {admit: opts.admit} : {})})
+			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url), ...(ownerKey ? {owner: ownerKey} : {})}, controller.signal, attempt, {isHeld, ...(opts.admit ? {admit: opts.admit} : {})})
 			if (outcome.kind === 'ran') return outcome.value
 			return fail<ProbeResult, ProbeError>(outcome.kind === 'deferred' ? PROBE_DEFERRED : PROBE_CANCELLED.error)
 		} finally {

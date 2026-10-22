@@ -1,6 +1,7 @@
 // @vitest-environment node
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {ProbeSlots, type ProbeSlotCooldowns, type ProbeSlotOutcome} from '@main/services/ProbeSlots.js'
+import type {HeldProbe} from '@shared/types.js'
 import type {ProbeKind} from '@shared/schemas.js'
 
 // Probe slots: how many probes main runs at once, which waiting probe goes
@@ -451,5 +452,53 @@ describe('ProbeSlots — cooldown', () => {
 		await settle()
 		await h.finish('a', 'held')
 		expect(await a).toEqual({kind: 'ran', value: 'held'})
+	})
+})
+
+// The Downloads rows a cooldown holds, by owner (#664): a probe already
+// running is not waiting, and a held result waits on the site it named.
+describe('ProbeSlots — held probes', () => {
+	it('names the waiters a cooldown holds, not the probes already running', async () => {
+		const cooldown = fakeCooldowns()
+		const slots = new ProbeSlots({backgroundLimit: 2, cooldown})
+		const changes: HeldProbe[][] = []
+		slots.onHeldChange(held => changes.push(held))
+		const running = deferred<string>()
+		void slots.run({kind: 'intake', site: 'youtube', owner: 'row-running'}, new AbortController().signal, () => running.promise)
+		await settle()
+		cooldown.cool('youtube', 60_000)
+		void slots.run({kind: 'intake', site: 'youtube', owner: 'row-held'}, new AbortController().signal, async () => 'ran')
+		await settle()
+		expect(slots.heldProbes()).toEqual([{owner: 'row-held', site: 'youtube'}])
+
+		await vi.advanceTimersByTimeAsync(60_000)
+		await settle()
+		expect(slots.heldProbes()).toEqual([])
+		expect(changes).toEqual([[{owner: 'row-held', site: 'youtube'}], []])
+	})
+
+	it('names the site a held result named, which a redirect may have made another than the link', async () => {
+		const cooldown = fakeCooldowns()
+		const slots = new ProbeSlots({backgroundLimit: 2, cooldown})
+		const task = deferred<string>()
+		void slots.run({kind: 'intake', site: 'short.example', owner: 'row'}, new AbortController().signal, () => task.promise, {isHeld: () => 'youtube'})
+		await settle()
+		cooldown.cool('youtube', 60_000)
+		task.resolve('held')
+		await settle()
+		expect(slots.heldProbes()).toEqual([{owner: 'row', site: 'youtube'}])
+	})
+
+	it('drops a held probe once it is cancelled', async () => {
+		const cooldown = fakeCooldowns()
+		const slots = new ProbeSlots({backgroundLimit: 2, cooldown})
+		cooldown.cool('youtube', 60_000)
+		const controller = new AbortController()
+		void slots.run({kind: 'intake', site: 'youtube', owner: 'row'}, controller.signal, async () => 'ran')
+		await settle()
+		expect(slots.heldProbes()).toEqual([{owner: 'row', site: 'youtube'}])
+		controller.abort()
+		await settle()
+		expect(slots.heldProbes()).toEqual([])
 	})
 })

@@ -84,7 +84,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerDiagnosticsHandlers()
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)
 	registerExploreHandlers({exploreView})
-	registerSiteRequestHandlers(siteRequests, mainWindow)
+	registerSiteRequestHandlers(siteRequests, probeSlots, mainWindow)
 	registerIntakeHandlers(intakeService)
 
 	activeDownloadBridge?.detach()
