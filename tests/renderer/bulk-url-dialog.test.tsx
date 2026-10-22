@@ -116,6 +116,38 @@ describe('BulkUrlDialog', () => {
 		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue('https://example.com/second')
 	})
 
+	// Text typed while the links are placed is the user's next batch: keep it.
+	it('keeps text edited while placing, and stays open with it', async () => {
+		let finish: (closes: boolean) => void = () => undefined
+		const bulkQuickDownload = vi.fn(() => new Promise<boolean>(resolve => (finish = resolve)))
+		useAppStore.setState({bulkQuickDownload})
+		const onOpenChange = vi.fn()
+		render(<BulkUrlDialog open onOpenChange={onOpenChange} initialRaw="https://example.com/first" />)
+
+		fireEvent.click(screen.getByTestId('bulk-quick-download'))
+		fireEvent.change(screen.getByTestId('bulk-url-textarea'), {target: {value: 'https://example.com/next'}})
+		await act(async () => finish(true))
+
+		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue('https://example.com/next')
+		expect(onOpenChange).not.toHaveBeenCalledWith(false)
+	})
+
+	it('holds Interactive Download while the links are placed, so they are not sent twice', async () => {
+		let finish: (closes: boolean) => void = () => undefined
+		const bulkQuickDownload = vi.fn(() => new Promise<boolean>(resolve => (finish = resolve)))
+		const startBulkUrls = vi.fn()
+		useAppStore.setState({bulkQuickDownload, startBulkUrls})
+		render(<BulkUrlDialog open onOpenChange={vi.fn()} initialRaw="https://example.com/first" />)
+
+		fireEvent.click(screen.getByTestId('bulk-quick-download'))
+		expect(screen.getByTestId('bulk-url-confirm')).toBeDisabled()
+		fireEvent.click(screen.getByTestId('bulk-url-confirm'))
+		expect(startBulkUrls).not.toHaveBeenCalled()
+
+		await act(async () => finish(false))
+		expect(screen.getByTestId('bulk-url-confirm')).not.toBeDisabled()
+	})
+
 	it('renders a compact profile-aware quick download control', () => {
 		render(<BulkUrlDialog open onOpenChange={vi.fn()} initialRaw="https://example.com/video" />)
 

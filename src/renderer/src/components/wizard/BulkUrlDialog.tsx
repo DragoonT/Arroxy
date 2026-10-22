@@ -41,7 +41,13 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 	const bulkQuickDownload = useAppStore(state => state.bulkQuickDownload)
 	const setActiveDownloadProfile = useAppStore(state => state.setActiveDownloadProfile)
 	const profilesPrefs = useAppStore(state => state.settings?.profiles)
-	const [raw, setRaw] = useState(initialRaw)
+	const [raw, setRawState] = useState(initialRaw)
+	// The text as it is now, for a placement that finishes later.
+	const rawRef = useRef(initialRaw)
+	function setRaw(next: string): void {
+		rawRef.current = next
+		setRawState(next)
+	}
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	const preview = useMemo(() => buildBulkUrlPreview(raw), [raw])
 	// While the links are being placed: a second press must not place them twice.
@@ -69,7 +75,8 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 
 	function confirm(): void {
 		const current = buildBulkUrlPreview(raw)
-		if (!current.canConfirm) return
+		// The links being placed must not also go to the review.
+		if (!current.canConfirm || placingRef.current) return
 		bulkLogger.info('Bulk URL dialog confirmed', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
 		startBulkUrls(current.acceptedUrls)
 		setRaw('')
@@ -78,17 +85,19 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 
 	// Each accepted link becomes a row in Downloads through link intake. The
 	// dialog closes once something was placed (or the batch went to the
-	// review), and stays open with its text when nothing was.
+	// review), and stays open with its text when nothing was, or when the text
+	// was edited meanwhile: that is the next batch.
 	async function confirmQuick(): Promise<void> {
 		const current = buildBulkUrlPreview(raw)
 		if (!current.canConfirm || placingRef.current) return
 		bulkLogger.info('Bulk URL dialog quick download requested', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
 		const opening = openingRef.current
+		const submitted = raw
 		placingRef.current = true
 		setPlacing(true)
 		try {
 			const closes = await bulkQuickDownload(current.acceptedUrls)
-			if (closes && openingRef.current === opening) {
+			if (closes && openingRef.current === opening && rawRef.current === submitted) {
 				setRaw('')
 				onOpenChange(false)
 			}
@@ -205,7 +214,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 							<Button type="button" variant="outline" onClick={close}>
 								{t('common.cancel')}
 							</Button>
-							<Button type="button" variant="outline" onClick={confirm} disabled={!preview.canConfirm} data-testid="bulk-url-confirm">
+							<Button type="button" variant="outline" onClick={confirm} disabled={!preview.canConfirm || placing} data-testid="bulk-url-confirm">
 								<WandSparkles data-icon="inline-start" />
 								{t('wizard.url.interactiveDownload')}
 							</Button>
