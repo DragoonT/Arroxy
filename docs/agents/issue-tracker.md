@@ -27,7 +27,8 @@ Rules for an external PR:
 - **One owner per change.** When a session or an open PR of ours already changes the same code, that work absorbs the external PR. Before starting an issue, look for open PRs that name it (`gh pr list --state open --search "<N>"`).
 - **Some diffs only the maintainer takes.** A PR that touches `.github/`, `scripts/`, a `package.json`, the lockfile, build config or binaries, or adds a dependency, is `ready-for-human`; no agent finishes or absorbs it.
 - **Held CI goes to the maintainer.** GitHub holds a first-time contributor's workflow runs (`action_required`); report the PR to the maintainer, who approves the runs after the diff is read.
-- **Claim an issue when work starts.** An agent that starts a `ready-for-agent` issue assigns it to the maintainer (`gh issue edit <N> --add-assignee antonio-orionus`), so contributors can see it's taken.
+- **Claim an issue when work starts.** Every agent posts as the maintainer, so the assignee can't say which session owns an issue. An agent claims the issue and the files it will change for its own session with the `claims` skill ([antonio-orionus/skills](https://github.com/antonio-orionus/skills)), which the other sessions check before starting and `check-head` checks before a push. It also assigns the issue to the maintainer (`gh issue edit <N> --add-assignee antonio-orionus`), so contributors can see it's taken.
+- **Mark a recorded decision.** A comment that records the maintainer's decision on an issue carries `<!-- decision:v1 -->` after the agent marker, and the newest one wins. Read it (`claims decision <N>`) before building the issue or asking the maintainer again.
 
 ## Untrusted input
 
