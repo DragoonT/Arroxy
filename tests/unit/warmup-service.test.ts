@@ -64,6 +64,47 @@ describe('WarmupService', () => {
 		expect(progressEvents(send).map(event => `${event.binary}:${event.phase}`)).toEqual(['yt-dlp:starting', 'yt-dlp:downloading', 'yt-dlp:probing', 'yt-dlp:done', 'ffmpeg:starting', 'ffmpeg:downloading', 'ffmpeg:extracting', 'ffmpeg:done', 'ffprobe:starting', 'ffprobe:probing', 'ffprobe:done'])
 	})
 
+	it('shows its observer every progress event of a run, unthrottled, then the result', async () => {
+		const progress = vi.fn()
+		const settled = vi.fn(async () => undefined)
+		const runStarted = vi.fn(() => ({progress, settled}))
+		// Five byte counts inside one 100 ms throttle window: IPC keeps the newest,
+		// the observer must see every one to time a download from its first bytes.
+		const chunks = [1, 2, 3, 4, 5].map(bytesDownloaded => ({binary: 'yt-dlp' as const, phase: 'downloading' as const, bytesDownloaded}))
+		const bm = {
+			invalidateResolved: vi.fn(),
+			resolveYtDlp: vi.fn().mockImplementation(({onProgress}) => {
+				for (const chunk of chunks) onProgress?.(chunk)
+				onProgress?.({binary: 'yt-dlp', phase: 'done'})
+				return Promise.resolve(diag('yt-dlp', 'runnable'))
+			}),
+			resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})
+		} as unknown as BinaryManager
+		const {window, send} = fakeWarmupWindow()
+		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken, window, observer: {runStarted}})
+
+		const result = await svc.run()
+
+		expect(runStarted).toHaveBeenCalledTimes(1)
+		expect(progress.mock.calls.map(([event]) => event.bytesDownloaded).filter(bytes => bytes !== undefined)).toEqual([1, 2, 3, 4, 5])
+		expect(progressEvents(send).filter(event => event.phase === 'downloading').length).toBeLessThan(5)
+		expect(settled).toHaveBeenCalledWith(result)
+	})
+
+	it('keeps a run going when its observer throws', async () => {
+		const observer = {
+			runStarted: () => ({
+				progress: () => {
+					throw new Error('observer broke')
+				},
+				settled: () => Promise.reject(new Error('observer broke'))
+			})
+		}
+		const result = await new WarmupService({binaryManager: progressfulBinaryManager(), tokenService: noopToken, observer}).run()
+		if (!result.ok) throw new Error('expected ok')
+		expect(result.data.completed).toBe(true)
+	})
+
 	it('flags blocking failures for yt-dlp/ffmpeg/ffprobe', async () => {
 		const bm = fakeBinaryManager({ytDlp: 'failed', ffmpeg: 'runnable', ffprobe: 'runnable'})
 		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken})
