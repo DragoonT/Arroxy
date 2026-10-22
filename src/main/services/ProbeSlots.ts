@@ -1,10 +1,11 @@
 // How many probes main runs at once, and which waiting probe goes next.
 //
 // Background probes (a placeholder row's, a title lookup's) together never
-// exceed the user's "Links checked at once" setting; the window's own probe
-// may use INTERACTIVE_PROBE_HEADROOM more, so Interactive Download never waits
-// behind a pasted batch. A freed slot goes to the oldest interactive waiter,
-// then intake in arrival order, then backfill.
+// exceed the user's "Links checked at once" setting. The window's own probes
+// always have INTERACTIVE_PROBE_HEADROOM slots of their own, plus whatever
+// background capacity is unused, so Interactive Download never waits behind a
+// pasted batch, even right after the limit is lowered. A freed slot goes to
+// the oldest interactive waiter, then intake in arrival order, then backfill.
 //
 // A background waiter whose site is cooling down (SiteRequestState) keeps its
 // place but takes no slot, so waiters for other sites behind it can start.
@@ -19,7 +20,7 @@
 
 import log from 'electron-log/main.js'
 import {INTERACTIVE_PROBE_HEADROOM} from '@shared/constants.js'
-import {PROBE_KINDS, type ProbeKind} from '@shared/schemas.js'
+import type {ProbeKind} from '@shared/schemas.js'
 import type {SiteRequestState} from './SiteRequestState.js'
 
 const logger = log.scope('probe-slots')
@@ -132,10 +133,12 @@ export class ProbeSlots {
 		for (let i = 0; i < this.waiters.length;) {
 			const waiter = this.waiters[i]
 			if (!waiter) break
-			const total = PROBE_KINDS.reduce((sum, kind) => sum + this.running[kind], 0)
-			if (total >= this.backgroundLimit + INTERACTIVE_PROBE_HEADROOM) break
-			if (waiter.request.kind !== 'interactive') {
-				if (this.running.intake + this.running.backfill >= this.backgroundLimit) break
+			// Background capacity in use: background probes, and the window's probes beyond their own headroom.
+			const used = this.running.intake + this.running.backfill + Math.max(0, this.running.interactive - INTERACTIVE_PROBE_HEADROOM)
+			if (waiter.request.kind === 'interactive') {
+				if (this.running.interactive >= INTERACTIVE_PROBE_HEADROOM && used >= this.backgroundLimit) break
+			} else {
+				if (used >= this.backgroundLimit) break
 				const until = this.coolingUntil(waiter.request.site)
 				if (until !== null) {
 					wakeAt = wakeAt === null ? until : Math.min(wakeAt, until)
