@@ -21,13 +21,23 @@ async function settle(): Promise<void> {
 }
 
 // A cooldown per site, ended by time or early (a "Try now" the site answered).
-function fakeCooldowns(): ProbeSlotCooldowns & {cool: (site: string, ms: number) => void; endEarly: (site: string) => void; listeners: () => number} {
+function fakeCooldowns(): ProbeSlotCooldowns & {cool: (site: string, ms: number) => void; endEarly: (site: string) => void; tryNow: (site: string) => void; spendPass: (site: string) => void; listeners: () => number} {
 	const until = new Map<string, number>()
+	const passes = new Set<string>()
 	const listeners = new Set<() => void>()
+	const rateLimitedUntil = (site: string): number | null => {
+		const end = until.get(site)
+		return end !== undefined && Date.now() < end ? end : null
+	}
 	return {
-		rateLimitedUntil: site => {
-			const end = until.get(site)
-			return end !== undefined && Date.now() < end ? end : null
+		rateLimitedUntil,
+		wouldAdmit: site => rateLimitedUntil(site) === null || passes.has(site),
+		tryNow: site => {
+			passes.add(site)
+			for (const listener of listeners) listener()
+		},
+		spendPass: site => {
+			passes.delete(site)
 		},
 		onChange: listener => {
 			const wrapped = (): void => listener([])
@@ -53,7 +63,7 @@ function harness(options: {limit?: number; cooldown?: ProbeSlotCooldowns} = {}) 
 	const tasks = new Map<string, ReturnType<typeof deferred<string>>>()
 	const runs = new Map<string, Promise<ProbeSlotOutcome<string>>>()
 	const controllers = new Map<string, AbortController>()
-	const start = (name: string, kind: ProbeKind, site = 'youtube', isHeld?: (value: string) => boolean): Promise<ProbeSlotOutcome<string>> => {
+	const start = (name: string, kind: ProbeKind, site = 'youtube', isHeld?: (value: string) => string | null): Promise<ProbeSlotOutcome<string>> => {
 		const controller = new AbortController()
 		controllers.set(name, controller)
 		const run = slots.run(
@@ -344,6 +354,35 @@ describe('ProbeSlots — cooldown', () => {
 		expect(vi.getTimerCount()).toBe(0)
 	})
 
+	it('lets a background waiter through at once when Try now grants its site a pass', async () => {
+		const cooldown = fakeCooldowns()
+		const h = harness({limit: 2, cooldown})
+		cooldown.cool('youtube', 600_000)
+		void h.start('retry', 'intake')
+		await settle()
+		expect(h.started).toEqual([])
+		cooldown.tryNow('youtube')
+		await settle()
+		expect(h.started).toEqual(['retry'])
+	})
+
+	it('waits again on the cooldown when another waiter spent the pass', async () => {
+		const cooldown = fakeCooldowns()
+		const h = harness({limit: 2, cooldown})
+		const isHeld = (value: string): string | null => (value === 'held' ? 'youtube' : null)
+		cooldown.cool('youtube', 600_000)
+		void h.start('a', 'intake', 'youtube', isHeld)
+		void h.start('b', 'intake', 'youtube', isHeld)
+		cooldown.tryNow('youtube')
+		await settle()
+		expect(h.started).toEqual(['a', 'b'])
+		// `a`'s run spent the pass; YtDlp held `b`'s, which goes back to wait.
+		cooldown.spendPass('youtube')
+		await h.finish('b', 'held')
+		expect(h.slots.snapshot().waiting).toEqual([{kind: 'intake', site: 'youtube'}])
+		expect(h.started).toEqual(['a', 'b'])
+	})
+
 	it('lets an interactive probe through a cooldown', async () => {
 		const cooldown = fakeCooldowns()
 		const h = harness({limit: 2, cooldown})
@@ -356,7 +395,7 @@ describe('ProbeSlots — cooldown', () => {
 	it('puts a background probe held by the cooldown back in its place, and runs it again after the cooldown', async () => {
 		const cooldown = fakeCooldowns()
 		const h = harness({limit: 1, cooldown})
-		const isHeld = (value: string): boolean => value === 'held'
+		const isHeld = (value: string): string | null => (value === 'held' ? 'youtube' : null)
 		const a = h.start('a', 'intake', 'youtube', isHeld)
 		void h.start('b', 'intake', 'youtube', isHeld)
 		await settle()
@@ -377,10 +416,26 @@ describe('ProbeSlots — cooldown', () => {
 		expect(h.started).toEqual(['a', 'a', 'b'])
 	})
 
+	it('waits on the cooldown of the site that held it, which a redirect may have changed', async () => {
+		const cooldown = fakeCooldowns()
+		const h = harness({limit: 1, cooldown})
+		const a = h.start('a', 'intake', 'short.example', value => (value === 'held' ? 'youtube' : null))
+		await settle()
+		// The link redirected to YouTube, which began cooling: YtDlp held the YouTube run.
+		cooldown.cool('youtube', 60_000)
+		await h.finish('a', 'held')
+		expect(h.slots.snapshot().waiting).toEqual([{kind: 'intake', site: 'youtube'}])
+		await vi.advanceTimersByTimeAsync(60_000)
+		await settle()
+		expect(h.started).toEqual(['a', 'a'])
+		await h.finish('a')
+		expect(await a).toEqual({kind: 'ran', value: 'a:done'})
+	})
+
 	it('returns a held interactive result as it is', async () => {
 		const cooldown = fakeCooldowns()
 		const h = harness({limit: 1, cooldown})
-		const i = h.start('i', 'interactive', 'youtube', value => value === 'held')
+		const i = h.start('i', 'interactive', 'youtube', value => (value === 'held' ? 'youtube' : null))
 		await settle()
 		cooldown.cool('youtube', 60_000)
 		await h.finish('i', 'held')
@@ -390,7 +445,7 @@ describe('ProbeSlots — cooldown', () => {
 	it('returns a held result whose site is not cooling as it is, never looping', async () => {
 		const cooldown = fakeCooldowns()
 		const h = harness({limit: 1, cooldown})
-		const a = h.start('a', 'intake', 'youtube', value => value === 'held')
+		const a = h.start('a', 'intake', 'youtube', value => (value === 'held' ? 'youtube' : null))
 		await settle()
 		await h.finish('a', 'held')
 		expect(await a).toEqual({kind: 'ran', value: 'held'})

@@ -50,6 +50,8 @@ type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 
 interface ProbeRunAs {
 	readonly identity: RunIdentity
 	cookiesRejected: boolean
+	// Told the site whose cooldown held a run (YtDlp spawned nothing): a redirect may have changed it.
+	readonly onHeld: (site: string) => void
 }
 
 const PROBE_CANCELLED = {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}} as const satisfies ProbeAttemptResult
@@ -467,7 +469,11 @@ export class ProbeService extends EventEmitter {
 		try {
 			if (this.mockMode) return ok(buildMockProbeResult(url))
 			if (!this.slots) return opts.admit && !opts.admit() ? fail<ProbeResult, ProbeError>(PROBE_DEFERRED) : await this.probeNow(url, opts, controller.signal)
-			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url)}, controller.signal, () => this.probeNow(url, opts, controller.signal), {isHeld: heldByCooldown, ...(opts.admit ? {admit: opts.admit} : {})})
+			// The site whose cooldown held the last run, which a redirect may have made another than the link's.
+			let heldBy: string | null = null
+			const attempt = (): Promise<Result<ProbeResult, ProbeError>> => this.probeNow(url, opts, controller.signal, site => (heldBy = site))
+			const isHeld = (result: Result<ProbeResult, ProbeError>): string | null => (heldByCooldown(result) ? (heldBy ?? requestSiteFor(url)) : null)
+			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url)}, controller.signal, attempt, {isHeld, ...(opts.admit ? {admit: opts.admit} : {})})
 			if (outcome.kind === 'ran') return outcome.value
 			return fail<ProbeResult, ProbeError>(outcome.kind === 'deferred' ? PROBE_DEFERRED : PROBE_CANCELLED.error)
 		} finally {
@@ -476,7 +482,7 @@ export class ProbeService extends EventEmitter {
 		}
 	}
 
-	private async probeNow(url: string, opts: ProbeOptions, signal: AbortSignal): Promise<Result<ProbeResult, ProbeError>> {
+	private async probeNow(url: string, opts: ProbeOptions, signal: AbortSignal, onHeld: (site: string) => void = () => undefined): Promise<Result<ProbeResult, ProbeError>> {
 		const {playlistMode = 'auto', playlistScope, timeoutMs, escalate = true} = opts
 		// At most one escalation per probe; a signed-in failure is the answer.
 		let auth: JobAuth | undefined
@@ -486,7 +492,7 @@ export class ProbeService extends EventEmitter {
 
 			let cookiesRejected = false
 			const runAs = async (identity: RunIdentity): Promise<ProbeOutcome> => {
-				const as: ProbeRunAs = {identity, cookiesRejected: false}
+				const as: ProbeRunAs = {identity, cookiesRejected: false, onHeld}
 				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, signal, as, timeoutMs), url, logContext)
 				cookiesRejected = as.cookiesRejected
 				return mappedOutcome
@@ -715,6 +721,7 @@ export class ProbeService extends EventEmitter {
 			{identity: as.identity}
 		)
 		if (result.accountCookiesRejected === true) as.cookiesRejected = true
+		if (result.kind === 'exit-error' && result.rawError === RATE_LIMIT_COOLDOWN_MESSAGE) as.onHeld(requestSiteFor(url))
 
 		if (result.kind !== 'success') {
 			const code = result.kind === 'exit-error' ? result.exitCode : null

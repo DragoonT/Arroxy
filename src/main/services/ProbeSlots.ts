@@ -36,13 +36,15 @@ export interface ProbeSlotRequest {
 export type ProbeSlotOutcome<T> = {kind: 'ran'; value: T} | {kind: 'cancelled'} | {kind: 'deferred'}
 
 export interface ProbeSlotRunOptions<T> {
-	// A result YtDlp held for a cooldown: a background probe waits again.
-	isHeld?: (value: T) => boolean
+	// The site whose cooldown held this result (YtDlp spawned nothing), or null:
+	// a background probe waits again on that site, which a redirect may have
+	// made another than the one it asked for.
+	isHeld?: (value: T) => string | null
 	// Asked when the slot is granted; false frees it unused (`deferred`).
 	admit?: () => boolean
 }
 
-export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'onChange'>
+export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'wouldAdmit' | 'onChange'>
 
 export interface ProbeSlotsOptions {
 	backgroundLimit: number
@@ -84,8 +86,9 @@ export class ProbeSlots {
 		this.pump()
 	}
 
-	async run<T>(request: ProbeSlotRequest, signal: AbortSignal, task: () => Promise<T>, options: ProbeSlotRunOptions<T> = {}): Promise<ProbeSlotOutcome<T>> {
+	async run<T>(asked: ProbeSlotRequest, signal: AbortSignal, task: () => Promise<T>, options: ProbeSlotRunOptions<T> = {}): Promise<ProbeSlotOutcome<T>> {
 		const seq = this.nextSeq++
+		let request = asked
 		for (;;) {
 			if (!(await this.acquire(request, seq, signal))) return {kind: 'cancelled'}
 			if (options.admit && !options.admit()) {
@@ -99,9 +102,11 @@ export class ProbeSlots {
 			} finally {
 				this.release(request.kind)
 			}
-			const background = request.kind !== 'interactive'
-			if (!background || signal.aborted || !options.isHeld?.(value) || this.coolingUntil(request.site) === null) return {kind: 'ran', value}
-			logger.info('Probe held by a cooldown goes back to wait', {kind: request.kind, site: request.site})
+			const heldBy = request.kind === 'interactive' || signal.aborted ? null : (options.isHeld?.(value) ?? null)
+			// A holding site no longer cooling returns the result as is, so a probe never loops.
+			if (heldBy === null || this.coolingUntil(heldBy) === null) return {kind: 'ran', value}
+			request = {...request, site: heldBy}
+			logger.info('Probe held by a cooldown goes back to wait', {kind: request.kind, site: heldBy})
 		}
 	}
 
@@ -153,7 +158,8 @@ export class ProbeSlots {
 				if (this.running.interactive >= INTERACTIVE_PROBE_HEADROOM && used >= this.backgroundLimit) break
 			} else {
 				if (used >= this.backgroundLimit) break
-				const until = this.coolingUntil(waiter.request.site)
+				// A site cooling down holds its waiters, unless a Try now pass waits for a request.
+				const until = this.cooldown?.wouldAdmit(waiter.request.site) === false ? this.coolingUntil(waiter.request.site) : null
 				if (until !== null) {
 					wakeAt = wakeAt === null ? until : Math.min(wakeAt, until)
 					i += 1
