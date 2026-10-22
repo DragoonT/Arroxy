@@ -2,6 +2,8 @@
 
 The `triage` skill and the other mattpocock/skills speak in canonical roles. This maps them to Arroxy's GitHub labels. An open issue carries exactly one kind label and one state label.
 
+An external PR carries one state label too ([issue-tracker.md](issue-tracker.md#pull-requests-as-a-triage-surface)); its path labels (`tests`, `documentation`), set by the labeler workflow, are not kinds.
+
 ## Kind (the skill's category roles)
 
 | Role | Label | Use for |

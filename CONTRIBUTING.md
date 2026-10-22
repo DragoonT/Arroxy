@@ -12,11 +12,14 @@ Arroxy uses a single long-lived branch, **`main`**. Open contributor PRs against
 
 ### Contributor flow
 
-1. Fork the repo.
-2. Create a feature branch in your fork.
-3. Change English copy only: `src/shared/i18n/locales/en.json` and `readme-src/locales/en.mjs`. Every other locale is translated in one sync PR at release time ([ADR 0017](docs/adr/0017-prs-change-english-only.md)).
-4. Open a PR into `main`.
-5. Wait for CI and maintainer review.
+1. Pick an issue that has no assignee: an assigned issue is already being worked on.
+2. Fork the repo.
+3. Create a feature branch in your fork.
+4. Change English copy only: `src/shared/i18n/locales/en.json` and `readme-src/locales/en.mjs`. Every other locale is translated in one sync PR at release time ([ADR 0017](docs/adr/0017-prs-change-english-only.md)).
+5. Open a PR into `main`, with **Allow edits by maintainers** on.
+6. Wait for CI and maintainer review. A first-time contributor's CI starts once a maintainer approves it.
+
+Maintainers would rather finish a good PR than send it back: they may add a missing changelog fragment, merge `main` into your branch, or fold your change into their own PR with you credited as co-author, then close yours with a link.
 
 ### Maintainer release flow
 
