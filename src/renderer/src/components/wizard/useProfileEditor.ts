@@ -42,7 +42,9 @@ export function useProfileEditor({initialBrowserMockScenario, profilesPrefs, rem
 				? {
 						enabled: editingProfileOrigin.overridden,
 						onReset: async () => {
-							await removeDownloadProfile(editingProfile.id)
+							// A failed write resolves false, already rolled back: rejecting keeps
+							// the editor open with its reset error.
+							if (!(await removeDownloadProfile(editingProfile.id))) throw new Error('Profile settings were not reset')
 						}
 					}
 				: undefined,
