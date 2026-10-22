@@ -1,7 +1,7 @@
 name: Issue policy
 
 # What an issue a maintainer files must carry (scripts/issuePolicy.ts): one kind
-# label, a `file:line` for a bug, test gap or tech debt, no pointers to the
+# label, one state label while open, a `file:line` for a bug, test gap or tech debt, no pointers to the
 # private maintainer docs, and no AI credited with finding it. Community issues
 # come through the issue forms and are skipped.
 #
@@ -51,7 +51,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-        run: gh issue view "$NUMBER" --json title,body,labels > "$RUNNER_TEMP/issue.json"
+        run: gh issue view "$NUMBER" --json title,body,labels,state > "$RUNNER_TEMP/issue.json"
 
       # The checker has no dependencies, so no install.
       - name: Check the issue
