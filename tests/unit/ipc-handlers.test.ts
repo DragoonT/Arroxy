@@ -178,6 +178,19 @@ describe('registerIpcHandlers', () => {
 		})
 	})
 
+	describe('settings wiring', () => {
+		it('settings:update hands a new links-checked-at-once count to the probe slots', async () => {
+			const deps = makeDeps()
+			deps._raw.settingsStore.update.mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, concurrentProbes: 3}, playlist: {}, profiles: {}})
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.settingsUpdate)!.fn
+			await handler(null, {common: {concurrentProbes: 3}})
+
+			expect(deps._raw.probeSlots.setBackgroundLimit).toHaveBeenCalledWith(3)
+		})
+	})
+
 	describe('progress throttle', () => {
 		it('drops progress events that arrive within 100ms of the prior event for the same job', () => {
 			const deps = makeDeps()
