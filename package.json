@@ -1,6 +1,6 @@
 {
 	"name": "arroxy",
-	"version": "0.7.3",
+	"version": "0.7.4",
 	"private": true,
 	"description": "Free, open-source video downloader for YouTube and 2000+ other sites, with a built-in browser for sites that need a sign-in.",
 	"license": "GPL-3.0-or-later",

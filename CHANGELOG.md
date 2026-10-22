@@ -8,6 +8,51 @@ Unreleased changes are not written here: each PR adds a fragment to [`changelog.
 
 ---
 
+## 0.7.4
+
+## Highlights
+
+- **This video, or the whole list.** A link to a video in a playlist, Mix or album now offers This video beside the list on the URL tab and in Explore. A Mix can be downloaded as a list too, and a video the global hotkey took from a list offers the rest of the list in Downloads.
+
+## Fixes
+
+- The Downloads tab shows a status filter only when it has items, without a "0" on any chip, and the filters wrap onto a second line instead of scrolling sideways.
+- A list from another site that waits for your choice in Downloads now offers All videos next to Review, even when it is shorter than your load limit.
+- Bulk URLs no longer repeats "Add at least one supported URL to continue." under its empty preview.
+- A profile editor no longer closes on its own when an earlier save you cancelled finishes.
+- Resetting a built-in profile keeps the editor open with an error when the reset could not be saved.
+- A filename template that has {id} but doesn't end with [{id}] now shows the warning, and turns off .m3u playlists and the already-downloaded check, which could not find its files.
+- Subtitles-only and audio-only profiles no longer offer Embed, so the profile editor always shows the subtitle format they save. Ones saved with Embed switch to saving subtitles in the download folder, which is what they already did.
+- A playlist downloaded with a subtitles-only profile through Quick Download or Bulk no longer leaves an empty .m3u file, and Arroxy never writes a playlist file with nothing in it.
+- A video from a site with a music or radio name no longer opens as audio only when it has a picture.
+- Playlist profiles show the whole Duration header in every language.
+- Bulk URLs cuts a pasted playlist or channel longer than your load limit at that limit, and its review now says which lists were cut and how to get the rest.
+- Pause All now also pauses a download that is still preparing, instead of letting it start once preparation finishes.
+- Resume All now continues paused downloads where they stopped, so a download limited to a lower quality still finishes with the limited-quality notice.
+- A download paused while it was resuming continues where it left off when you resume it, instead of starting over.
+- Cancelling a download no longer deletes other partial files in its folder, such as a browser download still in progress.
+- A pasted link with an apostrophe, or a query that ends in ! or ?, is no longer cut short, YouTube and YouTube Music searches included.
+- Review of a list waiting for your choice in Downloads now shows the same videos the row offered, even after you change the load limit.
+- Quitting while downloads run no longer cancels your queue: Arroxy asks first, from the menu and Cmd+Q too, and continues the downloads the next time you open it.
+- For a download without video, the wizard now says its subtitles go in the download folder rather than next to a video.
+- Cancelling a download while its subtitles download no longer leaves a partial subtitle file in your download folder.
+- A download profile now finds YouTube subtitles the uploader gave a name of their own, instead of reporting that the language is missing or taking the automatic captions.
+- Links still being checked when you quit are checked again the next time you open Arroxy, instead of failing with "App restarted while fetching video details".
+- Bulk URLs' Quick Download puts its links in Downloads at once instead of blocking the window while it checks them, and a list past the load limit asks how many on its row.
+- A link in Downloads keeps its place once its details are fetched, so a batch stays in the order you added it.
+- Download profiles take the resolution the Format screen names, and Small file and Low data no longer download a large file of unknown resolution when smaller ones are listed.
+- A video from a playlist in Bulk URLs no longer sends the whole batch to the review: its row in Downloads asks whether you want just the video or the playlist, and the rest of the batch downloads at once.
+- The Format screen's lists take far less room, and a video with many formats no longer draws them over the audio list.
+## Good to know
+
+- Quick Download, Interactive Download, Bulk URLs and Explore's **Download** show just their names: the profile, where it saves and the global shortcut are in their hints.
+- Arroxy now also sends an anonymous setup report whenever it downloads or updates its download engine or media tools: whether that worked and roughly how long it took. **Send anonymous heartbeat and setup reports** in Settings turns both off.
+- Messages about downloads a site blocked now suggest waiting and trying again later.
+- Every profile picker now shows whether a profile is built-in, custom or modified, as the Profiles tab does.
+- Links are checked a few at a time (Settings › Links checked at once), so a batch of pasted links no longer floods a site. A link waiting out a site's rate limit says so in Downloads.
+- Hovering a video format on the Format screen shows its frame size too, so a cropped, vertical or 4:3 video is clear before you download.
+- The screen Arroxy shows while it downloads or updates its tools is simpler: a heading, one bar and the time left, and it no longer jumps when it appears. A returning user updating both tools now sees that both are updating.
+
 ## 0.7.3
 
 Arroxy's website has a new address: **https://arroxy.com/**. The About, Share and update "Download" links open it.
