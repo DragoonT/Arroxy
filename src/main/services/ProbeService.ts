@@ -599,6 +599,15 @@ export class ProbeService extends EventEmitter {
 		return outcome.kind === 'failure' ? {kind: 'failure', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'Could not confirm the Explore session'}}} : outcome
 	}
 
+	// The app is quitting: every probe stops, the window's and the rows', so no
+	// yt-dlp outlives it (they spawn as their own process group).
+	cancelAll(): void {
+		const controllers = [...this.inFlight, ...this.inFlightByKey.values()]
+		this.inFlight.clear()
+		this.inFlightByKey.clear()
+		for (const controller of controllers) controller.abort()
+	}
+
 	// Abort one keyed probe without touching any other in-flight probe. Used by
 	// the probing-queue-item path: cancelling a Downloads row must not kill the
 	// wizard's probe, and cancelInFlight never reaches a keyed one. Unknown keys

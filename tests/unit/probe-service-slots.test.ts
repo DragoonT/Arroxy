@@ -195,6 +195,20 @@ describe('ProbeService — probe slots', () => {
 		expect(spawned).toEqual([])
 	})
 
+	it("cancelAll at quit aborts every probe, the window's, the rows' and those waiting for a slot", async () => {
+		const {ytDlp, spawned} = controlledYtDlp()
+		const service = new ProbeService(ytDlp, false, undefined, {slots: new ProbeSlots({backgroundLimit: 1})})
+		const probes = [service.probe(VIDEO_URL, {kind: 'intake', playlistMode: 'video', ownerKey: 'row-1'}), service.probe(OTHER_URL, {kind: 'intake', playlistMode: 'video', ownerKey: 'row-2'}), service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})]
+		await settle()
+		expect(spawned).toEqual([VIDEO_URL, VIDEO_URL])
+
+		service.cancelAll()
+		const results = await Promise.all(probes)
+
+		expect(results.every(result => !result.ok && result.error.kind === 'other' && result.error.code === 'cancelled')).toBe(true)
+		expect(spawned).toEqual([VIDEO_URL, VIDEO_URL])
+	})
+
 	it('mock mode answers at once without a slot', async () => {
 		const slots = new ProbeSlots({backgroundLimit: 1})
 		const run = vi.spyOn(slots, 'run')
