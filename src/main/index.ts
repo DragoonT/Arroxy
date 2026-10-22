@@ -646,7 +646,12 @@ if (hasSingleInstanceLock) {
 				const {response} = await (mainWindow.isDestroyed() ? dialog.showMessageBox(options) : dialog.showMessageBox(mainWindow, options))
 				return response === 1
 			},
-			suspendQueue: () => queueService.suspendForExit(),
+			suspendQueue: () => {
+				// Probes stop with the app (their yt-dlp would outlive it); their rows stay probing and resume at the next launch.
+				intakeService.stopForExit()
+				probeService.cancelAll()
+				return queueService.suspendForExit()
+			},
 			dispose: () => {
 				tray?.destroy()
 				tray = null

@@ -635,4 +635,18 @@ describe('IntakeService', () => {
 			expect(fresh.probes.map(probe => probe.url).sort()).toEqual([PLAYLIST_URL, VIDEO_URL])
 		})
 	})
+
+	// At quit main stops every probe (its yt-dlp would outlive the app); a
+	// row's probe that comes back cancelled then must leave the row probing,
+	// so the next launch resumes it.
+	describe('stopping for quit', () => {
+		it('writes nothing for a probe that ends after the quit began: the row stays probing', async () => {
+			h.answer(fail({kind: 'other', code: 'cancelled', message: 'Probe cancelled'}))
+			h.intake.stopForExit()
+			await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
+			await h.settled()
+			expect(h.queue.snapshot()[0]?.status).toBe('probing')
+			expect(outcomes(h)).toEqual([])
+		})
+	})
 })

@@ -116,6 +116,7 @@ export class IntakeService {
 	// Settles when the window first reports its context.
 	private readonly windowReported: Promise<void>
 	private markWindowReported: () => void = () => undefined
+	private stopping = false
 
 	constructor(private readonly deps: IntakeServiceDeps) {
 		this.kept = new KeptProbes(deps.now)
@@ -136,6 +137,12 @@ export class IntakeService {
 	// the row's own origin under a request of its own. Waits for the window's
 	// first report: preparing a row reads its screen (Auto HDR), and a row saved
 	// without a pinned profile its folder. Resolves with how many resumed.
+	// The app is quitting and its probes are stopped: a probe that ends from now
+	// on writes nothing, so its row stays probing and resumes at the next launch.
+	stopForExit(): void {
+		this.stopping = true
+	}
+
 	// Only the rows probing when it is called: a link taken in while it waits has its own probe.
 	async resumePlaceholderProbes(): Promise<number> {
 		const left = new Set(this.deps.queue.snapshot().flatMap(item => (item.status === QUEUE_STATUS.probing ? [item.id] : [])))
@@ -275,6 +282,10 @@ export class IntakeService {
 		} catch (error) {
 			logger.error('probe failed', {itemId, error: error instanceof Error ? error.message : String(error)})
 			resolution = failedResolution(error)
+		}
+		if (this.stopping) {
+			logger.info('probe ended while the app quits; the row resumes at the next launch', {itemId})
+			return
 		}
 		await this.apply(itemId, probe.title, resolution, caller)
 	}
