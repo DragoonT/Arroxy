@@ -102,9 +102,12 @@ function endsInQueryValue(url: string): boolean {
 	return lastParameter.includes('=')
 }
 
-function isYouTubeLink(url: string): boolean {
+// A YouTube link other than a search, whose query is free text: its ids and
+// values never hold an apostrophe nor end in `!` or `?`.
+function isYouTubeIdLink(url: string): boolean {
 	try {
-		return isYouTubeHostname(new URL(url).hostname)
+		const parsed = new URL(url)
+		return isYouTubeHostname(parsed.hostname) && parsed.pathname !== '/results'
 	} catch {
 		return false
 	}
@@ -112,19 +115,18 @@ function isYouTubeLink(url: string): boolean {
 
 // A `!` or `?` run after a link is the sentence's, unless it ends a query value
 // (`?q=what?`) right after the value itself, not after a closing `)` or quote.
-// YouTube's ids and values never end in one, so after a YouTube link it is
-// always the sentence's.
+// After a YouTube link other than a search it is always the sentence's.
 function trimSentenceMarks(token: string): string {
 	const marks = TRAILING_SENTENCE_MARKS_RE.exec(token)
 	if (!marks) return token
 	const rest = token.slice(0, marks.index)
-	return endsInQueryValue(rest) && !TRAILING_PUNCTUATION_RE.test(rest) && !isYouTubeLink(rest) ? token : rest
+	return endsInQueryValue(rest) && !TRAILING_PUNCTUATION_RE.test(rest) && !isYouTubeIdLink(rest) ? token : rest
 }
 
-// YouTube's ids and values never hold an apostrophe either: one ends the link.
+// An apostrophe ends a YouTube link other than a search.
 function cutYouTubeAtApostrophe(token: string): string {
 	const apostrophe = token.indexOf("'")
-	return apostrophe >= 0 && isYouTubeLink(token.slice(0, apostrophe)) ? token.slice(0, apostrophe) : token
+	return apostrophe >= 0 && isYouTubeIdLink(token.slice(0, apostrophe)) ? token.slice(0, apostrophe) : token
 }
 
 function trimUrlToken(token: string): string {
