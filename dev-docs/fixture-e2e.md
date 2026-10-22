@@ -28,6 +28,9 @@ Fixture Product E2E is the **acceptance owner for real user workflows**, not the
 - Pure domain rule with no UI, filesystem, process or IPC requirement → fast logic test.
 - Visual layout, responsive fit, empty/loading/error surfaces, screenshot review → Scenario Workbench.
 - How the Format screen handles a site's format list → probe source snapshot (and its "Real sites" scenario to look at it).
+- Code that reads data from outside (yt-dlp's subtitle keys, format fields, notes) → an intent rule in `scripts/probe-intent/rules.ts`, which judges the result from every recorded probe's raw data, besides any hand-written examples. Examples hold the shapes the writer expected; parity and snapshots compare Arroxy with yt-dlp or with itself, so an answer both get wrong passes them (a named YouTube track, `en-nP7-2PuUl7o`, sat in a recorded probe while every check stayed green).
+- A notice or label that states a fact about the video ("has no English subtitles", "only goes up to 360p") → an intent rule that keeps the fact true on every recorded probe.
+- A new shape of real data (a user report, a `probe-intent:sample` run) → record it as a probe source (`bun run probe-sources:capture`); the fixture subtitle guard then asks the fixture extractor to list its subtitle key shape too.
 - App boot, preload, context isolation → Mock Electron smoke test.
 - Whether real YouTube currently works → a tiny live smoke test outside normal acceptance.
 
