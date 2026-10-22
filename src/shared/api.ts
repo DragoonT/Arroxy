@@ -17,7 +17,7 @@ import type {
 	GraphicsPolicy,
 	HotkeyOutcomeEvent,
 	HotkeyState,
-	PlaylistProbeResult,
+	KeptProbe,
 	PauseDownloadInput,
 	PauseDownloadOutput,
 	PlaylistPrefs,
@@ -154,7 +154,7 @@ export interface AppApi {
 		// A needs-choice row's answer: every video, or the first N it was offered.
 		choose(input: {requestId: string; itemId: string; take: IntakeTake}): Promise<Result<void>>
 		// The probe a needs-choice row asked about, kept for its review; null once gone.
-		keptProbe(input: {itemId: string}): Promise<Result<PlaylistProbeResult | null>>
+		keptProbe(input: {itemId: string}): Promise<Result<KeptProbe | null>>
 		// A hotkey video's offer of its list: place the list as its own row without the video.
 		takeListOffer(input: {requestId: string; itemId: string}): Promise<Result<IntakePlacement>>
 		dismissListOffer(input: {itemId: string}): Promise<Result<void>>

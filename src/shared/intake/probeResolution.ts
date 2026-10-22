@@ -7,7 +7,7 @@ import {classifyUrlIntent} from '@shared/urlIntent.js'
 import type {PinnedDownloadProfile} from './intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
-import type {LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
+import type {KeptProbe, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
 import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
@@ -15,7 +15,7 @@ export type QuickProbeResolution =
 	| {kind: 'queue'; prepared: PreparedQueueSubmission}
 	// Every video was already live in the queue: nothing failed, nothing to add.
 	| {kind: 'nothing-new'; skippedAlreadyQueued: number}
-	| {kind: 'needs-choice'; choice: QueueChoice; title: string; probe: PlaylistProbeResult}
+	| {kind: 'needs-choice'; choice: QueueChoice; title: string; kept: KeptProbe}
 	// `probeError` is null when the probe succeeded and preparing the rows failed.
 	| {kind: 'failed'; error: LocalizedError; probeError: ProbeError | null}
 
@@ -94,7 +94,7 @@ function needsChoice(probe: PlaylistProbeResult, context: QuickProbeContext): Qu
 	const capped = probe.entries.length > context.limit
 	if (!capped && !asksWhateverItsSize(context)) return null
 	const loaded = Math.min(probe.entries.length, context.limit)
-	return {kind: 'needs-choice', choice: {kind: 'list-size', loaded, capped}, title: probe.playlistTitle || probe.webpageUrl, probe}
+	return {kind: 'needs-choice', choice: {kind: 'list-size', loaded, capped}, title: probe.playlistTitle || probe.webpageUrl, kept: {probe, limit: context.limit}}
 }
 
 // A list placed by a row's list offer, without the video the hotkey already took.

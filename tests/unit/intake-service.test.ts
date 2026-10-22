@@ -249,7 +249,7 @@ describe('IntakeService', () => {
 
 			const list = h.queue.snapshot().find(row => row.id === listId)
 			expect(list).toMatchObject({status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: true}, skipVideoId: 'v2'})
-			expect(h.intake.keptProbe(listId)?.entries.map(entry => entry.videoId)).toEqual(['v1', 'v3', 'v4'])
+			expect(h.intake.keptProbe(listId)?.probe.entries.map(entry => entry.videoId)).toEqual(['v1', 'v3', 'v4'])
 
 			expect(h.intake.choose({requestId: 'r3', itemId: listId, origin: 'window', take: 'first'}).ok).toBe(true)
 			await vi.waitFor(() => expect(h.queue.snapshot().map(row => row.url)).toEqual([VIDEO_URL, 'https://youtu.be/v1', 'https://youtu.be/v3']))
@@ -280,7 +280,8 @@ describe('IntakeService', () => {
 		const itemId = h.queue.snapshot()[0]?.id ?? ''
 		expect(h.queue.snapshot()[0]?.status).toBe('needs-choice')
 		expect(outcomes(h)).toEqual([{requestId: 'r1', kind: 'needs-choice', itemId, choice: {kind: 'list-size', loaded: 2, capped: true}}])
-		expect(h.intake.keptProbe(itemId)?.entries).toHaveLength(3)
+		expect(h.intake.keptProbe(itemId)).toMatchObject({probe: {entries: expect.any(Array)}, limit: 2})
+		expect(h.intake.keptProbe(itemId)?.probe.entries).toHaveLength(3)
 
 		expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'}).ok).toBe(true)
 		await vi.waitFor(() => expect(h.queue.snapshot().map(row => row.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2']))

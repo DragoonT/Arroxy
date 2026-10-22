@@ -15,7 +15,7 @@ import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/int
 import type {Result} from '@shared/result.js'
 import type {IntakeTake} from '@shared/intake/intakeSchemas.js'
 import type {QuickProbeTake} from '@shared/schemas.js'
-import type {DownloadProfileRef, PlaylistProbeResult, ProbePlaylistMode} from '@shared/types.js'
+import type {DownloadProfileRef, KeptProbe, ProbePlaylistMode} from '@shared/types.js'
 import {generateId} from '../helpers.js'
 
 export type {QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
@@ -146,7 +146,7 @@ export function choosePlaceholder(itemId: string, take: IntakeTake, feedback: Qu
 
 // The probe a needs-choice row asked about, kept in main for its review;
 // undefined once gone (the review then probes again).
-export async function keptChoiceProbe(itemId: string): Promise<PlaylistProbeResult | undefined> {
+export async function keptChoiceProbe(itemId: string): Promise<KeptProbe | undefined> {
 	const kept = await window.appApi.intake.keptProbe({itemId}).catch(() => null)
 	return kept?.ok ? (kept.data ?? undefined) : undefined
 }
