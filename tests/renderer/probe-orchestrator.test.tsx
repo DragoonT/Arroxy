@@ -140,6 +140,21 @@ describe('submitUrl — video probe', () => {
 		expect(state.playlistItems).toHaveLength(2)
 	})
 
+	it('a retry whose list lands first takes the saved list settings, as a first load does', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe)
+			.mockResolvedValueOnce(fail({kind: 'other', code: 'unknown', message: 'Bot block'}))
+			.mockResolvedValueOnce(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const settings = defaultAppSettings('/tmp/downloads')
+		useAppStore.setState({settings: {...settings, common: {...settings.common, lastSubfolderEnabled: true, lastSubfolder: 'Saved folder'}}})
+
+		await useAppStore.getState().openPlaylistReview(`${YOUTUBE_URL}&list=PLtest`, 'playlist', 'row-1')
+		await useAppStore.getState().retry()
+
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', wizardSubfolderEnabled: true, wizardSubfolderName: 'Saved folder'})
+	})
+
 	it('sets formatsLoading=true during probe and false after', async () => {
 		const api = buildMockAppApi()
 		let resolveProbe!: (v: Result<ProbeResult, ProbeError>) => void
