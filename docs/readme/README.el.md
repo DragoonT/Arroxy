@@ -30,7 +30,7 @@
 >
 > **Βασική διαφορά: ενσωματωμένο πρόγραμμα περιήγησης.** Τα περισσότερα δωρεάν προγράμματα λήψης από το YouTube είναι λεπτά wrappers του yt-dlp: ένα πεδίο URL και ένα μενού μορφών, χωρίς δικό τους πρόγραμμα περιήγησης. Το Arroxy έχει ένα, την **καρτέλα Explore**. Περιηγείστε στο YouTube ή σε οποιονδήποτε άλλον ιστότοπο μέσα στην εφαρμογή και κατεβάζετε το βίντεο, την playlist ή το κανάλι στο οποίο βρίσκεστε, ή κάνετε δεξί κλικ σε οποιονδήποτε σύνδεσμο. Συνδέεστε μία φορά στο Explore και το Arroxy κατεβάζει ιδιωτικά βίντεο, βίντεο μόνο για μέλη και με περιορισμό ηλικίας που μπορεί να δει ο λογαριασμός σας, καθώς και τις λίστες «Παρακολούθηση αργότερα» και «Μου αρέσουν», χωρίς εξαγωγή cookies. Συνδεθείτε εκεί και σε άλλους ιστότοπους, και οι λήψεις τους θα χρησιμοποιούν αυτή τη σύνδεση όταν τη χρειάζονται. Ξαναδοκιμάζει με αυτή τη σύνδεση όταν το YouTube σας ζητά να επιβεβαιώσετε ότι δεν είστε ρομπότ. Το ενσωματωμένο πρόγραμμα περιήγησής του παίρνει επίσης το token που περιμένει το YouTube πριν από μια λήψη, ώστε το YouTube να μην περιορίζει μια λήψη σε λιγότερες μορφές. Ένα wrapper με πεδίο URL προσκρούει σε όλους αυτούς τους περιορισμούς. Λεπτομέρειες: [Γιατί Arroxy](#why-explore).
 >
-> _Τελευταία ενημέρωση: 2026-10-21._
+> _Τελευταία ενημέρωση: 2026-10-22._
 
 ---
 
@@ -607,9 +607,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -636,9 +636,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

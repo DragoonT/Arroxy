@@ -30,7 +30,7 @@ Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găseasc�
 >
 > **Diferența cheie: un browser încorporat.** Majoritatea descărcătoarelor gratuite pentru YouTube sunt simple învelișuri peste yt-dlp: o casetă de URL și un meniu de formate, fără browser propriu. Arroxy are unul, **fila Explorare**. Navigați pe YouTube sau pe orice alt site direct în aplicație și descărcați videoclipul, lista de redare sau canalul pe care vă aflați, ori faceți clic dreapta pe orice link. Vă conectați o singură dată în Explorare, iar Arroxy descarcă videoclipurile private, doar pentru membri și cu restricție de vârstă pe care contul dvs. le poate viziona, plus listele Vizionează mai târziu și Apreciate, fără export de cookie-uri. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Reîncearcă cu acea conectare când YouTube vă cere să confirmați că nu sunteți un robot. Browserul său încorporat obține și tokenul pe care YouTube îl așteaptă înainte de o descărcare, astfel încât YouTube nu reduce descărcarea la mai puține formate. Un înveliș cu simplă casetă de URL se lovește de toate aceste limite. Detalii: [De ce Arroxy](#why-explore).
 >
-> _Ultima actualizare: 2026-10-21._
+> _Ultima actualizare: 2026-10-22._
 
 > 🌐 Această traducere a fost realizată cu sprijinul IA. [README-ul în engleză](../../README.md) este sursa de referință. Ați găsit o greșeală? [Deschideți un PR](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

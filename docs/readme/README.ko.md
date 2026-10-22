@@ -30,7 +30,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 >
 > **핵심 차이: 내장 브라우저.** 대부분의 무료 YouTube 다운로더는 URL 입력창과 형식 메뉴만 있고 자체 브라우저가 없는 얇은 yt-dlp 래퍼입니다. Arroxy에는 **Explore 탭**이 있습니다. 앱 안에서 YouTube나 다른 사이트를 둘러보며 보고 있는 동영상, 재생목록, 채널을 다운로드하거나 링크를 마우스 오른쪽 버튼으로 클릭해 다운로드할 수 있습니다. Explore에서 한 번 로그인하면 Arroxy는 계정으로 볼 수 있는 비공개, 멤버 전용, 연령 제한 동영상은 물론 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 쿠키 내보내기 없이 다운로드합니다. 다른 사이트에도 그곳에서 로그인하면, 필요할 때 해당 사이트의 다운로드가 그 로그인을 사용합니다. YouTube가 봇이 아님을 확인하라고 요구하면 Arroxy는 그 로그인으로 다시 시도합니다. 내장 브라우저는 다운로드 전에 YouTube가 요구하는 토큰도 받아 오므로, YouTube가 다운로드를 더 적은 형식으로 줄이지 못합니다. URL 입력창만 있는 래퍼는 이 모든 제한에 부딪힙니다. 자세한 내용: [Arroxy를 선택하는 이유](#why-explore).
 >
-> _최종 업데이트: 2026-10-21._
+> _최종 업데이트: 2026-10-22._
 
 > 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](../../README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

@@ -30,7 +30,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 >
 > **Galvenā atšķirība: iebūvēts pārlūks.** Lielākā daļa bezmaksas YouTube lejupielādētāju ir plāni yt-dlp apvalki: URL lodziņš un formātu izvēlne bez paša pārlūka. Arroxy tāds ir – **cilne Izpēte**. Jūs pārlūkojat YouTube vai jebkuru citu vietni lietotnē un lejupielādējat videoklipu, atskaņošanas sarakstu vai kanālu, kurā atrodaties, vai noklikšķiniet ar peles labo pogu uz jebkuras saites. Sadaļā Izpēte pierakstāties vienu reizi, un Arroxy lejupielādē privātus, tikai dalībniekiem paredzētus un vecuma ierobežotus videoklipus, ko jūsu konts var skatīties, kā arī jūsu sarakstus Skatīties vēlāk un Patīk, bez sīkfailu eksportēšanas. Tur varat pierakstīties arī citās vietnēs, un to lejupielādes vajadzības gadījumā izmanto šo pierakstīšanos. Kad YouTube prasa apstiprināt, ka neesat robots, Arroxy mēģina vēlreiz ar šo pierakstīšanos. Iebūvētais pārlūks arī iegūst pilnvaru, ko YouTube gaida pirms lejupielādes, tāpēc YouTube nesašaurina lejupielādi līdz mazākam formātu skaitam. Apvalks ar vienu URL lodziņu saskaras ar visiem šiem ierobežojumiem. Sīkāka informācija: [Kāpēc Arroxy](#why-explore).
 >
-> _Pēdējo reizi atjaunināts: 2026-10-21._
+> _Pēdējo reizi atjaunināts: 2026-10-22._
 
 > 🌐 Šis tulkojums tapis ar mākslīgā intelekta atbalstu. [Angļu valodas README](../../README.md) ir primārais avots. Atradāt kļūdu? [Atveriet PR](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

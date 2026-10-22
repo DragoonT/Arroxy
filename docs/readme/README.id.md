@@ -30,7 +30,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 >
 > **Perbedaan utama: browser bawaan.** Sebagian besar pengunduh YouTube gratis hanyalah pembungkus yt-dlp yang tipis: kotak URL dan menu format, tanpa browser sendiri. Arroxy memilikinya, yaitu **tab Explore**. Anda menjelajahi YouTube atau situs lain mana pun di dalam aplikasi dan mengunduh video, daftar putar, atau saluran yang sedang Anda buka, atau klik kanan tautan mana pun. Anda cukup masuk sekali di Explore, lalu Arroxy mengunduh video privat, khusus anggota, dan dengan batasan usia yang bisa ditonton akun Anda, serta daftar Tonton Nanti dan Disukai Anda, tanpa ekspor cookie. Masuk juga ke situs lain di sana, dan unduhannya memakai login itu bila diperlukan. Arroxy mencoba lagi dengan login tersebut saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot. Browser bawaannya juga mendapatkan token yang diharapkan YouTube sebelum unduhan, sehingga YouTube tidak memangkas unduhan menjadi lebih sedikit format. Pembungkus berkotak URL terbentur semua batasan ini. Detail: [Mengapa Arroxy](#why-explore).
 >
-> _Terakhir diperbarui: 2026-10-21._
+> _Terakhir diperbarui: 2026-10-22._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](../../README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

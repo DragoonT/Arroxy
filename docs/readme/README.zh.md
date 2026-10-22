@@ -30,7 +30,7 @@
 >
 > **关键区别：内置浏览器。** 大多数免费 YouTube 下载器只是单薄的 yt-dlp 套壳：一个链接输入框加一个格式菜单，没有自己的浏览器。Arroxy 有，就是 **Explore 标签页**。你可以在应用内浏览 YouTube 或任意其他网站，直接下载当前所在的视频、播放列表或频道，也可以右键点击任意链接。你只需在 Explore 中登录一次，Arroxy 就能下载你的账号可观看的私享、会员专属和年龄限制视频，以及你的“稍后观看”和“赞过的视频”列表，无需导出 Cookie。你也可以在 Explore 中登录其他网站，这些网站的下载在需要时会使用该登录。YouTube 要求确认你不是机器人时，Arroxy 会用该登录重试。其内置浏览器还会在下载前获取 YouTube 所期望的令牌，因此 YouTube 不会把下载缩减为较少的格式。只有链接输入框的套壳工具会碰上所有这些限制。详情：[为什么选 Arroxy](#why-explore)。
 >
-> _最后更新：2026-10-21。_
+> _最后更新：2026-10-22。_
 
 > 🌐 这是 AI 辅助翻译。[英文 README](../../README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../../../pulls)。
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 
