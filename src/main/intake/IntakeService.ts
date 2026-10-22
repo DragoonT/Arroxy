@@ -113,14 +113,58 @@ const NO_WINDOW: IntakeWindowContext = {currentOutputDir: '', displayShowsHdr: f
 export class IntakeService {
 	private readonly kept: KeptProbes
 	private window: IntakeWindowContext = NO_WINDOW
+	// Settles when the window first reports its context.
+	private readonly windowReported: Promise<void>
+	private markWindowReported: () => void = () => undefined
+	private stopping = false
 
 	constructor(private readonly deps: IntakeServiceDeps) {
 		this.kept = new KeptProbes(deps.now)
+		this.windowReported = new Promise(resolve => {
+			this.markWindowReported = resolve
+		})
 	}
 
 	// The window reports its wizard folder, screen and active profile whenever they change.
 	setWindowContext(context: IntakeWindowContext): void {
 		this.window = context
+		this.markWindowReported()
+	}
+
+	// At launch: every placeholder row still probing when the app quit probes
+	// again, in queue order (a pasted batch resumes as it was pasted), exactly
+	// as its Retry would, and the probe slots pace them. Each outcome goes to
+	// the row's own origin under a request of its own. Waits for the window's
+	// first report: preparing a row reads its screen (Auto HDR), and a row saved
+	// without a pinned profile its folder. Resolves with how many resumed.
+	// The app is quitting and its probes are stopped: no probe is asked for from
+	// now on, and one that ends writes nothing, so its row stays probing and
+	// resumes at the next launch.
+	stopForExit(): void {
+		this.stopping = true
+	}
+
+	// Only the rows probing when it is called: a link taken in while it waits has its own probe.
+	async resumePlaceholderProbes(): Promise<number> {
+		const left = new Set(this.deps.queue.snapshot().flatMap(item => (item.status === QUEUE_STATUS.probing ? [item.id] : [])))
+		await this.windowReported
+		const rows = this.deps.queue.snapshot().flatMap(item => {
+			const row = left.has(item.id) && item.status === QUEUE_STATUS.probing ? this.placeholder(item.id) : undefined
+			return row ? [row] : []
+		})
+		let resumed = 0
+		for (const row of rows) {
+			// The quit began: the rest stay probing for the launch after.
+			if (this.stopping) break
+			resumed += 1
+			const caller: Caller = {requestId: this.deps.newId(), origin: row.origin?.kind ?? 'window'}
+			// One at a time until each probe is asked for, so they take their probe slots in queue order.
+			await new Promise<void>(asked => {
+				void this.runProbe(row.id, {url: row.url, playlistMode: row.probeMode, title: row.title, ...ownTake(row)}, caller, asked).finally(asked)
+			})
+		}
+		if (resumed > 0) logger.info('resumed the probes of placeholder rows left probing at quit', {count: resumed})
+		return resumed
 	}
 
 	// The profile the window shows as active, once it has said.
@@ -219,7 +263,8 @@ export class IntakeService {
 	}
 
 	// Runs (or re-runs) the probe of a placeholder that is `probing` in the queue.
-	private async runProbe(itemId: string, probe: PlaceholderProbe, caller: Caller): Promise<void> {
+	// `asked`: told right before the probe is asked for.
+	private async runProbe(itemId: string, probe: PlaceholderProbe, caller: Caller, asked?: () => void): Promise<void> {
 		await this.settle(itemId, probe, caller, async () => {
 			// Read before the probe and asked for explicitly, since the probe may wait
 			// minutes for its slot: the result is one entry past this limit when the
@@ -228,19 +273,27 @@ export class IntakeService {
 			const pinned = probe.scope ?? {items: {kind: 'first', count: limit}}
 			// A list that leaves a video out looks one entry further, so its count holds.
 			const scope = this.find(itemId)?.skipVideoId ? widenForSkip(pinned) : pinned
+			// Once the quit began no probe is asked for: the row stays probing and resumes at the next launch.
+			if (this.stopping) return null
+			asked?.()
 			const result = await this.deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, playlistScope: scope})
 			return this.resolve(itemId, result, probe, limit)
 		})
 	}
 
 	// Never rejects: whatever goes wrong lands on the row as a probe error.
-	private async settle(itemId: string, probe: PlaceholderProbe, caller: Caller, run: () => Promise<QuickProbeResolution>): Promise<void> {
-		let resolution: QuickProbeResolution
+	// `run` answers null when the quit stopped it before its probe was asked for.
+	private async settle(itemId: string, probe: PlaceholderProbe, caller: Caller, run: () => Promise<QuickProbeResolution | null>): Promise<void> {
+		let resolution: QuickProbeResolution | null
 		try {
 			resolution = await run()
 		} catch (error) {
 			logger.error('probe failed', {itemId, error: error instanceof Error ? error.message : String(error)})
 			resolution = failedResolution(error)
+		}
+		if (resolution === null || this.stopping) {
+			logger.info('the app is quitting; the row stays probing and resumes at the next launch', {itemId})
+			return
 		}
 		await this.apply(itemId, probe.title, resolution, caller)
 	}

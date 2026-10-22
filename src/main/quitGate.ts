@@ -1,7 +1,8 @@
 // Every way the app quits passes this gate: the window's close button, Cmd+Q,
 // the app and Dock menus, the tray, a crashed renderer's Quit, an update
 // install and the end of the OS session. Quitting never cancels the queue: the
-// gate saves it (QueueService.suspendForExit) and the next launch continues it.
+// gate saves it (QueueService.suspendForExit) and the next launch continues it,
+// links still being checked included (their probes stop and resume at launch).
 // It asks first only when the user quits with downloads running; an OS
 // shutdown or logout must not be held up by a dialog.
 // No electron imports: index.ts wires the events.
