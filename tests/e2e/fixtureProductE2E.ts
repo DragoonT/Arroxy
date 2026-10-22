@@ -48,6 +48,9 @@ interface FixtureProductOptions {
 	launchArgs?: readonly string[]
 	userDataPrefix?: string
 	outputPrefix?: string
+	// The folder the download folder is made in, for this scenario alone; it
+	// stands in for ARROXY_E2E_OUTPUT_ROOT.
+	outputRoot?: string
 }
 
 interface FixtureYtDlpOptions {
@@ -188,7 +191,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 	const fixtureServer = await startFixtureServer(options.behavior)
 	const denyProxy = await startDenyProxy()
 	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), options.userDataPrefix ?? 'arroxy-fixture-user-'))
-	const outputDir = makeFixtureOutputDir(options.outputPrefix ?? 'arroxy-fixture-out-')
+	const outputDir = makeFixtureOutputDir(options.outputPrefix ?? 'arroxy-fixture-out-', options.outputRoot === undefined ? process.env : {ARROXY_E2E_OUTPUT_ROOT: options.outputRoot})
 	writeE2eSettings(userDataDir, outputDir, options.settings)
 	const exploreCookiesPath = options.exploreCookies ? writeExploreCookies(userDataDir, options.exploreCookies) : undefined
 	if (options.restoredQueue) writeRestoredQueue(userDataDir, options.restoredQueue(outputDir))
