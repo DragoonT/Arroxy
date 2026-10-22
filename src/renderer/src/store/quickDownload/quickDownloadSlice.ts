@@ -45,8 +45,6 @@ async function retryTargetNow(target: ExploreRetryTarget, get: GetState): Promis
 			return get().retryQueueItem(target.itemId)
 		case 'wizard':
 			return get().retry()
-		case 'home':
-			return get().retryQuickDownloadFailure()
 	}
 }
 
