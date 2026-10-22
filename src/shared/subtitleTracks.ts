@@ -95,8 +95,19 @@ export function matchesSubtitleLanguage(code: string, trackKey: string): boolean
 // sanitized (see `sanitizeSubtitleMap`); the language is the part before it.
 const AUTO_CAPTION_SUFFIX = '-orig'
 
+// yt-dlp keys YouTube's uploaded tracks by their vssId, so a track uploaded
+// with a name of its own carries an 11-character id after its language
+// (`.en.nP7-2PuUl7o` → `en-nP7-2PuUl7o`); the language is the part before it.
+const NAMED_TRACK_KEY = /^([a-z]{2,3}(?:-(?:[A-Z]{2}|[A-Z][a-z]{3}|\d{3}))?)-[\w-]{11}$/
+
+// An id that happens to end in `-orig` is still an id, so the named-track
+// shape is read first.
+function withoutAutoCaptionSuffix(trackKey: string): string {
+	return trackKey.endsWith(AUTO_CAPTION_SUFFIX) && !NAMED_TRACK_KEY.test(trackKey) ? trackKey.slice(0, -AUTO_CAPTION_SUFFIX.length) : trackKey
+}
+
 export function baseLanguage(trackKey: string): string {
-	return trackKey.endsWith(AUTO_CAPTION_SUFFIX) ? trackKey.slice(0, -AUTO_CAPTION_SUFFIX.length) : trackKey
+	return NAMED_TRACK_KEY.exec(trackKey)?.[1] ?? withoutAutoCaptionSuffix(trackKey)
 }
 
 function matchingKeys(code: string, map: TrackMap): string[] {
@@ -136,7 +147,7 @@ function pickLanguages(languages: readonly string[], source: DownloadProfileSubt
 // fills a key with the manual track first, so the bare key would fetch that
 // one instead of the caption.
 function requestKeyFor(key: string, opts: {subtitles: TrackMap; fetchesManual: boolean}): string {
-	const bare = baseLanguage(key)
+	const bare = withoutAutoCaptionSuffix(key)
 	return bare !== key && (!opts.fetchesManual || !Object.hasOwn(opts.subtitles, bare)) ? bare : key
 }
 
