@@ -594,7 +594,6 @@ export type ProbePlaylistMode = z.infer<typeof probePlaylistModeSchema>
 // lookup's (backfill) are background probes that wait their turn.
 export const probeKindSchema = z.enum(['interactive', 'intake', 'backfill'])
 export type ProbeKind = z.infer<typeof probeKindSchema>
-export const PROBE_KINDS = probeKindSchema.options
 
 // What a YouTube `list=` id names, read from its prefix.
 export const listKindSchema = z.enum(['playlist', 'mix', 'album', 'uploads', 'watch-later', 'liked'])

@@ -167,6 +167,20 @@ describe('ProbeSlots — limits', () => {
 	})
 })
 
+describe('ProbeSlots — headroom', () => {
+	it("keeps the window's own headroom after the limit is lowered below the background probes running", async () => {
+		const h = harness({limit: 4})
+		for (const name of ['a', 'b', 'c', 'd']) void h.start(name, 'intake')
+		await settle()
+		h.slots.setBackgroundLimit(1)
+		void h.start('i1', 'interactive')
+		void h.start('i2', 'interactive')
+		void h.start('i3', 'interactive')
+		await settle()
+		expect(h.started).toEqual(['a', 'b', 'c', 'd', 'i1', 'i2'])
+	})
+})
+
 describe('ProbeSlots — order', () => {
 	it('starts intake waiters in arrival order, and backfill only when no intake waits', async () => {
 		const h = harness({limit: 1})
