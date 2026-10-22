@@ -253,6 +253,10 @@ export interface QuickDownloadSlice {
 	// The URL tab's Quick Download and Explore's Download. `playlistMode` is the
 	// answer to the mixed-URL prompt; without it the intake policy decides.
 	quickDownload: (request: {url: string; entry: Exclude<InAppQuickDownloadEntry, 'downloads'>; title?: string; playlistMode?: Extract<ProbePlaylistMode, 'video' | 'playlist'>; take?: QuickProbeTake}) => Promise<void>
+	// Bulk URLs' Quick Download: every accepted link placed through intake, one
+	// toast for the batch. True when the dialog's work is done (something was
+	// placed, or the batch went to Bulk's review); false keeps the dialog open.
+	bulkQuickDownload: (urls: string[]) => Promise<boolean>
 	// The Downloads tab's resolution of a placeholder row.
 	retryQuickDownloadRow: (itemId: string) => Promise<void>
 	retryQuickDownloadRowWithCookies: (itemId: string) => Promise<void>

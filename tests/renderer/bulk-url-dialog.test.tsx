@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from '@testing-library/react'
+import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {BulkUrlDialog} from '@renderer/components/wizard/BulkUrlDialog.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -8,7 +8,7 @@ import {buildMockAppApi} from '../shared/mockAppApi.js'
 describe('BulkUrlDialog', () => {
 	beforeEach(() => {
 		window.appApi = buildMockAppApi()
-		useAppStore.setState({settings: defaultAppSettings('/tmp'), quickDownloadStatus: 'idle', startBulkUrls: vi.fn(), quickDownloadUrls: vi.fn().mockResolvedValue(undefined)})
+		useAppStore.setState({settings: defaultAppSettings('/tmp'), startBulkUrls: vi.fn(), bulkQuickDownload: vi.fn().mockResolvedValue(true)})
 	})
 
 	it('caps preview rendering and reports omitted rows', () => {
@@ -38,6 +38,44 @@ describe('BulkUrlDialog', () => {
 		fireEvent.click(screen.getByTestId('bulk-url-confirm'))
 
 		expect(startBulkUrls).toHaveBeenCalledWith(['https://example.com/latest'])
+	})
+
+	it('Quick Download places the accepted links and closes once they are placed', async () => {
+		const bulkQuickDownload = vi.fn().mockResolvedValue(true)
+		const onOpenChange = vi.fn()
+		useAppStore.setState({bulkQuickDownload})
+		render(<BulkUrlDialog open onOpenChange={onOpenChange} initialRaw={'https://example.com/a\nhttps://example.com/b'} />)
+
+		fireEvent.click(screen.getByTestId('bulk-quick-download'))
+
+		await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(false))
+		expect(bulkQuickDownload).toHaveBeenCalledWith(['https://example.com/a', 'https://example.com/b'])
+	})
+
+	it('stays open with the text kept when nothing was placed', async () => {
+		const bulkQuickDownload = vi.fn().mockResolvedValue(false)
+		const onOpenChange = vi.fn()
+		useAppStore.setState({bulkQuickDownload})
+		render(<BulkUrlDialog open onOpenChange={onOpenChange} initialRaw="https://example.com/a" />)
+
+		fireEvent.click(screen.getByTestId('bulk-quick-download'))
+
+		await waitFor(() => expect(bulkQuickDownload).toHaveBeenCalledOnce())
+		expect(onOpenChange).not.toHaveBeenCalled()
+		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue('https://example.com/a')
+	})
+
+	it('places once however often Quick Download is pressed while placing', async () => {
+		let finish: (closes: boolean) => void = () => undefined
+		const bulkQuickDownload = vi.fn(() => new Promise<boolean>(resolve => (finish = resolve)))
+		useAppStore.setState({bulkQuickDownload})
+		render(<BulkUrlDialog open onOpenChange={vi.fn()} initialRaw="https://example.com/a" />)
+
+		fireEvent.click(screen.getByTestId('bulk-quick-download'))
+		fireEvent.click(screen.getByTestId('bulk-quick-download'))
+		finish(true)
+
+		await waitFor(() => expect(bulkQuickDownload).toHaveBeenCalledOnce())
 	})
 
 	it('renders a compact profile-aware quick download control', () => {
