@@ -105,11 +105,13 @@ test('starting and leaving an interactive run never fails a quick download still
 // each link is a probing row in Downloads at once, in pasted order, and a list
 // past the load limit asks on its row instead of in a dialog (#626).
 // Fixtures: two videos outside the fixture playlist and the playlist itself,
-// with the load limit at 2; each probe held a moment so the rows are seen probing.
+// with the load limit at 2. The videos' probes are held until the test lets
+// them answer, the later-pasted one first; the playlist's answers after a delay.
 // Actions: paste the three links into Bulk URLs, Quick Download.
 // Oracles: the dialog closes and no overlay blocks the window; one batch
-// toast; three probing rows top-down in pasted order; the playlist row asks
-// how many; both videos on disk; each link probed once.
+// toast; three probing rows top-down in pasted order, kept while the later
+// link resolves before the earlier one; the playlist row asks how many; both
+// videos on disk; each link probed once.
 test("Bulk URLs' Quick Download places every link in Downloads at once, and a list past the limit asks on its row", async () => {
 	test.setTimeout(180_000)
 	const videoIds = FIXTURE_VIDEO_IDS.filter(id => !FIXTURE_PLAYLIST_VIDEO_IDS.includes(id)).slice(0, 2)
@@ -117,7 +119,7 @@ test("Bulk URLs' Quick Download places every link in Downloads at once, and a li
 
 	await withFixtureProductApp(
 		{
-			behavior: {metadataDelayMs: PROBE_DELAY_MS},
+			behavior: {metadataHeldIds: videoIds, metadataDelayMs: {[FIXTURE_PLAYLIST_ID]: PROBE_DELAY_MS}},
 			settings: settings => {
 				settings.common.playlistProbeLimit = 2
 			},
@@ -142,8 +144,20 @@ test("Bulk URLs' Quick Download places every link in Downloads at once, and a li
 			const rowIds = (): Promise<(string | null)[]> => rows(page).evaluateAll(found => found.map(row => row.getAttribute('data-testid')))
 			const placedIds = await rowIds()
 
+			const [firstVideo, secondVideo] = videoIds
+			const [firstRow, secondRow] = placedIds
+			if (!firstVideo || !secondVideo || !firstRow || !secondRow) throw new Error('expected two video rows')
 			const playlistRow = rows(page).filter({hasText: urls.playlist()})
 			await expect(playlistRow).toHaveAttribute('data-status', 'needs-choice', {timeout: 60_000})
+
+			// The later-pasted video answers first: its row resolves and keeps its
+			// place below the earlier one, which is still probing.
+			fixtureServer.releaseMetadata(secondVideo)
+			await expect(page.getByTestId(secondRow)).not.toHaveAttribute('data-status', 'probing', {timeout: 60_000})
+			await expect(page.getByTestId(firstRow)).toHaveAttribute('data-status', 'probing')
+			expect(await rowIds()).toEqual(placedIds)
+
+			fixtureServer.releaseMetadata(firstVideo)
 			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 120_000})
 			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(2)
 			// A row that resolves keeps its place: the batch still reads as pasted.
