@@ -299,6 +299,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		playlistId: RESET_WIZARD_STATE.playlistId,
 		playlistIsMultiVideo: RESET_WIZARD_STATE.playlistIsMultiVideo,
 		playlistLikelyCapped: RESET_WIZARD_STATE.playlistLikelyCapped,
+		playlistLoadedLimit: RESET_WIZARD_STATE.playlistLoadedLimit,
 		playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
 		playlistProbeProgress: RESET_WIZARD_STATE.playlistProbeProgress,
 		playlistScopeReloading: RESET_WIZARD_STATE.playlistScopeReloading,
@@ -682,7 +683,9 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		openPlaylistReview: async (url, playlistMode, sourceRowId, kept) => {
 			set({wizardOrigin: 'download'})
 			startProbe(url, playlistMode, set, get)
-			set({reviewSourceRowId: sourceRowId})
+			// The review loads the first N, N being the load limit: a scope left
+			// from an earlier list (back never resets it) must not stand in for it.
+			set({reviewSourceRowId: sourceRowId, playlistScope: {items: {kind: 'app-limit'}}})
 			if (kept) landPlaylistProbe(kept.probe, set, get, true, kept.limit)
 			else await finishProbe(url, playlistMode, set, get, true)
 		},

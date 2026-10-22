@@ -141,6 +141,9 @@ export interface ProbeOrchestratorSlice {
 	playlistId: string
 	playlistIsMultiVideo: boolean
 	playlistLikelyCapped: boolean
+	// The load limit the list on screen was cut at when it isn't the current
+	// setting (a kept probe's review); null otherwise.
+	playlistLoadedLimit: number | null
 	playlistProbeLoading: boolean
 	playlistProbeProgress: ProbeProgressEvent | null
 	playlistScopeReloading: boolean

@@ -49,6 +49,7 @@ export const RESET_WIZARD_STATE = {
 	playlistId: '',
 	playlistIsMultiVideo: false,
 	playlistLikelyCapped: false,
+	playlistLoadedLimit: null as number | null,
 	playlistProbeLoading: false,
 	playlistProbeProgress: null,
 	playlistScopeReloading: false,

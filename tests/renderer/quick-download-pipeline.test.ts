@@ -728,7 +728,20 @@ describe('a probe that needs the user’s choice', () => {
 
 		expect(probe.calls).toHaveLength(1)
 		expect(useAppStore.getState().playlistItems.map(entry => entry.videoId)).toEqual(['v1', 'v2'])
-		expect(useAppStore.getState().playlistLikelyCapped).toBe(true)
+		expect(useAppStore.getState()).toMatchObject({playlistLikelyCapped: true, playlistLoadedLimit: 2})
+	})
+
+	// The review loads the first N, N being the load limit: a scope left from an
+	// earlier list must not stand in for it.
+	it('Review of a kept probe ignores a scope left from an earlier list', async () => {
+		const probe = deferredProbe()
+		const id = await cappedRow(probe)
+		useAppStore.setState({playlistScope: {items: {kind: 'first', count: 1}}})
+
+		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
+
+		expect(useAppStore.getState().playlistItems.map(entry => entry.videoId)).toEqual(['v1', 'v2'])
+		expect(useAppStore.getState()).toMatchObject({playlistScope: {items: {kind: 'app-limit'}}, playlistLikelyCapped: true})
 	})
 
 	// A list placed by a row's list offer leaves the hotkey's video out of the
