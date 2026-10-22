@@ -179,9 +179,10 @@ function visiblePlaylistProbeLimit(state: Pick<AppState, 'playlistScope' | 'sett
 	return resolvePlaylistProbeLimit(state.settings?.common)
 }
 
-export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, state: AppState, firstProbe: boolean): Partial<AppState> {
+// `playlistLimit` defaults to the limit a probe now would be taken with; a kept
+// probe passes the one it was taken with.
+export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, state: AppState, firstProbe: boolean, playlistLimit = visiblePlaylistProbeLimit(state)): Partial<AppState> {
 	const settings = state.settings
-	const playlistLimit = visiblePlaylistProbeLimit(state)
 	const hasSentinel = probe.entries.length > playlistLimit
 	const playlistLikelyCapped = hasSentinel && state.playlistScope.items.kind === 'app-limit'
 	// Entries carry their own `auth`: main stamps it on those that need the

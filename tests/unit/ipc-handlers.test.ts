@@ -435,7 +435,7 @@ describe('registerIpcHandlers', () => {
 
 		it('intake:cmd:keptProbe forwards the row id and answers with the kept probe', async () => {
 			const deps = makeDeps()
-			const kept = {kind: 'playlist', entries: []}
+			const kept = {probe: {kind: 'playlist', entries: []}, limit: 100}
 			deps._raw.intakeService.keptProbe.mockReturnValue(kept)
 			registerIpcHandlers(deps)
 

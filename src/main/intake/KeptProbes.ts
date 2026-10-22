@@ -2,13 +2,13 @@
 // review need no second probe. Bounded in count and age: a kept probe is a
 // shortcut, never the only way forward (a choice without one probes again).
 
-import type {PlaylistProbeResult} from '@shared/types.js'
+import type {KeptProbe} from '@shared/types.js'
 
 const KEPT_PROBE_LIMIT = 32
 const KEPT_PROBE_TTL_MS = 60 * 60 * 1000
 
 interface Kept {
-	probe: PlaylistProbeResult
+	probe: KeptProbe
 	keptAt: number
 }
 
@@ -21,7 +21,7 @@ export class KeptProbes {
 		private readonly ttlMs = KEPT_PROBE_TTL_MS
 	) {}
 
-	keep(itemId: string, probe: PlaylistProbeResult): void {
+	keep(itemId: string, probe: KeptProbe): void {
 		this.kept.delete(itemId)
 		this.kept.set(itemId, {probe, keptAt: this.now()})
 		// Insertion order is age order: the oldest go first.
@@ -31,7 +31,7 @@ export class KeptProbes {
 		}
 	}
 
-	get(itemId: string): PlaylistProbeResult | undefined {
+	get(itemId: string): KeptProbe | undefined {
 		const entry = this.kept.get(itemId)
 		if (!entry) return undefined
 		if (this.now() - entry.keptAt > this.ttlMs) {

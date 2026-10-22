@@ -203,8 +203,8 @@ describe("the list offer's skipped video", () => {
 
 	it('asks past the limit, counting after the skip, and the review leaves the video out', () => {
 		const resolution = resolveQuickProbe(ok(playlist(5)), {url: MIXED_URL, playlistMode: 'playlist', limit: 3, skipVideoId: 'v2'}, state())
-		expect(resolution).toMatchObject({kind: 'needs-choice', choice: {kind: 'list-size', loaded: 3, capped: true}})
-		if (resolution.kind === 'needs-choice') expect(resolution.probe.entries.map(entry => entry.videoId)).not.toContain('v2')
+		expect(resolution).toMatchObject({kind: 'needs-choice', choice: {kind: 'list-size', loaded: 3, capped: true}, kept: {limit: 3}})
+		if (resolution.kind === 'needs-choice') expect(resolution.kept.probe.entries.map(entry => entry.videoId)).not.toContain('v2')
 	})
 
 	it('First N counts the list after the skip', () => {

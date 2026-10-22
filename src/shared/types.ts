@@ -537,6 +537,14 @@ export interface PlaylistProbeResult extends ProbeCommon {
 
 export type ProbeResult = VideoProbeResult | PlaylistProbeResult
 
+// The probe a needs-choice row asked about, kept in main for its review, with
+// the load limit it was probed with: the review reads it against that limit,
+// not the setting by then, so it agrees with the row.
+export interface KeptProbe {
+	probe: PlaylistProbeResult
+	limit: number
+}
+
 export interface ProbeInfoJsonRef {
 	id: string
 	createdAt: string
