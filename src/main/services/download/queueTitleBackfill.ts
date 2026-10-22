@@ -5,7 +5,8 @@
 // Load-bearing pacing: concurrency 1, and the loop yields while ANY download
 // is running, so a backfill probe never races an active yt-dlp transfer for
 // network or rate-limit headroom. A blocked loop re-arms a single retry timer
-// until the lane clears.
+// until the lane clears. Its probes are background ones (ProbeSlots): each
+// waits behind every placeholder row's probe and out of its site's cooldown.
 //
 // Follows the QueueProbeLifecycle host-interface pattern: no queue state here,
 // every read and mutation goes back through the injected deps. ProbeService

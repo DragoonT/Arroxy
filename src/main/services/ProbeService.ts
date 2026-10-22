@@ -5,15 +5,16 @@ import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {JobAuth, MediaTags, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
-import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
+import type {EscalationReason, ExploreSignInState, ProbeKind} from '@shared/schemas.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat} from 'yt-dlp-bridge/info'
 import {isAudioOnlySource, isAudioOnlyVideo} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, sabrSkippedClient} from 'ytdlp-errors'
 import {splitOutputLines} from 'yt-dlp-bridge/runner'
-import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
+import {requestSiteFor, siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
 import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
-import {PROBE_TIMEOUT_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
+import {PROBE_TIMEOUT_MESSAGE, RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
+import type {ProbeSlots} from './ProbeSlots.js'
 import {escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSignInCheck} from './phases/types.js'
@@ -63,6 +64,24 @@ export interface ProbeServiceOptions {
 	exploreSession?: ExploreSignInCheck
 	// Fills the sizes a site leaves out (formatSizeLookup). Absent: none are looked up.
 	formatSizes?: (formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<LookedUpSizes>
+	// How many probes run at once (ProbeSlots). Absent: no limit.
+	slots?: ProbeSlots
+}
+
+// `kind` picks the probe's slot. `escalate: false` keeps the probe anonymous even when the Explore
+// session could rescue it — for lookups that must not spend the user's account (title backfill).
+export interface ProbeOptions {
+	kind: ProbeKind
+	playlistMode?: ProbePlaylistMode
+	playlistScope?: PlaylistScope
+	ownerKey?: string
+	timeoutMs?: number
+	escalate?: boolean
+}
+
+// YtDlp held the run for a cooldown that began after the probe got its slot: nothing spawned.
+function heldByCooldown(result: Result<ProbeResult, ProbeError>): boolean {
+	return !result.ok && result.error.kind === 'ytdlp' && result.error.error.raw === RATE_LIMIT_COOLDOWN_MESSAGE
 }
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
@@ -387,6 +406,7 @@ export class ProbeService extends EventEmitter {
 	private readonly exploreGate: ExploreGate | undefined
 	private readonly exploreSession: ExploreSignInCheck | undefined
 	private readonly formatSizes: ProbeServiceOptions['formatSizes']
+	private readonly slots: ProbeSlots | undefined
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -399,6 +419,7 @@ export class ProbeService extends EventEmitter {
 		this.exploreGate = options?.exploreGate
 		this.exploreSession = options?.exploreSession
 		this.formatSizes = options?.formatSizes
+		this.slots = options?.slots
 	}
 
 	// The site itself said the Explore session is signed out, during a signed-in
@@ -426,13 +447,10 @@ export class ProbeService extends EventEmitter {
 		this.inFlight.clear()
 	}
 
-	// `escalate: false` keeps the probe anonymous even when the Explore session could
-	// rescue it — for lookups that must not spend the user's account (title backfill).
-	async probe(url: string, opts: {playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string; timeoutMs?: number; escalate?: boolean} = {}): Promise<Result<ProbeResult, ProbeError>> {
-		const {playlistMode = 'auto', playlistScope, ownerKey, timeoutMs, escalate = true} = opts
-		// At most one escalation per probe; a signed-in failure is the answer.
-		let auth: JobAuth | undefined
-
+	// One slot covers the whole probe, its retries, redirect and escalation; cancelling a
+	// probe that waits for one removes it, and nothing spawns.
+	async probe(url: string, opts: ProbeOptions): Promise<Result<ProbeResult, ProbeError>> {
+		const {ownerKey} = opts
 		const controller = new AbortController()
 		if (ownerKey) {
 			// At most one live probe per owner: a duplicate probe supersedes the
@@ -445,27 +463,40 @@ export class ProbeService extends EventEmitter {
 		}
 		try {
 			if (this.mockMode) return ok(buildMockProbeResult(url))
+			if (!this.slots) return await this.probeNow(url, opts, controller.signal)
+			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url)}, controller.signal, () => this.probeNow(url, opts, controller.signal), {isHeld: heldByCooldown})
+			return outcome.kind === 'ran' ? outcome.value : fail<ProbeResult, ProbeError>(PROBE_CANCELLED.error)
+		} finally {
+			this.inFlight.delete(controller)
+			if (ownerKey && this.inFlightByKey.get(ownerKey) === controller) this.inFlightByKey.delete(ownerKey)
+		}
+	}
 
+	private async probeNow(url: string, opts: ProbeOptions, signal: AbortSignal): Promise<Result<ProbeResult, ProbeError>> {
+		const {playlistMode = 'auto', playlistScope, timeoutMs, escalate = true} = opts
+		// At most one escalation per probe; a signed-in failure is the answer.
+		let auth: JobAuth | undefined
+		try {
 			const logContext = {playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)}
 			logger.info('Probe started', {url, ...logContext})
 
 			let cookiesRejected = false
 			const runAs = async (identity: RunIdentity): Promise<ProbeOutcome> => {
 				const as: ProbeRunAs = {identity, cookiesRejected: false}
-				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, controller.signal, as, timeoutMs), url, logContext)
+				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, signal, as, timeoutMs), url, logContext)
 				cookiesRejected = as.cookiesRejected
 				return mappedOutcome
 			}
 			// Whether a playlist's items need the account too (R20): main decides and stamps them.
 			let itemsNeedAccount = false
 			let outcome = await runAs('configured')
-			const reason = escalate && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, controller.signal) : null
+			const reason = escalate && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, signal) : null
 			if (reason) {
 				logger.info('Probe escalated to the Explore session', {url})
 				auth = 'exploreSession'
 				itemsNeedAccount = reachesPlaylistItems(reason)
 				outcome = await runAs('exploreSession')
-				if (cookiesRejected) outcome = await this.afterCookiesRejected(url, outcome, () => runAs('exploreSession'), controller.signal)
+				if (cookiesRejected) outcome = await this.afterCookiesRejected(url, outcome, () => runAs('exploreSession'), signal)
 			}
 			if (outcome.kind === 'failure') {
 				// Signed in only if the last run kept the Explore cookies: one yt-dlp dropped ran anonymously.
@@ -490,8 +521,8 @@ export class ProbeService extends EventEmitter {
 					if (parentUrl) {
 						let recovered: string | null = null
 						try {
-							const html = await this.vhxTitleFetcher(parentUrl, controller.signal)
-							if (!controller.signal.aborted) recovered = html === null ? null : deriveRecoveredTitle(extractPageTitleMeta(html), parentUrl)
+							const html = await this.vhxTitleFetcher(parentUrl, signal)
+							if (!signal.aborted) recovered = html === null ? null : deriveRecoveredTitle(extractPageTitleMeta(html), parentUrl)
 						} catch {
 							// Fetcher failure is non-fatal — the sentinel title stays.
 						}
@@ -521,10 +552,7 @@ export class ProbeService extends EventEmitter {
 		} catch (error) {
 			const message = error instanceof Error ? error.message : 'Unknown probing error'
 			logger.error('Probe failure', {message, url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
-			return fail<ProbeResult, ProbeError>({kind: 'other', code: controller.signal.aborted ? 'cancelled' : 'unknown', message})
-		} finally {
-			this.inFlight.delete(controller)
-			if (ownerKey && this.inFlightByKey.get(ownerKey) === controller) this.inFlightByKey.delete(ownerKey)
+			return fail<ProbeResult, ProbeError>({kind: 'other', code: signal.aborted ? 'cancelled' : 'unknown', message})
 		}
 	}
 
