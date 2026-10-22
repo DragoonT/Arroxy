@@ -51,7 +51,7 @@ import type {
 	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
-import type {AudioSelection, ExploreSearchEngine, FormatMode, QuickProbeTake, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, ExploreSearchEngine, FormatMode, QuickProbeTake, VideoCodecFilter, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {VideoPartFields} from '@shared/videoPart.js'
@@ -306,6 +306,9 @@ export interface FormatPickerSlice {
 	wizardFileTypeReset: {from: VideoFileType; blocker: string} | null
 
 	setSelectedVideoFormatId: (id: string) => void
+	// The saved codec filter never hides the pick: after a probe lands or
+	// anything else picks a stream, a hidden pick moves to the closest shown one.
+	keepPickInCodecFilter: () => void
 	setWizardFileType: (fileType: VideoFileType) => void
 	setAudioSelection: (sel: AudioSelection) => void
 	setWizardMediaKind: (kind: WizardMediaKind) => void
@@ -533,6 +536,8 @@ export interface SystemSlice {
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>
 	setHdrPreference: (value: HdrSetting) => Promise<void>
+	// The Format screen's Video codec filter, kept from one video to the next.
+	setVideoCodecFilter: (value: VideoCodecFilter) => Promise<void>
 	setFilenameTemplate: (template: string) => Promise<void>
 	setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>
 	setPacingSleepRequests: (value: number | undefined) => Promise<void>

@@ -16,6 +16,7 @@ import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
 import {notify} from '@renderer/lib/notify.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {formatMode} from './formatMode.js'
+import {codecFilterPick, videoCodecFilterOf} from '../videoCodecFilter.js'
 import type {FormatMode} from '@shared/schemas.js'
 import {editedProfileDraft, profilePatch, profileVideoPick, switchProfilePatch, updatedProfileDraft, wizardSnapshot} from './wizardProfileState.js'
 
@@ -156,6 +157,38 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		wizardFileType: 'auto',
 		wizardFileTypeReset: null,
 
+		keepPickInCodecFilter: () => {
+			const state = get()
+			if (state.wizardMediaKind !== 'video') return
+			// The streams the Video list shows: Video, no audio leaves out those with their own sound.
+			const silentOnly = state.wizardFormats.filter(f => f.isVideoOnly || f.isAudioOnly)
+			const formats = formatMode(state) === 'video-only' ? silentOnly : state.wizardFormats
+			const filter = videoCodecFilterOf(state)
+			// The profile's pick is seen through the filter, from the profile's own
+			// mode, audio and file type: a filtered video doesn't read as changed
+			// from the profile, and the user's edits still do. A silent profile
+			// (video, no audio) stays silent, among silent streams.
+			const baseline = state.wizardProfileBaseline
+			const baseVideo = state.wizardFormats.find(f => f.formatId === baseline?.videoFormatId)
+			const baseSilent = baseline?.audioSelection.kind === 'none' && baseVideo?.isVideoOnly === true
+			const baseId = baseline?.mediaKind === 'video' ? codecFilterPick(baseSilent ? silentOnly : state.wizardFormats, baseline.videoFormatId, filter, [state.selectedVideoFormatId]) : null
+			if (baseline && baseId) {
+				const asProfile: AppState = {...state, audioSelection: baseline.audioSelection, wizardFileType: baseline.fileType}
+				const audioSelection: AudioSelection = baseSilent
+					? {kind: 'none'}
+					: audioForVideo(
+							state.wizardFormats.find(f => f.formatId === baseId),
+							asProfile
+						)
+				const fileType = fileTypeAfterPick(asProfile, baseId, audioSelection)
+				set({wizardProfileBaseline: {...baseline, videoFormatId: baseId, audioSelection, fileType: 'wizardFileType' in fileType ? fileType.wizardFileType : baseline.fileType}})
+			}
+			const current = get()
+			const profileId = current.wizardProfileBaseline?.videoFormatId
+			const id = codecFilterPick(formats, current.selectedVideoFormatId, filter, profileId ? [profileId] : [])
+			if (id) current.setSelectedVideoFormatId(id)
+		},
+
 		// Invariant: a video stream and a convert target are mutually exclusive —
 		// convert (-x) can't be merged with video. Reconcile here instead of
 		// relying on the UI to prevent it.
@@ -185,8 +218,14 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 				}
 			}),
 
-		setWizardMediaKind: kind => set(state => mediaKindPatch(kind, state)),
-		setFormatMode: mode => set(state => formatModePatch(mode, state)),
+		setWizardMediaKind: kind => {
+			set(state => mediaKindPatch(kind, state))
+			get().keepPickInCodecFilter()
+		},
+		setFormatMode: mode => {
+			set(state => formatModePatch(mode, state))
+			get().keepPickInCodecFilter()
+		},
 
 		toggleSubtitleLanguage: lang => set(state => ({wizardSubtitleLanguages: state.wizardSubtitleLanguages.includes(lang) ? state.wizardSubtitleLanguages.filter(l => l !== lang) : [...state.wizardSubtitleLanguages, lang]})),
 		clearSubtitleLanguages: () => set({wizardSubtitleLanguages: []}),
@@ -197,11 +236,14 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		chooseWizardProfile: (ref, keepEdits = false) => {
 			const {profile} = resolveChosenDownloadProfile(ref, get().settings?.profiles)
 			set(switchProfilePatch(profile, get(), keepEdits))
+			get().keepPickInCodecFilter()
 		},
 
 		resetWizardToProfile: () => {
 			const profile = get().wizardProfile
-			if (profile) set(profilePatch(profile, get()))
+			if (!profile) return
+			set(profilePatch(profile, get()))
+			get().keepPickInCodecFilter()
 		},
 
 		saveWizardAsProfile: async name => {

@@ -579,6 +579,11 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'hdrPreference', {hdrPreference: value})
 		},
 
+		setVideoCodecFilter: async value => {
+			// watchVideoCodecFilter moves a pick the filter hides, here and on every later settings change.
+			await applyCommonPatchAsync(get, set, 'videoCodecFilter', {videoCodecFilter: value})
+		},
+
 		setFilenameTemplate: async template => {
 			await applyCommonPatchAsync(get, set, 'filenameTemplate', {filenameTemplate: template})
 		},
