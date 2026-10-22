@@ -21,7 +21,7 @@ import type {PlaylistManifestPayload} from '@shared/queueSubmission.js'
 import {fail, type Result} from '@shared/result.js'
 import type {IntakeCaller, IntakeOrigin, IntakeOriginKind, IntakeTake, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type JobAuth, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
-import type {AppSettings, DownloadProfile, DownloadProfileRef, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
+import type {AppSettings, DownloadProfile, DownloadProfileRef, KeptProbe, LocalizedError, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {KeptProbes} from './KeptProbes.js'
 
@@ -177,7 +177,7 @@ export class IntakeService {
 		const restarted = this.deps.queue.reprobe(call.itemId, take)
 		if (!restarted.ok) return restarted
 		this.kept.forget(call.itemId)
-		void this.settle(row.id, probe, call, async () => this.resolve(row.id, {ok: true, data: kept}, {...probe, take}, take.count))
+		void this.settle(row.id, probe, call, async () => this.resolve(row.id, {ok: true, data: kept.probe}, {...probe, take}, take.count))
 		return restarted
 	}
 
@@ -201,7 +201,7 @@ export class IntakeService {
 
 	// The probe a needs-choice row asked about, for its review in the window;
 	// gone with the row (cancelled, removed, resolved).
-	keptProbe(itemId: string): PlaylistProbeResult | null {
+	keptProbe(itemId: string): KeptProbe | null {
 		if (this.find(itemId)?.status !== QUEUE_STATUS.needsChoice) {
 			this.kept.forget(itemId)
 			return null
@@ -312,7 +312,7 @@ export class IntakeService {
 			case 'needs-choice': {
 				const parked = this.deps.queue.needsChoice(itemId, resolution.choice, resolution.title)
 				if (!parked.ok) return
-				this.kept.keep(itemId, resolution.probe)
+				this.kept.keep(itemId, resolution.kept)
 				tell({kind: 'needs-choice', itemId, choice: resolution.choice})
 				return
 			}

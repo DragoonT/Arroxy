@@ -1,5 +1,6 @@
 import {cleanUrl} from './cleanUrl.js'
 import type {BulkUrlKind, BulkUrlRejectReason} from './schemas.js'
+import {isYouTubeHostname} from './sites/youtubeHost.js'
 import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
 
 export interface BulkUrlAccepted {
@@ -25,8 +26,14 @@ export interface BulkUrlParseResult {
 
 // `,` and `;` are valid inside a URL, so they end a link only where the next
 // link starts; one that ends a link in prose is trimmed as trailing punctuation.
-const URL_RE = /https?:\/\/(?:[^\s,;|<>"'`]|[,;](?!\s*https?:\/\/))+/gi
-const TRAILING_PUNCTUATION_RE = /[)\].,;:!?]+$/
+// An apostrophe is valid too (`John's-video.mp4`), but only with more of the
+// link after it: one before a space, a closer or a separator ends the link
+// (`'https://a','title'`), and a possessive `'s` ending it is the sentence's.
+const URL_RE = /https?:\/\/(?:[^\s,;|<>"'`]|'(?=[^\s,;|<>"'`)\]])|[,;](?!\s*['"]?https?:\/\/))+/gi
+const TRAILING_PUNCTUATION_RE = /[)\].,;:']+$/
+const TRAILING_POSSESSIVE_RE = /'s$/i
+// `!` and `?` end a sentence, but also a query value (`?token=abc!`).
+const TRAILING_SENTENCE_MARKS_RE = /[!?]+$/
 const OBVIOUS_NON_MEDIA_FILE_EXTENSIONS = new Set([
 	'7z',
 	'apk',
@@ -86,8 +93,49 @@ const OBVIOUS_NON_MEDIA_FILE_EXTENSIONS = new Set([
 	'zip'
 ])
 
+// A query, no fragment after it, and an `=` in its last parameter.
+function endsInQueryValue(url: string): boolean {
+	const queryStart = url.indexOf('?')
+	if (queryStart < 0 || url.includes('#', queryStart)) return false
+	const query = url.slice(queryStart + 1)
+	const lastParameter = query.slice(Math.max(query.lastIndexOf('&'), query.lastIndexOf(';')) + 1)
+	return lastParameter.includes('=')
+}
+
+// A YouTube link other than a search, whose query is free text: its ids and
+// values never hold an apostrophe nor end in `!` or `?`.
+function isYouTubeIdLink(url: string): boolean {
+	try {
+		const parsed = new URL(url)
+		return isYouTubeHostname(parsed.hostname) && parsed.pathname !== '/results'
+	} catch {
+		return false
+	}
+}
+
+// A `!` or `?` run after a link is the sentence's, unless it ends a query value
+// (`?q=what?`) right after the value itself, not after a closing `)` or quote.
+// After a YouTube link other than a search it is always the sentence's.
+function trimSentenceMarks(token: string): string {
+	const marks = TRAILING_SENTENCE_MARKS_RE.exec(token)
+	if (!marks) return token
+	const rest = token.slice(0, marks.index)
+	return endsInQueryValue(rest) && !TRAILING_PUNCTUATION_RE.test(rest) && !isYouTubeIdLink(rest) ? token : rest
+}
+
+// An apostrophe ends a YouTube link other than a search.
+function cutYouTubeAtApostrophe(token: string): string {
+	const apostrophe = token.indexOf("'")
+	return apostrophe >= 0 && isYouTubeIdLink(token.slice(0, apostrophe)) ? token.slice(0, apostrophe) : token
+}
+
 function trimUrlToken(token: string): string {
-	return token.replace(TRAILING_PUNCTUATION_RE, '')
+	let trimmed = cutYouTubeAtApostrophe(token)
+	for (;;) {
+		const next = trimSentenceMarks(trimmed.replace(TRAILING_PUNCTUATION_RE, '').replace(TRAILING_POSSESSIVE_RE, ''))
+		if (next === trimmed) return trimmed
+		trimmed = next
+	}
 }
 
 function decodedPathname(url: URL): string {

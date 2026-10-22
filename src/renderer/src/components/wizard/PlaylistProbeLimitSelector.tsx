@@ -18,6 +18,9 @@ interface Props {
 	disabled?: boolean
 	showCurrent?: boolean
 	onLimitChanged?: (limit: number) => void | Promise<void>
+	// The limit the list on screen was loaded with, when not the saved one:
+	// picking the saved limit then reloads without a save.
+	loadedLimit?: number
 	// Told when a save starts and ends, so a caller can hold an action that reads the limit.
 	onSavingChange?: (saving: boolean) => void
 }
@@ -28,7 +31,7 @@ function isPreset(value: number): boolean {
 	return (PLAYLIST_PROBE_LIMIT_PRESETS as readonly number[]).includes(value)
 }
 
-export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', className, disabled = false, showCurrent = true, onLimitChanged, onSavingChange}: Props): ReactNode {
+export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', className, disabled = false, showCurrent = true, onLimitChanged, onSavingChange, loadedLimit}: Props): ReactNode {
 	const {t} = useTranslation()
 	const {settings, setPlaylistProbeLimit} = useAppStore(useShallow(state => ({settings: state.settings, setPlaylistProbeLimit: state.setPlaylistProbeLimit})))
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
@@ -63,13 +66,13 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 	}
 
 	async function persistLimit(nextLimit: number): Promise<void> {
-		if (nextLimit === playlistLimit) return
+		if (nextLimit === (loadedLimit ?? playlistLimit)) return
 		if (pendingLimitRef.current === nextLimit) return
 		pendingLimitRef.current = nextLimit
 		setSaving(true)
 		onSavingChange?.(true)
 		try {
-			await setPlaylistProbeLimit(nextLimit)
+			if (nextLimit !== playlistLimit) await setPlaylistProbeLimit(nextLimit)
 			const persistedLimit = resolvePlaylistProbeLimit(useAppStore.getState().settings?.common)
 			if (persistedLimit === nextLimit) {
 				await onLimitChanged?.(nextLimit)
@@ -98,7 +101,8 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 		if (customInvalid) return
 		await persistLimit(parsedCustom)
 		const persistedLimit = resolvePlaylistProbeLimit(useAppStore.getState().settings?.common)
-		if (persistedLimit === parsedCustom) setCustomOpen(false)
+		// The list already loaded with it: nothing to save or reload.
+		if (persistedLimit === parsedCustom || parsedCustom === loadedLimit) setCustomOpen(false)
 	}
 
 	return (
