@@ -139,11 +139,15 @@ test("Bulk URLs' Quick Download places every link in Downloads at once, and a li
 			await expect.poll(async () => rows(page).evaluateAll(found => found.map(row => row.getAttribute('data-status'))), {timeout: 10_000}).toEqual(['probing', 'probing', 'probing'])
 			const order = await rows(page).evaluateAll((found, pasted) => found.map(row => pasted.findIndex(link => row.textContent?.includes(link))), links)
 			expect(order).toEqual([0, 1, 2])
+			const rowIds = (): Promise<(string | null)[]> => rows(page).evaluateAll(found => found.map(row => row.getAttribute('data-testid')))
+			const placedIds = await rowIds()
 
 			const playlistRow = rows(page).filter({hasText: urls.playlist()})
 			await expect(playlistRow).toHaveAttribute('data-status', 'needs-choice', {timeout: 60_000})
 			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 120_000})
 			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(2)
+			// A row that resolves keeps its place: the batch still reads as pasted.
+			expect(await rowIds()).toEqual(placedIds)
 
 			for (const videoId of videoIds) expect(probeStartsFor(fixtureServer, videoId)).toBe(1)
 			expect(playlistLoads(fixtureServer)).toBe(1)
