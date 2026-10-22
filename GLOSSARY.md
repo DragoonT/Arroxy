@@ -229,7 +229,7 @@ A placeholder row whose probe failed. It carries the same guidance as any failed
 _Avoid_: failed download (nothing downloaded), broken row
 
 **Needs your choice**:
-A placeholder row waiting for a decision only its probe could raise: how much of a playlist that ran past the load limit to queue (all, the first N, or review), or whether to review a link whose URL intent did not say playlist but which turned out to be one. Review opens the playlist picker, not the wizard's single-video Review screen. It keeps waiting across a restart.
+A placeholder row waiting for the one decision only its probe could raise: how much of a loaded list to take. It always offers All and Review, and the first N only when the list ran past the load limit. It asks for a list nobody counted in advance: a list link past the load limit, or a link whose URL intent did not say list but which loaded as one (another site's list). A row placed with a count already chosen never asks. Review opens the playlist picker, not the wizard's single-video Review screen. It keeps waiting across a restart.
 _Avoid_: pending decision, blocked row, needs review
 
 **Needs attention**:
