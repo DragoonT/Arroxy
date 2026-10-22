@@ -141,18 +141,52 @@ describe('readSubtitleReport', () => {
 	it("takes each written file from yt-dlp's last report line, relative to the run's folder", async () => {
 		const report = subtitleReportFile(dir)
 		await writeFile(report, `${JSON.stringify({en: {filepath: 'old.en.srt'}})}\n${JSON.stringify({en: {ext: 'srt', filepath: 'subtitles/v.en.srt'}, ja: {ext: 'srt', filepath: join(dir, 'v.ja.srt')}, de: {ext: 'srt'}})}\n`)
-		expect(await readSubtitleReport(report, dir, 'job')).toEqual([
-			{key: 'en', path: join(dir, 'subtitles', 'v.en.srt')},
-			{key: 'ja', path: join(dir, 'v.ja.srt')}
-		])
+		expect(await readSubtitleReport(report, {directory: dir}, 'job')).toEqual({
+			saved: [
+				{key: 'en', path: join(dir, 'subtitles', 'v.en.srt')},
+				{key: 'ja', path: join(dir, 'v.ja.srt')}
+			],
+			unmoved: []
+		})
+	})
+
+	// yt-dlp reports a track where it wrote it, in the temp folder, and never
+	// moves one converted from TTML out of it.
+	it('takes each file where it is once out of the temp folder, moving one yt-dlp left there', async () => {
+		const temp = join(dir, '.arroxy-temp', 'job')
+		await mkdir(join(temp, 'subtitles'), {recursive: true})
+		await mkdir(join(dir, 'subtitles'), {recursive: true})
+		await writeFile(join(dir, 'subtitles', 'v.en.srt'), 'moved')
+		await writeFile(join(temp, 'subtitles', 'v.de.srt'), 'converted')
+		const report = subtitleReportFile(temp)
+		await writeFile(report, `${JSON.stringify({en: {filepath: './.arroxy-temp/job/subtitles/v.en.srt'}, de: {filepath: './.arroxy-temp/job/subtitles/v.de.srt'}})}\n`)
+		expect(await readSubtitleReport(report, {directory: dir, tempDirectory: temp}, 'job')).toEqual({
+			saved: [
+				{key: 'en', path: join(dir, 'subtitles', 'v.en.srt')},
+				{key: 'de', path: join(dir, 'subtitles', 'v.de.srt')}
+			],
+			unmoved: []
+		})
+		expect(await readFile(join(dir, 'subtitles', 'v.de.srt'), 'utf8')).toBe('converted')
+	})
+
+	it('names a track that cannot be moved out of the temp folder apart from the saved ones', async () => {
+		const temp = join(dir, '.arroxy-temp', 'job')
+		await mkdir(temp, {recursive: true})
+		await writeFile(join(temp, 'v.en.srt'), 'converted')
+		await writeFile(join(temp, 'v.de.srt'), 'converted')
+		await mkdir(join(dir, 'v.en.srt', 'taken'), {recursive: true})
+		const report = subtitleReportFile(temp)
+		await writeFile(report, `${JSON.stringify({en: {filepath: './.arroxy-temp/job/v.en.srt'}, de: {filepath: './.arroxy-temp/job/v.de.srt'}})}\n`)
+		expect(await readSubtitleReport(report, {directory: dir, tempDirectory: temp}, 'job')).toEqual({saved: [{key: 'de', path: join(dir, 'v.de.srt')}], unmoved: ['en']})
 	})
 
 	it('reads nothing from a missing, empty, unparsable or null report', async () => {
 		const report = subtitleReportFile(dir)
-		expect(await readSubtitleReport(report, dir, 'job')).toEqual([])
+		expect(await readSubtitleReport(report, {directory: dir}, 'job')).toEqual({saved: [], unmoved: []})
 		for (const text of ['', '{oops', 'null\n']) {
 			await writeFile(report, text)
-			expect(await readSubtitleReport(report, dir, 'job')).toEqual([])
+			expect(await readSubtitleReport(report, {directory: dir}, 'job')).toEqual({saved: [], unmoved: []})
 		}
 	})
 
@@ -160,7 +194,7 @@ describe('readSubtitleReport', () => {
 	it('is cleared before a run', async () => {
 		await writeFile(subtitleReportFile(dir), JSON.stringify({en: {filepath: 'old.en.srt'}}))
 		expect(await clearSubtitleReport(dir, 'job')).toBe(true)
-		expect(await readSubtitleReport(subtitleReportFile(dir), dir, 'job')).toEqual([])
+		expect(await readSubtitleReport(subtitleReportFile(dir), {directory: dir}, 'job')).toEqual({saved: [], unmoved: []})
 	})
 })
 

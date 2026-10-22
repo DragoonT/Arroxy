@@ -1,4 +1,4 @@
-import {mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
@@ -12,6 +12,7 @@ import {STATUS_KEY, type ExploreSignInState} from '@shared/schemas.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@main/services/YtDlp.js'
 import {explorePorts} from '../helpers/explorePorts.js'
+import {writeFetchedSubtitles} from '../helpers/subtitleFetch.js'
 
 // Only the visibility helper is stubbed: it shells out to `attrib`, which does
 // not exist off Windows.
@@ -38,12 +39,16 @@ const NETWORK: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'netwo
 const COOKIES_REJECTED: YtDlpResult = {...LOGIN_REQUIRED, accountCookiesRejected: true}
 
 let outputDir: string
+// The media run's temp folder, as VideoPhase makes it.
+let tempDir: string
 // The video's subtitle lists, as the probe saved them: a subtitle phase plans
 // from these instead of listing them with a run of its own.
 let subtitleInfoJson: string
 
 beforeEach(async () => {
 	outputDir = await mkdtemp(join(tmpdir(), 'arroxy-escalation-'))
+	tempDir = join(outputDir, '.arroxy-temp', 'job-1')
+	await mkdir(tempDir, {recursive: true})
 	subtitleInfoJson = join(outputDir, 'subtitles.info.json')
 	await writeFile(subtitleInfoJson, JSON.stringify({title: 'Video', subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}}))
 })
@@ -55,13 +60,11 @@ afterEach(async () => {
 // `tempDir`: the media run's temp folder, for a subtitle phase run on its own.
 function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; verified?: ExploreSignInState; usesCookies?: boolean; tempDir?: boolean}) {
 	const results = [...opts.runs]
-	// A successful subtitle run reports the file it wrote for each key, as yt-dlp does.
+	// A successful subtitle run writes, moves and reports its tracks as yt-dlp does.
 	const run = vi.fn(async (req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions) => {
 		const next = results.shift()
 		if (!next) throw new Error('unexpected yt-dlp run')
-		if (next.kind === 'success' && req.kind === 'subtitles' && 'tracks' in req.subtitles && req.output.report?.subtitles) {
-			await writeFile(req.output.report.subtitles, `${JSON.stringify(Object.fromEntries(req.subtitles.tracks.map(track => [track.key, {ext: 'srt', filepath: `video.${track.key}.srt`}])))}\n`)
-		}
+		if (next.kind === 'success' && req.kind === 'subtitles') await writeFetchedSubtitles(req)
 		return next
 	})
 	const controller = new AbortController()
@@ -73,7 +76,7 @@ function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownlo
 		cancelRequested: false,
 		pauseRequested: false,
 		subtitlePaths: [],
-		...(opts.tempDir ? {tempDir: outputDir} : {}),
+		...(opts.tempDir ? {tempDir} : {}),
 		disposables: new AsyncStack()
 	}
 	const ports = explorePorts({signedIn: opts.signedIn, verified: opts.verified})
