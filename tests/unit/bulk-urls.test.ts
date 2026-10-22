@@ -83,6 +83,12 @@ describe('parseBulkUrls', () => {
 		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/watch?v=dQw4w9WgXcQ'])
 	})
 
+	it('keeps an apostrophe and a final ? in a YouTube search, which holds free text', () => {
+		const result = parseBulkUrls("https://www.youtube.com/results?search_query=don't+stop\nhttps://www.youtube.com/results?search_query=why?")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/results?search_query=don%27t+stop', 'https://www.youtube.com/results?search_query=why?'])
+	})
+
 	it('drops a ! or ? after closing punctuation, even after a query value', () => {
 		const result = parseBulkUrls("Seen this (https://vimeo.com/search?q=cats)? and 'https://a.test/?a=b'! and https://b.test/?id=5.!")
 
