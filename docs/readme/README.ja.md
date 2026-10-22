@@ -30,7 +30,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 >
 > **最大の違いは内蔵ブラウザー。** 無料の YouTube ダウンローダーの多くは、URL 入力欄と形式メニューだけの薄い yt-dlp ラッパーで、独自のブラウザーを持ちません。Arroxy には**Explore タブ**があります。アプリの中で YouTube やほかのサイトを閲覧し、表示中の動画・プレイリスト・チャンネルをダウンロードでき、リンクを右クリックしてもダウンロードできます。Exploreで一度サインインするだけで、Arroxy はアカウントで視聴できる非公開動画、メンバー限定動画、年齢制限付き動画に加え、「後で見る」や「高く評価した動画」のリストも、Cookie をエクスポートせずにダウンロードします。ほかのサイトにもそこでサインインすれば、必要なときにそのサインインがダウンロードに使われます。YouTube にボットではないことの確認を求められたときも、そのサインインで再試行します。内蔵ブラウザーはダウンロード前に YouTube が求めるトークンも取得するため、YouTube にダウンロードを少ない形式に絞られることもありません。URL 入力欄だけのラッパーは、これらの制限すべてに突き当たります。詳細：[なぜ Arroxy？](#why-explore)。
 >
-> _最終更新：2026-10-21。_
+> _最終更新：2026-10-22。_
 
 > 🌐 これは AI 翻訳です。[英語版 README](../../README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../../../pulls)。
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

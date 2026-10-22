@@ -30,7 +30,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 >
 > **ዋናው ልዩነት፡ አብሮ የተሠራ browser።** አብዛኞቹ ነፃ የYouTube ማውረጃዎች ቀጭን የyt-dlp መጠቅለያዎች ናቸው፦ የURL ሳጥን እና የቅርጸት ምናሌ፣ የራሳቸው browser የሌላቸው። Arroxy አንድ አለው፣ **Explore ትር**። በአፑ ውስጥ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ ያስሳሉ እና ያሉበትን ቪዲዮ፣ playlist ወይም ቻናል ያወርዳሉ፣ ወይም በማንኛውም ሊንክ ላይ በቀኝ ጠቅ ያደርጋሉ። በExplore ውስጥ አንድ ጊዜ ይገባሉ፣ Arroxy ደግሞ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ያወርዳል፣ ኩኪዎችን ወደ ውጭ መላክ ሳያስፈልግ። ወደ ሌሎች ጣቢያዎችም እዚያ ይግቡ፣ ማውረዶቻቸውም ሲያስፈልግ ያንን መግቢያ ይጠቀማሉ። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ በዚያ መግቢያ እንደገና ይሞክራል። አብሮ የተሠራው browser ደግሞ YouTube ከማውረድ በፊት የሚጠብቀውን ቶከን ያገኛል፣ ስለዚህ YouTube ማውረድን ወደ ያነሱ ቅርጸቶች አይቀንስም። የURL ሳጥን ያለው መጠቅለያ ከእነዚህ ሁሉ ገደቦች ጋር ይጋጫል። ዝርዝሮች፦ [ለምን Arroxy](#why-explore)።
 >
-> _መጨረሻ የተዘመነው፦ 2026-10-21።_
+> _መጨረሻ የተዘመነው፦ 2026-10-22።_
 
 ---
 
@@ -607,9 +607,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -636,9 +636,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

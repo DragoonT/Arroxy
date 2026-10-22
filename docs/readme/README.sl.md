@@ -30,7 +30,7 @@ Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z
 >
 > **Ključna razlika: vgrajen brskalnik.** Večina brezplačnih prenosnikov za YouTube so tanki ovoji okoli yt-dlp: polje za URL in meni formatov, brez lastnega brskalnika. Arroxy ga ima, to je zavihek **Razišči**. Po YouTubu ali katerem koli drugem spletnem mestu brskate v aplikaciji in prenesete videoposnetek, seznam predvajanja ali kanal, na katerem ste, ali pa z desnim klikom na katero koli povezavo. V Razišči se prijavite enkrat, Arroxy pa prenese zasebne videoposnetke, videoposnetke samo za člane in starostno omejene videoposnetke, ki jih lahko gleda vaš račun, ter vaša seznama Ogled pozneje in Všečkano, brez izvoza piškotkov. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Ko YouTube zahteva potrditev, da niste bot, poskusi znova s to prijavo. Vgrajen brskalnik pridobi tudi žeton, ki ga YouTube pričakuje pred prenosom, zato YouTube prenosa ne zmanjša na manj formatov. Ovoj s poljem za URL naleti na vse te omejitve. Podrobnosti: [Zakaj Arroxy](#why-explore).
 >
-> _Zadnja posodobitev: 2026-10-21._
+> _Zadnja posodobitev: 2026-10-22._
 
 > 🌐 Ta prevod je nastal s pomočjo umetne inteligence. [Angleški README](../../README.md) je nadrejeni vir. Ste našli napako? [Odprite PR](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

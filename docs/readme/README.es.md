@@ -30,7 +30,7 @@ Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.
 >
 > **La diferencia clave: un navegador integrado.** La mayoría de los descargadores gratuitos de YouTube son wrappers finos de yt-dlp: un cuadro de URL y un menú de formatos, sin navegador propio. Arroxy tiene uno, la **pestaña Explore**. Navegas por YouTube o cualquier otro sitio dentro de la app y descargas el video, la lista o el canal en el que estás, o haces clic derecho en cualquier enlace. Inicias sesión una vez en Explore y Arroxy descarga los videos privados, solo para miembros y con restricción de edad que tu cuenta puede ver, además de tus listas Ver más tarde y Me gusta, sin exportar cookies. También inicias sesión allí en otros sitios, y sus descargas usan ese inicio de sesión cuando lo necesitan. Arroxy reintenta con ese inicio de sesión cuando YouTube te pide confirmar que no eres un bot. Su navegador integrado también obtiene el token que YouTube espera antes de una descarga, así YouTube no reduce una descarga a menos formatos. Un wrapper con cuadro de URL choca con todos estos límites. Detalles: [¿Por qué Arroxy?](#why-explore).
 >
-> _Última actualización: 2026-10-21._
+> _Última actualización: 2026-10-22._
 
 > 🌐 Esta es una traducción asistida por IA. El [README en inglés](../../README.md) es la fuente de verdad. ¿Encontraste un error? [Las PRs son bienvenidas](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

@@ -30,7 +30,7 @@ Ha az Arroxy időt spórol Önnek, egy ⭐ segít másoknak megtalálni.
 >
 > **Fő különbség: beépített böngésző.** A legtöbb ingyenes YouTube-letöltő a yt-dlp vékony burkolója: egy URL-mező és egy formátumválasztó menü, saját böngésző nélkül. Az Arroxyban van egy, a **Felfedezés lap**. Az alkalmazáson belül böngészik a YouTube-on vagy bármely más webhelyen, és letölti az éppen nézett videót, lejátszási listát vagy csatornát, vagy jobb gombbal kattint bármely hivatkozásra. Egyszer bejelentkezik a Felfedezésben, és az Arroxy letölti a privát, csak tagoknak szóló és korhatáros videókat, amelyeket a fiókja megnézhet, valamint a Megnézendő és a Kedvelt listáit, sütik exportálása nélkül. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Az Arroxy ezzel a bejelentkezéssel próbálkozik újra, amikor a YouTube azt kéri, erősítse meg, hogy nem robot. A beépített böngészője azt a tokent is megszerzi, amelyet a YouTube a letöltés előtt elvár, így a YouTube nem szűkíti le a letöltést kevesebb formátumra. Az URL-mezős burkoló mindegyik korlátba beleütközik. Részletek: [Miért az Arroxy](#why-explore).
 >
-> _Utolsó frissítés: 2026-10-21._
+> _Utolsó frissítés: 2026-10-22._
 
 > 🌐 Ez a fordítás MI támogatásával készült. Az [angol README](../../README.md) az irányadó forrás. Hibát talált? [Nyisson egy PR-t](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

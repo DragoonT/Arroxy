@@ -30,7 +30,7 @@ Ak vám Arroxy ušetrí čas, ⭐ pomôže ostatným, aby ho našli.
 >
 > **Kľúčový rozdiel: vstavaný prehliadač.** Väčšina bezplatných nástrojov na sťahovanie z YouTube sú tenké obaly nad yt-dlp: pole na adresu URL a ponuka formátov, bez vlastného prehliadača. Arroxy ho má, je to **karta Preskúmať**. YouTube alebo akýkoľvek iný web prehliadate priamo v aplikácii a stiahnete video, zoznam skladieb alebo kanál, na ktorom sa nachádzate, alebo kliknete pravým tlačidlom na ľubovoľný odkaz. V Preskúmať sa prihlásite raz a Arroxy stiahne súkromné videá, videá iba pre členov a videá s vekovým obmedzením, ktoré váš účet dokáže prehrať, plus vaše zoznamy Pozrieť neskôr a Páči sa mi, bez exportu súborov cookie. Prihlásiť sa tam môžete aj na iných weboch a ich sťahovania použijú toto prihlásenie, keď ho potrebujú. Keď vás YouTube požiada o potvrdenie, že nie ste robot, skúsi to znova s týmto prihlásením. Jeho vstavaný prehliadač získa aj token, ktorý YouTube pred sťahovaním očakáva, takže YouTube sťahovanie neobmedzí na menej formátov. Obal s poľom na adresu URL naráža na všetky tieto limity. Podrobnosti: [Prečo Arroxy](#why-explore).
 >
-> _Posledná aktualizácia: 2026-10-21._
+> _Posledná aktualizácia: 2026-10-22._
 
 > 🌐 Tento preklad vznikol s podporou AI. [Anglické README](../../README.md) je nadradeným zdrojom. Našli ste chybu? [Otvorte PR](../../../../pulls).
 
@@ -609,9 +609,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -638,9 +638,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 

@@ -30,7 +30,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 >
 > **Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko seenta, Arroxy immoo viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkaawuntiin kee ilaaluu danda'u, akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee, kuukkii baasuu malee ni buusa. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. YouTube bot akka hin taane akka mirkaneessitu yeroo gaafatu, seensa sanaan irra deebi'ee yaala. Biraawzarri isaa keessa ijaarame tokenii YouTube buufannaa dura eegu illee ni argata, kanaaf YouTube buufannaa formaata xiqqaatti hin hir'isu. Wraapperiin saanduqa URL qofa qabu daangaa kana hundatti dhaqqaba. Bal'inaan: [Maaliif Arroxy](#why-explore).
 >
-> _Yeroo dhumaa haaromfame: 2026-10-21._
+> _Yeroo dhumaa haaromfame: 2026-10-22._
 
 ---
 
@@ -607,9 +607,9 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 | Platform | Path                             |
 | -------- | -------------------------------- |
-| Windows  | `%APPDATA%\Arroxy\logs\main.log` |
-| macOS    | `~/Library/Logs/Arroxy/main.log` |
-| Linux    | `~/.config/Arroxy/logs/main.log` |
+| Windows  | `%APPDATA%\arroxy\logs\main.log` |
+| macOS    | `~/Library/Logs/arroxy/main.log` |
+| Linux    | `~/.config/arroxy/logs/main.log` |
 
 **2. Launch with hardware acceleration disabled.** Open a terminal / Command Prompt and run the executable with a flag:
 
@@ -636,9 +636,13 @@ If that works, the GPU/driver is the cause. Make the change permanent (next step
 
 | Platform | Path                                             |
 | -------- | ------------------------------------------------ |
-| Windows  | `%APPDATA%\Arroxy\argv.json`                     |
-| macOS    | `~/Library/Application Support/Arroxy/argv.json` |
-| Linux    | `~/.config/Arroxy/argv.json`                     |
+| Windows  | `%APPDATA%\arroxy\argv.json`                     |
+| macOS    | `~/Library/Application Support/arroxy/argv.json` |
+| Linux    | `~/.config/arroxy/argv.json`                     |
+
+On Flatpak, both `main.log` and `argv.json` live under
+`~/.var/app/io.github.antonio_orionus.Arroxy/config/arroxy/`
+(for example `logs/main.log`).
 
 With contents:
 
