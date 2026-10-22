@@ -7,15 +7,17 @@ import {withFixtureProductApp} from './fixtureProductE2E.js'
 // site: the rest wait as probing rows. The window's own probe goes first, and
 // a waiting row cancelled before its turn never asks the site anything.
 //
-// Fixtures: five videos whose probes the server holds open (metadataHeldIds)
-// until the test releases them, and a sixth for Interactive Download.
-// Actions: Quick Download five links one after another from the URL tab, an
-// Interactive Download of the sixth, Cancel on a waiting row, then release.
+// Fixtures: six videos whose probes the server holds open (metadataHeldIds)
+// until the test releases them, and a seventh for Interactive Download. The
+// saved limit is 3, not the default 2, so the count main reads at startup is
+// the one under test.
+// Actions: Quick Download six links one after another from the URL tab, an
+// Interactive Download of the seventh, Cancel on a waiting row, then release.
 // Oracles: the rows' status, the server's probe-start / probe-end log (how
 // many background probes ran at once, and which never started), the Format
 // step, and the files on disk.
 
-const LIMIT = 2
+const LIMIT = 3
 
 type ProbeEvent = Extract<FixtureServerRequest, {kind: 'probe-start' | 'probe-end'}>
 
@@ -50,11 +52,11 @@ async function quickDownloadFromUrlTab(page: Page, url: string): Promise<void> {
 	await expect(input).toHaveValue('')
 }
 
-test('links are checked two at a time, the window probe goes first, and a cancelled waiting row never starts', async () => {
+test('links are checked as many at a time as the saved setting, the window probe goes first, and a cancelled waiting row never starts', async () => {
 	test.setTimeout(240_000)
-	const background = FIXTURE_VIDEO_IDS.slice(0, 5)
-	const interactive = FIXTURE_VIDEO_IDS[5]
-	if (background.length < 5 || !interactive) throw new Error('fixture catalog needs six videos')
+	const background = FIXTURE_VIDEO_IDS.slice(0, 6)
+	const interactive = FIXTURE_VIDEO_IDS[6]
+	if (background.length < 6 || !interactive) throw new Error('fixture catalog needs seven videos')
 
 	await withFixtureProductApp(
 		{
@@ -69,8 +71,8 @@ test('links are checked two at a time, the window probe goes first, and a cancel
 			for (const id of background) await quickDownloadFromUrlTab(page, urls.video(id))
 
 			await page.locator('.downloads-tab-trigger').click()
-			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="probing"]')).toHaveCount(5, {timeout: 15_000})
-			await expect.poll(() => startedIds(fixtureServer, background).length, {timeout: 30_000, message: 'two probes reach the site'}).toBe(LIMIT)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="probing"]')).toHaveCount(background.length, {timeout: 15_000})
+			await expect.poll(() => startedIds(fixtureServer, background).length, {timeout: 30_000, message: 'as many probes as the setting reach the site'}).toBe(LIMIT)
 
 			// The window's probe does not wait behind the batch.
 			await page.getByTestId('home-tab-download').click()
@@ -89,11 +91,11 @@ test('links are checked two at a time, the window probe goes first, and a cancel
 			const waitingRow = rows(page).filter({hasText: urls.video(waitingId)})
 			await expect(waitingRow).toHaveAttribute('data-status', 'probing')
 			await waitingRow.getByRole('button', {name: 'Cancel'}).click()
-			await expect(rows(page)).toHaveCount(4)
+			await expect(rows(page)).toHaveCount(background.length - 1)
 
 			fixtureServer.releaseMetadata()
-			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(4, {timeout: 180_000})
-			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(4)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(background.length - 1, {timeout: 180_000})
+			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(background.length - 1)
 
 			expect(startedIds(fixtureServer, background)).not.toContain(waitingId)
 			expect(new Set(startedIds(fixtureServer, background))).toEqual(new Set(background.filter(id => id !== waitingId)))
