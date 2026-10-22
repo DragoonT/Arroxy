@@ -15,6 +15,8 @@ import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerLocalClientHandlers} from '@main/ipc/localClientHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
+import {holdQuitForWarmupReport, startWarmupReporting, warmupReportCollector} from '@main/warmupReporting.js'
+import {sharedQuitHooks} from '@main/sharedQuitHooks.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {installChannelArg, systemLanguageArg} from '@shared/runtimeInfo.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
@@ -423,6 +425,19 @@ if (hasSingleInstanceLock) {
 			// Hourly re-check: a session left running in the tray is counted on each new UTC day.
 			setInterval(() => void heartbeat.maybeSend(), HEARTBEAT_CHECK_INTERVAL_MS).unref()
 		}
+		const warmupCollectorUrl = e2eMode.disableAnalytics ? undefined : warmupReportCollector(collectorUrl)
+		const warmupReporter = warmupCollectorUrl
+			? startWarmupReporting({
+					collectorUrl: warmupCollectorUrl,
+					userDataPath,
+					binaryManager,
+					isEnabled: () => settingsStore.getSync().common.analyticsEnabled ?? true,
+					context: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osLocale: osLocale(app.getPreferredSystemLanguages(), app.getLocale())})
+				})
+			: undefined
+		// One quit hold for everything that delays a quit, so none exits under another.
+		const quitHooks = sharedQuitHooks(app)
+		const warmupQuitReport = warmupReporter ? holdQuitForWarmupReport(quitHooks, warmupReporter) : (): Promise<void> => Promise.resolve()
 
 		// Before the window exists, so the first paint and the Explore view agree with the saved theme.
 		applyNativeThemeSource(nativeTheme, initialSettings.common.uiTheme)
@@ -645,7 +660,25 @@ if (hasSingleInstanceLock) {
 
 		const appMenu = installAppMenu({settingsStore, languageRef, getWindow: () => mainWindow})
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu: appMenu.refresh})
+		registerIpcHandlers({
+			mainWindow,
+			binaryManager,
+			downloadService,
+			probeService,
+			settingsStore,
+			queueService,
+			tokenService,
+			languageRef,
+			clipboardWatcher,
+			hotkeyService,
+			playlistManifestStore,
+			exploreView,
+			siteRequests,
+			graphicsPolicyProvider,
+			intakeService,
+			refreshAppMenu: appMenu.refresh,
+			warmupObserver: warmupReporter
+		})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)
@@ -675,7 +708,7 @@ if (hasSingleInstanceLock) {
 			localClients,
 			log: log.scope('control')
 		})
-		stopAgentControlOnQuit(app, agentControl, log.scope('control'))
+		stopAgentControlOnQuit(quitHooks, agentControl, log.scope('control'))
 
 		app.on('render-process-gone', (_event, webContents, details) => {
 			// An Explore page crash is the open web's, not the app's: the view shows
@@ -739,7 +772,8 @@ if (hasSingleInstanceLock) {
 					if (meta) log.info(message, meta)
 					else log.info(message)
 				},
-				exit: code => app.exit(code) // must use exit(), not quit() — quit() re-emits before-quit causing infinite loop
+				// exit(), not quit(): quit() re-emits before-quit, an infinite loop. It skips will-quit, so the warmup report's hold is awaited here.
+				exit: code => void warmupQuitReport().then(() => app.exit(code))
 			})
 		})
 	})
