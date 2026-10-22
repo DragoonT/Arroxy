@@ -73,6 +73,9 @@ function pickWizardSnapshot(state: AppState): Record<string, unknown> {
 // Bumped by every probe start and every cancel: a probe that resolves after its
 // run was replaced or cancelled lands nowhere (no error step, no yank back).
 let wizardProbeRun = 0
+// Whether a list has landed in this run: until one has, a retry's list is the
+// run's first and takes the saved list settings.
+let wizardRunListLanded = false
 
 // Leaves a loading probe for the screen the run started from.
 function abandonProbe(set: SetState, get: GetState): void {
@@ -154,6 +157,7 @@ function startPlaylistPlaceholderHydration(set: SetState, get: GetState): void {
 function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, sameRun = false): void {
 	nextBulkMetadataRunId()
 	wizardProbeRun += 1
+	if (!sameRun) wizardRunListLanded = false
 	void window.appApi.downloads.probeCancel()
 	const startProjection = projectProbeStart(get(), url, playlistMode, sameRun)
 	set(startProjection.patch)
@@ -161,7 +165,8 @@ function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState,
 }
 
 function landPlaylistProbe(probe: PlaylistProbeResult, set: SetState, get: GetState, firstProbe: boolean, limit?: number): void {
-	applyPlaylistProbeResult(probe, set, get, firstProbe, limit)
+	applyPlaylistProbeResult(probe, set, get, firstProbe || !wizardRunListLanded, limit)
+	wizardRunListLanded = true
 	// Background-scan the destination folder so the sync alert is ready by the
 	// time the user looks at the list — no manual "Sync with folder" click.
 	void get().scanDownloadedInFolder()
