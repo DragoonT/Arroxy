@@ -163,7 +163,7 @@ A URL that names one video and a playlist at once, so the user's intent is genui
 _Avoid_: combo URL, dual URL, video+playlist URL
 
 **Mixed URL prompt**:
-The question a mixed URL raises before its probe, from the download or Interactive control: just this video (the default), or the list with how many to load. It asks what, never how. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
+The question a mixed URL raises before its probe, asked only about the list: from the list's own control, the list in the background (asking past the load limit), exactly the first N, or the playlist picker; from Interactive, how many to load for the picker. It never offers the video: every surface with a window puts a This video shortcut beside the list's control, which downloads the video at once. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
 _Avoid_: playlist prompt, video-or-playlist dialog
 
 **Placeholder title**:
@@ -183,8 +183,8 @@ The order the playlist picker displays rows in — probe order as given, or by u
 _Avoid_: ordering, row order, sort key
 
 **Radio**:
-A playlist YouTube generates on the fly around a video — personalised, endless, and different every session. Not a mixed URL: its membership is not stable, so it addresses no fixed set of videos.
-_Avoid_: mix, autoplay queue, station
+A list YouTube generates around a video, personalised and different every session; the app names it a Mix. A video link carrying one is a mixed URL, and the Mix is offered as a snapshot, read to its end. A YouTube Music playlist shares its link prefix but is a stable playlist, not radio. Bulk URLs keeps reading a radio link as its video.
+_Avoid_: autoplay queue, station
 
 ### Profiles and quick download
 
