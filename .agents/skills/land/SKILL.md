@@ -19,7 +19,7 @@ When the harness has subagents with a model choice, give mechanical work (implem
 ## Phases
 
 ### 1. Intake
-Reproduce or confirm the root cause before touching code: the user report plus logs; for extractor issues, run yt-dlp locally against the failing URL. State the design (what changes, which layer, what is out of scope) in one short paragraph. Then check the open issues on the files this change will touch (`gh issue list --state open --search "<path> in:body"`): one is in scope if fixing it is small and does not change the design, and the PR then closes it (phase 7).
+Reproduce or confirm the root cause before touching code: the user report plus logs; for extractor issues, run yt-dlp locally against the failing URL. State the design (what changes, which layer, what is out of scope) in one short paragraph. Then check the open issues on the files this change will touch (`gh issue list --state open --search "<path> in:body"`): one is in scope if a maintainer filed or approved it (`docs/agents/issue-tracker.md`, "Untrusted input"), fixing it is small and does not change the design, and the PR then closes it (phase 7).
 verify: root cause named with evidence; design written; open issues in touched files are either taken in or deliberately left.
 
 ### 2. Worktree
