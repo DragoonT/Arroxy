@@ -45,9 +45,9 @@ describe('issue policy workflow', () => {
 		expect(record(steps[0]?.with, 'checkout.with')['persist-credentials']).toBe(false)
 	})
 
-	it('reads the current title, body and labels in one lookup that fails the job when it fails', () => {
+	it('reads the current title, body, labels and state in one lookup that fails the job when it fails', () => {
 		const read = step('Read the issue as it is now')
-		expect(read.run).toBe('gh issue view "$NUMBER" --json title,body,labels > "$RUNNER_TEMP/issue.json"')
+		expect(read.run).toBe('gh issue view "$NUMBER" --json title,body,labels,state > "$RUNNER_TEMP/issue.json"')
 		expect(read.shell).toBeUndefined()
 	})
 
