@@ -56,7 +56,8 @@ export interface FixtureServerBehavior {
 	metadataFailureIds?: readonly string[]
 	// Probes for these videos stay open until the test calls releaseMetadata,
 	// however slow the host: no delay to outrun. Any metadataDelayMs and
-	// metadataFailureIds apply once released.
+	// metadataFailureIds apply once released. A held probe whose yt-dlp goes
+	// away (the app quit) ends then, with status 499.
 	metadataHeldIds?: readonly string[]
 	// Media for these videos trickles, then holds its last bytes until the test
 	// calls releaseSlowMedia: the download stays running however slow the host.
@@ -399,11 +400,18 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 	// Release callbacks of the probes still held, by video.
 	const heldMetadata = new Map<string, Set<() => void>>()
 
-	function holdMetadata(videoId: string): Promise<void> {
+	// Resolves 'released' once the test releases the video, or 'gone' when the
+	// client hangs up first.
+	function holdMetadata(videoId: string, res: http.ServerResponse): Promise<'released' | 'gone'> {
 		return new Promise(resolve => {
 			const held = heldMetadata.get(videoId) ?? new Set()
 			heldMetadata.set(videoId, held)
-			held.add(resolve)
+			const release = (): void => resolve('released')
+			held.add(release)
+			res.once('close', () => {
+				if (!held.delete(release)) return
+				resolve('gone')
+			})
 		})
 	}
 
@@ -446,7 +454,11 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		maxActiveProbes = Math.max(maxActiveProbes, activeProbes)
 		const cookieDomains = (query.get('domains') ?? '').split(',').filter(domain => domain !== '')
 		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, signedIn: query.get('signedIn') === '1', marker: query.get('marker'), cookieDomains, extractorArgs: parsedExtractorArgs(query), at: Date.now()})
-		if (behavior.metadataHeldIds.has(videoId)) await holdMetadata(videoId)
+		if (behavior.metadataHeldIds.has(videoId) && (await holdMetadata(videoId, res)) === 'gone') {
+			activeProbes -= 1
+			record({kind: 'probe-end', videoId, activeProbeCount: activeProbes, status: 499, at: Date.now()})
+			return
+		}
 		const delayMs = metadataDelayFor(behavior, videoId)
 		if (delayMs > 0) await delay(delayMs)
 		const step = behavior.extractionScript.get(videoId)?.shift()

@@ -101,7 +101,7 @@ A queue item paused after its download had already begun. Resuming continues fro
 _Avoid_: live pause, running pause
 
 **Quit gate**:
-The one place every way of quitting passes, from the window's close button to the end of the OS session. Quitting never cancels the queue: running items stop as an active pause would, everything is saved, and the next launch continues it on its own. It asks first only when you quit while downloads run.
+The one place every way of quitting passes, from the window's close button to the end of the OS session. Quitting never cancels the queue: running items stop as an active pause would, links still being checked stop too, everything is saved, and the next launch continues it on its own, checking those links again. It asks first only when you quit while downloads run.
 _Avoid_: shutdown cancel
 
 ### Wizard
@@ -229,7 +229,7 @@ Starting a download straight from a saved profile, skipping the wizard steps. A 
 _Avoid_: instant download, one-click download
 
 **Placeholder row**:
-The row a quick download puts in Downloads the moment a link is taken in, before its probe has answered. It has no job yet and never starts by itself; once the probe answers it becomes the queued items, a probe-error row, or a row that needs your choice. Cancelling it simply removes it. Its probe may wait for a **probe slot** first; the row stays Fetching details meanwhile, and says so when it waits out its site's rate-limit cooldown.
+The row a quick download puts in Downloads the moment a link is taken in, before its probe has answered. It has no job yet and never starts by itself; once the probe answers it becomes the queued items, a probe-error row, or a row that needs your choice. Cancelling it simply removes it. Its probe may wait for a **probe slot** first; the row stays Fetching details meanwhile, and says so when it waits out its site's rate-limit cooldown. Quitting stops its probe and keeps the row; the next launch probes it again, in the order the rows were placed.
 _Avoid_: pending row, stub row, ghost row
 
 **Probe-error row**:
