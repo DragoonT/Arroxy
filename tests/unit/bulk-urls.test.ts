@@ -89,6 +89,43 @@ describe('parseBulkUrls', () => {
 		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/results?search_query=don%27t+stop', 'https://www.youtube.com/results?search_query=why?'])
 	})
 
+	// #638: every YouTube search, read by the same test as classifyUrlIntent,
+	// holds free text: a trailing slash or YouTube Music's /search is no exception.
+	it.each([
+		["https://www.youtube.com/results/?search_query=don't+stop", 'https://www.youtube.com/results/?search_query=don%27t+stop'],
+		["https://music.youtube.com/search?q=don't+stop", 'https://music.youtube.com/search?q=don%27t+stop'],
+		["https://www.youtube.com/results?q=don't+stop", 'https://www.youtube.com/results?q=don%27t+stop'],
+		['https://www.youtube.com/results/?search_query=why?', 'https://www.youtube.com/results/?search_query=why?'],
+		['https://music.youtube.com/search?q=wow!', 'https://music.youtube.com/search?q=wow!']
+	])('keeps the apostrophes and final punctuation of the YouTube search %s', (raw, expected) => {
+		expect(parseBulkUrls(raw).accepted.map(item => item.url)).toEqual([expected])
+	})
+
+	it("keeps a final 's in a YouTube search's query, and drops it after any other link", () => {
+		const result = parseBulkUrls("https://www.youtube.com/results?search_query=it's\nhttps://music.youtube.com/search?q=let's. Then https://www.youtube.com/watch?v=dQw4w9WgXcQ's intro and https://example.com/?q=it's")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/results?search_query=it%27s', 'https://music.youtube.com/search?q=let%27s', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://example.com/?q=it'])
+	})
+
+	it('reads a YouTube search by its whole link, wherever the apostrophe falls', () => {
+		const result = parseBulkUrls("https://www.youtube.com/results?utm_campaign=John's+playlist&search_query=cats")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/results?search_query=cats'])
+	})
+
+	it("drops a 's after a search link's closing punctuation", () => {
+		const result = parseBulkUrls("(https://www.youtube.com/results?search_query=lofi)'s pick and https://www.youtube.com/results?search_query=jazz.'s")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/results?search_query=lofi', 'https://www.youtube.com/results?search_query=jazz'])
+	})
+
+	// URLSearchParams splits a YouTube search only at `&`: a `;` is query text.
+	it("keeps a final 's or ? after a ; in a YouTube search's query", () => {
+		const result = parseBulkUrls("https://www.youtube.com/results?search_query=rock;it's https://www.youtube.com/results?search_query=rock;why?")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/results?search_query=rock;it%27s', 'https://www.youtube.com/results?search_query=rock;why?'])
+	})
+
 	it('drops a ! or ? after closing punctuation, even after a query value', () => {
 		const result = parseBulkUrls("Seen this (https://vimeo.com/search?q=cats)? and 'https://a.test/?a=b'! and https://b.test/?id=5.!")
 
