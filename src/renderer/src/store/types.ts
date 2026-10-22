@@ -247,6 +247,9 @@ export interface QuickDownloadSlice {
 	retryQuickDownloadRow: (itemId: string) => Promise<void>
 	retryQuickDownloadRowWithCookies: (itemId: string) => Promise<void>
 	chooseQuickDownloadRow: (itemId: string, answer: QuickDownloadRowAnswer) => Promise<void>
+	// A hotkey video's offer of its list: placed as its own row without the video, or dismissed.
+	takeListOffer: (itemId: string) => Promise<void>
+	dismissListOffer: (itemId: string) => Promise<void>
 	// "Sign in with Explore" (P2-R51): the failed items waiting for the Explore
 	// sign-in, retried once it is reported. Memory only: a restart forgets them.
 	exploreRetryTargets: readonly ExploreRetryTarget[]
