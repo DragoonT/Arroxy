@@ -143,6 +143,22 @@ describe('playlist probe limit selector alert', () => {
 		expect(api.settings.update).not.toHaveBeenCalled()
 	})
 
+	it('closes the custom dialog with nothing to do when the custom limit is the one the list was loaded with', async () => {
+		const api = installApi()
+		resetStore(250, 100, true)
+		useAppStore.setState({playlistLoadedLimit: 100})
+		render(<StepPlaylistItems />)
+
+		fireEvent.click(screen.getByTestId('playlist-alert-probe-limit-trigger'))
+		fireEvent.click(await screen.findByTestId('playlist-alert-probe-limit-option-custom'))
+		fireEvent.change(await screen.findByTestId('playlist-alert-probe-limit-custom-input'), {target: {value: '100'}})
+		fireEvent.click(screen.getByTestId('playlist-alert-probe-limit-custom-save'))
+
+		await waitFor(() => expect(screen.queryByTestId('playlist-alert-probe-limit-custom-dialog')).not.toBeInTheDocument())
+		expect(api.settings.update).not.toHaveBeenCalled()
+		expect(api.downloads.probe).not.toHaveBeenCalled()
+	})
+
 	it('does not save or rerun when a custom limit is invalid', async () => {
 		const api = installApi()
 		resetStore(50, 50, true)
