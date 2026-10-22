@@ -1,5 +1,9 @@
 // @vitest-environment node
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
+
+const logger = vi.hoisted(() => ({debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn()}))
+vi.mock('electron-log/main.js', () => ({default: {...logger, scope: () => logger}}))
+
 import {ProbeService} from '@main/services/ProbeService.js'
 import {ProbeSlots} from '@main/services/ProbeSlots.js'
 import {SiteRequestState} from '@main/services/SiteRequestState.js'
@@ -195,18 +199,34 @@ describe('ProbeService — probe slots', () => {
 		expect(spawned).toEqual([])
 	})
 
-	it("cancelAll at quit aborts every probe, the window's, the rows' and those waiting for a slot", async () => {
+	it("closeForExit aborts every probe, the window's, the rows' and those waiting for a slot", async () => {
 		const {ytDlp, spawned} = controlledYtDlp()
 		const service = new ProbeService(ytDlp, false, undefined, {slots: new ProbeSlots({backgroundLimit: 1})})
 		const probes = [service.probe(VIDEO_URL, {kind: 'intake', playlistMode: 'video', ownerKey: 'row-1'}), service.probe(OTHER_URL, {kind: 'intake', playlistMode: 'video', ownerKey: 'row-2'}), service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})]
 		await settle()
 		expect(spawned).toEqual([VIDEO_URL, VIDEO_URL])
 
-		service.cancelAll()
+		service.closeForExit()
 		const results = await Promise.all(probes)
 
 		expect(results.every(result => !result.ok && result.error.kind === 'other' && result.error.code === 'cancelled')).toBe(true)
 		expect(spawned).toEqual([VIDEO_URL, VIDEO_URL])
+	})
+
+	it('refuses every probe asked for once the quit has begun: nothing spawns, and it says so once', async () => {
+		const {ytDlp, spawned} = controlledYtDlp()
+		const service = new ProbeService(ytDlp, false, undefined, {slots: new ProbeSlots({backgroundLimit: 1})})
+		service.closeForExit()
+		logger.info.mockClear()
+
+		const results = [await service.probe(VIDEO_URL, {kind: 'intake', playlistMode: 'video', ownerKey: 'row-1'}), await service.probe(OTHER_URL, {kind: 'interactive', playlistMode: 'video'})]
+
+		expect(results).toEqual([
+			{ok: false, error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}},
+			{ok: false, error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}}
+		])
+		expect(spawned).toEqual([])
+		expect(logger.info.mock.calls.filter(([message]) => String(message).includes('quitting'))).toHaveLength(1)
 	})
 
 	it('mock mode answers at once without a slot', async () => {
