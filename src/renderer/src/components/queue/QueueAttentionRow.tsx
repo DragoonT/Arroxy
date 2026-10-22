@@ -85,7 +85,7 @@ function ChoiceAnswers({item}: {item: QueueItem}): ReactNode {
 	const {t} = useTranslation()
 	const choose = useAppStore(state => state.chooseQuickDownloadRow)
 	const choice = item.status === QUEUE_STATUS.needsChoice ? item.choice : undefined
-	if (!choice) return null
+	if (choice?.kind !== 'list-size') return null
 	const count = choice.loaded
 	return (
 		<Alert variant="info" size="sm" data-testid="queue-choice">

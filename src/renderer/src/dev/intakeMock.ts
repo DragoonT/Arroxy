@@ -176,6 +176,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			const row = find(itemId)
 			if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return Promise.resolve(fail({code: 'validation', message: `queue item ${itemId} is not waiting for a choice`}))
 			const {choice} = row
+			if (choice.kind !== 'list-size') return Promise.resolve(fail({code: 'validation', message: `queue item ${itemId} asks which, not how much`}))
 			// The answer overrides any count the row was placed with.
 			if (take === 'all') return restart(itemId, requestId, {scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}})
 			if (!choice.capped) return Promise.resolve(fail({code: 'validation', message: 'only a list past the load limit offers its first videos'}))
