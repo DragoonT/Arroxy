@@ -1,5 +1,4 @@
 import {EventEmitter} from 'node:events'
-import {stripVTControlCharacters} from 'node:util'
 import log from 'electron-log/main.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
@@ -25,6 +24,7 @@ import {resolveMediaTags} from './probeMediaTags.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {buildMockProbeResult} from './probeMockResult.js'
 import {summarizeProbeResult} from './probeResultSummary.js'
+import {parseProbeJsonOutput, parseProbeProgressLine} from './probeOutput.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {degradationIsTransient, deriveDegraded, detectProbeDegradationSignals, isRateLimited, type ProbeSignal} from './probeDegradation.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
@@ -95,44 +95,6 @@ const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 // Matched by literal because the taxonomy has no timeout kind — see YtDlp.ts.
 function isProbeTimeoutFailure(result: ProbeAttemptResult): boolean {
 	return result.kind === 'failure' && result.error.kind === 'ytdlp' && result.error.error.raw === PROBE_TIMEOUT_MESSAGE
-}
-
-const PLAYLIST_ITEM_PROGRESS_RE = /\[download\]\s+Downloading item\s+(\d+)\s+of\s+(\d+|N\/A)/i
-const YOUTUBE_TAB_PAGE_PROGRESS_RE = /\[youtube:tab\]\s+.+?\spage\s+(\d+):\s+Downloading API JSON/i
-
-function parseProbeProgressLine(line: string): Pick<ProbeProgressEvent, 'phase' | 'loaded' | 'total'> | null {
-	const clean = stripVTControlCharacters(line)
-	const pageMatch = YOUTUBE_TAB_PAGE_PROGRESS_RE.exec(clean)
-	if (pageMatch) {
-		const loaded = Number(pageMatch[1])
-		return Number.isFinite(loaded) ? {phase: 'pages', loaded} : null
-	}
-	const itemMatch = PLAYLIST_ITEM_PROGRESS_RE.exec(clean)
-	if (!itemMatch) return null
-	const loaded = Number(itemMatch[1])
-	if (!Number.isFinite(loaded)) return null
-	const rawTotal = itemMatch[2]
-	const total = rawTotal && rawTotal !== 'N/A' ? Number(rawTotal) : undefined
-	return {phase: 'items', loaded, ...(total !== undefined && Number.isFinite(total) ? {total} : {})}
-}
-
-function parseProbeJsonOutput(stdout: string): unknown {
-	let lastJsonError: unknown = null
-	const lines = stdout.split(/\r?\n/).flatMap(line => {
-		const trimmedLine = line.trim()
-		return trimmedLine ? [trimmedLine] : []
-	})
-	for (let i = lines.length - 1; i >= 0; i--) {
-		const line = lines[i]
-		if (!line?.startsWith('{')) continue
-		try {
-			return JSON.parse(line)
-		} catch (error) {
-			lastJsonError = error
-		}
-	}
-	if (lastJsonError) throw lastJsonError
-	return JSON.parse(stdout)
 }
 
 // The renderer CSP allows `img-src 'self' data: https:` — no plaintext http.
