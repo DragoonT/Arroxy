@@ -38,8 +38,6 @@ import type {
 	QueueSelectionAction,
 	QueueSelectionCommandResult,
 	MediaTags,
-	QuickDownloadProgressPhase,
-	QuickDownloadStatus,
 	SubtitleFormat,
 	SubtitleMap,
 	SubtitleMode,
@@ -59,7 +57,6 @@ import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {VideoPartFields} from '@shared/videoPart.js'
 import type {ReviewRow, WizardSettingsSnapshot} from './wizard/profileApplication.js'
 import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
-import type {QuickDownloadFailure} from './wizard/quickDownloadFeedback.js'
 export type {AudioSelection}
 export type {BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, WizardMode} from '@shared/types.js'
 // WizardStep is a plain alias of the shared WizardStepName (schemas.ts is the
@@ -169,16 +166,6 @@ export interface ProbeOrchestratorSlice {
 	bulkMetadataTotal: number
 	bulkMetadataById: Record<string, BulkMetadataItemStatus>
 	bulkCappedLists: BulkCappedList[]
-	quickDownloadStatus: QuickDownloadStatus
-	quickDownloadFailure: QuickDownloadFailure | null
-	quickDownloadQueueIds: string[]
-	quickDownloadProgressPhase: QuickDownloadProgressPhase
-	quickDownloadProgressTotal: number
-	quickDownloadProgressCompleted: number
-	quickDownloadProgressFailed: number
-	quickDownloadProgressCurrent: string | null
-	quickDownloadProgressTitle: string | null
-	quickDownloadProgressRunId: number | null
 	// The needs-choice row this wizard run is the review of (P2-R40). The row
 	// stays until the run queues, which then replaces it. It lives exactly as
 	// long as the run: retries keep it; a new run (a URL submitted, a Bulk run,
@@ -196,13 +183,6 @@ export interface ProbeOrchestratorSlice {
 
 	setWizardUrl: (url: string) => void
 	submitUrl: (origin?: WizardOrigin) => Promise<void>
-	quickDownloadUrls: (urls: string[]) => Promise<void>
-	// Bulk URLs' failure alert on the URL tab.
-	retryQuickDownloadFailure: () => Promise<void>
-	retryQuickPlaylistCap: () => Promise<void>
-	retryQuickDownloadWithCookies: () => Promise<void>
-	cancelQuickDownload: () => void
-	dismissQuickDownloadFailure: () => void
 	startBulkUrls: (urls: string[]) => void
 	cancelBulkMetadata: (reason?: BulkMetadataCancelReason) => void
 	dismissMixedPrompt: (answer: MixedPromptAnswer) => Promise<void>
@@ -278,7 +258,7 @@ export interface QuickDownloadSlice {
 // What a failure waiting for the Explore sign-in retries: a probe-error row
 // (probes again), a failed download (downloads again), the wizard's link (only
 // while the URL tab still holds it), or the URL tab's failed quick download.
-export type ExploreRetryTarget = {kind: 'row'; itemId: string} | {kind: 'download'; itemId: string} | {kind: 'wizard'; url: string} | {kind: 'home'}
+export type ExploreRetryTarget = {kind: 'row'; itemId: string} | {kind: 'download'; itemId: string} | {kind: 'wizard'; url: string}
 
 // Where an in-app quick download started. `downloads`: a Retry or a choice on
 // the row itself, which needs no "Added" toast.
@@ -407,12 +387,10 @@ export interface WizardDialogsSlice {
 	advancedAutoOpen: boolean
 	advancedAutoTarget: AdvancedSettingsTarget
 	cookiesConfigDialogIssue: IncompleteCookiesConfigIssue | null
-	quickPlaylistCapDialogOpen: boolean
 
 	setAdvancedAutoOpen: (open: boolean, target?: AdvancedSettingsTarget) => void
 	cancelMixedPrompt: () => void
 	dismissCookiesConfigDialog: () => void
-	dismissQuickPlaylistCapDialog: () => void
 	openSettings: () => void
 	openAdvancedSettings: (target: AdvancedSettingsTarget) => void
 }
@@ -438,7 +416,6 @@ export interface QueueSlice {
 
 	addToQueue: () => Promise<void>
 	addAndDownloadImmediately: () => Promise<void>
-	queueLoadedPlaylistWithActiveProfile: () => Promise<void>
 	setItemLane: (itemId: string, lane: QueueLane) => Promise<void>
 	cancelItemDownload: (itemId: string) => Promise<void>
 	pauseItemDownload: (itemId: string) => Promise<void>
