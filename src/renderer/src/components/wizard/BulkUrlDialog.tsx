@@ -1,4 +1,4 @@
-import {useMemo, useRef, useState, type ReactNode} from 'react'
+import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, Link2, WandSparkles} from 'lucide-react'
 import type {BulkUrlRejectReason, DownloadProfileRef} from '@shared/types.js'
@@ -47,6 +47,16 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 	// While the links are being placed: a second press must not place them twice.
 	const [placing, setPlacing] = useState(false)
 	const placingRef = useRef(false)
+	// Which opening of the dialog a placement belongs to. Opening, closing and
+	// unmounting (the home mounts a new dialog each time) move it on, so a
+	// placement that finishes later never closes or clears the dialog opened since.
+	const openingRef = useRef(0)
+	useEffect(
+		() => () => {
+			openingRef.current += 1
+		},
+		[open]
+	)
 
 	function close(): void {
 		onOpenChange(false)
@@ -73,10 +83,12 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 		const current = buildBulkUrlPreview(raw)
 		if (!current.canConfirm || placingRef.current) return
 		bulkLogger.info('Bulk URL dialog quick download requested', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
+		const opening = openingRef.current
 		placingRef.current = true
 		setPlacing(true)
 		try {
-			if (await bulkQuickDownload(current.acceptedUrls)) {
+			const closes = await bulkQuickDownload(current.acceptedUrls)
+			if (closes && openingRef.current === opening) {
 				setRaw('')
 				onOpenChange(false)
 			}

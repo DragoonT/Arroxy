@@ -1,4 +1,5 @@
-import {fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {useState, type ReactNode} from 'react'
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {BulkUrlDialog} from '@renderer/components/wizard/BulkUrlDialog.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -76,6 +77,43 @@ describe('BulkUrlDialog', () => {
 		finish(true)
 
 		await waitFor(() => expect(bulkQuickDownload).toHaveBeenCalledOnce())
+	})
+
+	// The home unmounts the dialog when it closes, and a reopened dialog is a new
+	// one: a placement the closed dialog started must not close the new one.
+	it('a placement finishing after Cancel never closes the dialog opened since', async () => {
+		let finish: (closes: boolean) => void = () => undefined
+		const bulkQuickDownload = vi.fn(() => new Promise<boolean>(resolve => (finish = resolve)))
+		useAppStore.setState({bulkQuickDownload})
+		function Home(): ReactNode {
+			const [open, setOpen] = useState(true)
+			const [raw, setRaw] = useState('https://example.com/first')
+			return (
+				<>
+					<button
+						type="button"
+						data-testid="reopen"
+						onClick={() => {
+							setRaw('https://example.com/second')
+							setOpen(true)
+						}}
+					/>
+					{open ? <BulkUrlDialog open onOpenChange={setOpen} initialRaw={raw} /> : null}
+				</>
+			)
+		}
+		render(<Home />)
+
+		fireEvent.click(screen.getByTestId('bulk-quick-download'))
+		fireEvent.click(screen.getByRole('button', {name: 'Cancel'}))
+		await waitFor(() => expect(screen.queryByTestId('bulk-url-dialog')).not.toBeInTheDocument())
+		fireEvent.click(screen.getByTestId('reopen'))
+		expect(await screen.findByTestId('bulk-url-textarea')).toHaveValue('https://example.com/second')
+
+		await act(async () => finish(true))
+
+		expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument()
+		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue('https://example.com/second')
 	})
 
 	it('renders a compact profile-aware quick download control', () => {
