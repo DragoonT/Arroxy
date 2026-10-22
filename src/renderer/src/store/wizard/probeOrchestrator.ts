@@ -204,7 +204,7 @@ async function submitWizardUrl(origin: WizardOrigin, set: SetState, get: GetStat
 		set({wizardUrl: cleaned, ...mixedUrlPromptPatch(cleaned, 'wizard')})
 		return
 	}
-	if (action.kind === 'open-bulk-review' || action.kind === 'show-label') return
+	if (action.kind === 'ask-on-row' || action.kind === 'show-label') return
 	if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
 	await runProbe(cleaned, action.playlistMode, set, get, !sameRun)
 }
