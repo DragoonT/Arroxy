@@ -170,6 +170,31 @@ describe('ProbeService — probe slots', () => {
 		expect(result.ok ? null : result.error).toMatchObject({kind: 'ytdlp', error: {kind: 'rateLimit', raw: RATE_LIMIT_COOLDOWN_MESSAGE}})
 	})
 
+	it('declines a probe whose caller says no once the slot is granted, spawning nothing', async () => {
+		const {ytDlp, spawned, answer} = controlledYtDlp()
+		const service = new ProbeService(ytDlp, false, undefined, {slots: new ProbeSlots({backgroundLimit: 1})})
+		let downloading = false
+
+		void service.probe(VIDEO_URL, {kind: 'intake', playlistMode: 'video', ownerKey: 'row-1'})
+		const backfill = service.probe(OTHER_URL, {kind: 'backfill', playlistMode: 'video', ownerKey: 'title-backfill', admit: () => !downloading})
+		await settle()
+		downloading = true
+		await answer(success())
+
+		expect(await backfill).toEqual({ok: false, error: {kind: 'other', code: 'deferred', message: 'Probe deferred'}})
+		expect(spawned).toEqual([VIDEO_URL])
+	})
+
+	it('without slots, declines at once when the caller says no', async () => {
+		const {ytDlp, spawned} = controlledYtDlp()
+		const service = new ProbeService(ytDlp)
+
+		const result = await service.probe(VIDEO_URL, {kind: 'backfill', playlistMode: 'video', admit: () => false})
+
+		expect(result).toEqual({ok: false, error: {kind: 'other', code: 'deferred', message: 'Probe deferred'}})
+		expect(spawned).toEqual([])
+	})
+
 	it('mock mode answers at once without a slot', async () => {
 		const slots = new ProbeSlots({backgroundLimit: 1})
 		const run = vi.spyOn(slots, 'run')

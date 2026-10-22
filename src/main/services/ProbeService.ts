@@ -53,6 +53,7 @@ interface ProbeRunAs {
 }
 
 const PROBE_CANCELLED = {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}} as const satisfies ProbeAttemptResult
+const PROBE_DEFERRED = {kind: 'other', code: 'deferred', message: 'Probe deferred'} as const satisfies ProbeError
 
 // Options bag so unit tests can inject a deterministic parent-page fetcher;
 // production leaves it undefined and gets the real HTTP fetcher.
@@ -77,6 +78,8 @@ export interface ProbeOptions {
 	ownerKey?: string
 	timeoutMs?: number
 	escalate?: boolean
+	// Asked when the probe's slot is granted; false declines it and the probe fails `deferred`.
+	admit?: () => boolean
 }
 
 // YtDlp held the run for a cooldown that began after the probe got its slot: nothing spawned.
@@ -463,9 +466,10 @@ export class ProbeService extends EventEmitter {
 		}
 		try {
 			if (this.mockMode) return ok(buildMockProbeResult(url))
-			if (!this.slots) return await this.probeNow(url, opts, controller.signal)
-			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url)}, controller.signal, () => this.probeNow(url, opts, controller.signal), {isHeld: heldByCooldown})
-			return outcome.kind === 'ran' ? outcome.value : fail<ProbeResult, ProbeError>(PROBE_CANCELLED.error)
+			if (!this.slots) return opts.admit && !opts.admit() ? fail<ProbeResult, ProbeError>(PROBE_DEFERRED) : await this.probeNow(url, opts, controller.signal)
+			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url)}, controller.signal, () => this.probeNow(url, opts, controller.signal), {isHeld: heldByCooldown, ...(opts.admit ? {admit: opts.admit} : {})})
+			if (outcome.kind === 'ran') return outcome.value
+			return fail<ProbeResult, ProbeError>(outcome.kind === 'deferred' ? PROBE_DEFERRED : PROBE_CANCELLED.error)
 		} finally {
 			this.inFlight.delete(controller)
 			if (ownerKey && this.inFlightByKey.get(ownerKey) === controller) this.inFlightByKey.delete(ownerKey)

@@ -6,6 +6,8 @@
 // background capacity is unused, so Interactive Download never waits behind a
 // pasted batch, even right after the limit is lowered. A freed slot goes to
 // the oldest interactive waiter, then intake in arrival order, then backfill.
+// A caller may decline its slot once granted (`admit`): the title backfill
+// does while a download runs, and nothing spawns.
 //
 // A background waiter whose site is cooling down (SiteRequestState) keeps its
 // place but takes no slot, so waiters for other sites behind it can start.
@@ -31,7 +33,14 @@ export interface ProbeSlotRequest {
 	site: string
 }
 
-export type ProbeSlotOutcome<T> = {kind: 'ran'; value: T} | {kind: 'cancelled'}
+export type ProbeSlotOutcome<T> = {kind: 'ran'; value: T} | {kind: 'cancelled'} | {kind: 'deferred'}
+
+export interface ProbeSlotRunOptions<T> {
+	// A result YtDlp held for a cooldown: a background probe waits again.
+	isHeld?: (value: T) => boolean
+	// Asked when the slot is granted; false frees it unused (`deferred`).
+	admit?: () => boolean
+}
 
 export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'onChange'>
 
@@ -75,10 +84,15 @@ export class ProbeSlots {
 		this.pump()
 	}
 
-	async run<T>(request: ProbeSlotRequest, signal: AbortSignal, task: () => Promise<T>, options: {isHeld?: (value: T) => boolean} = {}): Promise<ProbeSlotOutcome<T>> {
+	async run<T>(request: ProbeSlotRequest, signal: AbortSignal, task: () => Promise<T>, options: ProbeSlotRunOptions<T> = {}): Promise<ProbeSlotOutcome<T>> {
 		const seq = this.nextSeq++
 		for (;;) {
 			if (!(await this.acquire(request, seq, signal))) return {kind: 'cancelled'}
+			if (options.admit && !options.admit()) {
+				this.release(request.kind)
+				logger.info('Probe declined its slot', {kind: request.kind, site: request.site})
+				return {kind: 'deferred'}
+			}
 			let value: T
 			try {
 				value = await task()
