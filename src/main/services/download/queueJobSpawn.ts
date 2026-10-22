@@ -17,7 +17,7 @@ import {createAppError} from '@main/utils/errorFactory.js'
 const logger = log.scope('queue')
 
 export interface QueueJobSpawnDeps {
-	downloadService: Pick<DownloadService, 'start' | 'pause' | 'cancel'>
+	downloadService: Pick<DownloadService, 'start' | 'resume' | 'pause' | 'cancel'>
 	probeInfoJsonCache?: ProbeInfoJsonCache
 	findItem: (itemId: string) => QueueItem | undefined
 	commitEvent: (itemId: string, evt: QueueEvent) => void
@@ -28,6 +28,13 @@ export interface QueueJobSpawnDeps {
 }
 
 export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, tempDir: string | undefined): Promise<Result<void>> {
+	// A row Resume All moved back to pending still names the job it parked:
+	// resume that job, which keeps its state (a quality limit among it), rather
+	// than start a new one beside it.
+	if (item.status === QUEUE_STATUS.pending && item.lastJobId) {
+		const resumed = await resumeParkedJob(deps, item, item.lastJobId)
+		if (resumed !== 'notParked') return resumed
+	}
 	const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
 	const {auth, replayProbeInfoJson} = resolveStartIdentity(item)
 	const probeInfoJsonPath = replayProbeInfoJson && item.probeInfoJsonRef && deps.probeInfoJsonCache ? await deps.probeInfoJsonCache.resolve(item.probeInfoJsonRef) : undefined
@@ -42,6 +49,32 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 	}
 	const jobId = result.data.job.id
 	return settleStartedJob(deps, item, jobId, {kind: 'started', lastJobId: jobId}, effectiveTempDir)
+}
+
+// 'notParked': no parked job by that id (the app restarted since the pause), so
+// the caller starts a fresh job from the row's temp dir.
+async function resumeParkedJob(deps: QueueJobSpawnDeps, item: QueueItem, jobId: string): Promise<Result<void> | 'notParked'> {
+	const resumed = await deps.downloadService.resume(jobId)
+	if (resumed.ok && resumed.data.resumed) return settleStartedJob(deps, item, jobId, {kind: 'resumed'}, item.tempDir)
+	// The wait can be long: a pause, cancel or remove may have moved the row on.
+	const current = deps.findItem(item.id)
+	if (current?.status !== item.status || current.lastJobId !== jobId) {
+		deps.settled()
+		return ok(undefined)
+	}
+	if (!resumed.ok) {
+		deps.commitEvent(item.id, {kind: 'failed', error: {kind: 'unknown', raw: resumed.error.message}})
+		deps.settled()
+		return fail(resumed.error)
+	}
+	if (resumed.data.jobLive) {
+		// Its pause has not parked yet: a fresh start would leave the old job beside
+		// it. Back to paused, where a later resume picks the job up.
+		deps.patch(item.id, 'spawn:stillParking', prev => ({...prev, status: QUEUE_STATUS.pausedActive}))
+		deps.settled()
+		return fail(createAppError('conflict', 'The download is still pausing; resume it again in a moment'))
+	}
+	return 'notParked'
 }
 
 // `item` predates the await and commit replaces slots rather than mutating, so
