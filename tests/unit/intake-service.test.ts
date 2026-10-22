@@ -52,7 +52,7 @@ interface Harness {
 	settled: () => Promise<void>
 }
 
-function harness(): Harness {
+function harness({windowReported = true}: {windowReported?: boolean} = {}): Harness {
 	const store = {load: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: true})), save: vi.fn().mockResolvedValue(ok(undefined))} as unknown as QueueStore
 	const queue = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
 	// Paused, so prepared rows stay pending and the snapshot is stable.
@@ -80,7 +80,7 @@ function harness(): Harness {
 		platform: 'linux',
 		newId: () => `id-${++id}`
 	})
-	intake.setWindowContext({currentOutputDir: '/wizard-folder', displayShowsHdr: false})
+	if (windowReported) intake.setWindowContext({currentOutputDir: '/wizard-folder', displayShowsHdr: false})
 	return {
 		intake,
 		queue,
@@ -570,5 +570,69 @@ describe('IntakeService', () => {
 		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
 		await h.settled()
 		expect(h.queue.snapshot()[0]?.error).toEqual({kind: 'unknown', raw: 'text:wizard.url.quickProbeFailed'})
+	})
+
+	// Decision: placeholder rows still probing when the app quit resume their
+	// probes at launch, instead of each becoming a probe error to retry.
+	describe('resuming placeholder probes at launch', () => {
+		const UNRESOLVED_JOB = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+		const OFFLINE = fail<ProbeResult, ProbeError>({kind: 'other', code: 'unknown', message: 'offline'})
+
+		function probingRow(id: string, url: string, extra: Partial<Parameters<typeof makeItem>[0]> = {}) {
+			return makeItem({id, status: 'probing', url, title: url, job: UNRESOLVED_JOB, probeMode: 'video', addedAt: `2026-10-22T12:0${id.length}:00.000Z`, ...extra})
+		}
+
+		it('restarts every probing placeholder in queue order, with its mode, count and skipped video, and no other row', async () => {
+			h.answer(OFFLINE)
+			h.queue.add([
+				probingRow('first', VIDEO_URL, {origin: {kind: 'window', intakeId: 'i1'}}),
+				probingRow('second', PLAYLIST_URL, {probeMode: 'playlist', probeTake: {kind: 'first', count: 2}, origin: {kind: 'hotkey', intakeId: 'i2'}}),
+				probingRow('third', `${PLAYLIST_URL}2`, {probeMode: 'playlist', skipVideoId: 'abc', origin: {kind: 'localClient', clientId: 'agent', intakeId: 'i3'}}),
+				makeItem({id: 'failed', status: 'error', url: 'https://www.youtube.com/watch?v=err', title: 'x', job: UNRESOLVED_JOB, probeMode: 'video', error: {kind: 'network', raw: 'offline'}}),
+				makeItem({id: 'choice', status: 'needs-choice', url: 'https://www.youtube.com/playlist?list=PLc', title: 'x', job: UNRESOLVED_JOB, probeMode: 'playlist', choice: {kind: 'list-size', loaded: 100, capped: true}})
+			])
+
+			expect(await h.intake.resumePlaceholderProbes()).toBe(3)
+			await h.settled()
+
+			expect(h.probes).toEqual([
+				{url: VIDEO_URL, playlistMode: 'video', ownerKey: 'first', playlistScope: {items: {kind: 'first', count: 100}}},
+				{url: PLAYLIST_URL, playlistMode: 'playlist', ownerKey: 'second', playlistScope: {items: {kind: 'first', count: 2}}},
+				{url: `${PLAYLIST_URL}2`, playlistMode: 'playlist', ownerKey: 'third', playlistScope: {items: {kind: 'first', count: 101}}}
+			])
+			expect(h.queue.snapshot().find(row => row.id === 'choice')?.status).toBe('needs-choice')
+			expect(h.queue.snapshot().find(row => row.id === 'failed')?.error).toEqual({kind: 'network', raw: 'offline'})
+		})
+
+		it("tells each outcome to the row's own origin, under a request of its own", async () => {
+			h.answer(OFFLINE)
+			h.queue.add([probingRow('a', VIDEO_URL, {origin: {kind: 'hotkey', intakeId: 'i1'}}), probingRow('bb', PLAYLIST_URL, {probeMode: 'playlist'})])
+
+			await h.intake.resumePlaceholderProbes()
+			await h.settled()
+
+			const told = h.events.flatMap(event => (event.kind === 'outcome' ? [{origin: event.origin, intakeId: event.intakeId, requestId: event.requestId, kind: event.outcome.kind}] : []))
+			expect(told).toEqual([
+				{origin: 'hotkey', intakeId: 'i1', requestId: expect.any(String), kind: 'failed'},
+				{origin: 'window', intakeId: null, requestId: expect.any(String), kind: 'failed'}
+			])
+			expect(new Set(told.map(outcome => outcome.requestId)).size).toBe(2)
+		})
+
+		it('waits for the window to report its folder and screen before resuming', async () => {
+			const fresh = harness({windowReported: false})
+			fresh.queue.add([probingRow('a', VIDEO_URL)])
+
+			const resumed = fresh.intake.resumePlaceholderProbes()
+			await new Promise(resolve => setTimeout(resolve, 10))
+			expect(fresh.probes).toEqual([])
+
+			// A link taken in meanwhile probes on its own and is not probed twice.
+			await fresh.intake.add({requestId: 'r1', url: PLAYLIST_URL, playlistMode: 'playlist', origin: WINDOW})
+			fresh.intake.setWindowContext({currentOutputDir: '/wizard-folder', displayShowsHdr: true})
+			expect(await resumed).toBe(1)
+			await fresh.settled()
+			expect(fresh.probes.map(probe => probe.url).sort()).toEqual([PLAYLIST_URL, VIDEO_URL])
+		})
 	})
 })

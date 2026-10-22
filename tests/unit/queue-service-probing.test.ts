@@ -301,15 +301,27 @@ describe('QueueService — probing items', () => {
 		expect(onProbeAbort).not.toHaveBeenCalled()
 	})
 
-	it('promotes stale probing items to error on boot', async () => {
+	// Decision: a placeholder still probing at quit resumes its probe on the
+	// next launch (intake restarts it), so it stays probing on load.
+	it('keeps a probing placeholder probing on boot, for intake to resume', async () => {
 		const store = fakeStore()
-		store.load = vi.fn().mockResolvedValue(ok({items: [probingItem('stale')], schedulerPaused: false}))
-		const ds = new FakeDownloadService()
-		const qs = new QueueService(store, ds as unknown as DownloadService)
+		store.load = vi.fn().mockResolvedValue(ok({items: [probingItem('resumable')], schedulerPaused: false}))
+		const qs = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
+		await qs.init()
+		const row = qs.snapshot().find(i => i.id === 'resumable')
+		expect(row?.status).toBe('probing')
+		expect(row?.error ?? null).toBeNull()
+	})
+
+	it('still turns a probing row that cannot be resumed into a probe error on boot', async () => {
+		const store = fakeStore()
+		const {probeMode: _mode, ...noMode} = probingItem('stale')
+		store.load = vi.fn().mockResolvedValue(ok({items: [noMode], schedulerPaused: false}))
+		const qs = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
 		await qs.init()
 		const stale = qs.snapshot().find(i => i.id === 'stale')
 		expect(stale?.status).toBe('error')
-		expect(stale?.error?.kind).toBe('unknown')
+		expect(stale?.error).toEqual({kind: 'unknown', raw: 'App restarted while fetching video details'})
 	})
 
 	// Decision: a choice survives a restart. It needs no live probe, and its
