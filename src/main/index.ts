@@ -320,7 +320,7 @@ if (hasSingleInstanceLock) {
 		const systemLanguage = pickSystemLanguage(app.getPreferredSystemLanguages())
 		const languageRef: {current: SupportedLang} = {current: pickLanguage(initialSettings.common.language ?? systemLanguage)}
 		const recentJobsStore = new RecentJobsStore(userDataPath)
-		const queueStore = new QueueStore(userDataPath)
+		const queueStore = new QueueStore(userDataPath, {playlistLoadLimit: () => resolvePlaylistProbeLimit(settingsStore.getSync().common)})
 		const playlistManifestStore = new PlaylistManifestStore(userDataPath)
 		const probeInfoJsonCache = new ProbeInfoJsonCache(userDataPath)
 		await probeInfoJsonCache.sweepExpired()
