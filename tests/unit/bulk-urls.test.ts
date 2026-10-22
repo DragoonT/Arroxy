@@ -33,6 +33,44 @@ describe('parseBulkUrls', () => {
 		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2'])
 	})
 
+	it('keeps an apostrophe inside a link', () => {
+		const result = parseBulkUrls("https://cdn.example/John's-video.mp4")
+
+		expect(result.accepted.map(item => item.url)).toEqual(["https://cdn.example/John's-video.mp4"])
+	})
+
+	it('keeps a ! or ? that ends a query value', () => {
+		const result = parseBulkUrls('https://example.com/v?token=abc!\nhttps://example.com/watch?q=what?\nsee https://example.com/watch?q=why?.')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://example.com/v?token=abc!', 'https://example.com/watch?q=what?', 'https://example.com/watch?q=why?'])
+	})
+
+	it('drops a ! or ? that ends a link in prose', () => {
+		const result = parseBulkUrls('see https://a.test/1! and https://b.test/2? or https://c.test/3?! then https://d.test/4?b!')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2', 'https://c.test/3', 'https://d.test/4?b'])
+	})
+
+	// YouTube's ids and values never end in ! or ?, so after a YouTube link they
+	// are always the sentence's.
+	it('drops a ! or ? after a YouTube link even inside its query', () => {
+		const result = parseBulkUrls('can you get https://www.youtube.com/watch?v=dQw4w9WgXcQ? and https://www.youtube.com/playlist?list=PLabcdefghijk!')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://www.youtube.com/playlist?list=PLabcdefghijk'])
+	})
+
+	it('drops the quotes around a quoted link', () => {
+		const result = parseBulkUrls("'https://a.test/1' and 'https://b.test/watch?q=x!'.")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/watch?q=x!'])
+	})
+
+	it('splits a list of quoted links', () => {
+		const result = parseBulkUrls("['https://a.test/1','https://b.test/2', 'https://c.test/3';'https://d.test/4']")
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2', 'https://c.test/3', 'https://d.test/4'])
+	})
+
 	it('dedupes the same link joined by a comma', () => {
 		const result = parseBulkUrls('https://vimeo.com/12345,https://vimeo.com/12345')
 
