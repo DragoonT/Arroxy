@@ -21,7 +21,7 @@ import type {
 	NativeAudioPreference,
 	HdrSetting,
 	PlaylistEntry,
-	PlaylistProbeResult,
+	KeptProbe,
 	PlaylistScope,
 	PlaylistSelection,
 	PlaylistSortMode,
@@ -141,6 +141,9 @@ export interface ProbeOrchestratorSlice {
 	playlistId: string
 	playlistIsMultiVideo: boolean
 	playlistLikelyCapped: boolean
+	// The load limit the list on screen was cut at when it isn't the current
+	// setting (a kept probe's review); null otherwise.
+	playlistLoadedLimit: number | null
 	playlistProbeLoading: boolean
 	playlistProbeProgress: ProbeProgressEvent | null
 	playlistScopeReloading: boolean
@@ -242,7 +245,7 @@ export interface ProbeOrchestratorSlice {
 	cancelWizardProbe: () => void
 	// A needs-choice row's Review: the wizard's playlist step for the link,
 	// from the row's kept probe when there is one, else from a fresh probe.
-	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, probe?: PlaylistProbeResult) => Promise<void>
+	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, kept?: KeptProbe) => Promise<void>
 }
 
 // QuickDownload — the in-app ends of the background quick download (P2-R37/R38).

@@ -17,7 +17,7 @@ import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import type {IntakeAddInput, IntakeCaller, IntakeOriginKind, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type QuickProbeTake} from '@shared/schemas.js'
-import type {AppSettings, DownloadProfileRef, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
+import type {AppSettings, DownloadProfileRef, KeptProbe, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 
 export interface IntakeMockDeps {
 	probe: AppApi['downloads']['probe']
@@ -61,7 +61,7 @@ function ownTake(row: QueueItem): Pick<Probe, 'scope' | 'take'> {
 export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 	const listeners = new Set<(event: IntakeEvent) => void>()
 	const hotkeyListeners = new Set<(event: IntakeOutcomeEvent) => void>()
-	const kept = new Map<string, PlaylistProbeResult>()
+	const kept = new Map<string, KeptProbe>()
 	let windowContext: IntakeWindowContext = {currentOutputDir: '', displayShowsHdr: false}
 	const find = (itemId: string): QueueItem | undefined => deps.items().find(item => item.id === itemId)
 	const emit = (event: IntakeEvent): void => {
@@ -92,7 +92,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 				return
 			case 'needs-choice':
 				if (!(await deps.transition(itemId, {kind: 'needs-choice', choice: resolution.choice, title: resolution.title})).ok) return
-				kept.set(itemId, resolution.probe)
+				kept.set(itemId, resolution.kept)
 				tell({kind: 'needs-choice', itemId, choice: resolution.choice})
 				return
 			case 'failed':
@@ -180,7 +180,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			if (take === 'all') return restart(itemId, requestId, {scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}})
 			if (!choice.capped) return Promise.resolve(fail({code: 'validation', message: 'only a list past the load limit offers its first videos'}))
 			const first = {kind: 'first', count: choice.loaded} as const
-			return restart(itemId, requestId, {scope: scopeForTake(first), take: first}, kept.get(itemId))
+			return restart(itemId, requestId, {scope: scopeForTake(first), take: first}, kept.get(itemId)?.probe)
 		},
 		keptProbe: ({itemId}) => Promise.resolve(ok(kept.get(itemId) ?? null)),
 		takeListOffer: async ({requestId, itemId}) => {

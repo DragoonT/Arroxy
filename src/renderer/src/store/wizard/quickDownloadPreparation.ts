@@ -11,7 +11,7 @@ import {projectPlaylistProbeResult} from './probeResultProjection.js'
 import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
 import {submitPreparedQueueSubmission} from './queueSubmissionAdapter.js'
 import {settlePlaceholder} from '../quickDownload/quickDownloadPipeline.js'
-import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
+import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, type QuickDownloadFailure, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {policyForUrlIntent, shouldReviewPlaylistProbeResult} from '@shared/intake/urlIntentPolicy.js'
 import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
@@ -96,6 +96,11 @@ async function enqueueActiveProfileProbeResult(probe: ProbeResult, urls: string[
 		return null
 	}
 	return {ids: result.ids, skippedAlreadyQueued: prepared.skippedAlreadyQueued + result.skippedAlreadyQueued}
+}
+
+// A profile whose folder can't be resolved says so in the app language.
+function thrownFailure(err: unknown, urls: string[]): QuickDownloadFailure {
+	return err instanceof DownloadProfileOutputMissingError ? {kind: 'prepare', messageKey: 'wizard.url.profile.outputMissing', urls} : {kind: 'exception', message: err instanceof Error ? err.message : String(err), urls}
 }
 
 function quickProbeTitle(probe: ProbeResult): string | null {
@@ -204,7 +209,7 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 		set(queuedQuickDownloadFeedback(queuedIds, failedCount))
 	} catch (err) {
 		if (!isRunActive(runId)) return
-		set(failedQuickDownloadFeedback(err instanceof DownloadProfileOutputMissingError ? {kind: 'prepare', messageKey: 'wizard.url.profile.outputMissing', urls: cleanedUrls} : {kind: 'exception', message: err instanceof Error ? err.message : String(err), urls: cleanedUrls}))
+		set(failedQuickDownloadFeedback(thrownFailure(err, cleanedUrls)))
 	}
 }
 
@@ -279,6 +284,9 @@ export async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: G
 		const skippedAlreadyQueued = prepared.skippedAlreadyQueued + result.skippedAlreadyQueued
 		if (skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(skippedAlreadyQueued)
 		set(queuedQuickDownloadFeedback(result.ids))
+	} catch (err) {
+		// The cap dialog's button does not wait on this: a failure shows here or nowhere.
+		set({...failedQuickDownloadFeedback(thrownFailure(err, [state.wizardUrl])), quickPlaylistCapDialogOpen: false})
 	} finally {
 		set({isSubmittingToQueue: false})
 	}

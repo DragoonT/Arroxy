@@ -451,6 +451,35 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 	})
 
+	// #539: the error escaped the button's discarded promise, so nothing showed
+	// and the dialog stayed open.
+	it('says so when the profile saves to a folder that is not set, and closes the cap dialog', async () => {
+		const api = buildMockAppApi()
+		window.appApi = api
+		const base = defaultAppSettings('/tmp')
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		if (!balanced) throw new Error('expected the balanced profile')
+
+		useAppStore.setState({
+			wizardStep: 'playlistItems',
+			wizardMode: 'playlist',
+			wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+			wizardOutputDir: '/tmp',
+			wizardWebpageUrl: 'https://www.youtube.com/playlist?list=PLtest',
+			playlistItems: PLAYLIST_PROBE.entries,
+			playlistTitle: 'My Playlist',
+			playlistId: 'PLtest',
+			playlistLikelyCapped: true,
+			quickPlaylistCapDialogOpen: true,
+			settings: {...base, profiles: {...base.profiles, overrides: [{...balanced, output: {kind: 'fixed', dir: ' '}}]}}
+		})
+
+		await expect(useAppStore.getState().queueLoadedPlaylistWithActiveProfile()).resolves.toBeUndefined()
+
+		expect(api.queue.cmd.add).not.toHaveBeenCalled()
+		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'prepare', messageKey: 'wizard.url.profile.outputMissing'}, quickPlaylistCapDialogOpen: false, isSubmittingToQueue: false})
+	})
+
 	it('quickDownloadUrls probes and queues every accepted bulk URL with the active profile', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))

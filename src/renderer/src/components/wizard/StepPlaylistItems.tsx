@@ -88,6 +88,7 @@ function PlaylistCollectionNotices({busy, playlistLimit, copyKeys}: {busy: boole
 	const {t} = useTranslation()
 	const playlistScopeError = useAppStore(s => s.playlistScopeError)
 	const playlistLikelyCapped = useAppStore(s => s.playlistLikelyCapped)
+	const playlistLoadedLimit = useAppStore(s => s.playlistLoadedLimit)
 	const reloadPlaylistWithScope = useAppStore(s => s.reloadPlaylistWithScope)
 	const retryFormatProbe = useAppStore(s => s.retryFormatProbe)
 	return (
@@ -106,9 +107,9 @@ function PlaylistCollectionNotices({busy, playlistLimit, copyKeys}: {busy: boole
 				<Alert variant="warning" data-testid="playlist-probe-limit-alert">
 					<Info />
 					<AlertTitle>{t(copyKeys.probeLimitAlertTitle)}</AlertTitle>
-					<AlertDescription>{t('wizard.playlist.probeLimitAlertDesc', {count: playlistLimit})}</AlertDescription>
+					<AlertDescription>{t('wizard.playlist.probeLimitAlertDesc', {count: playlistLoadedLimit ?? playlistLimit})}</AlertDescription>
 					<div className="col-start-2 mt-2">
-						<PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} onLimitChanged={() => retryFormatProbe()} className="w-40" />
+						<PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} {...(playlistLoadedLimit === null ? {} : {loadedLimit: playlistLoadedLimit})} onLimitChanged={() => retryFormatProbe()} className="w-40" />
 					</div>
 				</Alert>
 			)}

@@ -112,8 +112,9 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, {kind: 'video'}>, set
 	set(projectVideoProbeResult(probe, get(), firstProbe))
 }
 
-function applyPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, set: SetState, get: GetState, firstProbe: boolean): void {
-	set(projectPlaylistProbeResult(withoutSkipped(probe, reviewSkip(get())), get(), firstProbe))
+// `limit`: the load limit the probe was taken with, when not the current one.
+function applyPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, set: SetState, get: GetState, firstProbe: boolean, limit?: number): void {
+	set(projectPlaylistProbeResult(withoutSkipped(probe, reviewSkip(get())), get(), firstProbe, limit))
 }
 
 // A review of a list placed by a row's list offer leaves out the video the
@@ -160,8 +161,8 @@ function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState,
 	logStep('submitUrl', startProjection.fromStep, startProjection.initialStep, pickWizardSnapshot(get()))
 }
 
-function landPlaylistProbe(probe: PlaylistProbeResult, set: SetState, get: GetState, firstProbe: boolean): void {
-	applyPlaylistProbeResult(probe, set, get, firstProbe)
+function landPlaylistProbe(probe: PlaylistProbeResult, set: SetState, get: GetState, firstProbe: boolean, limit?: number): void {
+	applyPlaylistProbeResult(probe, set, get, firstProbe, limit)
 	// Background-scan the destination folder so the sync alert is ready by the
 	// time the user looks at the list — no manual "Sync with folder" click.
 	void get().scanDownloadedInFolder()
@@ -298,6 +299,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		playlistId: RESET_WIZARD_STATE.playlistId,
 		playlistIsMultiVideo: RESET_WIZARD_STATE.playlistIsMultiVideo,
 		playlistLikelyCapped: RESET_WIZARD_STATE.playlistLikelyCapped,
+		playlistLoadedLimit: RESET_WIZARD_STATE.playlistLoadedLimit,
 		playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
 		playlistProbeProgress: RESET_WIZARD_STATE.playlistProbeProgress,
 		playlistScopeReloading: RESET_WIZARD_STATE.playlistScopeReloading,
@@ -678,11 +680,13 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null})
 		},
 
-		openPlaylistReview: async (url, playlistMode, sourceRowId, probe) => {
+		openPlaylistReview: async (url, playlistMode, sourceRowId, kept) => {
 			set({wizardOrigin: 'download'})
 			startProbe(url, playlistMode, set, get)
-			set({reviewSourceRowId: sourceRowId})
-			if (probe) landPlaylistProbe(probe, set, get, true)
+			// The review loads the first N, N being the load limit: a scope left
+			// from an earlier list (back never resets it) must not stand in for it.
+			set({reviewSourceRowId: sourceRowId, playlistScope: {items: {kind: 'app-limit'}}})
+			if (kept) landPlaylistProbe(kept.probe, set, get, true, kept.limit)
 			else await finishProbe(url, playlistMode, set, get, true)
 		},
 
