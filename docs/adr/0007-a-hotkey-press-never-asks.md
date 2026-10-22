@@ -1,5 +1,7 @@
 # A hotkey press never asks which half of a URL you meant
 
+Its Radio half is superseded by [ADR 0020](0020-a-video-in-a-list-is-asked-about-beside-a-this-video-path.md); its hotkey half stands.
+
 A YouTube URL carrying both `v=` and `list=` names one video and a playlist at
 once. In the app, Arroxy asks which one the user meant. A global-hotkey press
 has no window to ask in, so it resolves the ambiguity itself: it downloads the

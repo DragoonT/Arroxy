@@ -1,0 +1,20 @@
+# A video in a list is asked about only beside a no-question This video path
+
+Supersedes the Radio half of [ADR 0007](0007-a-hotkey-press-never-asks.md). Its hotkey half stands.
+
+A YouTube link that carries both `v=` and `list=` names one video and a list. ADR 0007 treated a Mix (`list=RD…`, or any link with `start_radio`) as a plain video everywhere: YouTube generates it around the video and changes it every session, so "the playlist" seemed to name nothing. That left two things unreachable from a video link: the Mix itself, and a YouTube Music playlist (`RDCLAK…`), which shares the `RD` prefix but is a stable list.
+
+A Mix reads to a finite end (yt-dlp stops once videos repeat), so "the first N" is well defined. It is a snapshot, not nothing. So a Mix is now one of the lists a video link can name, and `RDCLAK…` reads as a playlist.
+
+Making more links ambiguous only works if asking costs nothing to people who want the video. So the question is asked only where someone can answer it, and always beside a way not to be asked:
+
+- **Every surface with a window offers This video** next to the list's button: the Explore toolbar, the URL tab, Explore's link menu. It downloads the video at once with the active profile.
+- **The list's button asks only about the list:** in the background (asking past the load limit), exactly the first N, or Interactive's picker. Interactive asks only how many to load.
+- **The hotkey still takes the video** (ADR 0007's hotkey half), and a Mix link is no exception.
+- **Bulk URLs keeps every former Radio link** (`RD…`, `RDCLAK…`, `start_radio`) as one video, as before: a batch has no place for a per-link question.
+
+## Consequences
+
+A Mix never costs more moves than before: on a Mix link, This video is the same one move Download used to be. Only Bulk URLs carries its own reading of `RD` links; if it gains per-link answers, that exception goes.
+
+The list kind (playlist, Mix, album, uploads, Watch later, liked) is read from the link alone and names every list control, so a mislabel is a lookup fix, not a flow change.
