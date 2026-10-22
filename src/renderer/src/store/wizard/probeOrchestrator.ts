@@ -20,6 +20,8 @@ import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardOrigin,
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
 import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, isHydrationMode, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
+import {widenForSkip, withoutSkipped} from '@shared/intake/probeResolution.js'
+import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
@@ -111,7 +113,20 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, {kind: 'video'}>, set
 }
 
 function applyPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, set: SetState, get: GetState, firstProbe: boolean): void {
-	set(projectPlaylistProbeResult(probe, get(), firstProbe))
+	set(projectPlaylistProbeResult(withoutSkipped(probe, reviewSkip(get())), get(), firstProbe))
+}
+
+// A review of a list placed by a row's list offer leaves out the video the
+// hotkey already took, on every load of the list (the first, a scope reload,
+// a retry). The review's source row, still in the queue, holds which video.
+function reviewSkip(state: AppState): string | undefined {
+	return state.reviewSourceRowId ? state.queue.find(item => item.id === state.reviewSourceRowId)?.skipVideoId : undefined
+}
+
+// Such a load reads one entry further, so the list still shows when it goes on.
+function probeScopeFor(scope: PlaylistScope, state: AppState): PlaylistScope {
+	if (!reviewSkip(state)) return scope
+	return widenForSkip(scope.items.kind === 'app-limit' ? {items: {kind: 'first', count: resolvePlaylistProbeLimit(state.settings?.common)}} : scope)
 }
 
 // Hydrate only placeholder rows in the playlist picker — fully-populated
@@ -161,7 +176,7 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 }
 
 async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe: boolean): Promise<void> {
-	const playlistScope = get().playlistScope
+	const playlistScope = probeScopeFor(get().playlistScope, get())
 	const run = wizardProbeRun
 	const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope})})
 	if (run !== wizardProbeRun) return
@@ -212,7 +227,7 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 
 	let result: Awaited<ReturnType<typeof window.appApi.downloads.probe>>
 	try {
-		result = await window.appApi.downloads.probe({url, playlistMode: 'playlist', playlistScope: scope})
+		result = await window.appApi.downloads.probe({url, playlistMode: 'playlist', playlistScope: probeScopeFor(scope, state)})
 	} catch (error) {
 		const message = `Could not reload that playlist scope: ${unknownPlaylistScopeReloadErrorMessage(error)}. Your previous list is still shown.`
 		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
