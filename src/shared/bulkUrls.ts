@@ -1,5 +1,6 @@
 import {cleanUrl} from './cleanUrl.js'
 import type {BulkUrlKind, BulkUrlRejectReason} from './schemas.js'
+import {isYouTubeHostname} from './sites/youtubeHost.js'
 import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
 
 export interface BulkUrlAccepted {
@@ -25,8 +26,12 @@ export interface BulkUrlParseResult {
 
 // `,` and `;` are valid inside a URL, so they end a link only where the next
 // link starts; one that ends a link in prose is trimmed as trailing punctuation.
-const URL_RE = /https?:\/\/(?:[^\s,;|<>"'`]|[,;](?!\s*https?:\/\/))+/gi
-const TRAILING_PUNCTUATION_RE = /[)\].,;:!?]+$/
+// An apostrophe is valid too (`John's-video.mp4`); a quote around a link is
+// trimmed from its end, and a quote opening the next link still splits there.
+const URL_RE = /https?:\/\/(?:[^\s,;|<>"`]|[,;](?!\s*['"]?https?:\/\/))+/gi
+const TRAILING_PUNCTUATION_RE = /[)\].,;:']+$/
+// `!` and `?` end a sentence, but also a query value (`?token=abc!`).
+const TRAILING_SENTENCE_MARKS_RE = /[!?]+$/
 const OBVIOUS_NON_MEDIA_FILE_EXTENSIONS = new Set([
 	'7z',
 	'apk',
@@ -86,8 +91,40 @@ const OBVIOUS_NON_MEDIA_FILE_EXTENSIONS = new Set([
 	'zip'
 ])
 
+// A query, no fragment after it, and an `=` in its last parameter.
+function endsInQueryValue(url: string): boolean {
+	const queryStart = url.indexOf('?')
+	if (queryStart < 0 || url.includes('#', queryStart)) return false
+	const query = url.slice(queryStart + 1)
+	const lastParameter = query.slice(Math.max(query.lastIndexOf('&'), query.lastIndexOf(';')) + 1)
+	return lastParameter.includes('=')
+}
+
+function isYouTubeLink(url: string): boolean {
+	try {
+		return isYouTubeHostname(new URL(url).hostname)
+	} catch {
+		return false
+	}
+}
+
+// A `!` or `?` run after a link is the sentence's, unless it ends a query value
+// (`?q=what?`). YouTube's ids and values never end in one, so after a YouTube
+// link it is always the sentence's.
+function trimSentenceMarks(token: string): string {
+	const marks = TRAILING_SENTENCE_MARKS_RE.exec(token)
+	if (!marks) return token
+	const rest = token.slice(0, marks.index)
+	return endsInQueryValue(rest) && !isYouTubeLink(rest) ? token : rest
+}
+
 function trimUrlToken(token: string): string {
-	return token.replace(TRAILING_PUNCTUATION_RE, '')
+	let trimmed = token
+	for (;;) {
+		const next = trimSentenceMarks(trimmed.replace(TRAILING_PUNCTUATION_RE, ''))
+		if (next === trimmed) return trimmed
+		trimmed = next
+	}
 }
 
 function decodedPathname(url: URL): string {
