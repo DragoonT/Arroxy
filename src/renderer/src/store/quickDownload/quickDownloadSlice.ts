@@ -139,13 +139,14 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 				const url = cleaned[index]
 				const action = actions[index]
 				if (url === undefined || !action || !('playlistMode' in action)) continue
-				const answer: {placement: IntakePlacement} = {placement: {kind: 'not-added'}}
+				const answer: {placement: IntakePlacement | null} = {placement: null}
 				await placeQuickDownload({url, playlistMode: action.playlistMode, ...(profile ? {profile} : {})}, event => {
-					// The placements make one toast for the batch; what each probe ends in toasts as usual.
-					if (event.kind === 'added' || event.kind === 'already-queued' || event.kind === 'not-added') answer.placement = event
+					// The first answer is the placement, told in the batch's one toast. Everything
+					// later (what the probe ends in, an already-queued video main dropped) toasts as usual.
+					if (answer.placement === null && (event.kind === 'added' || event.kind === 'already-queued' || event.kind === 'not-added')) answer.placement = event
 					else toasts(event)
 				})
-				placements[index] = answer.placement
+				placements[index] = answer.placement ?? {kind: 'not-added'}
 			}
 			const count = (kind: IntakePlacement['kind']): number => placements.filter(placement => placement.kind === kind).length
 			const first = placements.find(placement => placement.kind !== 'not-added')

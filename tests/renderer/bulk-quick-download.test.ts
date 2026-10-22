@@ -108,6 +108,20 @@ describe("Bulk URLs' Quick Download", () => {
 		await vi.waitFor(() => expect(toasts.map(toast => toast.message)).toEqual([expect.stringContaining("Couldn't prepare")]))
 	})
 
+	// The placement is told once; what main tells a placed link later (here: its
+	// video turned out to be live already, so main dropped the row) toasts as usual.
+	it('tells a placed link that turns out to be already queued after the batch toast', async () => {
+		const probe = deferredProbe(api)
+		useAppStore.setState({queue: [makeItem({id: 'live', status: 'pending', url: VIDEO_URL, title: 'Live'})]})
+		await bulk([OTHER_URL])
+		expect(toasts.map(toast => toast.message)).toEqual(['Added 1 link to Downloads'])
+
+		probe.resolve(ok(VIDEO))
+
+		await vi.waitFor(() => expect(toasts.map(toast => toast.message)).toEqual(['Added 1 link to Downloads', 'Already in the queue']))
+		expect(queue().map(item => item.id)).toEqual(['live'])
+	})
+
 	it('sends the whole batch to the review when a link names a video in a list, placing nothing', async () => {
 		const probe = deferredProbe(api)
 		const startBulkUrls = vi.fn()
