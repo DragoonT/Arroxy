@@ -368,6 +368,9 @@ export class ProbeService extends EventEmitter {
 	// probe (a quick download's placeholder row keys on its queue item id). At
 	// most one probe per key; only cancelProbe(ownerKey) aborts one.
 	private inFlightByKey = new Map<string, AbortController>()
+	// The app is quitting (closeForExit): no probe may start. The first refusal is logged.
+	private closedForExit = false
+	private refusalLogged = false
 
 	private readonly vhxTitleFetcher: VhxTitleFetcher
 	private readonly exploreGate: ExploreGate | undefined
@@ -418,6 +421,11 @@ export class ProbeService extends EventEmitter {
 	// probe that waits for one removes it, and nothing spawns.
 	async probe(url: string, opts: ProbeOptions): Promise<Result<ProbeResult, ProbeError>> {
 		const {ownerKey} = opts
+		if (this.closedForExit) {
+			if (!this.refusalLogged) logger.info('Probe refused: the app is quitting', {url})
+			this.refusalLogged = true
+			return fail(PROBE_CANCELLED.error)
+		}
 		const controller = new AbortController()
 		if (ownerKey) {
 			// At most one live probe per owner: a duplicate probe supersedes the
@@ -563,7 +571,9 @@ export class ProbeService extends EventEmitter {
 
 	// The app is quitting: every probe stops, the window's and the rows', so no
 	// yt-dlp outlives it (they spawn as their own process group).
-	cancelAll(): void {
+	// From then on every probe is refused: its yt-dlp would outlive the app too.
+	closeForExit(): void {
+		this.closedForExit = true
 		const controllers = [...this.inFlight, ...this.inFlightByKey.values()]
 		this.inFlight.clear()
 		this.inFlightByKey.clear()

@@ -649,7 +649,7 @@ if (hasSingleInstanceLock) {
 			suspendQueue: () => {
 				// Probes stop with the app (their yt-dlp would outlive it); their rows stay probing and resume at the next launch.
 				intakeService.stopForExit()
-				probeService.cancelAll()
+				probeService.closeForExit()
 				return queueService.suspendForExit()
 			},
 			dispose: () => {

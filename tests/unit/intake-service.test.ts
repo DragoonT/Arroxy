@@ -50,6 +50,8 @@ interface Harness {
 	// The window's language, which main labels rows in.
 	speak: (language: SupportedLang) => void
 	settled: () => Promise<void>
+	// Called as each probe is asked for.
+	onProbe: (hook: (request: IntakeProbeRequest) => void) => void
 }
 
 function harness({windowReported = true}: {windowReported?: boolean} = {}): Harness {
@@ -64,10 +66,12 @@ function harness({windowReported = true}: {windowReported?: boolean} = {}): Harn
 	let pending: Promise<unknown>[] = []
 	let id = 0
 	let language: SupportedLang = 'en'
+	let probeHook: (request: IntakeProbeRequest) => void = () => undefined
 	const intake = new IntakeService({
 		queue,
 		probe: request => {
 			probes.push(request)
+			probeHook(request)
 			const answer = Promise.resolve(next)
 			pending.push(answer)
 			return answer
@@ -92,6 +96,9 @@ function harness({windowReported = true}: {windowReported?: boolean} = {}): Harn
 		},
 		speak: lang => {
 			language = lang
+		},
+		onProbe: hook => {
+			probeHook = hook
 		},
 		settled: async () => {
 			await vi.waitFor(async () => {
@@ -640,11 +647,33 @@ describe('IntakeService', () => {
 	// row's probe that comes back cancelled then must leave the row probing,
 	// so the next launch resumes it.
 	describe('stopping for quit', () => {
+		it('stops resuming mid-batch: every row not yet asked for stays probing', async () => {
+			h.queue.add(['a', 'b', 'c'].map(id => makeItem({id, status: 'probing', url: `https://www.youtube.com/watch?v=${id}`, title: id, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'video'})))
+			h.onProbe(() => h.intake.stopForExit())
+
+			await h.intake.resumePlaceholderProbes()
+			await h.settled()
+
+			expect(h.probes.map(probe => probe.ownerKey)).toEqual(['a'])
+			expect(h.queue.snapshot().map(row => row.status)).toEqual(['probing', 'probing', 'probing'])
+		})
+
+		it('places a link taken in during the quit but asks for no probe: it resumes at the next launch', async () => {
+			h.intake.stopForExit()
+			const placement = await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
+			await h.settled()
+			expect(placement.kind).toBe('added')
+			expect(h.queue.snapshot()[0]?.status).toBe('probing')
+			expect(h.probes).toEqual([])
+		})
+
 		it('writes nothing for a probe that ends after the quit began: the row stays probing', async () => {
 			h.answer(fail({kind: 'other', code: 'cancelled', message: 'Probe cancelled'}))
-			h.intake.stopForExit()
+			// The quit begins while the probe is out; the quit's cancel ends it.
+			h.onProbe(() => h.intake.stopForExit())
 			await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
 			await h.settled()
+			expect(h.probes).toHaveLength(1)
 			expect(h.queue.snapshot()[0]?.status).toBe('probing')
 			expect(outcomes(h)).toEqual([])
 		})
