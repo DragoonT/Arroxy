@@ -30,7 +30,7 @@ import {createAppError} from '@main/utils/errorFactory.js'
 import {nowIso} from '@main/utils/clock.js'
 import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QueueLane, type QuickProbeTake} from '@shared/schemas.js'
-import {transition, illegalTransition} from '@shared/queueTransition.js'
+import {transition, illegalTransition, type QueueEvent} from '@shared/queueTransition.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRemove} from './download/QueueAutoRemove.js'
@@ -59,7 +59,7 @@ import {QueueProgressCoalescer} from './download/QueueProgressCoalescer.js'
 import {QueueJobProgress} from './download/QueueJobProgress.js'
 import {QueueSiteCooldown} from './download/QueueSiteCooldown.js'
 import type {SiteRequestState} from './SiteRequestState.js'
-import {resolveStartIdentity} from './download/queueStartIdentity.js'
+import {spawnQueueJob} from './download/queueJobSpawn.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
 const logger = log.scope('queue')
@@ -261,16 +261,18 @@ export class QueueService extends EventEmitter {
 		return ok(undefined)
 	}
 
-	// Reports each running item it paused and each one it could not.
+	// Reports each running or starting item it paused and each one it could not.
 	async pauseAll(): Promise<QueueSchedulerCommandResult> {
 		// Flip the pause flag FIRST so per-item commits below can't re-trigger an
 		// auto-spawn of the next pending item (the "pause all → next one starts" bug).
 		this.setSchedulerPaused(true)
 		this.sleep.clear()
-		const running = this.items.filter(i => i.status === QUEUE_STATUS.running)
-		logger.info('pauseAll', {runningCount: running.length, total: this.items.length, snapshot: this.statusSummary()})
+		// A row still starting (binary setup, probe cache) is pending until its start
+		// returns; pausing it holds the row, and the spawn parks the job it started.
+		const active = this.items.filter(i => i.status === QUEUE_STATUS.running || (i.status === QUEUE_STATUS.pending && this.spawning.has(i.id)))
+		logger.info('pauseAll', {activeCount: active.length, total: this.items.length, snapshot: this.statusSummary()})
 		const {done, failed} = await pauseEach(
-			running.map(i => i.id),
+			active.map(i => i.id),
 			{pause: itemId => this.pause(itemId), statusOf: itemId => this.findItem(itemId)?.status}
 		)
 		// Ensure the flag itself reaches disk even if no items needed pausing
@@ -723,31 +725,18 @@ export class QueueService extends EventEmitter {
 
 	private async spawnViaStart(itemId: string, tempDir: string | undefined): Promise<Result<void>> {
 		this.spawning.add(itemId)
-		const item = this.findItem(itemId)
-		if (!item) {
-			this.spawning.delete(itemId)
-			return fail(createAppError('validation', `queue item ${itemId} not found`))
-		}
-		const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
-		const resumeContextForImmediateFailure = item.resumeContext
-		const {auth, replayProbeInfoJson} = resolveStartIdentity(item)
-		const probeInfoJsonPath = replayProbeInfoJson && item.probeInfoJsonRef && this.probeInfoJsonCache ? await this.probeInfoJsonCache.resolve(item.probeInfoJsonRef) : undefined
-		if (item.probeInfoJsonRef) {
-			logger.info('probe info-json resolved', {itemId, probeInfoJsonRef: item.probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
-		}
 		try {
-			const result = await this.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir, ...(auth === 'exploreSession' ? {auth} : {}), ...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})})
-			if (!result.ok) {
-				this.commit({kind: 'event', itemId, evt: {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}, resumeContext: resumeContextForImmediateFailure}})
-				return fail(result.error)
+			const item = this.findItem(itemId)
+			if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
+			const deps = {
+				downloadService: this.downloadService,
+				probeInfoJsonCache: this.probeInfoJsonCache,
+				findItem: (id: string) => this.findItem(id),
+				commitEvent: (id: string, evt: QueueEvent) => this.commit({kind: 'event', itemId: id, evt}),
+				patch: (id: string, reason: string, patcher: (prev: QueueItem) => QueueItem) => this.commit({kind: 'patch', itemId: id, reason, patcher}),
+				settled: () => this.spawning.delete(itemId)
 			}
-			const currentItem = this.findItem(itemId) // `item` predates the await and commit replaces slots rather than mutating, so `item.status` is the pre-start snapshot. Requiring `pending` here silently cancelled every cross-restart resume, where the item is legitimately still `paused-active`.
-			if (!currentItem || currentItem.status !== item.status) {
-				await this.downloadService.cancel(result.data.job.id)
-				return ok(undefined)
-			}
-			this.commit({kind: 'event', itemId, evt: {kind: 'started', lastJobId: result.data.job.id}})
-			return ok(undefined)
+			return await spawnQueueJob(deps, item, tempDir)
 		} finally {
 			this.spawning.delete(itemId)
 		}
