@@ -32,6 +32,8 @@ function fakeCooldowns(): ProbeSlotCooldowns & {cool: (site: string, ms: number)
 	return {
 		rateLimitedUntil,
 		wouldAdmit: site => rateLimitedUntil(site) === null || passes.has(site),
+		// This fake's passes never run out.
+		holdPass: () => undefined,
 		tryNow: site => {
 			passes.add(site)
 			for (const listener of listeners) listener()

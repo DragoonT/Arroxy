@@ -128,6 +128,35 @@ describe('probe slots and the rate-limit cooldown', () => {
 		}
 	})
 
+	// #663: the retry waits for a slot longer than Try now's 30 s pass.
+	it("Try now's pass waits for the retried row while every slot is busy", async () => {
+		const h = wired()
+		try {
+			await h.intake.add({requestId: 'r1', url: ONE, playlistMode: 'video', origin: {kind: 'window'}})
+			await settle()
+			await h.answer(rateLimited())
+			await vi.waitFor(() => expect(h.status(ONE)).toBe('error'))
+			// Two slow probes of other sites fill both slots.
+			await h.intake.add({requestId: 'r2', url: 'https://a.example/one', playlistMode: 'video', origin: {kind: 'window'}})
+			await h.intake.add({requestId: 'r3', url: 'https://b.example/two', playlistMode: 'video', origin: {kind: 'window'}})
+			await settle()
+			expect(h.spawned).toEqual([ONE, 'https://a.example/one', 'https://b.example/two'])
+
+			h.siteRequests.allowOnce('youtube')
+			h.intake.retry({requestId: 'r4', itemId: h.rowId(ONE), origin: 'window'})
+			await settle()
+			await vi.advanceTimersByTimeAsync(31_000)
+			expect(h.siteRequests.rateLimitedUntil('youtube')).not.toBeNull()
+
+			// A slot frees while the cooldown still runs: the retry goes through it.
+			await h.answer(video('https://a.example/one'))
+			await settle()
+			expect(h.spawned).toEqual([ONE, 'https://a.example/one', 'https://b.example/two', ONE])
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	it('a probe held on the site a redirect led to waits out that site, never failing its row', async () => {
 		const h = wired()
 		try {

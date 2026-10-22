@@ -154,6 +154,13 @@ export class SiteRequestState {
 		this.notify()
 	}
 
+	// A pass whose request waits for a probe slot lasts until the cooldown ends:
+	// a full slot pool must not outlast it (#663). No pass waiting, nothing held.
+	holdPass(site: string): void {
+		const record = this.records.get(this.key(site))
+		if (record && this.now() < record.passUntil) record.passUntil = record.until
+	}
+
 	// The request "Try now" let through came back without a rate limit, so the
 	// site is answering again. Only the cooldown it was let through ends: a
 	// limit another request met since stands. The repeat count stays, so a

@@ -334,3 +334,29 @@ describe('SiteRequestState — wouldAdmit', () => {
 		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
 	})
 })
+
+// Probe slots hold a pass while its request waits for a slot (#663), so a
+// full slot pool never outlasts Try now.
+describe('SiteRequestState — holdPass', () => {
+	it('keeps a waiting pass until the cooldown ends', () => {
+		const {clock, siteRequests} = state({random: 0})
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		siteRequests.allowOnce('youtube')
+		siteRequests.holdPass('youtube')
+		clock.advance(TRY_NOW_PASS_MS + 1)
+		expect(siteRequests.wouldAdmit('youtube')).toBe(true)
+		expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: true})
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+	})
+
+	it('grants nothing when no pass waits, or once it ran out', () => {
+		const {clock, siteRequests} = state({random: 0})
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		siteRequests.holdPass('youtube')
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+		siteRequests.allowOnce('youtube')
+		clock.advance(TRY_NOW_PASS_MS)
+		siteRequests.holdPass('youtube')
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+	})
+})
