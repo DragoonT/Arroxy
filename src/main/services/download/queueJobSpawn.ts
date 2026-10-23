@@ -27,12 +27,12 @@ export interface QueueJobSpawnDeps {
 	settled: () => void
 }
 
-export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, tempDir: string | undefined): Promise<Result<void>> {
+export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, tempDir: string | undefined, signedInReservation?: string): Promise<Result<void>> {
 	// A row Resume All moved back to pending still names the job it parked:
 	// resume that job, which keeps its state (a quality limit among it), rather
 	// than start a new one beside it.
 	if (item.status === QUEUE_STATUS.pending && item.lastJobId) {
-		const resumed = await resumeParkedJob(deps, item, item.lastJobId)
+		const resumed = await resumeParkedJob(deps, item, item.lastJobId, signedInReservation)
 		if (resumed !== 'notParked') return resumed
 	}
 	const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
@@ -41,7 +41,16 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 	if (item.probeInfoJsonRef) {
 		logger.info('probe info-json resolved', {itemId: item.id, probeInfoJsonRef: item.probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
 	}
-	const result = await deps.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir, ...(auth === 'exploreSession' ? {auth} : {}), ...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})})
+	const result = await deps.downloadService.start({
+		url: item.url,
+		outputDir: item.outputDir,
+		job: item.job,
+		tempDir: effectiveTempDir,
+		...(auth === 'exploreSession' ? {auth} : {}),
+		...(item.lane === 'priority' ? {explicit: true} : {}),
+		...(signedInReservation === undefined ? {} : {signedInReservation}),
+		...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})
+	})
 	if (!result.ok) {
 		deps.commitEvent(item.id, {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}, resumeContext: item.resumeContext})
 		deps.settled()
@@ -53,8 +62,8 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 
 // 'notParked': no parked job by that id (the app restarted since the pause), so
 // the caller starts a fresh job from the row's temp dir.
-async function resumeParkedJob(deps: QueueJobSpawnDeps, item: QueueItem, jobId: string): Promise<Result<void> | 'notParked'> {
-	const resumed = await deps.downloadService.resume(jobId)
+async function resumeParkedJob(deps: QueueJobSpawnDeps, item: QueueItem, jobId: string, signedInReservation: string | undefined): Promise<Result<void> | 'notParked'> {
+	const resumed = await deps.downloadService.resume(jobId, {explicit: item.lane === 'priority', ...(signedInReservation === undefined ? {} : {signedInReservation})})
 	if (resumed.ok && resumed.data.resumed) return settleStartedJob(deps, item, jobId, {kind: 'resumed'}, item.tempDir)
 	// The wait can be long: a pause, cancel or remove may have moved the row on.
 	const current = deps.findItem(item.id)
