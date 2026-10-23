@@ -22,7 +22,7 @@
 
 import log from 'electron-log/main.js'
 import {INTERACTIVE_PROBE_HEADROOM} from '@shared/constants.js'
-import type {ProbeKind} from '@shared/schemas.js'
+import type {HeldProbe, ProbeKind} from '@shared/schemas.js'
 import type {SiteRequestState} from './SiteRequestState.js'
 
 const logger = log.scope('probe-slots')
@@ -31,6 +31,8 @@ export interface ProbeSlotRequest {
 	kind: ProbeKind
 	// The request site of the probed link (requestSiteFor).
 	site: string
+	// The probe's owner key (a Downloads row's id), named while a cooldown holds it.
+	owner?: string
 }
 
 export type ProbeSlotOutcome<T> = {kind: 'ran'; value: T} | {kind: 'cancelled'} | {kind: 'deferred'}
@@ -44,7 +46,7 @@ export interface ProbeSlotRunOptions<T> {
 	admit?: () => boolean
 }
 
-export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'wouldAdmit' | 'onChange'>
+export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'wouldAdmit' | 'holdPass' | 'releasePass' | 'onChange'>
 
 export interface ProbeSlotsOptions {
 	backgroundLimit: number
@@ -72,6 +74,10 @@ export class ProbeSlots {
 	private nextSeq = 0
 	private timer: ReturnType<typeof setTimeout> | null = null
 	private timerAt = 0
+	private held: HeldProbe[] = []
+	// Sites whose Try now pass this pool holds for a waiter behind it.
+	private passSites = new Set<string>()
+	private readonly heldListeners = new Set<(held: HeldProbe[]) => void>()
 
 	constructor(options: ProbeSlotsOptions) {
 		this.backgroundLimit = options.backgroundLimit
@@ -108,6 +114,16 @@ export class ProbeSlots {
 			request = {...request, site: heldBy}
 			logger.info('Probe held by a cooldown goes back to wait', {kind: request.kind, site: heldBy})
 		}
+	}
+
+	// The background waiters a cooldown holds now, by owner and the site they wait on.
+	heldProbes(): HeldProbe[] {
+		return this.held.map(probe => ({...probe}))
+	}
+
+	onHeldChange(listener: (held: HeldProbe[]) => void): () => void {
+		this.heldListeners.add(listener)
+		return () => this.heldListeners.delete(listener)
 	}
 
 	snapshot(): {running: Record<ProbeKind, number>; waiting: ProbeSlotRequest[]} {
@@ -149,7 +165,8 @@ export class ProbeSlots {
 	// earliest cooldown still holding a waiter.
 	private pump(): void {
 		let wakeAt: number | null = null
-		for (let i = 0; i < this.waiters.length;) {
+		let i = 0
+		while (i < this.waiters.length) {
 			const waiter = this.waiters[i]
 			if (!waiter) break
 			// Background capacity in use: background probes, and the window's probes beyond their own headroom.
@@ -169,7 +186,32 @@ export class ProbeSlots {
 			this.waiters.splice(i, 1)
 			waiter.grant()
 		}
+		// Waiters left behind a full pool keep their site's Try now pass until they
+		// get a slot; a site with none left there gets the pass's usual window back.
+		const passSites = new Set(this.waiters.slice(i).map(waiter => waiter.request.site))
+		for (const site of passSites) this.cooldown?.holdPass(site)
+		for (const site of this.passSites) if (!passSites.has(site)) this.cooldown?.releasePass(site)
+		this.passSites = passSites
+		this.publishHeld()
 		this.schedule(wakeAt)
+	}
+
+	// Tells listeners which owned background waiters a cooldown holds, when that
+	// changed. A Try now pass lets one request through: the first waiter on its
+	// site, in grant order; the others stay held.
+	private publishHeld(): void {
+		const passing = new Set<string>()
+		const held = this.waiters.flatMap(({request: {kind, site, owner}}) => {
+			if (kind === 'interactive' || this.coolingUntil(site) === null) return []
+			if (this.cooldown?.wouldAdmit(site) && !passing.has(site)) {
+				passing.add(site)
+				return []
+			}
+			return owner === undefined ? [] : [{owner, site}]
+		})
+		if (held.length === this.held.length && held.every((probe, index) => probe.owner === this.held[index]?.owner && probe.site === this.held[index]?.site)) return
+		this.held = held
+		for (const listener of this.heldListeners) listener(this.heldProbes())
 	}
 
 	private coolingUntil(site: string): number | null {
