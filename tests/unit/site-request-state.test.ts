@@ -364,6 +364,19 @@ describe('SiteRequestState — holdPass', () => {
 		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
 	})
 
+	it('releases a held pass on the route that granted it, after a proxy switch', () => {
+		let route = 'direct'
+		const {clock, siteRequests} = state({random: 0, route: () => route})
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		siteRequests.allowOnce('youtube')
+		siteRequests.holdPass('youtube')
+		route = 'http://proxy:8080'
+		siteRequests.releasePass('youtube')
+		route = 'direct'
+		clock.advance(TRY_NOW_PASS_MS)
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+	})
+
 	it('tells listeners when a request spends the pass', () => {
 		const {siteRequests} = state({random: 0})
 		siteRequests.recordRateLimit('youtube', 'rateLimited')

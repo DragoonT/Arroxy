@@ -164,10 +164,11 @@ export class SiteRequestState {
 	}
 
 	// The request a held pass waited for got its slot or left: the pass keeps
-	// Try now's usual window from now, never the rest of the cooldown.
+	// Try now's usual window from now, never the rest of the cooldown. Every
+	// route's, since the proxy may have changed while it waited.
 	releasePass(site: string): void {
-		const record = this.records.get(this.key(site))
-		if (record && this.now() < record.passUntil) record.passUntil = Math.min(record.passUntil, this.now() + TRY_NOW_PASS_MS)
+		const until = this.now() + TRY_NOW_PASS_MS
+		for (const [key, record] of this.records) if (key.endsWith(`\u0000${site}`) && record.passUntil > until) record.passUntil = until
 	}
 
 	// The request "Try now" let through came back without a rate limit, so the
