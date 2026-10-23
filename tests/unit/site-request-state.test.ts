@@ -178,18 +178,18 @@ describe('SiteRequestState', () => {
 		expect(siteRequests.rateLimitedUntil('youtube')).toBe(clock.now() + RATE_LIMIT_BASE_MS)
 	})
 
-	it('tells listeners when a cooldown starts, Try now grants a pass, or the cooldown ends early', () => {
+	it('tells listeners when a cooldown starts, Try now grants a pass, a request spends it, or the cooldown ends early', () => {
 		const {siteRequests} = state()
 		const listener = vi.fn()
 		const off = siteRequests.onChange(listener)
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		siteRequests.allowOnce('youtube')
 		launched(siteRequests.admit('youtube')).finish('', true)
-		expect(listener).toHaveBeenCalledTimes(3)
+		expect(listener).toHaveBeenCalledTimes(4)
 		expect(listener).toHaveBeenLastCalledWith([])
 		off()
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
-		expect(listener).toHaveBeenCalledTimes(3)
+		expect(listener).toHaveBeenCalledTimes(4)
 	})
 
 	it('tells listeners the new route’s cooldowns when the route changes', () => {
@@ -347,6 +347,31 @@ describe('SiteRequestState — holdPass', () => {
 		expect(siteRequests.wouldAdmit('youtube')).toBe(true)
 		expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: true})
 		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+	})
+
+	it('gives a released pass the usual window again, not the rest of the cooldown', () => {
+		const {clock, siteRequests} = state({random: 0})
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		siteRequests.allowOnce('youtube')
+		siteRequests.holdPass('youtube')
+		clock.advance(TRY_NOW_PASS_MS / 3)
+		// The request it waited for left before it got a slot.
+		siteRequests.releasePass('youtube')
+		clock.advance(TRY_NOW_PASS_MS - 1)
+		expect(siteRequests.wouldAdmit('youtube')).toBe(true)
+		clock.advance(1)
+		expect(siteRequests.rateLimitedUntil('youtube')).not.toBeNull()
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+	})
+
+	it('tells listeners when a request spends the pass', () => {
+		const {siteRequests} = state({random: 0})
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		siteRequests.allowOnce('youtube')
+		const listener = vi.fn()
+		siteRequests.onChange(listener)
+		siteRequests.admit('youtube')
+		expect(listener).toHaveBeenCalledOnce()
 	})
 
 	it('grants nothing when no pass waits, or once it ran out', () => {
