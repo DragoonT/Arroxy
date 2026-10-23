@@ -32,7 +32,8 @@ import {EXPLORE_ADBLOCK_PRELOAD_FILE} from '@main/services/explore/exploreAdBloc
 import {siteById} from '@shared/sites/index.js'
 import {EXPLORE_SIGN_IN_PAGES} from '@shared/sites/signInPages.js'
 import {createExploreGate} from '@main/services/exploreGate.js'
-import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
+import {SignedInPacer} from '@main/services/SignedInPacer.js'
+import {signedInPacingFor} from '@shared/sites/signedInPacing.js'
 import {LaunchGate} from '@main/services/LaunchGate.js'
 import {QueueService} from '@main/services/QueueService.js'
 import {ProbeService} from '@main/services/ProbeService.js'
@@ -367,10 +368,15 @@ if (hasSingleInstanceLock) {
 		if (e2eMode.exploreCookies) await exploreSession.seedForE2e(e2eMode.exploreCookies)
 		const exploreGate = createExploreGate({settings: settingsStore, session: exploreSession})
 		// One launch gate for the whole app: one rate-limit cooldown per site and network route,
-		// shared by probes, queued jobs and automatic retries, and the pacing of every signed-in spawn.
+		// shared by probes, queued jobs and automatic retries, and the signed-in pacing of each site.
 		const launchGate = new LaunchGate({
 			cooldowns: new SiteRequestState({route: () => proxyRouteKey(settingsStore.getSync().common.proxyUrl)}),
-			signedIn: new ExploreSpawnGate(e2eMode.exploreSpawnSpacingMs === undefined ? {} : {minSpacingMs: e2eMode.exploreSpawnSpacingMs})
+			signedIn: new SignedInPacer({
+				pacing: site => {
+					const pacing = signedInPacingFor(site, settingsStore.getSync().common.networkPacingPreset ?? 'balanced')
+					return e2eMode.exploreSpawnSpacingMs === undefined ? pacing : {...pacing, spacingMs: e2eMode.exploreSpawnSpacingMs, jitterMs: 0}
+				}
+			})
 		})
 		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, launchGate, sessionAuth: exploreGate})
 		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, launchGate})
@@ -379,7 +385,7 @@ if (hasSingleInstanceLock) {
 		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve(new Map<string, number>()) : lookUpMissingSizes(formats, fetchHeadLength, signal))
 		// How many probes run at once: background ones wait their turn and wait out their site's cooldown.
 		const probeSlots = new ProbeSlots({backgroundLimit: initialSettings.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES, cooldown: launchGate})
-		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, ...(formatSizes ? {formatSizes} : {})})
+		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, listingCharges: launchGate, ...(formatSizes ? {formatSizes} : {})})
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, launchGate)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to
