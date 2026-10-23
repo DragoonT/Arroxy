@@ -131,6 +131,23 @@ describe('Subtitles kind', () => {
 		expect(state.audioSelection).toEqual({kind: 'none'})
 	})
 
+	// Nothing to embed subtitles into without video, as in the profile editor (#646).
+	it('an Audio run queues a kept Embed as files, with no warning', async () => {
+		window.appApi = buildMockApi() as never
+		await useAppStore.getState().initialize()
+		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
+		await useAppStore.getState().submitUrl()
+		useAppStore.getState().setSubtitleMode('embed')
+		useAppStore.getState().clearSubtitleLanguages()
+		useAppStore.getState().toggleSubtitleLanguage('en')
+
+		useAppStore.getState().setWizardMediaKind('audio')
+		await useAppStore.getState().addToQueue()
+
+		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0]
+		expect((item.job as Extract<typeof item.job, {kind: 'single-format'}>).subtitles?.mode).toBe('sidecar')
+	})
+
 	it('the Subtitles kind queues a subtitle-only job', async () => {
 		window.appApi = buildMockApi() as never
 		await useAppStore.getState().initialize()
@@ -303,16 +320,13 @@ describe('Wizard subtitle step — store behavior', () => {
 describe('SubtitleFields — save mode UI', () => {
 	function renderStep(subtitleMode = 'sidecar') {
 		useAppStore.setState({wizardStep: 'confirm', wizardMediaKind: 'video', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: subtitleMode as never, wizardSubtitleFormat: 'srt'})
-		return render(<SubtitleFields withMedia />)
+		return render(<SubtitleFields />)
 	}
 
 	// Without video there is nothing for the files to sit next to (#634).
-	it.each([
-		['audio', true],
-		['subtitles', false]
-	] as const)('offers subtitles of a %s download in the download folder, not next to a video', (kind, withMedia) => {
+	it.each(['audio', 'subtitles'] as const)('offers subtitles of a %s download in the download folder, not next to a video', kind => {
 		useAppStore.setState({wizardStep: 'confirm', wizardMediaKind: kind, wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'srt'})
-		render(<SubtitleFields withMedia={withMedia} />)
+		render(<SubtitleFields />)
 		const group = screen.getByRole('group', {name: 'Save as'})
 		expect(within(group).getByRole('button', {name: 'In the download folder'})).toHaveAttribute('aria-pressed', 'true')
 		expect(within(group).queryByRole('button', {name: 'Next to video'})).not.toBeInTheDocument()
@@ -342,7 +356,7 @@ describe('SubtitleFields — save mode UI', () => {
 		expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument()
 
 		useAppStore.setState({wizardSubtitleMode: 'embed'})
-		rerender(<SubtitleFields withMedia />)
+		rerender(<SubtitleFields />)
 		const note = screen.getByTestId('subtitle-embed-note')
 		expect(note).toBeInTheDocument()
 		expect(note.textContent).toMatch(/\.mkv/)
@@ -360,24 +374,24 @@ describe('SubtitleFields — save mode UI', () => {
 	// the plain language name.
 	it('labels an -orig caption by its plain language name, not yt-dlp\'s "(Original)"', () => {
 		useAppStore.setState({wizardStep: 'confirm', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (Original)'}]}, wizardSubtitleLanguages: ['en', 'en-orig'], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'srt'})
-		render(<SubtitleFields withMedia />)
+		render(<SubtitleFields />)
 		expect(screen.getByTestId('subtitle-fields').textContent).not.toContain('Original')
 		expect(screen.getAllByText('English').length).toBeGreaterThanOrEqual(2)
 	})
 
 	it('shows the auto-caption ASS-fallback note only when an auto language is selected and format is ASS', () => {
 		useAppStore.setState({wizardStep: 'confirm', wizardSubtitles: {}, wizardAutomaticCaptions: {en: [{ext: 'vtt'}]}, wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'ass'})
-		const {rerender} = render(<SubtitleFields withMedia />)
+		const {rerender} = render(<SubtitleFields />)
 		expect(screen.getByTestId('subtitle-auto-ass-note')).toBeInTheDocument()
 
 		// Switch format away from ASS — note should disappear
 		useAppStore.setState({wizardSubtitleFormat: 'srt'})
-		rerender(<SubtitleFields withMedia />)
+		rerender(<SubtitleFields />)
 		expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument()
 
 		// ASS again, but only manual sub selected — also no note
 		useAppStore.setState({wizardSubtitleFormat: 'ass', wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: ['en']})
-		rerender(<SubtitleFields withMedia />)
+		rerender(<SubtitleFields />)
 		expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument()
 	})
 })
@@ -402,6 +416,7 @@ function singleState(overrides: Record<string, unknown> = {}): void {
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardPart: null,
+		wizardReviewRow: null,
 		...overrides
 	})
 }
@@ -421,6 +436,31 @@ describe('Review — subtitle row', () => {
 		const value = screen.getByTestId('review-row-subtitles').textContent ?? ''
 		expect(value).toContain('Embed into video')
 		expect(value).not.toContain('SRT')
+	})
+
+	// A run that keeps an edited Embed through a switch to an audio profile.
+	it('shows a kept Embed of an audio run as files in the download folder', () => {
+		singleState({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'embed'})
+		render(<StepReview />)
+		expect(screen.getByTestId('review-row-subtitles').textContent).toContain('In the download folder')
+		fireEvent.click(screen.getByTestId('review-row-subtitles-toggle'))
+		const group = screen.getByRole('group', {name: 'Save as'})
+		expect(within(group).getByRole('button', {name: 'In the download folder'})).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('review-conflict-subtitleEmbedAudioOnly')).not.toBeInTheDocument()
+
+		// Picking the option it shows makes it the run's own choice.
+		fireEvent.click(within(group).getByRole('button', {name: 'In the download folder'}))
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('sidecar')
+	})
+
+	it('offers no Embed for an audio run (#646)', () => {
+		singleState({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, wizardSubtitleLanguages: ['en']})
+		render(<StepReview />)
+		fireEvent.click(screen.getByTestId('review-row-subtitles-toggle'))
+		const group = screen.getByRole('group', {name: 'Save as'})
+		expect(within(group).queryByRole('button', {name: 'Embed into video'})).not.toBeInTheDocument()
+		expect(within(group).getByRole('button', {name: 'In the download folder'})).toBeInTheDocument()
 	})
 
 	it('names an -orig caption by its language, without "(Original)"', () => {

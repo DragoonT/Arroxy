@@ -9,15 +9,15 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {InputGroup, InputGroupAddon, InputGroupInput} from '../ui/input-group.js'
 import {Separator} from '../ui/separator.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
-import {buildSubtitleList, subtitleModeLabelKey, wizardMediaHasVideo} from '../../lib/subtitleLabel.js'
+import {buildSubtitleList, subtitleModeLabelKey, wizardMediaHasVideo, wizardSubtitleModeForMedia} from '../../lib/subtitleLabel.js'
 import {SUBTITLE_FORMATS, SUBTITLE_MODES} from '@shared/schemas.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
 import {CheckRow} from '../shared/CheckRow.js'
 
 // The single-video subtitle picker: the Format screen in Subtitles mode and
-// the Review's Subtitles row. `withMedia` false (subtitles only) drops "embed",
-// since there is no media file to embed into.
-export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
+// the Review's Subtitles row. A run without video (audio or subtitles only)
+// drops "embed", since there is no video to embed into.
+export function SubtitleFields(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const {wizardMediaKind, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, clearSubtitleLanguages, setSubtitleMode, setSubtitleFormat} = useAppStore(
 		useShallow(state => ({
@@ -43,7 +43,9 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 	// Show a heads-up when ASS is paired with auto-captions: we force SRT in
 	// that combo because our auto-cap dedupe doesn't have an ASS code path.
 	const hasAutoSelected = wizardSubtitleLanguages.some(code => allLangs.find(l => l.code === code)?.isAuto)
-	const showAutoAssNote = hasAutoSelected && wizardSubtitleFormat === 'ass' && wizardSubtitleMode !== 'embed'
+	// What this run does with the mode picked: without video, an Embed is saved as files.
+	const subtitleMode = wizardSubtitleModeForMedia(wizardMediaKind, wizardSubtitleMode)
+	const showAutoAssNote = hasAutoSelected && wizardSubtitleFormat === 'ass' && subtitleMode !== 'embed'
 
 	const q = query.trim().toLowerCase()
 	const manualLangs = allLangs.filter(l => !l.isAuto && (!q || l.displayName.toLowerCase().includes(q)))
@@ -52,7 +54,8 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 
 	const selectedItems = allLangs.filter(l => wizardSubtitleLanguages.includes(l.code))
 
-	const saveModes = SUBTITLE_MODES.filter(mode => withMedia || mode !== 'embed').map(mode => ({mode, label: t(subtitleModeLabelKey(mode, wizardMediaHasVideo(wizardMediaKind)))}))
+	const hasVideo = wizardMediaHasVideo(wizardMediaKind)
+	const saveModes = SUBTITLE_MODES.filter(mode => hasVideo || mode !== 'embed').map(mode => ({mode, label: t(subtitleModeLabelKey(mode, hasVideo))}))
 
 	return (
 		<div className="flex flex-col gap-1.5" data-testid="subtitle-fields">
@@ -65,10 +68,12 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 					<ToggleGroup
 						size="sm"
 						variant="outline"
-						value={[wizardSubtitleMode]}
+						value={[subtitleMode]}
 						onValueChange={values => {
-							const next = values[0] as (typeof SUBTITLE_MODES)[number] | undefined
-							if (next) setSubtitleMode(next)
+							// A click on the pressed item comes as no value: it confirms the mode
+							// shown, which a run without video may show for a kept Embed.
+							const next = (values[0] as (typeof SUBTITLE_MODES)[number] | undefined) ?? subtitleMode
+							if (next !== wizardSubtitleMode) setSubtitleMode(next)
 						}}
 						aria-label={t('wizard.subtitles.saveMode.heading')}
 						spacing={1}
@@ -81,7 +86,7 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 						))}
 					</ToggleGroup>
 
-					{wizardSubtitleMode === 'embed' ? (
+					{subtitleMode === 'embed' ? (
 						<>
 							<span />
 							<p data-testid="subtitle-embed-note" className="text-caption text-subtle-foreground leading-snug">
