@@ -76,6 +76,9 @@ let wizardProbeRun = 0
 // Whether a list has landed in this run: until one has, a retry's list is the
 // run's first and takes the saved list settings.
 let wizardRunListLanded = false
+// The folder scan whose answer may still land: a newer scan, a new probe or
+// multi-profile mode supersedes it, so an answer that arrives later is dropped.
+let folderScanGeneration = 0
 
 // Leaves a loading probe for the screen the run started from.
 function abandonProbe(set: SetState, get: GetState): void {
@@ -83,7 +86,7 @@ function abandonProbe(set: SetState, get: GetState): void {
 	void window.appApi.downloads.probeCancel()
 	const state = get()
 	landOnOrigin(state.wizardOrigin)
-	set({wizardStep: 'url', formatsLoading: false, playlistProbeLoading: false, playlistProbeProgress: null, wizardOrigin: 'download', reviewSourceRowId: null, ...globalOutputDir(state)})
+	set({wizardStep: 'url', formatsLoading: false, playlistProbeLoading: false, playlistProbeProgress: null, wizardOrigin: 'download', reviewSourceRowId: null, reviewPinnedProfile: null, ...globalOutputDir(state)})
 	logStep('back', state.wizardStep, 'url', pickWizardSnapshot(get()))
 }
 
@@ -159,6 +162,7 @@ function startPlaylistPlaceholderHydration(set: SetState, get: GetState): void {
 function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, sameRun = false): void {
 	nextBulkMetadataRunId()
 	wizardProbeRun += 1
+	folderScanGeneration += 1
 	if (!sameRun) wizardRunListLanded = false
 	void window.appApi.downloads.probeCancel()
 	const startProjection = projectProbeStart(get(), url, playlistMode, sameRun)
@@ -325,6 +329,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		bulkMetadataById: RESET_WIZARD_STATE.bulkMetadataById,
 		bulkCappedLists: RESET_WIZARD_STATE.bulkCappedLists,
 		reviewSourceRowId: RESET_WIZARD_STATE.reviewSourceRowId,
+		reviewPinnedProfile: RESET_WIZARD_STATE.reviewPinnedProfile,
 		wizardReviewRow: RESET_WIZARD_STATE.wizardReviewRow,
 		syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
 		syncScanState: RESET_WIZARD_STATE.syncScanState,
@@ -333,7 +338,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		// A submitted URL is a new run: it is the review of no row.
 		submitUrl: async (origin = 'download') => {
-			set({reviewSourceRowId: null})
+			set({reviewSourceRowId: null, reviewPinnedProfile: null})
 			await submitWizardUrl(origin, set, get)
 		},
 
@@ -343,7 +348,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				cancelBulkMetadataProbes('start-new-bulk', previousState)
 			}
 			// Bulk URLs is a URL-tab flow, and a new run: no review source row.
-			set({wizardOrigin: 'download', reviewSourceRowId: null})
+			set({wizardOrigin: 'download', reviewSourceRowId: null, reviewPinnedProfile: null})
 			const bulkRunId = nextBulkMetadataRunId()
 			const fromStep = get().wizardStep
 
@@ -452,7 +457,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 			// The picker runs in the wizard: a pick from the list button or Explore's
 			// link menu starts a new run there, landing back where it came from.
-			if (source !== 'wizard') set({wizardUrl: url, wizardOrigin: source === 'explore' ? 'explore' : 'download', reviewSourceRowId: null})
+			if (source !== 'wizard') set({wizardUrl: url, wizardOrigin: source === 'explore' ? 'explore' : 'download', reviewSourceRowId: null, reviewPinnedProfile: null})
 			// The prompt opens before submitWizardUrl's own cookie guard runs.
 			if (maybeBlockIncompleteCookiesConfig(url, set, get)) return
 			// The picker loads the first N, N being the load limit. A range left
@@ -499,10 +504,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}),
 
 		confirmPlaylistSelection: () => {
-			const {selectedPlaylistItemIds, wizardStep} = get()
+			const {selectedPlaylistItemIds, wizardStep, multiProfileMode} = get()
 			if (selectedPlaylistItemIds.length === 0) return
-			set({wizardStep: 'playlistPresets', wizardError: null})
-			logStep('advance', wizardStep, 'playlistPresets', pickWizardSnapshot(get()))
+			// A row's Review starts in multi-profile mode, which has no presets step.
+			const next = multiProfileMode ? 'playlistProfiles' : 'playlistPresets'
+			set({wizardStep: next, wizardError: null})
+			logStep('advance', wizardStep, next, pickWizardSnapshot(get()))
 		},
 
 		setPlaylistSelection: s => set({playlistSelection: s}),
@@ -515,7 +522,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		// exit from playlistProfiles at all.
 		enterMultiProfileMode: () => {
 			const fromStep = get().wizardStep
+			// Its videos save in their profiles' folders: no one-folder result applies.
+			folderScanGeneration += 1
 			WizardCommands.enterMultiProfileMode(set)
+			set({syncedDownloadedIds: [], syncScanState: 'idle'})
 			logStep('advance', fromStep, get().wizardStep, pickWizardSnapshot(get()))
 		},
 
@@ -523,6 +533,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			const fromStep = get().wizardStep
 			WizardCommands.exitMultiProfileMode(set)
 			logStep('back', fromStep, get().wizardStep, pickWizardSnapshot(get()))
+			// Multi-profile mode scans nothing; one playlist folder applies again.
+			void get().scanDownloadedInFolder()
 		},
 
 		assignPlaylistProfile: (itemIds, ref) => WizardCommands.assignPlaylistProfile(itemIds, ref, set, get),
@@ -538,11 +550,18 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		// alert) but does NOT change the selection — that's applyFolderSync's job.
 		// Runs automatically after a playlist probe and on every folder change.
 		scanDownloadedInFolder: async () => {
+			const generation = ++folderScanGeneration
 			const state = get()
 			const videoIds = state.playlistItems.map(e => e.videoId).filter((v): v is string => v !== null)
 			// Scan the resolved playlist dir (override or base+subfolder) — the exact
 			// folder the files land in — via the shared resolver, so scan == download.
 			const outputDir = resolvePlaylistDir(state)
+			// Multi-profile videos save in their profiles' folders, not one playlist
+			// folder (#680): nothing to scan, and no notice about it.
+			if (state.multiProfileMode) {
+				set({syncedDownloadedIds: [], syncScanState: 'idle'})
+				return
+			}
 			// The scan matches files by `[videoId]` before the extension in one
 			// directory. It cannot match when the template omits {id}, and it would
 			// look in the wrong directory when the template sorts entries into
@@ -553,11 +572,22 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 			set({syncScanState: 'scanning'})
 			const res = await window.appApi.playlist.scanFolder({outputDir, videoIds})
+			// A newer scan, probe or multi-profile mode answers for itself.
+			if (generation !== folderScanGeneration) return
+			// The answer applies only to the folder and the list it scanned (#681).
+			// Hydration may name a placeholder's video meanwhile: the list stays the
+			// same, and the matches still in it stand.
+			const now = get()
+			if (now.multiProfileMode || resolvePlaylistDir(now) !== outputDir || now.playlistItems.map(e => e.id).join('\n') !== state.playlistItems.map(e => e.id).join('\n')) {
+				set({syncedDownloadedIds: [], syncScanState: 'idle'})
+				return
+			}
 			if (!res.ok) {
 				set({syncedDownloadedIds: [], syncScanState: 'done'})
 				return
 			}
-			set({syncedDownloadedIds: res.data.matchedIds, syncScanState: 'done'})
+			const listed = new Set(now.playlistItems.map(e => e.videoId))
+			set({syncedDownloadedIds: res.data.matchedIds.filter(id => listed.has(id)), syncScanState: 'done'})
 		},
 
 		// Deselect every item already present in the folder, leaving only the ones
@@ -599,7 +629,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 			if (target === 'url') {
 				landOnOrigin(state.wizardOrigin)
-				set({wizardOrigin: 'download', reviewSourceRowId: null, ...globalOutputDir(state)})
+				set({wizardOrigin: 'download', reviewSourceRowId: null, reviewPinnedProfile: null, ...globalOutputDir(state)})
 			}
 			set({wizardStep: target})
 			logStep('back', state.wizardStep, target, pickWizardSnapshot(get()))
@@ -675,7 +705,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			// bound and emit results into a step the user already left.
 			void window.appApi.downloads.probeCancel()
 			replaceHash('settings')
-			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null})
+			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, reviewPinnedProfile: null, wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null})
 		},
 
 		openPlaylistReview: async (url, playlistMode, sourceRowId, kept) => {
@@ -683,7 +713,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			startProbe(url, playlistMode, set, get)
 			// The review loads the first N, N being the load limit: a scope left
 			// from an earlier list (back never resets it) must not stand in for it.
-			set({reviewSourceRowId: sourceRowId, playlistScope: {items: {kind: 'app-limit'}}})
+			set({reviewSourceRowId: sourceRowId, reviewPinnedProfile: get().queue.find(item => item.id === sourceRowId)?.pinnedProfile ?? null, playlistScope: {items: {kind: 'app-limit'}}})
 			if (kept) landPlaylistProbe(kept.probe, set, get, true, kept.limit)
 			else await finishProbe(url, playlistMode, set, get, true)
 		},
@@ -697,7 +727,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			// site's link opens in it once the view is shown.
 			void window.appApi.downloads.probeCancel()
 			replaceHash('explore')
-			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, cookiesConfigDialogIssue: null, explorePendingAddress: site.kind === 'web' ? site.address : null})
+			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, reviewPinnedProfile: null, wizardError: null, wizardErrorOrigin: null, cookiesConfigDialogIssue: null, explorePendingAddress: site.kind === 'web' ? site.address : null})
 		}
 	}
 }
