@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {addRateSample, EMPTY_WARMUP_DOWNLOADS, estimateSecondsLeft, summarizeSetup, trackWarmupDownloads, type WarmupDownloads} from '@renderer/store/warmupDownloads.js'
+import {addRateSample, downloadRate, EMPTY_WARMUP_DOWNLOADS, estimateSecondsLeft, summarizeSetup, trackWarmupDownloads, type WarmupDownloads} from '@renderer/store/warmupDownloads.js'
 import type {DependencyId, WarmupProgressEvent} from '@shared/types.js'
 
 const MB = 1024 * 1024
@@ -100,6 +100,18 @@ describe('warmup download tracking', () => {
 	})
 })
 
+describe('download rate', () => {
+	it('has no rate until it has been measured for a few seconds', () => {
+		const samples = addRateSample(addRateSample([], {at: 0, bytes: 0}), {at: 2000, bytes: 2 * MB})
+		expect(downloadRate(samples)).toBeNull()
+	})
+
+	it('measures bytes per second over the recent window', () => {
+		const samples = addRateSample(addRateSample([], {at: 0, bytes: 0}), {at: 4000, bytes: 4 * MB})
+		expect(downloadRate(samples)).toBe(MB)
+	})
+})
+
 describe('time left', () => {
 	it('promises nothing until the rate has been measured for a few seconds', () => {
 		const samples = addRateSample(addRateSample([], {at: 0, bytes: 0}), {at: 2000, bytes: 2 * MB})
@@ -117,6 +129,22 @@ describe('time left', () => {
 		samples = addRateSample(samples, {at: 5000, bytes: MB})
 		samples = addRateSample(samples, {at: 12_000, bytes: 2 * MB})
 		expect(samples.map(sample => sample.at)).toEqual([5000, 12_000])
+	})
+
+	// Progress arrives once per network chunk; a trickle can be 9 s apart, which
+	// left one sample in the window and no rate at all.
+	it('keeps measuring when progress arrives less often than its window', () => {
+		let samples = addRateSample([], {at: 0, bytes: 0})
+		samples = addRateSample(samples, {at: 9000, bytes: 64 * 1024})
+		samples = addRateSample(samples, {at: 18_000, bytes: 128 * 1024})
+		expect(downloadRate(samples)).toBeCloseTo((64 * 1024) / 9, 0)
+	})
+
+	it('measures across a burst that follows a long gap', () => {
+		let samples = addRateSample([], {at: 0, bytes: 0})
+		samples = addRateSample(samples, {at: 9000, bytes: MB})
+		samples = addRateSample(samples, {at: 10_000, bytes: 2 * MB})
+		expect(downloadRate(samples)).toBe((2 * MB) / 10)
 	})
 
 	it('gives no estimate when nothing is left or bytes stopped moving', () => {
