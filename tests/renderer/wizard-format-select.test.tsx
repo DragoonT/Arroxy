@@ -194,6 +194,17 @@ describe('wizard slice — switching profile after edits', () => {
 		expect(wizardChangedAreas(state)).toEqual(['sponsorBlock', 'extras'])
 	})
 
+	// An Embed kept through Audio is still the user's edit (#646).
+	it('Keep my changes carries an Embed kept through Audio to the next profile', () => {
+		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
+		useAppStore.setState({wizardSubtitleMode: 'embed', settings: {...SETTINGS, profiles: DEFAULT_DOWNLOAD_PROFILES_PREFS}})
+		useAppStore.getState().setWizardMediaKind('audio')
+
+		useAppStore.getState().chooseWizardProfile({kind: 'builtin', id: 'balanced'}, true)
+
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('embed')
+	})
+
 	it('Reset all: everything comes from the new profile', () => {
 		editThenSwitch(false)
 
@@ -232,12 +243,24 @@ describe('wizard slice — Video / Audio / Subtitles switch', () => {
 		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'video', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '249'}})
 	})
 
-	it('Subtitles drops the media, starts from the app language and never embeds', () => {
-		useAppStore.setState({wizardSubtitles: {es: [{ext: 'vtt'}], de: [{ext: 'vtt'}]}, wizardSubtitleMode: 'embed', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}})
+	it('Subtitles drops the media and starts from the app language', () => {
+		useAppStore.setState({wizardSubtitles: {es: [{ext: 'vtt'}], de: [{ext: 'vtt'}]}, selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}})
 
 		useAppStore.getState().setWizardMediaKind('subtitles')
 
-		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'subtitles', selectedVideoFormatId: '', audioSelection: {kind: 'none'}, wizardSubtitleLanguages: ['es'], wizardSubtitleMode: 'sidecar'})
+		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'subtitles', selectedVideoFormatId: '', audioSelection: {kind: 'none'}, wizardSubtitleLanguages: ['es']})
+	})
+
+	// Without video an Embed is saved as files; the pick itself stays (#646).
+	it.each(['audio', 'subtitles'] as const)("a trip through %s keeps the profile's Embed, unchanged", kind => {
+		const hd = builtin('hd-1080')
+		useAppStore.setState(profilePatch({...hd, subtitles: {...hd.subtitles, mode: 'embed'}}, useAppStore.getState()))
+
+		useAppStore.getState().setWizardMediaKind(kind)
+		useAppStore.getState().setWizardMediaKind('video')
+
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('embed')
+		expect(wizardChangedAreas(useAppStore.getState())).not.toContain('subtitles')
 	})
 })
 

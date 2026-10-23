@@ -81,6 +81,11 @@ describe('changedFromProfile', () => {
 		expect(changedFromProfile(baseline, {...baseline, mediaKind: 'audio'})).toEqual(['format'])
 		expect(changedFromProfile(baseline, {...baseline, sponsorBlockMode: 'remove'})).toEqual(['sponsorBlock'])
 	})
+
+	// A kept Embed embeds again on Video, so an audio run still counts it as an edit (#646).
+	it('compares the subtitle mode as kept, not as an audio run uses it', () => {
+		expect(changedFromProfile(baseline, {...baseline, mediaKind: 'audio', subtitleMode: 'embed'})).toEqual(['format', 'subtitles'])
+	})
 })
 
 describe('profileFromWizard', () => {
