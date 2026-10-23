@@ -286,6 +286,22 @@ describe('unsubscribe — removes exact wrapper function', () => {
 
 		expect(ipc.removeListener).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, wrappedAtRegister)
 	})
+	it('siteRequests held probes: reads, forwards the payload and unsubscribes with removeListener (#664)', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.siteRequests.getHeldProbes()
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.siteRequestsGetHeldProbes)
+		const listener = vi.fn()
+		const unsubscribe = api.siteRequests.onHeldProbesChanged(listener)
+
+		expect(ipc.on).toHaveBeenCalledWith(IPC_CHANNELS.siteRequestsHeldProbesChanged, expect.any(Function))
+		const [, wrapped] = ipc.on.mock.calls[0]
+		wrapped({}, [{owner: 'row-1', site: 'youtube'}])
+		expect(listener).toHaveBeenCalledWith([{owner: 'row-1', site: 'youtube'}])
+
+		unsubscribe()
+		expect(ipc.removeListener).toHaveBeenCalledWith(IPC_CHANNELS.siteRequestsHeldProbesChanged, wrapped)
+	})
+
 	it('explore.onStateChanged forwards the payload and unsubscribes with removeListener', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		const listener = vi.fn()

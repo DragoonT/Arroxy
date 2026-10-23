@@ -33,8 +33,9 @@ function fakeCooldowns(): ProbeSlotCooldowns & {cool: (site: string, ms: number)
 	return {
 		rateLimitedUntil,
 		wouldAdmit: site => rateLimitedUntil(site) === null || passes.has(site),
-		// This fake's passes never run out.
-		holdPass: () => undefined,
+		// This fake's passes never run out: a pass waits until a run spends it.
+		holdPass: vi.fn(),
+		releasePass: vi.fn(),
 		tryNow: site => {
 			passes.add(site)
 			for (const listener of listeners) listener()
@@ -487,6 +488,40 @@ describe('ProbeSlots — held probes', () => {
 		task.resolve('held')
 		await settle()
 		expect(slots.heldProbes()).toEqual([{owner: 'row', site: 'youtube'}])
+	})
+
+	// One request spends a Try now pass: the waiters behind it on that site stay held.
+	it('lists every waiter but the one a pass lets through', async () => {
+		const cooldown = fakeCooldowns()
+		const slots = new ProbeSlots({backgroundLimit: 1, cooldown})
+		const busy = deferred<string>()
+		void slots.run({kind: 'intake', site: 'vimeo.com'}, new AbortController().signal, () => busy.promise)
+		cooldown.cool('youtube', 600_000)
+		for (const owner of ['a', 'b', 'c']) void slots.run({kind: 'intake', site: 'youtube', owner}, new AbortController().signal, async () => owner)
+		await settle()
+		cooldown.tryNow('youtube')
+		await settle()
+		expect(slots.heldProbes()).toEqual([
+			{owner: 'b', site: 'youtube'},
+			{owner: 'c', site: 'youtube'}
+		])
+	})
+
+	it("lets go of a site's pass once no waiter on that site is left behind a full pool", async () => {
+		const cooldown = fakeCooldowns()
+		const slots = new ProbeSlots({backgroundLimit: 1, cooldown})
+		const busy = deferred<string>()
+		void slots.run({kind: 'intake', site: 'vimeo.com'}, new AbortController().signal, () => busy.promise)
+		cooldown.cool('youtube', 600_000)
+		cooldown.tryNow('youtube')
+		const retry = new AbortController()
+		void slots.run({kind: 'intake', site: 'youtube', owner: 'row'}, retry.signal, async () => 'ran')
+		await settle()
+		expect(cooldown.holdPass).toHaveBeenCalledWith('youtube')
+		expect(cooldown.releasePass).not.toHaveBeenCalled()
+		retry.abort()
+		await settle()
+		expect(cooldown.releasePass).toHaveBeenCalledWith('youtube')
 	})
 
 	it('drops a held probe once it is cancelled', async () => {

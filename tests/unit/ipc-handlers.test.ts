@@ -191,6 +191,23 @@ describe('registerIpcHandlers', () => {
 		})
 	})
 
+	describe('held probes (#664)', () => {
+		it('pushes the probes slots hold to the window and answers the initial read', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+			const send = deps._raw.mainWindow.webContents.send as ReturnType<typeof vi.fn>
+			const held = [{owner: 'row-1', site: 'youtube'}]
+
+			const listener = vi.mocked(deps._raw.probeSlots.onHeldChange).mock.calls[0]?.[0]
+			listener?.(held)
+			expect(send).toHaveBeenCalledWith(IPC_CHANNELS.siteRequestsHeldProbesChanged, held)
+
+			deps._raw.probeSlots.heldProbes.mockReturnValue(held)
+			const read = findCall(IPC_CHANNELS.siteRequestsGetHeldProbes)!.fn
+			expect(await read(null, undefined)).toEqual({ok: true, data: held})
+		})
+	})
+
 	describe('progress throttle', () => {
 		it('drops progress events that arrive within 100ms of the prior event for the same job', () => {
 			const deps = makeDeps()

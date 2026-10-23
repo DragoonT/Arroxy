@@ -117,6 +117,8 @@ export class SiteRequestState {
 		if (decision === 'pass' && record) {
 			record.passUntil = 0
 			logger.info('Try now: one request goes through the cooldown', {site})
+			// Probe slots hold the waiters behind it again.
+			this.notify()
 			return launch(true)
 		}
 		return {kind: 'wait', until: record?.until ?? this.now()}
@@ -159,6 +161,13 @@ export class SiteRequestState {
 	holdPass(site: string): void {
 		const record = this.records.get(this.key(site))
 		if (record && this.now() < record.passUntil) record.passUntil = record.until
+	}
+
+	// The request a held pass waited for got its slot or left: the pass keeps
+	// Try now's usual window from now, never the rest of the cooldown.
+	releasePass(site: string): void {
+		const record = this.records.get(this.key(site))
+		if (record && this.now() < record.passUntil) record.passUntil = Math.min(record.passUntil, this.now() + TRY_NOW_PASS_MS)
 	}
 
 	// The request "Try now" let through came back without a rate limit, so the
