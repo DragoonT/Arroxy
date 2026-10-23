@@ -27,6 +27,7 @@ import type {
 	ProbeResult,
 	ProgressEvent,
 	SiteCooldown,
+	HeldProbe,
 	QueueSchedulerCommandResult,
 	QueueSelectionAction,
 	QueueSelectionCommandResult,
@@ -176,12 +177,15 @@ export interface AppApi {
 		// A pick in the page's link menu (main builds and shows the menu).
 		onLinkAction(listener: (action: ExploreLinkAction) => void): () => void
 	}
-	// Rate-limit cooldowns on the current network route (see SiteRequestState).
+	// Rate-limit cooldowns on the current network route (see SiteRequestState),
+	// and the background probes they hold (see ProbeSlots).
 	siteRequests: {
 		getCooldowns(): Promise<Result<SiteCooldown[]>>
 		// "Try now": the next request to `site` goes through its cooldown once.
 		tryNow(site: string): Promise<Result<void>>
 		onCooldownsChanged(listener: (cooldowns: SiteCooldown[]) => void): () => void
+		getHeldProbes(): Promise<Result<HeldProbe[]>>
+		onHeldProbesChanged(listener: (held: HeldProbe[]) => void): () => void
 	}
 	// Only while the agentControl release flag is on.
 	localClients?: LocalClientsApi

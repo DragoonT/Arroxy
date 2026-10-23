@@ -3,13 +3,12 @@ import {createColumnHelper, type ColumnDef} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
 import {AlertTriangle, Ban, Captions, CheckCircle2, ChevronDown, CircleHelp, Clock, Loader2, Pause, PauseCircle, X, XCircle} from 'lucide-react'
 import {QUEUE_STATUS, STATUS_KEY, type StatusKey} from '@shared/schemas.js'
-import type {QueueItem, QueueItemStatus, SiteCooldown} from '@shared/types.js'
+import type {HeldProbe, QueueItem, QueueItemStatus, SiteCooldown} from '@shared/types.js'
 import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
 import {compactSize} from '@shared/format.js'
-import {requestSiteFor} from '@shared/sites/index.js'
 import {i18next} from '@shared/i18n/index.js'
 import {cn} from '@renderer/lib/utils.js'
-import {formatLocalizedError, formatStatus} from '../../store/useAppStore.js'
+import {formatLocalizedError, formatStatus, useAppStore} from '../../store/useAppStore.js'
 import {formatLanguageList} from '@renderer/lib/subtitleLabel.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -22,13 +21,14 @@ import {QueueMetadataCell} from './QueueMetadataCell.js'
 import {QUEUE_STATUS_LABEL_KEYS} from './queueManagerActions.js'
 import {cooldownEndLabel, siteLabel, useRunningCooldowns} from '../shared/useRunningCooldowns.js'
 
-// A probing row whose probe waits out its site's rate-limit cooldown (probe
-// slots in main): which site, and until when. Null for any other row.
-function waitingFor(item: QueueItem, cooldowns: readonly SiteCooldown[]): {site: string; time: string} | null {
+// A probing row whose probe main holds for a rate-limit cooldown (probe
+// slots): the site it waits on, which a redirect may have made another than
+// its link's, and until when. Null for any other row.
+function waitingFor(item: QueueItem, heldProbes: readonly HeldProbe[], cooldowns: readonly SiteCooldown[]): {site: string; time: string} | null {
 	if (item.status !== QUEUE_STATUS.probing) return null
-	const site = requestSiteFor(item.url)
-	const cooldown = cooldowns.find(entry => entry.site === site)
-	return cooldown ? {site: siteLabel(site), time: cooldownEndLabel(cooldown, i18next.language)} : null
+	const held = heldProbes.find(probe => probe.owner === item.id)
+	const cooldown = held ? cooldowns.find(entry => entry.site === held.site) : undefined
+	return cooldown ? {site: siteLabel(cooldown.site), time: cooldownEndLabel(cooldown, i18next.language)} : null
 }
 
 const STATUS_META: Record<QueueItemStatus, {variant: 'secondary' | 'info' | 'warning' | 'success' | 'destructive'; icon: ReactNode}> = {
@@ -115,6 +115,7 @@ function missingLanguagesBeside(item: QueueItem): string | null {
 // `onCancelProbing`: a probing row's own Cancel, which aborts its probe and drops the row.
 export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelProbing, t}: {expandedIds: ReadonlySet<string>; onToggleExpanded: (itemId: string) => void; onCancelProbing: (itemId: string) => void; t: TFunction}): ColumnDef<QueueTableFeatures, QueueItem>[] {
 	const siteCooldowns = useRunningCooldowns()
+	const heldProbes = useAppStore(state => state.heldProbes)
 	return useMemo(
 		() =>
 			columnHelper.columns([
@@ -142,7 +143,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 					cell: info => {
 						const item = info.row.original
 						const meta = STATUS_META[item.status]
-						const waiting = waitingFor(item, siteCooldowns)
+						const waiting = waitingFor(item, heldProbes, siteCooldowns)
 						const detail = waiting ? t('queue.item.waitingForSite', waiting) : rowStatusDetail(item, t)
 						const missingCodes = missingLanguagesBeside(item)
 						return (
@@ -243,6 +244,6 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <QueueDateCell value={info.getValue()} t={t} />}),
 				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <QueueDateCell value={info.getValue()} t={t} />})
 			]),
-		[expandedIds, onCancelProbing, onToggleExpanded, siteCooldowns, t]
+		[expandedIds, heldProbes, onCancelProbing, onToggleExpanded, siteCooldowns, t]
 	)
 }

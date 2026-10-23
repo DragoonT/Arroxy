@@ -2,7 +2,7 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {AppApi, LocalClientsApi} from '@shared/api.js'
 import type {LocalClientsSnapshot} from '@shared/localClients.js'
 import {isReleaseFlagOn} from '@shared/releaseFlags.js'
-import type {ExploreLinkAction, ExploreViewState, HotkeyOutcomeEvent, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, SiteCooldown, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
+import type {ExploreLinkAction, ExploreViewState, HeldProbe, HotkeyOutcomeEvent, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, SiteCooldown, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
 import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
@@ -235,6 +235,12 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 				const wrapped = (_: unknown, cooldowns: SiteCooldown[]): void => listener(cooldowns)
 				ipcRenderer.on(IPC_CHANNELS.siteRequestsCooldownsChanged, wrapped)
 				return () => ipcRenderer.removeListener(IPC_CHANNELS.siteRequestsCooldownsChanged, wrapped)
+			},
+			getHeldProbes: () => ipcRenderer.invoke(IPC_CHANNELS.siteRequestsGetHeldProbes),
+			onHeldProbesChanged: listener => {
+				const wrapped = (_: unknown, held: HeldProbe[]): void => listener(held)
+				ipcRenderer.on(IPC_CHANNELS.siteRequestsHeldProbesChanged, wrapped)
+				return () => ipcRenderer.removeListener(IPC_CHANNELS.siteRequestsHeldProbesChanged, wrapped)
 			}
 		},
 		updater: {

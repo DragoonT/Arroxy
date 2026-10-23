@@ -59,7 +59,7 @@ function makeDeps() {
 		pauseAll: vi.fn().mockResolvedValue({scheduler: 'paused', done: ['b'], failed: [{itemId: 'a', error: {code: 'ipc', message: 'pause failed'}}]}),
 		resumeAll: vi.fn().mockResolvedValue({scheduler: 'running', done: ['a', 'b'], failed: []})
 	})
-	const probeSlots = {setBackgroundLimit: vi.fn()}
+	const probeSlots = {setBackgroundLimit: vi.fn(), heldProbes: vi.fn().mockReturnValue([]), onHeldChange: vi.fn().mockReturnValue(() => undefined)}
 	const settingsStore = {
 		get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, playlist: {}}),
 		getSync: vi.fn().mockReturnValue({common: {cookiesMode: 'off'}, profiles: {active: {kind: 'builtin', id: 'balanced'}}}),
@@ -188,6 +188,23 @@ describe('registerIpcHandlers', () => {
 			await handler(null, {common: {concurrentProbes: 3}})
 
 			expect(deps._raw.probeSlots.setBackgroundLimit).toHaveBeenCalledWith(3)
+		})
+	})
+
+	describe('held probes (#664)', () => {
+		it('pushes the probes slots hold to the window and answers the initial read', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+			const send = deps._raw.mainWindow.webContents.send as ReturnType<typeof vi.fn>
+			const held = [{owner: 'row-1', site: 'youtube'}]
+
+			const listener = vi.mocked(deps._raw.probeSlots.onHeldChange).mock.calls[0]?.[0]
+			listener?.(held)
+			expect(send).toHaveBeenCalledWith(IPC_CHANNELS.siteRequestsHeldProbesChanged, held)
+
+			deps._raw.probeSlots.heldProbes.mockReturnValue(held)
+			const read = findCall(IPC_CHANNELS.siteRequestsGetHeldProbes)!.fn
+			expect(await read(null, undefined)).toEqual({ok: true, data: held})
 		})
 	})
 
