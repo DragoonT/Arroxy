@@ -67,8 +67,10 @@ export type {
 } from './schemas.js'
 
 import type {DependencyFailureKind, ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode, QuickProbeTake} from './schemas.js'
+import type {AuthBasis} from './signInSchemas.js'
 export type {HeldProbe, ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreViewState} from './schemas.js'
+export type {AuthBasis} from './signInSchemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
@@ -561,6 +563,9 @@ export interface ProbeInfoJsonRef {
 	// The probe that wrote it ran with the Explore session, so only a signed-in
 	// run may replay it.
 	auth?: JobAuth
+	// Why it ran signed in: its site starts signed in, or it escalated (absent).
+	// An escalated probe signs its row in for good; a site-default one does not.
+	authBasis?: AuthBasis
 }
 
 export interface ProbeProgressEvent {
@@ -719,6 +724,10 @@ export interface StartDownloadInput {
 	// Main-process-only: the user asked for this row now (the priority lane), so
 	// its signed-in runs skip their site's spacing and budget (ADR 0022).
 	explicit?: boolean
+	// Main-process-only: why `auth` is the Explore session; absent means escalation.
+	// A site-default job gets one anonymous launch when its signed-in one fails
+	// in a way the sign-in may have caused (ADR 0022).
+	authBasis?: AuthBasis
 	// Main-process-only: the signed-in start the queue reserved for this row
 	// when it gave it a lane; its first signed-in run uses it.
 	signedInReservation?: string

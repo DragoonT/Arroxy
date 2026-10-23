@@ -1,4 +1,6 @@
 import type {CookielessRetry} from '../download/cookielessRetry.js'
+import type {SignInEvidence} from '@shared/signInSchemas.js'
+import type {SignInEvidenceSource} from '../SuspectSignIns.js'
 import type {QualityLimit} from '../download/formatLimitSignals.js'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
@@ -49,6 +51,9 @@ export interface ActiveJobInput {
 	// Aborted by pause(). A spawned process is paused by signal instead; this
 	// only stops a run still waiting for a signed-in spawn slot.
 	pauseController?: AbortController
+	// When this attempt (a start or a resume) began: evidence about the site's
+	// sign-in from it is dropped if the user signed in again since.
+	attemptStartedAt?: number
 	disposables: AsyncStack
 	ytDlpProcess?: ChildProcessWithoutNullStreams
 	// The folder the latest yt-dlp run executes in; the paths it prints are relative to it.
@@ -133,6 +138,9 @@ export interface PhaseContext {
 	exploreGate: ExploreGate
 	// Loads the site in a hidden window to confirm the session is still signed in.
 	exploreSession: ExploreSignInCheck
+	// Where a job its site started signed in tells what it showed about the
+	// site's sign-in (SuspectSignIns). Absent: nothing is recorded.
+	signInEvidence?: (site: string, evidence: SignInEvidence, source?: SignInEvidenceSource) => void
 	emitStatus(stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext): void
 	register(disposable: Disposable): void
 	safeConsume(text: string): void

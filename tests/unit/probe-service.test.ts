@@ -5,7 +5,7 @@ import path from 'node:path'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {YtDlp, type YtDlpResult} from '@main/services/YtDlp.js'
-import type {ProbeProgressEvent} from '@shared/types.js'
+import type {ProbeInfoJsonRef, ProbeProgressEvent} from '@shared/types.js'
 import type {ExploreSignInState} from '@shared/schemas.js'
 import {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 
@@ -27,6 +27,7 @@ import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {ExploreGateDecision} from '@main/services/exploreEscalation.js'
 import type {ExploreGateRefusal} from '@shared/escalationSchemas.js'
 import type {YtDlpFormat} from 'yt-dlp-bridge/info'
+import type {StartDecision} from '@main/services/startIdentity.js'
 
 // Fake child process that emits a canned stdout payload then exits cleanly.
 // Mirrors the pattern in ytdlp-args.test.ts but lets each test inject its own
@@ -952,6 +953,189 @@ describe('ProbeService — Explore session escalation', () => {
 		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession', explicit: true})
 		expect(result.ok && result.data.kind === 'playlist' && result.data.auth).toBe('exploreSession')
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.videoId)).toEqual(['a', 'b'])
+	})
+
+	describe('a site that starts signed in (ADR 0022)', () => {
+		const IG_URL = 'https://www.instagram.com/reel/abc/'
+		const RULING = "ERROR: [Instagram] abc: This content isn't available to everyone."
+		const igVideo = (): unknown => ({_type: 'video', id: 'abc', title: 'Reel', extractor: 'Instagram', extractor_key: 'Instagram', webpage_url: IG_URL, formats: [{format_id: '1', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+
+		function makeSiteDefaultService(results: YtDlpResult[], opts: {signedIn?: boolean; cache?: ProbeInfoJsonCache; startIdentity?: (url: string) => StartDecision} = {}) {
+			const run = vi.fn<(...args: unknown[]) => Promise<YtDlpResult>>(async () => {
+				const next = results.shift()
+				if (!next) throw new Error('unexpected yt-dlp run')
+				return next
+			})
+			const gate = {canEscalate: vi.fn(allowed)}
+			const evidence: string[] = []
+			const startIdentity = vi.fn(opts.startIdentity ?? ((url: string) => (opts.signedIn === false ? {site: 'instagram', auth: 'anonymous' as const, reason: 'noSignInCookie' as const} : {site: url.includes('instagram') ? 'instagram' : 'youtube', auth: 'exploreSession' as const, basis: 'siteDefault' as const})))
+			const service = new ProbeService({run} as never, false, opts.cache, {exploreGate: gate, exploreSession: {verifySignedIn: vi.fn()}, startIdentity, signInEvidence: (site, kind) => evidence.push(`${site}:${kind}`)})
+			return {service, run, gate, evidence, startIdentity}
+		}
+		const identities = (run: ReturnType<typeof vi.fn>): unknown[] => run.mock.calls.map(call => (call[2] as {identity: string}).identity)
+
+		it('starts signed in, and keeps the result unstamped so each row decides at its own start', async () => {
+			const {service, run, evidence} = makeSiteDefaultService([success(igVideo())])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession'])
+			expect(result.ok && result.data.auth).toBeUndefined()
+			expect(evidence).toEqual(['instagram:signedInSucceeded'])
+		})
+
+		it('writes its info-json as signed in by the site’s default', async () => {
+			const write = vi.fn(async (_raw: unknown, meta: Partial<ProbeInfoJsonRef>) => ({id: 'ref', createdAt: 'now', ...meta}))
+			const cache = {write, resolve: vi.fn(async () => '/cache/ref.info.json')} as unknown as ProbeInfoJsonCache
+			const {service} = makeSiteDefaultService([success(igVideo())], {cache})
+			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(write).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({auth: 'exploreSession', authBasis: 'siteDefault'}))
+		})
+
+		it('runs once anonymous when the signed-in run fails in a way the sign-in may cause, and never escalates', async () => {
+			const {service, run, gate, evidence} = makeSiteDefaultService([exitError(RULING), success(igVideo())])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession', 'configured'])
+			expect(result.ok).toBe(true)
+			expect(gate.canEscalate).not.toHaveBeenCalled()
+			expect(evidence).toEqual(['instagram:anonymousWorked'])
+		})
+
+		it('counts an unclassified signed-in failure before its anonymous run', async () => {
+			const {service, evidence} = makeSiteDefaultService([exitError('ERROR: [Instagram] abc: Something odd'), exitError('ERROR: [Instagram] abc: Something odd')])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(result.ok).toBe(false)
+			expect(!result.ok && result.error.kind === 'ytdlp' && result.error.auth).toBeUndefined()
+			expect(evidence).toEqual(['instagram:signedInUnknown'])
+		})
+
+		it('marks an account wall, with no anonymous run, and leaves the failed row to decide again at its next start', async () => {
+			const {service, run, evidence} = makeSiteDefaultService([exitError('ERROR: [Instagram] abc: checkpoint_required')])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession'])
+			expect(evidence).toEqual(['instagram:accountWall'])
+			expect(!result.ok && result.error.kind === 'ytdlp' && result.error.auth).toBeUndefined()
+		})
+
+		it('leaves a failure that says nothing about the sign-in as it is', async () => {
+			const {service, run, evidence} = makeSiteDefaultService([exitError('ERROR: [Instagram] abc: HTTP Error 429: Too Many Requests')])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession'])
+			expect(evidence).toEqual([])
+			// Only an escalation stores a row as signed in: its next start decides again.
+			expect(!result.ok && result.error.kind === 'ytdlp' && result.error.auth).toBeUndefined()
+		})
+
+		it('marks rejected cookies, and keeps a result the site still gave', async () => {
+			const {service, evidence} = makeSiteDefaultService([{...(success(igVideo()) as Extract<YtDlpResult, {kind: 'success'}>), cookiesRejectedBy: 'Instagram'}])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(result.ok).toBe(true)
+			expect(evidence).toEqual(['instagram:cookiesRejected'])
+		})
+
+		it('starts anonymous where its site says so, and escalates as before', async () => {
+			const {service, run} = makeSiteDefaultService([exitError(AGE_GATE), success(igVideo())], {signedIn: false})
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['configured', 'exploreSession'])
+			expect(result.ok && result.data.auth).toBe('exploreSession')
+		})
+
+		it('says which item and which launch its evidence came from', async () => {
+			const record = vi.fn()
+			const run = vi.fn(async () => success(igVideo()))
+			const service = new ProbeService({run} as never, false, undefined, {exploreGate: {canEscalate: vi.fn(allowed)}, exploreSession: {verifySignedIn: vi.fn()}, startIdentity: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}), signInEvidence: record})
+			const before = Date.now()
+			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(record).toHaveBeenCalledWith('instagram', 'signedInSucceeded', {item: IG_URL, startedAt: expect.any(Number)})
+			expect(record.mock.calls[0]?.[2].startedAt).toBeGreaterThanOrEqual(before)
+		})
+
+		it.each([
+			['signedInSucceeded', [success(igVideo())]],
+			['anonymousWorked', [exitError(RULING), success(igVideo())]]
+		] as const)('records %s under the address the link resolved to, the one its download records', async (kind, results) => {
+			const record = vi.fn()
+			const queue: YtDlpResult[] = [...results]
+			const run = vi.fn(async () => queue.shift() ?? success(igVideo()))
+			const service = new ProbeService({run} as never, false, undefined, {exploreGate: {canEscalate: vi.fn(allowed)}, exploreSession: {verifySignedIn: vi.fn()}, startIdentity: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}), signInEvidence: record})
+			await service.probe('https://www.instagram.com/share/xyz/', {kind: 'intake', playlistMode: 'video'})
+
+			expect(record).toHaveBeenCalledWith('instagram', kind, {item: IG_URL, startedAt: expect.any(Number)})
+		})
+
+		it('runs anonymous, recording nothing, when its session is refused before launch (a short link with no cookies for its host)', async () => {
+			const refused: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true}
+			const {service, run, evidence} = makeSiteDefaultService([refused, success(igVideo())])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession', 'configured'])
+			expect(result.ok).toBe(true)
+			expect(evidence).toEqual([])
+		})
+
+		it('records nothing for a launch that failed to spawn', async () => {
+			const spawnFailed: YtDlpResult = {kind: 'spawn-error', error: new Error('spawn /fake/yt-dlp EACCES'), stdout: '', stderr: ''}
+			const {service, run, evidence} = makeSiteDefaultService([spawnFailed])
+			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession'])
+			expect(evidence).toEqual([])
+		})
+
+		it('leaves a run Arroxy held back alone: no anonymous run, nothing recorded', async () => {
+			const held: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', heldBeforeLaunch: true}
+			const {service, run, evidence} = makeSiteDefaultService([held])
+			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession'])
+			expect(evidence).toEqual([])
+		})
+
+		describe('a redirect to another site', () => {
+			const X_URL = 'https://x.com/u/status/1'
+			const YT_URL = 'https://www.youtube.com/watch?v=abc'
+			const ytVideo = (): unknown => ({_type: 'video', id: 'abc', title: 'Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: YT_URL, formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+			const bySite = (url: string): StartDecision =>
+				url.includes('youtube')
+					? {site: 'youtube', auth: 'anonymous', reason: 'notSignInFirst'}
+					: url.includes('instagram')
+						? {site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}
+						: url.includes('x.com')
+							? {site: 'x', auth: 'exploreSession', basis: 'siteDefault'}
+							: {site: 't.co', auth: 'anonymous', reason: 'notSignInFirst'}
+
+			it('asks the new site how to start: a site that starts anonymous runs anonymous', async () => {
+				const {service, run, evidence} = makeSiteDefaultService([success({_type: 'url', url: YT_URL}), success(ytVideo())], {startIdentity: bySite})
+				const result = await service.probe(X_URL, {kind: 'intake', playlistMode: 'video'})
+
+				expect(identities(run)).toEqual(['exploreSession', 'configured'])
+				expect(result.ok && result.data.auth).toBeUndefined()
+				expect(evidence).toEqual([])
+			})
+
+			it('starts signed in on a site that starts signed in, and tells that site what it showed', async () => {
+				const {service, run, evidence} = makeSiteDefaultService([success({_type: 'url', url: IG_URL}), success(igVideo())], {startIdentity: bySite})
+				await service.probe('https://t.co/abc', {kind: 'intake', playlistMode: 'video'})
+
+				expect(identities(run)).toEqual(['configured', 'exploreSession'])
+				expect(evidence).toEqual(['instagram:signedInSucceeded'])
+			})
+		})
+
+		it('never starts signed in a lookup that must not spend the account', async () => {
+			const {service, run, startIdentity} = makeSiteDefaultService([success(igVideo())])
+			await service.probe(IG_URL, {kind: 'backfill', playlistMode: 'video', escalate: false})
+
+			expect(identities(run)).toEqual(['configured'])
+			expect(startIdentity).not.toHaveBeenCalled()
+		})
 	})
 
 	it('charges a listing enumerated signed in against its site’s signed-in window, by its entries', async () => {

@@ -736,6 +736,7 @@
 		"remintingToken": "Preparing YouTube download again…",
 		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Connection stalled, retrying ({{attempt}}/{{total}})…",
+		"retryingWithoutSignIn": "Trying again without your Explore sign-in…",
 		"signingInWithExplore": "Signing in with your Explore account…",
 		"sleepingBetweenRequests": "Waiting {{seconds}}s to avoid rate limits…",
 		"startingYtdlp": "Starting the download engine…",
@@ -1555,7 +1556,6 @@
 				"clear": "Clear",
 				"enabledButNoBrowser": "Pick a browser to use cookies",
 				"enabledButNoFile": "Pick a file to use cookies",
-				"exploreDescription": "Uses your Explore sign-in only when a download needs it.",
 				"exploreDisabled": "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below.",
 				"extensionChrome": "Get cookies.txt LOCALLY (Chrome)",
 				"extensionFirefox": "cookies.txt (Firefox)",
@@ -1569,12 +1569,15 @@
 				"profilePlaceholder": "The browser's default profile",
 				"recommended": "Recommended",
 				"risk": "Risk: a cookies.txt contains every logged-in session for that browser — keep it private.",
+				"signInStoppedWorking": "{{site}} stopped working with your sign-in",
+				"signInStoppedWorkingDetail": "Downloads from {{site}} now run signed out. Sign in to {{site}} again in <explore>Explore</explore>, and Arroxy will use it.",
 				"sourceBrowser": "Browser",
 				"sourceExplore": "Explore sign-in",
 				"sourceFile": "File",
 				"sourceLabel": "Cookies source",
 				"sourceOff": "Off",
-				"toggleDescription": "Helps with videos your own account can watch, like your private videos."
+				"toggleDescription": "Helps with videos your own account can watch, like your private videos.",
+				"useSignInAgain": "Use my sign-in again"
 			},
 			"downloadConnections": {
 				"description": "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you.",

@@ -6,7 +6,7 @@ import {compileFilenameTemplate, DEFAULT_FILENAME_TEMPLATE} from '@shared/filena
 import {STATUS_KEY} from '@shared/schemas.js'
 import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import type {LocalizedError} from '@shared/types.js'
-import type {YtDlpSignal} from '../YtDlp.js'
+import type {YtDlpRequest, YtDlpSignal} from '../YtDlp.js'
 import {forgetOnExit, stopJobProcess} from '../download/processControl.js'
 import type {ActiveJob, PhaseContext, PhaseOutcome} from './types.js'
 
@@ -44,12 +44,34 @@ export async function probeInfoJsonInTemp(probeInfoJsonPath: string | undefined,
 // its spawns the gate is asked again, so signing out, leaving explore mode or
 // the kill switch stop it instead of letting it run anonymously. A sign-out
 // the site itself confirmed earlier in the job stops it too, whatever cookies
-// the partition still holds. Anonymous jobs pass without a lookup.
+// the partition still holds. Anonymous jobs pass without a lookup. A job its
+// site started signed in (ADR 0022) lost nothing it needs: it goes on anonymous.
 export async function canSpawnSignedIn(ctx: PhaseContext): Promise<boolean> {
-	if (ctx.active.input.auth !== 'exploreSession') return true
-	if ((await ctx.active.exploreSessionCheck) === 'signedOut') return false
-	const scope = exploreCookieScopeFor(ctx.active.input.url)
-	return scope !== null && (await ctx.exploreGate.canEscalate(scope)).allowed
+	const {input} = ctx.active
+	if (input.auth !== 'exploreSession') return true
+	const scope = exploreCookieScopeFor(input.url)
+	const allowed = (await ctx.active.exploreSessionCheck) !== 'signedOut' && scope !== null && (await ctx.exploreGate.canEscalate(scope)).allowed
+	if (allowed || input.authBasis !== 'siteDefault') return allowed
+	logger.info('Explore sign-in no longer usable for a job its site started signed in; running anonymous', {jobId: ctx.active.job.id})
+	continueAnonymous(ctx.active)
+	return true
+}
+
+// A subtitle fetch that re-extracts instead of loading its listing: for a job
+// that went on anonymous after its listing was extracted on the account, whose
+// subtitle URLs may be the account's.
+export function withoutListing(req: YtDlpRequest): YtDlpRequest {
+	if (req.kind !== 'subtitles') return req
+	const {loadInfoJsonPath: _listing, ...rest} = req
+	return rest
+}
+
+// A job its site started signed in goes on anonymous, for the rest of the job
+// and after a pause: the probe's info-json was extracted on the account, so it
+// is forgotten rather than replayed without it.
+export function continueAnonymous(active: ActiveJob): void {
+	const {authBasis: _basis, probeInfoJsonPath: _probe, probeFormatsWithheld: _withheld, ...rest} = active.input
+	active.input = {...rest, auth: 'anonymous'}
 }
 
 // The outcome of a pause or cancel that landed on the job, else null. Pause wins

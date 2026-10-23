@@ -50,6 +50,29 @@ describe('QueueService — job auth', () => {
 		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({auth: 'exploreSession'}))
 	})
 
+	it('starts a row on a site that starts signed in by the site’s default, and says so', async () => {
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(jobResult())
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, {decide: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'})})
+
+		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a/'})])
+
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({auth: 'exploreSession', authBasis: 'siteDefault'}))
+	})
+
+	it('restarts a row its safety launch pinned anonymous as anonymous, whatever its site says', async () => {
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(jobResult())
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, {decide: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'})})
+
+		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a/', auth: 'anonymous'})])
+
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({auth: 'anonymous'}))
+		expect(ds.start.mock.calls[0]?.[0]).not.toHaveProperty('authBasis')
+	})
+
 	it('lets the info-json ref auth win over a missing item auth', async () => {
 		const {qs, ds} = startedService()
 
@@ -141,6 +164,20 @@ describe('QueueService — download-time escalation', () => {
 		// Synchronously committed: no await separates the event from the write.
 		expect(snapshots.at(-1)?.find(i => i.id === 'a')?.auth).toBe('exploreSession')
 		expect(qs.snapshot().find(i => i.id === 'a')).toMatchObject({auth: 'exploreSession', lastStatus: {key: 'signingInWithExplore'}})
+	})
+
+	it('pins a row anonymous on retryingWithoutSignIn before the status event returns, so a retry never starts it signed in', async () => {
+		const snapshots: QueueItem[][] = []
+		const store = {load: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: false})), save: vi.fn((items: QueueItem[]) => Promise.resolve(void snapshots.push(structuredClone(items))))} as unknown as QueueStore
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		const qs = new QueueService(store, ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot().find(i => i.id === 'a')?.lastJobId).toBe('job-1'))
+
+		qs.consumeStatusEvent({jobId: 'job-1', stage: 'download', statusKey: 'retryingWithoutSignIn', at: new Date().toISOString()})
+
+		expect(snapshots.at(-1)?.find(i => i.id === 'a')?.auth).toBe('anonymous')
 	})
 
 	it('leaves auth alone for other status keys', async () => {
