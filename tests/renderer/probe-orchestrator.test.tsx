@@ -7,6 +7,12 @@ import {defaultAppSettings} from '@shared/constants.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {armQueue} from '../shared/quickDownloadHarness.js'
+import {makeItem} from '../shared/fixtures.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
+import {i18next} from '@shared/i18n/index.js'
+import {multiProfileBreakdown} from '@renderer/store/wizard/downloadReviewProjection.js'
+import {selectWizardReviewState} from '@renderer/store/wizard/wizardReviewState.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -138,6 +144,198 @@ describe('submitUrl — video probe', () => {
 		expect(api.downloads.probe).toHaveBeenLastCalledWith(expect.objectContaining({url: mixedUrl, playlistMode: 'playlist'}))
 		expect(state).toMatchObject({wizardStep: 'playlistItems', reviewSourceRowId: 'row-1', formatsLoading: false})
 		expect(state.playlistItems).toHaveLength(2)
+	})
+
+	// #665: the row was placed with Audio only into /music; the active profile is another, the window folder /tmp/downloads.
+	it("a Review starts every picked video from the profile its row was placed with, in the window's folder", async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const settings = defaultAppSettings('/tmp/downloads')
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {currentOutputDir: '/music', defaultOutputDir: '/tmp/downloads'}}
+		})
+		useAppStore.setState({settings, wizardOutputDir: '/tmp/downloads', queue: [row]})
+
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', multiProfileMode: true, wizardOutputDir: '/tmp/downloads'})
+		// Its videos go to their profiles' folders: no single folder to sync against (#680).
+		await vi.waitFor(() => expect(useAppStore.getState().syncScanState).toBe('idle'))
+		expect(api.playlist.scanFolder).not.toHaveBeenCalled()
+		// Continue goes to the per-video profiles: this mode has no presets.
+		useAppStore.getState().confirmPlaylistSelection()
+		expect(useAppStore.getState().wizardStep).toBe('playlistProfiles')
+		// The row may leave Downloads meanwhile; the Review keeps its profile.
+		useAppStore.setState({queue: []})
+		expect(multiProfileBreakdown(selectWizardReviewState(useAppStore.getState())).map(row => row.profileId)).toEqual(['audio-only'])
+		await useAppStore.getState().addToQueue()
+
+		const items = vi.mocked(api.queue.cmd.replaceProbing).mock.calls[0]?.[0].items ?? []
+		const audioOnly = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'audio-only')
+		expect(items).toHaveLength(2)
+		for (const item of items) {
+			expect(item.formatLabel).toBe(audioOnly ? profileFormatLabel(audioOnly, i18next.t, i18next.language) : '')
+			expect(item.outputDir.startsWith('/tmp/downloads')).toBe(true)
+		}
+	})
+
+	it("a Review's video given another profile takes it; the others keep the row's", async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const settings = defaultAppSettings('/tmp/downloads')
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}}
+		})
+		useAppStore.setState({settings, wizardOutputDir: '/tmp/downloads', queue: [row]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+
+		useAppStore.getState().assignPlaylistProfile(['e1'], settings.profiles.active)
+		useAppStore.getState().assignPlaylistProfile(['e2'], {kind: 'builtin', id: 'audio-only'})
+		expect(useAppStore.getState().playlistProfileAssignments).toEqual({e1: settings.profiles.active})
+		await useAppStore.getState().addToQueue()
+
+		const items = vi.mocked(api.queue.cmd.replaceProbing).mock.calls[0]?.[0].items ?? []
+		const label = (id: string): string => {
+			const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === id)
+			return profile ? profileFormatLabel(profile, i18next.t, i18next.language) : ''
+		}
+		expect(items.map(item => item.formatLabel)).toEqual([label(settings.profiles.active.id), label('audio-only')])
+	})
+
+	it('scans the folder once a Review leaves multi-profile mode for the presets', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}}
+		})
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', queue: [row]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		expect(api.playlist.scanFolder).not.toHaveBeenCalled()
+
+		useAppStore.getState().exitMultiProfileMode()
+
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
+	})
+
+	// A scan answers late: a mode switch or a newer run since then drops it (#681).
+	it('drops a folder scan answer that a mode switch or a newer run superseded', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		let answer!: (value: Result<{matchedIds: string[]}>) => void
+		// Each scan waits for its own answer.
+		vi.mocked(api.playlist.scanFolder).mockImplementation(() => new Promise(resolve => (answer = resolve)))
+		window.appApi = api
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}}
+		})
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', queue: [row]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		useAppStore.getState().exitMultiProfileMode()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
+
+		// Back to per-video profiles before the scan answers.
+		useAppStore.getState().enterMultiProfileMode()
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+
+		expect(useAppStore.getState()).toMatchObject({syncedDownloadedIds: [], syncScanState: 'idle'})
+
+		// A scan left running when another list is opened answers into nothing,
+		// even before that list lands.
+		useAppStore.getState().exitMultiProfileMode()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledTimes(2))
+		let land!: (value: Result<ProbeResult, ProbeError>) => void
+		vi.mocked(api.downloads.probe).mockReturnValue(new Promise(resolve => (land = resolve)))
+		const opening = useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+		expect(useAppStore.getState().syncedDownloadedIds).toEqual([])
+		land(ok(PLAYLIST_PROBE))
+		await opening
+	})
+
+	it('drops a folder scan answer once the destination changed, or a bulk intake replaced the list', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		let answer!: (value: Result<{matchedIds: string[]}>) => void
+		vi.mocked(api.playlist.scanFolder).mockImplementation(() => new Promise(resolve => (answer = resolve)))
+		window.appApi = api
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', wizardUrl: PLAYLIST_PROBE.webpageUrl})
+		await useAppStore.getState().submitUrl()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
+
+		await useAppStore.getState().setWizardOutputDir('/elsewhere', false)
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+		expect(useAppStore.getState().syncedDownloadedIds).toEqual([])
+
+		void useAppStore.getState().scanDownloadedInFolder()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledTimes(2))
+		useAppStore.getState().startBulkUrls(['https://youtu.be/e1', 'https://youtu.be/zz'])
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+		expect(useAppStore.getState().syncedDownloadedIds).toEqual([])
+	})
+
+	it('keeps a folder scan answer when hydration fills in a video id meanwhile', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		let answer!: (value: Result<{matchedIds: string[]}>) => void
+		vi.mocked(api.playlist.scanFolder).mockImplementation(() => new Promise(resolve => (answer = resolve)))
+		window.appApi = api
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', wizardUrl: PLAYLIST_PROBE.webpageUrl})
+		await useAppStore.getState().submitUrl()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
+
+		// A placeholder's own probe names its video.
+		useAppStore.setState(state => ({playlistItems: state.playlistItems.map(entry => (entry.id === 'e2' ? {...entry, videoId: 'e2-real'} : entry))}))
+		answer(ok({matchedIds: ['e1']}))
+		await vi.waitFor(() => expect(useAppStore.getState()).toMatchObject({syncedDownloadedIds: ['e1'], syncScanState: 'done'}))
+	})
+
+	it("keeps the row's profile when every picked video was already queued, and the list stays open", async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const pinnedProfile = {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}} as const
+		const row = makeItem({id: 'row-1', status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: false}, url: PLAYLIST_PROBE.webpageUrl, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'playlist', pinnedProfile})
+		const queued = PLAYLIST_PROBE.entries.map(entry => makeItem({id: `q-${entry.id}`, status: 'pending', url: entry.url}))
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', queue: [row, ...queued]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+
+		await useAppStore.getState().addToQueue()
+
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', reviewSourceRowId: null, reviewPinnedProfile: pinnedProfile})
 	})
 
 	it('a retry whose list lands first takes the saved list settings, as a first load does', async () => {

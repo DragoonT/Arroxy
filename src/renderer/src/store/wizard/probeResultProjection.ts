@@ -98,7 +98,8 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardWebpageUrl: '',
 			wizardProbeInfoJsonRef: undefined,
 			wizardProbeAuth: undefined,
-			multiProfileMode: false,
+			// A reload of the same list (a new load limit) keeps the mode it was in.
+			multiProfileMode: sameRun && state.multiProfileMode,
 			playlistSortMode: 'api' as const,
 			playlistProfileAssignments: {},
 			removedPlaylistItemIds: [],
@@ -182,6 +183,13 @@ function visiblePlaylistProbeLimit(state: Pick<AppState, 'playlistScope' | 'sett
 
 // `keptLimit`: the load limit a kept probe was taken with; any other probe is
 // read against the limit a probe now would be taken with.
+// A row's Review starts every picked video from the profile and folders the
+// row was placed with (#665): multi-profile mode, with its profile as the
+// baseline. The user can still pick another per video, or leave for the presets.
+function reviewedRowDefaults(state: AppState): Partial<AppState> {
+	return state.reviewPinnedProfile ? {multiProfileMode: true} : {}
+}
+
 export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, state: AppState, firstProbe: boolean, keptLimit?: number): Partial<AppState> {
 	const settings = state.settings
 	const playlistLimit = keptLimit ?? visiblePlaylistProbeLimit(state)
@@ -222,6 +230,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		// A part is single-video only: a link that turns out to be a playlist drops it.
 		...RESET_VIDEO_PART_STATE,
 		...(firstProbe ? {...restoreCommonWizardPrefs(settings), wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false, wizardSubfolderName: settings?.common?.lastSubfolder ?? ''} : {}),
+		...(firstProbe ? reviewedRowDefaults(state) : {}),
 		playlistSelection,
 		// A first probe is a new list: reset the view sort to api order. Scope
 		// reloads reuse this projection with firstProbe=false and keep the
