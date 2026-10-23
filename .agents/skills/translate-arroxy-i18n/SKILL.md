@@ -27,10 +27,10 @@ A fix or feature PR changes English only. All translation happens in one sync PR
 
 Run it from a fresh `main` in its own worktree, as its own PR. It is the only PR that edits `i18n/**`, non-English runtime JSON and non-English README locales.
 
-1. `bun run i18n:status` lists what is open per locale: new, changed, untranslated, fuzzy and removed entries, and missing README keys. Nothing open means no sync PR: go on with the release.
+1. `bun run i18n:status` lists what is open per locale: new, changed, untranslated, fuzzy and removed entries, and missing README keys. It cannot see a translation reported wrong: `gh issue list --label i18n --state open` lists those, minus `parked` ones (they wait on a native speaker). Nothing open in either means no sync PR: go on with the release.
 2. `bun run i18n:sync` updates `i18n/app.pot` and merges English changes into every `i18n/locales/*.po`. Changed English marks the old translation fuzzy; removed keys go away.
 3. Read `i18n/glossary.md`. Add any product term this batch introduces, or a register note a translator needs.
-4. Translate every untranslated and fuzzy PO entry, and every README key `i18n:status` counts in `readme-src/locales/{lang}.mjs`: keys a locale lacks, and keys whose English changed since `readme-src/translated-from.json` was recorded (`bun run check:readme` names them). Hand the translating to subagents on a Sonnet-class model, never Opus, a batch of locales each. Give each one:
+4. Translate every untranslated and fuzzy PO entry, every `msgstr` an open `i18n` issue reports wrong (the PR closes it with `Fixes #N`), and every README key `i18n:status` counts in `readme-src/locales/{lang}.mjs`: keys a locale lacks, and keys whose English changed since `readme-src/translated-from.json` was recorded (`bun run check:readme` names them). Hand the translating to subagents on a Sonnet-class model, never Opus, a batch of locales each. Give each one:
    - the glossary section for its locales;
    - per entry, the key path, the English, and the neighbouring keys in the same group with their English and existing translation, so the string is translated in context;
    - the rules: edit only `msgstr` (and remove `fuzzy` only after checking the translation against the current `msgid`); keep placeholders, markup, shortcut text and product names; non-Latin-script locales write their own script.
