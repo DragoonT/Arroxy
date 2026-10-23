@@ -68,7 +68,7 @@ export interface YtDlpSignal {
 }
 
 export type YtDlpResult =
-	| {kind: 'success'; stdout: string; stderr: string; usedExtractorFallback: boolean; effectiveSubtitleFormat?: SubtitleFormat; accountCookiesRejected?: true}
+	| {kind: 'success'; stdout: string; stderr: string; usedExtractorFallback: boolean; effectiveSubtitleFormat?: SubtitleFormat; accountCookiesRejected?: true; cookiesRejectedBy?: string}
 	| {kind: 'spawn-error'; error: Error; stdout: string; stderr: string; accountCookiesRejected?: true}
 	| {
 			kind: 'exit-error'
@@ -83,9 +83,21 @@ export type YtDlpResult =
 			// yt-dlp warned that the account cookies it was given are no longer
 			// valid (the session was rotated or signed out in the browser).
 			accountCookiesRejected?: true
+			// The site yt-dlp said rejected the account cookies it was given (any
+			// site; `accountCookiesRejected` is YouTube's alone).
+			cookiesRejectedBy?: string
 			// The site's signed-in pacing held this run longer than its wait budget
 			// allows, until then; nothing spawned (a background probe waits again).
 			pacedUntil?: number
+			// Arroxy held this run back (pacing, a slot wait, the spawn cap, a
+			// cooldown, a refused session, a stop): yt-dlp never ran, so the
+			// result says nothing about the site or the account.
+			heldBeforeLaunch?: true
+			// A signed-in run refused before launch because the Explore session
+			// is not usable for it (signed out, no cookies for its host, an
+			// unwritable jar): nothing reached the site, and the run may go on
+			// without the account where its site only defaulted to signing in.
+			signedInRefused?: true
 	  }
 
 export interface YtDlpInvocationSummary {
@@ -171,15 +183,15 @@ const EXPLORE_SESSION_UNAVAILABLE_MESSAGE = 'Explore session unavailable'
 
 // A new object per call: results are handed to callers that may annotate them.
 function exploreSessionUnavailable(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: EXPLORE_SESSION_UNAVAILABLE_MESSAGE, stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: EXPLORE_SESSION_UNAVAILABLE_MESSAGE, stdout: '', stderr: '', signedInRefused: true}
 }
 
 function spawnCapExceeded(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Too many signed-in attempts for this download', stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Too many signed-in attempts for this download', stdout: '', stderr: '', heldBeforeLaunch: true}
 }
 
 function cancelledResult(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: '', heldBeforeLaunch: true}
 }
 
 // Matches the rateLimit pattern of ytdlp-errors, so callers that classify the
@@ -189,7 +201,7 @@ export const RATE_LIMIT_COOLDOWN_MESSAGE = 'Too many requests recently: waiting 
 const SIGNED_IN_PACED_MESSAGE = 'Pacing signed-in requests to this site'
 
 function heldByPacing(until: number): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: SIGNED_IN_PACED_MESSAGE, stdout: '', stderr: '', pacedUntil: until}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: SIGNED_IN_PACED_MESSAGE, stdout: '', stderr: '', pacedUntil: until, heldBeforeLaunch: true}
 }
 
 // A bot wall that came with a rate limit is the rate limit: an account cannot
@@ -202,7 +214,7 @@ function rateLimitOverBotWall(result: YtDlpResult): YtDlpResult {
 }
 
 function heldByCooldown(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: '', heldBeforeLaunch: true}
 }
 
 // A run executes inside its plan's folder, which a subtitles-only job has not
@@ -220,7 +232,7 @@ async function ensureRunFolder(cwd: string): Promise<YtDlpResult | null> {
 	}
 }
 
-function probeTimedOut(): YtDlpResult {
+function probeTimedOut(): Extract<YtDlpResult, {kind: 'exit-error'}> {
 	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, stdout: '', stderr: ''}
 }
 
@@ -371,9 +383,11 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			if (timer) clearTimeout(timer)
 			if (exitGrace) clearTimeout(exitGrace)
 			if (abortSignal && onAbort) abortSignal.removeEventListener('abort', onAbort)
-			// YouTube only: the Explore session check behind this flag reads
-			// YouTube's own sign-in state, and answers `unknown` for other sites.
-			resolve(accountCookiesRejected(result.stderr) === 'YouTube' ? {...result, accountCookiesRejected: true} : result)
+			// `accountCookiesRejected` is YouTube's only: the Explore session check
+			// behind it reads YouTube's own sign-in state, and answers `unknown` for
+			// other sites. `cookiesRejectedBy` names any site, for its suspect mark.
+			const rejectedBy = result.kind === 'spawn-error' ? null : accountCookiesRejected(result.stderr)
+			resolve(rejectedBy === null || result.kind === 'spawn-error' ? result : {...result, cookiesRejectedBy: rejectedBy, ...(rejectedBy === 'YouTube' ? {accountCookiesRejected: true as const} : {})})
 		}
 
 		const stop = (result: () => YtDlpResult): void => {
@@ -762,7 +776,7 @@ export class YtDlp {
 				return heldByPacing(outcome.until)
 			case 'waitExpired':
 				ytDlpLog.warn('signed-in probe timed out waiting for a spawn slot', {waitBudgetMs})
-				return probeTimedOut()
+				return {...probeTimedOut(), heldBeforeLaunch: true}
 			case 'cancelled':
 				return cancelledResult()
 		}
