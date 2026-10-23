@@ -40,6 +40,7 @@ beforeEach(() => {
 		wizardIsAudioOnlySource: false,
 		wizardMediaKind: 'video',
 		wizardSubtitleMode: 'sidecar',
+		wizardSubtitleLanguages: [],
 		wizardEmbedThumbnail: false,
 		wizardOutputDir: '/downloads',
 		wizardFileType: 'auto',
@@ -76,6 +77,20 @@ describe('SavesAsControl', () => {
 		fireEvent.click(await screen.findByTestId('saves-as-option-mp4'))
 
 		expect(useAppStore.getState().wizardFileType).toBe('mp4')
+		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('MP4')
+	})
+
+	it('names the file it makes when embedded subtitles override the chosen type', () => {
+		useAppStore.setState({wizardFileType: 'mp4', wizardSubtitleMode: 'embed', wizardSubtitleLanguages: ['en']})
+		render(<SavesAsControl />)
+
+		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('.mkv')
+	})
+
+	it('keeps the chosen type when Embed is on but no subtitle language is picked', () => {
+		useAppStore.setState({wizardFileType: 'mp4', wizardSubtitleMode: 'embed', wizardSubtitleLanguages: []})
+		render(<SavesAsControl />)
+
 		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('MP4')
 	})
 
