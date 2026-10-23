@@ -38,6 +38,10 @@ _Avoid_: auto-resume, self-heal, backoff retry
 The wait Arroxy imposes on new requests to a site after that site rate-limits this connection, one per site and network route. Probes, queued downloads and automatic retries all wait it out; **Try now** lets one request through. A rate limit never brings in an account, because sites rate-limit signed-in accounts too.
 _Avoid_: backoff, throttle, ban
 
+**Launch gate**:
+The per-site check every launch passes before it starts: go, wait until a time, or blocked, each with a reason. It holds the site's **Rate-limit cooldown** and its pacing.
+_Avoid_: throttle, spawn gate
+
 **Soft failure**:
 A non-fatal miss that still leaves a usable result, so the job finishes as complete. Subtitles that could not be fetched are the typical case — the video is kept.
 _Avoid_: warning, partial failure
@@ -355,8 +359,24 @@ Switching one download from anonymous to the Explore session after a failure tha
 _Avoid_: fallback, login retry, upgrade
 
 **Job auth**:
-The identity a job runs as: anonymous, or the Explore session after escalation. It is fixed for the rest of that job.
+The identity a job runs as, and why: anonymous, the Explore session by the site's default, or the Explore session after escalation. Only an escalated job stays on the Explore session for the rest of the job.
 _Avoid_: login state, credentials
+
+**Site sign-in**:
+Whether the Explore session is signed in to one site, read from that site's own sign-in cookie. Presence only: the site can still refuse it.
+_Avoid_: logged in, has cookies
+
+**Sign-in policy**:
+How an engine uses the Explore session on one site: never, when needed (**Escalation**), first, or required.
+_Avoid_: auth mode, cookie strategy
+
+**Start identity**:
+The identity a job's first launch uses. It is decided again if a redirect leads to another site.
+_Avoid_: initial auth, default login
+
+**Suspect sign-in**:
+A **Site sign-in** that downloads have shown to be in the way, through an account wall or items that only worked anonymously. Downloads stop using it until the user signs in again or says to use it again.
+_Avoid_: expired session, bad cookies
 
 ### Heartbeat
 
