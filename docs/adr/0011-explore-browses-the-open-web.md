@@ -23,7 +23,9 @@ works across its own domains and never carries the Google account. YouTube
 keeps its youtube.com-only jar.
 
 Escalation stays as ADR 0008 decided: anonymous first, the Explore session only
-after a failure an account can fix. For another site there is no sign-in rule
+after a failure an account can fix, except where a site's sign-in policy is
+"first" (ADR 0022), which starts signed in when that site's own sign-in cookie is
+present. For another site there is no sign-in rule
 to check, so the session counts as signed in there when it holds any cookie
 that site would be sent, and a sign-in check by loading the site answers
 "cannot tell".
@@ -44,7 +46,8 @@ cookie can trigger one signed-in retry that does not help. It costs one extra
 run on a download that had already failed.
 
 The signed-in badge, the "Sign in with Explore" guidance and its automatic
-retry still follow YouTube's sign-in only.
+retry still follow YouTube's sign-in only. ADR 0022 adds per-site sign-ins for
+the sites that start signed in.
 
 A page in the view can phish like any web page, and it shares the partition
 with the Google sign-in. Cookies stay domain-scoped, so another site cannot

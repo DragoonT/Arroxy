@@ -24,7 +24,8 @@ default. A job escalates to the Explore session only when a run fails in a way
 an account can fix, and the cookies are read fresh from the session for that
 one run into a short-lived file that is deleted afterwards. The alternative,
 sending the account's cookies on every download, was rejected as both riskier
-for the account and worse for quality.
+for the account and worse for quality. On sites whose sign-in policy is "first",
+a download starts signed in instead: ADR 0022.
 
 The third is where the choice lives. Explore is one more cookie mode beside
 off, cookies file and browser, so the selected mode is the single source of a
@@ -42,9 +43,10 @@ platform default with only those tokens replaced.
 The token can be added to a blocklist in the future. There is no remote
 override; the response is a user-set token or a release.
 
-Because cookies are read only at escalation, signed-in sessions cost nothing for
-users who never hit an account-gated video, and a stale sign-in surfaces as a
-failed escalation rather than being silently reused.
+Because cookies are read only at escalation, signed-in sessions cost nothing, on
+YouTube and sites that start anonymous, for users who never hit an account-gated
+video. A stale sign-in surfaces as a failed escalation, or on a "first" site as a
+suspect sign-in (ADR 0022), rather than being silently reused.
 
 An older build does not know the `explore` cookie mode, so running one after
 choosing it resets general settings to defaults. This is accepted and documented
