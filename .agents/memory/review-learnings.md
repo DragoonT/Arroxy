@@ -1,12 +1,11 @@
 ---
 name: review-learnings
-description: Standing rules the local dual review injects into every reviewer and verifier prompt — false alarms to stop raising and repo rules to check; add one whenever a finding is refuted for a reason that will recur.
+description: Standing rules every reviewer gets (the local review's brief and CodeRabbit's guidelines) — false alarms to stop raising and repo rules to check; add one whenever a finding is refuted for a reason that will recur.
 metadata:
   type: feedback
 ---
 
-The local dual review (the maintainer's global `dual-review` skill) pastes everything below the frontmatter into each review
-and verification prompt, and CodeRabbit reads this file as a code guideline
+The local review gets everything below the frontmatter in its brief, and CodeRabbit reads this file as a code guideline
 (`knowledge_base.code_guidelines` in `.coderabbit.yaml`), so write entries as
 instructions to a reviewer. Add an
 entry when a refuted finding (from Claude, Codex or CodeRabbit) would otherwise

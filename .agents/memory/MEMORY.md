@@ -2,7 +2,7 @@
 
 ## Rules for changes
 
-- [Review learnings](review-learnings.md) — rules the dual review injects into every reviewer and CodeRabbit reads as a guideline; add one when a refuted finding would recur.
+- [Review learnings](review-learnings.md) — rules the local review gets in its brief and CodeRabbit reads as a guideline; add one when a refuted finding would recur.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
 - [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per fragment or entry, no internals, no exact sizes.
 
